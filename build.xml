@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="mreg" basedir="." default="build">
+    <property name="APP_NAME" value="stb" />
+    <property name="APP_ROOT" value="${project.basedir}" />
+    <property name="SRC_DIR" value="${APP_ROOT}/src" />
+    <property name="TEST_DIR" value="${APP_ROOT}/tests" />
+    <property name="BUILD_DIR" value="${APP_ROOT}/build" />
+    <property name="CODE_STANDARD" value="Zend" />
+
+
+    <fileset dir="${SRC_DIR}" id="sourceCode">
+        <include name="**/*.php" />
+    </fileset>
+
+
+    <fileset dir="${TEST_DIR}" id="testCode">
+        <include name="**/*Test*.php"/>
+        <exclude name="**/Abstract*.php"/>
+    </fileset>
+
+
+    <target name="build" depends="test,sniff,document,messdetector,copydetector">
+    </target>
+
+
+    <target name="test" depends="createBuildDir">
+        <exec
+            command="phpunit --coverage-html ${BUILD_DIR}/coverage"
+            dir="${TEST_DIR}"
+            checkreturn="true"
+            passthru="true"
+            />
+    </target>
+
+
+    <target name="sniff">
+        <phpcodesniffer
+            standard="${CODE_STANDARD}"
+            showWarnings="true"
+            encoding="utf8"
+            haltonerror="true"
+            haltonwarning="true"
+            format="full"
+            >
+            <fileset refid="sourceCode" />
+        </phpcodesniffer>
+    </target>
+
+
+    <target name="document" depends="createBuildDir">
+        <exec
+            command="phpdoc -d ${SRC_DIR} -t ${BUILD_DIR}/documentation"
+            dir="${APP_ROOT}"
+            passthru="true"
+            />
+        <exec
+            command="chmod -R 777 documentation"
+            dir="${BUILD_DIR}"
+            />
+    </target>
+
+
+    <target name="copydetector">
+        <phpcpd>
+            <fileset refid="sourceCode" />
+       </phpcpd>
+    </target>
+
+
+    <target name="messdetector">
+        <phpmd>
+            <fileset refid="sourceCode" />
+        </phpmd>
+    </target>
+
+
+    <target name="createBuildDir">
+        <mkdir dir="${BUILD_DIR}" />
+    </target>
+
+</project>
