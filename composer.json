@@ -1,5 +1,5 @@
 {
-    "name": "itbz/stb",
+    "name": "itbz/STB",
     "description": "Swedish Technical Bureaucracy",
     "keywords": ["Banking", "Accounting", "Bureaucracy"],
     "homepage": "https://github.com/itbz/STB",
@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-0": {
-            "itbz\\stb": "src/"
+            "itbz\\STB": "src/"
         }
     }
 }
