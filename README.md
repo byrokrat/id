@@ -1,4 +1,2 @@
-STB
-===
-
 Swedish Technical Bureaucracy
+=============================

@@ -1,0 +1,22 @@
+{
+    "name": "itbz/stb",
+    "description": "Swedish Technical Bureaucracy",
+    "keywords": ["Banking", "Accounting", "Bureaucracy"],
+    "homepage": "https://github.com/itbz/STB",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hannes Forsgård",
+            "email": "hannes.forsgard@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "itbz\\stb": "src/"
+        }
+    }
+}
