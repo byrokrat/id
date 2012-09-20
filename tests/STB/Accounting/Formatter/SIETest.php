@@ -8,10 +8,6 @@ use itbz\STB\Accounting\Account;
 use itbz\STB\Utils\Amount;
 
 
-// Using the mreg autoloader for now...
-require_once __DIR__ . "/../../../../../../libs/autoload.php";
-
-
 class SIETest extends \PHPUnit_Framework_TestCase
 {
 

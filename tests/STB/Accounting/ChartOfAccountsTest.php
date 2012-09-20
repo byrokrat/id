@@ -2,10 +2,6 @@
 namespace itbz\STB\Accounting;
 
 
-// Using the mreg autoloader for now...
-require_once __DIR__ . "/../../../../../libs/autoload.php";
-
-
 class ChartOfAccountsTest extends \PHPUnit_Framework_TestCase
 {
 

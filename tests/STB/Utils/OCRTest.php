@@ -2,10 +2,6 @@
 namespace itbz\STB\Utils;
 
 
-// Using the mreg autoloader for now...
-require_once __DIR__ . "/../../../../../libs/autoload.php";
-
-
 class OCRTest extends \PHPUnit_Framework_TestCase
 {
 

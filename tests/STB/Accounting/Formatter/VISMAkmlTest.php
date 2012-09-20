@@ -3,10 +3,6 @@ namespace itbz\STB\Accounting\Formatter;
 use itbz\STB\Accounting\Template;
 
 
-// Using the mreg autoloader for now...
-require_once __DIR__ . "/../../../../../../libs/autoload.php";
-
-
 class VISMAkmlTest extends \PHPUnit_Framework_TestCase
 {
 

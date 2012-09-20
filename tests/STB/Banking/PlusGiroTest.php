@@ -2,10 +2,6 @@
 namespace itbz\STB\Banking;
 
 
-// Using the mreg autoloader for now...
-require_once __DIR__ . "/../../../../../libs/autoload.php";
-
-
 class PlusGiroTest extends \PHPUnit_Framework_TestCase
 {
 

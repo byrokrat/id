@@ -1,7 +1,7 @@
 <phpunit bootstrap="bootstrap.php">
     <testsuites>
         <testsuite>
-            <directory>./stb</directory>
+            <directory>./STB</directory>
         </testsuite>
     </testsuites>
     <filter>

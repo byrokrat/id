@@ -4,10 +4,6 @@ use DateTime;
 use itbz\STB\Utils\Amount;
 
 
-// Using the mreg autoloader for now...
-require_once __DIR__ . "/../../../../../libs/autoload.php";
-
-
 class TemplateTest extends \PHPUnit_Framework_TestCase
 {
 

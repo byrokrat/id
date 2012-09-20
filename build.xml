@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="mreg" basedir="." default="build">
     <property name="APP_NAME" value="stb" />
+
     <property name="APP_ROOT" value="${project.basedir}" />
     <property name="SRC_DIR" value="${APP_ROOT}/src" />
     <property name="TEST_DIR" value="${APP_ROOT}/tests" />
@@ -23,7 +24,7 @@
     </target>
 
 
-    <target name="test" depends="createBuildDir">
+    <target name="test" depends="createBuildDir,getdependencies">
         <exec
             command="phpunit --coverage-html ${BUILD_DIR}/coverage"
             dir="${TEST_DIR}"
@@ -76,6 +77,44 @@
 
     <target name="createBuildDir">
         <mkdir dir="${BUILD_DIR}" />
+    </target>
+
+
+    <target name="getdependencies" depends="getcomposer">
+        <if>
+            <available file="${APP_ROOT}/libs" />
+            <then>
+                <echo msg="Dependencies installed in libs directory" />
+            </then>
+            <else>
+                <echo msg="Downloading dependencies using composer..." />
+                <exec
+                    command="php composer.phar install --dev"
+                    dir="${APP_ROOT}"
+                    checkreturn="true"
+                    passthru="true"
+                    />
+            </else>
+        </if>
+    </target>
+
+
+    <target name="getcomposer">
+        <if>
+            <available file="${APP_ROOT}/composer.phar" />
+            <then>
+                <echo msg="Composer.phar installed" />
+            </then>
+            <else>
+                <echo msg="Downloading composer.phar..." />
+                <exec
+                    command="curl -s http://getcomposer.org/installer | php"
+                    dir="${APP_ROOT}"
+                    checkreturn="true"
+                    passthru="true"
+                    />
+            </else>
+        </if>
     </target>
 
 </project>
