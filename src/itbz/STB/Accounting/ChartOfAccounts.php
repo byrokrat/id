@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Accounting
  */
+
 namespace itbz\STB\Accounting;
+
 use itbz\STB\Exception\InvalidChartException;
 use itbz\STB\Exception\InvalidAccountException;
-
 
 /**
  * Container class for charts of accounts.
@@ -23,22 +23,19 @@ use itbz\STB\Exception\InvalidAccountException;
  */
 class ChartOfAccounts
 {
-
     /**
      * Internal chart
      *
      * @var array
      */
-    private $_accounts = array();
-
+    private $accounts = array();
 
     /**
      * Chart type
      *
      * @var string
      */
-    private $_type = 'EUBAS97';
-
+    private $type = 'EUBAS97';
 
     /**
      * Add account
@@ -50,9 +47,8 @@ class ChartOfAccounts
     public function addAccount(Account $account)
     {
         $nr = intval($account->getNumber());
-        $this->_accounts[$nr] = $account;
+        $this->accounts[$nr] = $account;
     }
-
 
     /**
      * Get account object for number
@@ -65,14 +61,13 @@ class ChartOfAccounts
      */
     public function getAccount($number)
     {
-        if ( $this->accountExists($number) ) {
-            return $this->_accounts[$number];
+        if ($this->accountExists($number)) {
+            return $this->accounts[$number];
         } else {
             $msg = "Account number '$number' does not exist";
-            throw new InvalidAccountException($msg);    
+            throw new InvalidAccountException($msg);
         }
     }
-
 
     /**
      * Get account object for name
@@ -85,15 +80,14 @@ class ChartOfAccounts
      */
     public function getAccountFromName($name)
     {
-        foreach ( $this->_accounts as $account ) {
-            if ( $account->getName() == $name ) {
+        foreach ($this->accounts as $account) {
+            if ($account->getName() == $name) {
                 return $account;
             }
         }
         $msg = "Account name '$name' does not exist";
-        throw new InvalidAccountException($msg);    
+        throw new InvalidAccountException($msg);
     }
-
 
     /**
      * Remove account
@@ -104,9 +98,8 @@ class ChartOfAccounts
      */
     public function removeAccount($number)
     {
-        unset($this->_accounts[$number]);
+        unset($this->accounts[$number]);
     }
-
 
     /**
      * Validate that account exists in chart
@@ -117,9 +110,8 @@ class ChartOfAccounts
      */
     public function accountExists($number)
     {
-        return isset($this->_accounts[$number]);
+        return isset($this->accounts[$number]);
     }
-
 
     /**
      * Get the complete chart of accounts
@@ -128,9 +120,8 @@ class ChartOfAccounts
      */
     public function getAccounts()
     {
-        return $this->_accounts;
+        return $this->accounts;
     }
-
 
     /**
      * Set string describing type of chart used
@@ -141,9 +132,8 @@ class ChartOfAccounts
      */
     public function setChartType($type)
     {
-        $this->_type = (string)$type;
+        $this->type = (string)$type;
     }
-
 
     /**
      * Get string describing the type of chart used
@@ -152,7 +142,6 @@ class ChartOfAccounts
      */
     public function getChartType()
     {
-        return $this->_type;
+        return $this->type;
     }
-
 }

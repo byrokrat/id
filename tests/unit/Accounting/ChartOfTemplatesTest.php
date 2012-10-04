@@ -1,11 +1,9 @@
 <?php
 namespace itbz\STB\Accounting;
 
-
 class ChartOfTemplatesTest extends \PHPUnit_Framework_TestCase
 {
-
-    function testAdd()
+    public function testAdd()
     {
         $c = new ChartOfTemplates();
         $this->assertFalse($c->exists('T'));
@@ -18,23 +16,21 @@ class ChartOfTemplatesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($T, $c->getTemplate('T'));
         $templates = $c->getTemplates();
         $this->assertEquals($T, $templates['T']);
-        
+
         $c->dropTemplate('T');
         $this->assertFalse($c->exists('T'));
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidTemplateException
      */
-    function testTemplateDoesNotExistError()
+    public function testTemplateDoesNotExistError()
     {
         $c = new ChartOfTemplates();
         $c->getTemplate('T');
     }
 
-
-    function testExportImport()
+    public function testExportImport()
     {
         $c = new ChartOfTemplates();
         $T = new Template();
@@ -43,9 +39,8 @@ class ChartOfTemplatesTest extends \PHPUnit_Framework_TestCase
 
         $str = serialize($c);
         $c2 = unserialize($str);
- 
-        $this->assertTrue($c2->exists('T'));
-        $this->assertEquals($T, $c2->getTemplate('T'));             
-    }
 
+        $this->assertTrue($c2->exists('T'));
+        $this->assertEquals($T, $c2->getTemplate('T'));
+    }
 }

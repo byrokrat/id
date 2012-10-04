@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\ID
  */
+
 namespace itbz\STB\ID;
+
 use itbz\STB\Utils\Modulo10;
 use itbz\STB\Exception\InvalidStructureException;
 use itbz\STB\Exception\InvalidCheckDigitException;
 use DateTime;
-
 
 /**
  * Swedish personal identity numbers
@@ -25,38 +25,33 @@ use DateTime;
  */
 class PersonalId
 {
-
     /**
      * Date of birth
      *
      * @var DateTime
      */
-    protected $_date = '';
-
+    protected $date = '';
 
     /**
      * Individual number
      *
      * @var string
      */
-    protected $_individualNr = '';
-
+    protected $individualNr = '';
 
     /**
      * Check digit
      *
      * @var string
      */
-    protected $_check = '';
-
+    protected $check = '';
 
     /**
      * Date and control string delimiter, - or +
      *
      * @var string
      */
-    protected $_delim = '';
-
+    protected $delim = '';
 
     /**
      * Construct and set id number
@@ -69,7 +64,6 @@ class PersonalId
             $this->setId($id);
         }
     }
-
 
     /**
      * Set id number
@@ -85,7 +79,6 @@ class PersonalId
      * @return void
      *
      * @throws InvalidStructureException if structure is invalid
-     *
      * @throws InvalidCheckDigitException if check digit is invalid
      */
     public function setId($id)
@@ -99,7 +92,7 @@ class PersonalId
         }
 
         $datestr = $split[0];
-        $this->_delim = $split[1];
+        $this->delim = $split[1];
 
         if (!ctype_digit($datestr)) {
             throw new InvalidStructureException('The parsed date was invalid');
@@ -107,24 +100,24 @@ class PersonalId
 
         if (strlen($datestr) == 6) {
             // Six digit date. Calculate century based on delimiter
-            $this->_date = DateTime::createFromFormat('ymd', $datestr);
+            $this->date = DateTime::createFromFormat('ymd', $datestr);
             $dateerrors = DateTime::getLastErrors();
             // Date is over a hundred years ago if delimiter is +
-            if ($this->_delim == '+') {
-                $this->_date->modify('-100 year');
+            if ($this->delim == '+') {
+                $this->date->modify('-100 year');
             }
 
         } elseif (strlen($datestr) == 8) {
             // Eight digit date. Set delimiter based on date.
-            $this->_date = DateTime::createFromFormat('Ymd', $datestr);
+            $this->date = DateTime::createFromFormat('Ymd', $datestr);
             $dateerrors = DateTime::getLastErrors();
             // Delimiter should be + if date is more then a hundred years old
             $century = new DateTime();
             $century->modify('-100 year');
-            if ($this->_date < $century) {
-                $this->_delim = '+';
+            if ($this->date < $century) {
+                $this->delim = '+';
             } else {
-                $this->_delim = '-';
+                $this->delim = '-';
             }
 
         } else {
@@ -146,17 +139,16 @@ class PersonalId
             $msg = 'Unexpected data found. Control number invalid';
             throw new InvalidStructureException($msg);
         }
-        
-        $this->_check = substr($control, -1);
-        $this->_individualNr = substr($control, 0, 3);
-        
+
+        $this->check = substr($control, -1);
+        $this->individualNr = substr($control, 0, 3);
+
         $validCheck = $this->calcCheckDigit();
-        if ($this->_check != $validCheck) {
+        if ($this->check != $validCheck) {
             $msg = "Invalid check digit for '$id'";
             throw new InvalidCheckDigitException($msg);
         }
     }
-
 
     /**
      * Get date
@@ -165,9 +157,8 @@ class PersonalId
      */
     public function getDate()
     {
-        return $this->_date;
+        return $this->date;
     }
-
 
     /**
      * Get date of birth formatted as YYYY-MM-DD
@@ -176,9 +167,8 @@ class PersonalId
      */
     public function getDOB()
     {
-        return $this->_date->format('Y-m-d');
+        return $this->date->format('Y-m-d');
     }
-
 
     /**
      * Get sex as denoted by id
@@ -189,11 +179,10 @@ class PersonalId
      */
     public function getSex()
     {
-        $int = intval($this->_individualNr[2]);
+        $int = intval($this->individualNr[2]);
 
         return ( $int%2 == 0 ) ? 'F' : 'M';
     }
-
 
     /**
      * Get id
@@ -204,12 +193,11 @@ class PersonalId
      */
     public function getId()
     {
-        return $this->_date->format('ymd')
-            . $this->_delim
-            . $this->_individualNr
-            . $this->_check;
+        return $this->date->format('ymd')
+            . $this->delim
+            . $this->individualNr
+            . $this->check;
     }
-
 
     /**
      * To string magic method
@@ -218,14 +206,13 @@ class PersonalId
      *
      * @return string
      */
-    public function __tostring()
+    public function __toString()
     {
-        return $this->_date->format('Ymd')
-            . $this->_delim
-            . $this->_individualNr
-            . $this->_check;
+        return $this->date->format('Ymd')
+            . $this->delim
+            . $this->individualNr
+            . $this->check;
     }
-
 
     /**
      * Calculate check digit
@@ -234,10 +221,9 @@ class PersonalId
      */
     protected function calcCheckDigit()
     {
-        $nr = $this->_date->format('ymd') . $this->_individualNr;
+        $nr = $this->date->format('ymd') . $this->individualNr;
         $modulo = new Modulo10();
-        
+
         return $modulo->getCheckDigit($nr);
     }
-
 }

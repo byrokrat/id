@@ -1,11 +1,9 @@
 <?php
 namespace itbz\STB\Banking;
 
-
 class NordeaTyp1ATest extends \PHPUnit_Framework_TestCase
 {
-
-    function invalidClearingProvider()
+    public function invalidClearingProvider()
     {
         return array(
             array('1099,1'),
@@ -21,18 +19,16 @@ class NordeaTyp1ATest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @expectedException \itbz\STB\Exception\InvalidClearingException
      * @dataProvider invalidClearingProvider
      */
-    function testInvalidClearing($nr)
+    public function testInvalidClearing($nr)
     {
-        $m = new NordeaTyp1A($nr);
+        new NordeaTyp1A($nr);
     }
 
-
-    function invalidStructuresProvider()
+    public function invalidStructuresProvider()
     {
         return array(
             array('3000,111111'),
@@ -42,18 +38,16 @@ class NordeaTyp1ATest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @dataProvider invalidStructuresProvider
      * @expectedException \itbz\STB\Exception\InvalidStructureException
      */
-    function testInvalidStructure($nr)
+    public function testInvalidStructure($nr)
     {
-        $m = new NordeaTyp1A($nr);
+        new NordeaTyp1A($nr);
     }
 
-
-    function invalidCheckDigitProvider()
+    public function invalidCheckDigitProvider()
     {
         return array(
             array('3000,1111111'),
@@ -66,18 +60,16 @@ class NordeaTyp1ATest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @dataProvider invalidCheckDigitProvider
      * @expectedException \itbz\STB\Exception\InvalidCheckDigitException
      */
-    function testInvalidCheckDigit($nr)
+    public function testInvalidCheckDigit($nr)
     {
-        $m = new NordeaTyp1A($nr);
+        new NordeaTyp1A($nr);
     }
 
-
-    function validProvider()
+    public function validProvider()
     {
         return array(
             array('3000,1111116'),
@@ -91,35 +83,30 @@ class NordeaTyp1ATest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @dataProvider validProvider
      */
-    function testConstruct($nr)
+    public function testConstruct($nr)
     {
-        $m = new NordeaTyp1A($nr);
-        $this->assertTrue(TRUE);
+        new NordeaTyp1A($nr);
+        $this->assertTrue(true);
     }
 
-
-    function testToString()
+    public function testToString()
     {
         $m = new NordeaTyp1A('3000,000001111116');
         $this->assertEquals((string)$m, '3000,1111116');
     }
 
-
-    function testTo16()
+    public function testTo16()
     {
         $m = new NordeaTyp1A('3000,1111116');
         $this->assertEquals($m->to16(), '3000000001111116');
     }
 
-
-    function testGetType()
+    public function testGetType()
     {
         $m = new NordeaTyp1A('3000,1111116');
         $this->assertEquals($m->getType(), 'Nordea');
     }
-
 }

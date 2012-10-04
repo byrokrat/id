@@ -1,11 +1,9 @@
 <?php
 namespace itbz\STB\Banking;
 
-
 class PlusGiroTest extends \PHPUnit_Framework_TestCase
 {
-
-    function validProvider()
+    public function validProvider()
     {
         return array(
             array('210918-9'),
@@ -17,8 +15,7 @@ class PlusGiroTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
-    function invalidCheckDigitProvider()
+    public function invalidCheckDigitProvider()
     {
         return array(
             array('210918-0'),
@@ -30,8 +27,7 @@ class PlusGiroTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
-    function invalidStructuresProvider()
+    public function invalidStructuresProvider()
     {
         return array(
             array('-1'),
@@ -45,57 +41,50 @@ class PlusGiroTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @expectedException \itbz\STB\Exception\InvalidClearingException
      */
-    function testInvalidClearing()
+    public function testInvalidClearing()
     {
-        $m = new PlusGiro('1234,9048-0');
+        new PlusGiro('1234,9048-0');
     }
-
 
     /**
      * @dataProvider validProvider
      */
-    function testConstruct($num)
+    public function testConstruct($num)
     {
-        $m = new PlusGiro($num);
-        $this->assertTrue(TRUE);
+        new PlusGiro($num);
+        $this->assertTrue(true);
     }
-
 
     /**
      * @dataProvider invalidStructuresProvider
      * @expectedException \itbz\STB\Exception\InvalidStructureException
      */
-    function testInvalidStructure($num)
+    public function testInvalidStructure($num)
     {
-        $m = new PlusGiro($num);
+        new PlusGiro($num);
     }
-
 
     /**
      * @dataProvider invalidCheckDigitProvider
      * @expectedException \itbz\STB\Exception\InvalidCheckDigitException
      */
-    function testInvalidCheckDigit($num)
+    public function testInvalidCheckDigit($num)
     {
-        $m = new PlusGiro($num);
+        new PlusGiro($num);
     }
 
-
-    function testToString()
+    public function testToString()
     {
         $m = new PlusGiro('9048-0');
         $this->assertEquals((string)$m, '9048-0');
     }
 
-
-    function testGetType()
+    public function testGetType()
     {
         $m = new PlusGiro('9048-0');
         $this->assertEquals($m->getType(), 'PlusGiro');
     }
-
 }

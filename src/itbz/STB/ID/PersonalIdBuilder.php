@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\ID
  */
+
 namespace itbz\STB\ID;
+
 use itbz\STB\Exception\InvalidStructureException;
 use itbz\STB\Exception\InvalidCheckDigitException;
-
 
 /**
  * Build personal ids
@@ -23,30 +23,26 @@ use itbz\STB\Exception\InvalidCheckDigitException;
  */
 class PersonalIdBuilder
 {
-
     /**
      * Flag if fake id is allowed
      *
      * @var bool
      */
-    private $_bUseFake = FALSE;
-
+    private $bUseFake = false;
 
     /**
      * Flag if coordination id is allowed
      *
      * @var bool
      */
-    private $_bUseCoord = TRUE;
-
+    private $bUseCoord = true;
 
     /**
      * Unprocessed id
      *
      * @var string
      */
-    private $_rawId = '';
-
+    private $rawId = '';
 
     /**
      * Set unproccessed id
@@ -58,11 +54,10 @@ class PersonalIdBuilder
     public function setId($rawId)
     {
         assert('is_string($rawId)');
-        $this->_rawId = $rawId;
+        $this->rawId = $rawId;
 
         return $this;
     }
-
 
     /**
      * Enable fake id
@@ -71,11 +66,10 @@ class PersonalIdBuilder
      */
     public function enableFakeId()
     {
-        $this->_bUseFake = TRUE;
-        
+        $this->bUseFake = true;
+
         return $this;
     }
-
 
     /**
      * Disable fake id
@@ -84,11 +78,10 @@ class PersonalIdBuilder
      */
     public function disableFakeId()
     {
-        $this->_bUseFake = FALSE;
+        $this->bUseFake = false;
 
         return $this;
     }
-
 
     /**
      * Enable coordination id
@@ -97,11 +90,10 @@ class PersonalIdBuilder
      */
     public function enableCoordinationId()
     {
-        $this->_bUseCoord = TRUE;
+        $this->bUseCoord = true;
 
         return $this;
     }
-
 
     /**
      * Disable coordination id
@@ -110,11 +102,10 @@ class PersonalIdBuilder
      */
     public function disableCoordinationId()
     {
-        $this->_bUseCoord = FALSE;
+        $this->bUseCoord = false;
 
         return $this;
     }
-
 
     /**
      * Get personal id
@@ -126,7 +117,6 @@ class PersonalIdBuilder
      * @return PersonalId
      *
      * @throws InvalidStructureException if structure is invalid
-     *
      * @throws InvalidCheckDigitException if check digit is invalid
      */
     public function getId()
@@ -134,30 +124,29 @@ class PersonalIdBuilder
         // Create PersonalId
         try {
 
-            return new PersonalId($this->_rawId);
+            return new PersonalId($this->rawId);
 
         } catch (InvalidStructureException $e) {
             // Throw exception if coord and fake are disabled
-            if (!$this->_bUseCoord && !$this->_bUseFake) {
+            if (!$this->bUseCoord && !$this->bUseFake) {
                 throw $e;
             }
         }
 
         // Create CoordinationId
-        if ($this->_bUseCoord) {
+        if ($this->bUseCoord) {
             try {
 
-                return new CoordinationId($this->_rawId);
+                return new CoordinationId($this->rawId);
             } catch (InvalidStructureException $e) {
                 // Throw exception if fake is disabled
-                if (!$this->_bUseFake) {
+                if (!$this->bUseFake) {
                     throw $e;
                 }
             }
         }
-        
-        // Create FakeId
-        return new FakeId($this->_rawId);
-    }
 
+        // Create FakeId
+        return new FakeId($this->rawId);
+    }
 }

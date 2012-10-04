@@ -8,11 +8,10 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB
  */
-namespace itbz\STB;
 
+namespace itbz\STB;
 
 /**
  * STB base exception

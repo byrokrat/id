@@ -1,14 +1,12 @@
 <?php
 namespace itbz\STB\Accounting;
 
-
 class AccountTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * List of invalid account values
      */
-    function invalidAccountProvider()
+    public function invalidAccountProvider()
     {
         return array(
             array('a', 'I', 'Name'),
@@ -21,26 +19,23 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidAccountException
      * @dataProvider invalidAccountProvider
      */
-    function testAddAccountFaliure($account, $type, $name)
+    public function testAddAccountFaliure($account, $type, $name)
     {
-        $a = new Account($account, $type, $name);
+        new Account($account, $type, $name);
+    }
+
+    public function testConstruct()
+    {
+        new Account('1920', 'T', 'PlusGiro');
+        $this->assertTrue(true);
     }
 
 
-
-    function testConstruct()
-    {
-        $a = new Account('1920', 'T', 'PlusGiro');
-        $this->assertTrue(TRUE);
-    }
-
-
-    function testEquals()
+    public function testEquals()
     {
         $a = new Account('1920', 'T', 'PlusGiro');
         $a1 = new Account('1920', 'T', 'PlusGiro');
@@ -52,5 +47,4 @@ class AccountTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($a->equals($c));
         $this->assertFalse($a->equals($d));
     }
-
 }

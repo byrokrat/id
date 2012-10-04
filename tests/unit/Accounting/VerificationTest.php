@@ -1,21 +1,19 @@
 <?php
 namespace itbz\STB\Accounting;
+
 use DateTime;
 use itbz\STB\Utils\Amount;
 
-
 class VerificationTest extends \PHPUnit_Framework_TestCase
 {
-
-    function testSetGetText()
+    public function testSetGetText()
     {
         $v = new Verification();
         $v->setText('test');
         $this->assertEquals($v->getText(), 'test');
     }
 
-
-    function testSetGetDate()
+    public function testSetGetDate()
     {
         $v = new Verification('test');
         $now = new DateTime();
@@ -29,8 +27,7 @@ class VerificationTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($v->getDate() == $now);
     }
 
-
-    function testGetTransactions()
+    public function testGetTransactions()
     {
         $bank = new Account('1920', 'T', 'Bank');
         $income = new Account('3000', 'I', 'Income');
@@ -40,16 +37,17 @@ class VerificationTest extends \PHPUnit_Framework_TestCase
             new Transaction($income, new Amount('-300')),
         );
         $v = new Verification('test');
-        foreach ( $trans as $t ) $v->addTransaction($t);
+        foreach ($trans as $t) {
+            $v->addTransaction($t);
+        }
         $this->assertEquals($trans, $v->getTransactions());
     }
 
-
-    function testGetAccounts()
+    public function testGetAccounts()
     {
         $bank = new Account('1920', 'T', 'Bank');
         $income = new Account('3000', 'I', 'Income');
-        
+
         $trans = array(
             new Transaction($bank, new Amount('100')),
             new Transaction($bank, new Amount('200')),
@@ -57,7 +55,9 @@ class VerificationTest extends \PHPUnit_Framework_TestCase
         );
 
         $v = new Verification('test');
-        foreach ( $trans as $t ) $v->addTransaction($t);
+        foreach ($trans as $t) {
+            $v->addTransaction($t);
+        }
 
         $a = $v->getAccounts();
 
@@ -66,8 +66,7 @@ class VerificationTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($a[3000]));
     }
 
-
-    function testIsBalanced()
+    public function testIsBalanced()
     {
         $bank = new Account('1920', 'T', 'Bank');
         $income = new Account('3000', 'I', 'Income');
@@ -79,7 +78,9 @@ class VerificationTest extends \PHPUnit_Framework_TestCase
             new Transaction($income, new Amount('-300')),
         );
         $v = new Verification('test');
-        foreach ( $trans as $t ) $v->addTransaction($t);
+        foreach ($trans as $t) {
+            $v->addTransaction($t);
+        }
         $this->assertTrue($v->isBalanced());
 
         // A unbalanced verification
@@ -88,12 +89,13 @@ class VerificationTest extends \PHPUnit_Framework_TestCase
             new Transaction($income, new Amount('-300')),
         );
         $v = new Verification('test');
-        foreach ( $trans as $t ) $v->addTransaction($t);
+        foreach ($trans as $t) {
+            $v->addTransaction($t);
+        }
         $this->assertFalse($v->isBalanced());
     }
 
-
-    function testGetDifference()
+    public function testGetDifference()
     {
         $bank = new Account('1920', 'T', 'Bank');
         $income = new Account('3000', 'I', 'Income');
@@ -105,7 +107,9 @@ class VerificationTest extends \PHPUnit_Framework_TestCase
             new Transaction($income, new Amount('-300')),
         );
         $v = new Verification('test');
-        foreach ( $trans as $t ) $v->addTransaction($t);
+        foreach ($trans as $t) {
+            $v->addTransaction($t);
+        }
         $this->assertEquals(new Amount('0'), $v->getDifference());
 
         // A negaitve verification
@@ -114,7 +118,9 @@ class VerificationTest extends \PHPUnit_Framework_TestCase
             new Transaction($income, new Amount('-300')),
         );
         $v = new Verification('test');
-        foreach ( $trans as $t ) $v->addTransaction($t);
+        foreach ($trans as $t) {
+            $v->addTransaction($t);
+        }
         $this->assertEquals(new Amount('-200'), $v->getDifference());
 
         // A positive verification
@@ -123,8 +129,9 @@ class VerificationTest extends \PHPUnit_Framework_TestCase
             new Transaction($income, new Amount('-100')),
         );
         $v = new Verification('test');
-        foreach ( $trans as $t ) $v->addTransaction($t);
+        foreach ($trans as $t) {
+            $v->addTransaction($t);
+        }
         $this->assertEquals(new Amount('100'), $v->getDifference());
     }
-
 }

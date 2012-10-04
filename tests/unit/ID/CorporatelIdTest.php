@@ -1,11 +1,9 @@
 <?php
 namespace itbz\STB\ID;
 
-
 class CorporateIdTest extends \PHPUnit_Framework_TestCase
 {
-
-    function invalidStructureProvider()
+    public function invalidStructureProvider()
     {
         return array(
             array('123456'),
@@ -20,8 +18,7 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
-    function invalidCheckDigitProvider()
+    public function invalidCheckDigitProvider()
     {
         return array(
             array('502017-7750'),
@@ -39,8 +36,7 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
-    function validProvider()
+    public function validProvider()
     {
         return array(
             array('502017-7753'),
@@ -58,52 +54,46 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
-    function testInvalidStructure($nr)
-    { 
-        $id = new CorporateId($nr);
+    public function testInvalidStructure($nr)
+    {
+        new CorporateId($nr);
     }
-
 
     /**
      * @expectedException itbz\STB\Exception\InvalidCheckDigitException
      * @dataProvider invalidCheckDigitProvider
      */
-    function testInvalidCheckDigit($nr)
+    public function testInvalidCheckDigit($nr)
     {
-        $id = new CorporateId($nr);
+        new CorporateId($nr);
     }
-
 
     /**
      * @dataProvider validProvider
      */
-    function testValidIds($id)
+    public function testValidIds($id)
     {
         $id = new CorporateId($id);
-        $this->assertTrue(TRUE);
+        $this->assertTrue(true);
     }
 
-
-    function testGetId()
+    public function testGetId()
     {
         $id = new CorporateId('702001-7781');
         $this->assertEquals($id->getId(), '702001-7781');
     }
 
-
-    function testToString()
+    public function testToString()
     {
         $id = new CorporateId('702001-7781');
         $this->assertEquals((string)$id, '702001-7781');
     }
 
-
-    function testGetGroupDescription()
+    public function testGetGroupDescription()
     {
         $id = new CorporateId('232100-0016');
         $this->assertEquals('Stat, landsting, kommun eller församling', $id->getGroupDescription());
@@ -126,5 +116,4 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
         $id = new CorporateId('132100-0018');
         $this->assertEquals('Okänd', $id->getGroupDescription());
     }
-
 }

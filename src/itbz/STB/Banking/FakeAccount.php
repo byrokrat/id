@@ -8,11 +8,10 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Banking
  */
-namespace itbz\STB\Banking;
 
+namespace itbz\STB\Banking;
 
 /**
  * Fake account number validator, all is valid
@@ -21,7 +20,6 @@ namespace itbz\STB\Banking;
  */
 class FakeAccount extends AbstractAccount
 {
-
     /**
      * Validate clearing number
      *
@@ -31,10 +29,9 @@ class FakeAccount extends AbstractAccount
      */
     public function isValidClearing($nr)
     {
-        return TRUE;
+        return true;
     }
 
- 
     /**
      * Validate account number structure
      *
@@ -44,24 +41,21 @@ class FakeAccount extends AbstractAccount
      */
     public function isValidStructure($nr)
     {
-        return TRUE;
+        return true;
     }
-
 
     /**
      * Validate check digit
      *
      * @param string $clearing
-     *
      * @param string $nr
      *
      * @return bool
      */
     public function isValidCheckDigit($clearing, $nr)
     {
-        return TRUE;
+        return true;
     }
-
 
     /**
      * Get string describing account type
@@ -72,5 +66,4 @@ class FakeAccount extends AbstractAccount
     {
         return "Unknown";
     }
-
 }

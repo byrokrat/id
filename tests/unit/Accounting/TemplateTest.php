@@ -1,13 +1,12 @@
 <?php
 namespace itbz\STB\Accounting;
+
 use DateTime;
 use itbz\STB\Utils\Amount;
 
-
 class TemplateTest extends \PHPUnit_Framework_TestCase
 {
-
-    function getChart()
+    public function getChart()
     {
         $c = new ChartOfAccounts();
         $c->addAccount(new Account('1920', 'T', 'Bank'));
@@ -17,8 +16,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         return $c;
     }
 
-
-    function testGetSetId()
+    public function testGetSetId()
     {
         $t = new Template();
         $this->assertEquals('', $t->getId());
@@ -26,18 +24,16 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $t->getId());
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidTemplateException
      */
-    function testSetIdError()
+    public function testSetIdError()
     {
         $t = new Template();
         $t->setId('1234567');
     }
 
-
-    function testGetSetName()
+    public function testGetSetName()
     {
         $t = new Template();
         $this->assertEquals('', $t->getName());
@@ -45,18 +41,16 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $t->getName());
     }
 
-    
     /**
      * @expectedException itbz\STB\Exception\InvalidTemplateException
      */
-    function testSetNameError()
+    public function testSetNameError()
     {
         $t = new Template();
         $t->setName('123456789012345678901');
     }
 
-
-    function testGetSetText()
+    public function testGetSetText()
     {
         $t = new Template();
         $this->assertEquals('', $t->getText());
@@ -64,52 +58,51 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $t->getText());
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidTemplateException
      */
-    function testSetTextError()
+    public function testSetTextError()
     {
         $t = new Template();
         $t->setText('1234567890123456789012345678901234567890123456789012345678901');
     }
 
-
-    function testVerTextAndAmountTranslation()
+    public function testVerTextAndAmountTranslation()
     {
         $t = new Template();
         $t->addTransaction('{in}', '-400');
         $t->addTransaction('1920', '{amount}');
 
-        $t->substitute(array(
-            'in' => '1920',
-            'amount' => '400'
-        ));
-        
+        $t->substitute(
+            array(
+                'in' => '1920',
+                'amount' => '400'
+            )
+        );
+
         $ver = $t->buildVerification($this->getChart());
-        
+
         $expected = array(
             new Transaction(new Account('1920', 'T', 'Bank'), new Amount('-400')),
             new Transaction(new Account('1920', 'T', 'Bank'), new Amount('400')),
         );
         $this->assertEquals($expected, $ver->getTransactions());
-     }
+    }
 
-
-    function testTransactionTranslation()
+    public function testTransactionTranslation()
     {
         $t = new Template();
         $t->setText('One {key} three');
-        $t->substitute(array(
-            'key' => 'two'
-        ));
+        $t->substitute(
+            array(
+                'key' => 'two'
+            )
+        );
         $ver = $t->buildVerification($this->getChart());
         $this->assertEquals('One two three', $ver->getText());
     }
 
-
-
-    function testAccountConversion()
+    public function testAccountConversion()
     {
         $t = new Template();
         $t->addTransaction('1920', '450');
@@ -124,15 +117,13 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $ver->getTransactions());
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidStructureException
      */
-    function testMissingAmountKey()
+    public function testMissingAmountKey()
     {
         $t = new Template();
         $t->addTransaction('3000', '-{value}');
-        $ver = $t->buildVerification($this->getChart());
+        $t->buildVerification($this->getChart());
     }
-
 }

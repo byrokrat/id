@@ -1,11 +1,9 @@
 <?php
 namespace itbz\STB\Utils;
 
-
 class AmountTest extends \PHPUnit_Framework_TestCase
 {
-
-    function testSetFloat()
+    public function testSetFloat()
     {
         $a = new Amount('0', 2);
 
@@ -52,8 +50,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $this->assertSame("1231J", $a->getSignalString());
     }
 
-
-    function testSetString()
+    public function testSetString()
     {
         $a = new Amount('0', 2);
 
@@ -100,8 +97,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $this->assertSame("1231M", $a->getSignalString());
     }
 
-
-    function testConstruct()
+    public function testConstruct()
     {
         $a = new Amount(123.23, 2);
         $this->assertSame(123.23, $a->getFloat());
@@ -116,8 +112,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $this->assertSame("12323", $a->getSignalString());
     }
 
-
-    function testSetSignalString()
+    public function testSetSignalString()
     {
         $a = new Amount('0', 2);
 
@@ -158,8 +153,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $this->assertSame("1232R", $a->getSignalString());
     }
 
-
-    function testAdd()
+    public function testAdd()
     {
         $a = new Amount('100', 2);
 
@@ -173,8 +167,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('-50.00', $a->getString());
     }
 
-
-    function testSubtract()
+    public function testSubtract()
     {
         $a = new Amount('99');
         $a->subtract(new Amount('100.50'));
@@ -182,8 +175,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('-1.50', $a->getString());
     }
 
-
-    function testInvert()
+    public function testInvert()
     {
         $a = new Amount('50.50');
         $a->invert();
@@ -191,8 +183,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('-50.50', $a->getString());
     }
 
-
-    function testPrecision()
+    public function testPrecision()
     {
         $a = new Amount('35', 10);
         $b = new Amount('-34.99');
@@ -200,15 +191,13 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('0.0100000000', $a->getString());
     }
 
-
-    function testGetPrecision()
+    public function testGetPrecision()
     {
         $a = new Amount('0', 2);
         $this->assertSame(2, $a->getPrecision());
     }
 
-
-    function testEqualsLesserGreaterThan()
+    public function testEqualsLesserGreaterThan()
     {
         $a = new Amount('100');
 
@@ -221,22 +210,19 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($a->isGreaterThan(new Amount('150')));
     }
 
-
-    function testSetEmptyString()
+    public function testSetEmptyString()
     {
         $a = new Amount('');
         $this->assertTrue($a->equals(new Amount(0.0)));
     }
 
-
-    function testFormat()
+    public function testFormat()
     {
         $a = new Amount('10000.5', 2);
         $this->assertSame('10000.50', $a->format('%!^n'));
     }
 
-
-    function testSetLocaleString()
+    public function testSetLocaleString()
     {
         $a = new Amount('0', 2);
         $a->setLocaleString('10000.00');
@@ -245,53 +231,47 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('-10000.00', $a->getRawString());
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidAmountException
      */
-    function testInvalidAmount()
+    public function testInvalidAmount()
     {
-        new Amount(NULL);
+        new Amount(null);
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidAmountException
      */
-    function testInvalidFloat()
+    public function testInvalidFloat()
     {
         $a = new Amount();
         $a->setFloat(1);
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidAmountException
      */
-    function testInvalidInt()
+    public function testInvalidInt()
     {
         $a = new Amount();
         $a->setInt(1.0);
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidAmountException
      */
-    function testInvalidString()
+    public function testInvalidString()
     {
         $a = new Amount();
         $a->setString('sdf');
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidAmountException
      */
-    function testInvalidSignal()
+    public function testInvalidSignal()
     {
         $a = new Amount();
         $a->setSignalString('Q123Q');
     }
-
 }

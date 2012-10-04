@@ -1,11 +1,9 @@
 <?php
 namespace itbz\STB\ID;
 
-
 class CoordinationIdTest extends \PHPUnit_Framework_TestCase
 {
-
-    function invalidStructureProvider()
+    public function invalidStructureProvider()
     {
         return array(
             array('123456'),
@@ -28,8 +26,7 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
-    function invalidCheckDigitProvider()
+    public function invalidCheckDigitProvider()
     {
         return array(
             array('820383-2770'),
@@ -53,28 +50,25 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
-    function testInvalidStructure($nr)
-    { 
-        $id = new CoordinationId($nr);
+    public function testInvalidStructure($nr)
+    {
+        new CoordinationId($nr);
     }
-
 
     /**
      * @expectedException itbz\STB\Exception\InvalidCheckDigitException
      * @dataProvider invalidCheckDigitProvider
      */
-    function testInvalidCheckDigit($nr)
+    public function testInvalidCheckDigit($nr)
     {
-        $id = new CoordinationId($nr);
+        new CoordinationId($nr);
     }
 
-
-    function testCentry()
+    public function testCentry()
     {
         $id = new CoordinationId('701063-2391');
         $this->assertEquals('1970', $id->getDate()->format('Y'));
@@ -83,8 +77,7 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('1870', $id->getDate()->format('Y'));
     }
 
-    
-    function testDelimiter()
+    public function testDelimiter()
     {
         $id = new CoordinationId('19701063+2391');
         $this->assertEquals('701063-2391', $id->getId());
@@ -93,8 +86,7 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('701063+2391', $id->getId());
     }
 
-
-    function testSex()
+    public function testSex()
     {
         $id = new CoordinationId('701063-2391');
         $this->assertEquals('M', $id->getSex());
@@ -103,18 +95,15 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('F', $id->getSex());
     }
 
-
-    function testDOB()
+    public function testDOB()
     {
         $id = new CoordinationId('701063-2391');
         $this->assertEquals('1970-10-03', $id->getDOB());
     }
 
-
-    function testToString()
+    public function testToString()
     {
         $id = new CoordinationId('701063-2391');
         $this->assertEquals('19701063-2391', (string)$id);
     }
-
 }

@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\ID
  */
+
 namespace itbz\STB\ID;
+
 use itbz\STB\Utils\Modulo10;
 use itbz\STB\Exception\InvalidStructureException;
 use itbz\STB\Exception\InvalidCheckDigitException;
-
 
 /**
  * Swedish corporate identity numbers
@@ -24,30 +24,26 @@ use itbz\STB\Exception\InvalidCheckDigitException;
  */
 class CorporateId
 {
-
     /**
      * Group number
      *
      * @var string
      */
-    private $_groupNr = '';
-
+    private $groupNr = '';
 
     /**
      * Serial number in tow parts, pre and post delimiter
      *
      * @var array
      */
-    private $_serialNr = array('', '');
-
+    private $serialNr = array('', '');
 
     /**
      * Check digit
      *
      * @var string
      */
-    private $_check = '';
-
+    private $check = '';
 
     /**
      * Construct and set id number
@@ -61,7 +57,6 @@ class CorporateId
         }
     }
 
-
     /**
      * Set id number
      *
@@ -70,7 +65,6 @@ class CorporateId
      * @return void
      *
      * @throws InvalidStructureException if structure is invalid
-     *
      * @throws InvalidCheckDigitException if check digit is invalid
      */
     public function setId($id)
@@ -97,20 +91,19 @@ class CorporateId
         }
 
         // Validate check digit
-        $this->_groupNr = $split[0][0];
-        $this->_serialNr = array(
+        $this->groupNr = $split[0][0];
+        $this->serialNr = array(
             substr($split[0], 1),
             substr($split[2], 0, -1),
         );
-        $this->_check = $split[2][3];
-        
+        $this->check = $split[2][3];
+
         $validCheck = $this->calcCheckDigit();
-        if ($this->_check != $validCheck) {
+        if ($this->check != $validCheck) {
             $msg = "Invalid check digit for '$id'";
             throw new InvalidCheckDigitException($msg);
         }
     }
-
 
     /**
      * Get full ID
@@ -119,13 +112,12 @@ class CorporateId
      */
     public function getId()
     {
-        return $this->_groupNr
-            . $this->_serialNr[0]
+        return $this->groupNr
+            . $this->serialNr[0]
             . '-'
-            . $this->_serialNr[1]
-            . $this->_check;
+            . $this->serialNr[1]
+            . $this->check;
     }
-
 
     /**
      * To string magic method
@@ -134,11 +126,10 @@ class CorporateId
      *
      * @return string
      */
-    public function __tostring()
+    public function __toString()
     {
         return $this->getId();
     }
-
 
     /**
      * Get string describing corporate group
@@ -150,7 +141,7 @@ class CorporateId
      */
     public function getGroupDescription()
     {
-        switch ($this->_groupNr) {
+        switch ($this->groupNr) {
             case "2":
                 return "Stat, landsting, kommun eller församling";
             case "5":
@@ -168,7 +159,6 @@ class CorporateId
         }
     }
 
-
     /**
      * Calculate check digit
      *
@@ -176,10 +166,9 @@ class CorporateId
      */
     private function calcCheckDigit()
     {
-        $nr = $this->_groupNr . $this->_serialNr[0] . $this->_serialNr[1];
+        $nr = $this->groupNr . $this->serialNr[0] . $this->serialNr[1];
         $modulo = new Modulo10();
 
         return $modulo->getCheckDigit($nr);
     }
-
 }

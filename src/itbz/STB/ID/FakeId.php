@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\ID
  */
-namespace itbz\STB\ID;
-use itbz\STB\Exception\InvalidStructureException;
 
+namespace itbz\STB\ID;
+
+use itbz\STB\Exception\InvalidStructureException;
 
 /**
  * Fake swedish personal identity numbers
@@ -24,7 +24,6 @@ use itbz\STB\Exception\InvalidStructureException;
  */
 class FakeId extends PersonalId
 {
-
     /**
      * Set id number
      *
@@ -33,7 +32,6 @@ class FakeId extends PersonalId
      * @return void
      *
      * @throws InvalidStructureException if structure is invalid
-     *
      * @throws InvalidCheckDigitException if check digit is invalid
      */
     public function setId($id)
@@ -47,18 +45,17 @@ class FakeId extends PersonalId
         }
 
         $control = strtolower($split[2]);
-        
+
         if (!in_array($control, array('xxxx', 'xx1x', 'xx2x'))) {
             $msg = 'Fake id control number must be xxxx, xx1x or xx2x';
             throw new InvalidStructureException($msg);
         }
-        
-        parent::setId($split[0] . $split[1] . '0000');
-        
-        $this->_check = 'x';
-        $this->_individualNr = substr($control, 0, 3);
-    }
 
+        parent::setId($split[0] . $split[1] . '0000');
+
+        $this->check = 'x';
+        $this->individualNr = substr($control, 0, 3);
+    }
 
     /**
      * Get sex as denoted by id
@@ -69,7 +66,7 @@ class FakeId extends PersonalId
      */
     public function getSex()
     {
-        if (is_numeric($this->_individualNr[2])) {
+        if (is_numeric($this->individualNr[2])) {
 
             return parent::getSex();
         } else {
@@ -77,7 +74,6 @@ class FakeId extends PersonalId
             return 'O';
         }
     }
-
 
     /**
      * Calculate check digit
@@ -88,5 +84,4 @@ class FakeId extends PersonalId
     {
         return '0';
     }
-
 }

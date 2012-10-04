@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Accounting
  */
-namespace itbz\STB\Accounting;
-use itbz\STB\Utils\Amount;
 
+namespace itbz\STB\Accounting;
+
+use itbz\STB\Utils\Amount;
 
 /**
  * Simple accounting transaction class
@@ -22,36 +22,31 @@ use itbz\STB\Utils\Amount;
  */
 class Transaction
 {
-
     /**
      * Account object
      *
      * @var Account
      */
-    private $_account;
-
+    private $account;
 
     /**
      * Amount object
      *
      * @var Amount
-     */    
-    private $_amount;
-
+     */
+    private $amount;
 
     /**
      * Set account and amount.
      *
      * @param Account $account
-     *
      * @param Amount $amount
      */
     public function __construct(Account $account, Amount $amount)
     {
-        $this->_account = $account;
-        $this->_amount = $amount;
+        $this->account = $account;
+        $this->amount = $amount;
     }
-
 
     /**
      * Get account
@@ -60,9 +55,8 @@ class Transaction
      */
     public function getAccount()
     {
-        return $this->_account;
+        return $this->account;
     }
-
 
     /**
      * Get amount
@@ -71,7 +65,6 @@ class Transaction
      */
     public function getAmount()
     {
-        return $this->_amount;
+        return $this->amount;
     }
-
 }

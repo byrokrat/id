@@ -1,19 +1,16 @@
 <?php
 namespace itbz\STB\Accounting;
 
-
 class ChartOfAccountsTest extends \PHPUnit_Framework_TestCase
 {
-
-    function testAddAccount()
+    public function testAddAccount()
     {
         $p = new ChartOfAccounts();
         $p->addAccount(new Account('1920', 'T', 'Bank'));
         $this->assertTrue($p->accountExists('1920'));
     }
 
-
-    function testRemoveAccount()
+    public function testRemoveAccount()
     {
         $p = new ChartOfAccounts();
         $p->addAccount(new Account('1920', 'T', 'Bank'));
@@ -26,8 +23,7 @@ class ChartOfAccountsTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($p->accountExists('1920'));
     }
 
-    
-    function testGetAccount()
+    public function testGetAccount()
     {
         $p = new ChartOfAccounts();
         $a = new Account('1920', 'T', 'Bank');
@@ -35,37 +31,33 @@ class ChartOfAccountsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($a, $p->getAccount('1920'));
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidAccountException
      */
-    function testGetInvalidAccount()
+    public function testGetInvalidAccount()
     {
         $p = new ChartOfAccounts();
         $p->getAccount('1920');
     }
 
-
-    function testGetAccountFromName()
+    public function testGetAccountFromName()
     {
         $p = new ChartOfAccounts();
         $a = new Account('1920', 'T', 'Bank');
         $p->addAccount($a);
         $this->assertEquals($a, $p->getAccountFromName('Bank'));
     }
-    
 
     /**
      * @expectedException itbz\STB\Exception\InvalidAccountException
      */
-    function testGetInvalidAccountFromName()
+    public function testGetInvalidAccountFromName()
     {
         $p = new ChartOfAccounts();
         $p->getAccountFromName('Bank');
     }
 
-
-    function testAlterAccount()
+    public function testAlterAccount()
     {
         // There is no special alter method, add is used
         $p = new ChartOfAccounts();
@@ -78,7 +70,7 @@ class ChartOfAccountsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($a, $p->getAccount('1920'));
     }
 
-    function testGetChart()
+    public function testGetChart()
     {
         $p = new ChartOfAccounts();
         $p->addAccount(new Account('1920', 'T', 'Bank'));
@@ -90,8 +82,7 @@ class ChartOfAccountsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $p->getAccounts());
     }
 
-
-    function testSetGetChartType()
+    public function testSetGetChartType()
     {
         $p = new ChartOfAccounts();
         $this->assertEquals('EUBAS97', $p->getChartType());
@@ -99,18 +90,16 @@ class ChartOfAccountsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('BAS96', $p->getChartType());
     }
 
-
-    function testExportImport()
+    public function testExportImport()
     {
         $p = new ChartOfAccounts();
         $p->addAccount(new Account('1920', 'T', 'Bank'));
         $p->addAccount(new Account('3000', 'I', 'Income'));
 
         $str = serialize($p);
-        $p2 = unserialize($str);        
+        $p2 = unserialize($str);
 
-        $this->assertTrue($p->accountExists('1920'));
-        $this->assertEquals(new Account('3000', 'I', 'Income'), $p->getAccount('3000'));
+        $this->assertTrue($p2->accountExists('1920'));
+        $this->assertEquals(new Account('3000', 'I', 'Income'), $p2->getAccount('3000'));
     }
-
 }

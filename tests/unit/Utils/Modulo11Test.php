@@ -1,22 +1,19 @@
 <?php
 namespace itbz\STB\Utils;
 
-
 class Modulo11Test extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @expectedException itbz\STB\Exception\InvalidStructureException
      * @dataProvider testVerifyStructureProvider
      */
-    function testVerifyStructure($nr)
+    public function testVerifyStructure($nr)
     {
         $m = new Modulo11();
         $m->verify($nr);
     }
 
-
-    function testVerifyStructureProvider()
+    public function testVerifyStructureProvider()
     {
         return array(
             array('y'),
@@ -28,8 +25,7 @@ class Modulo11Test extends \PHPUnit_Framework_TestCase
         );
     }
 
-
-    function testVerify()
+    public function testVerify()
     {
         $m = new Modulo11();
 
@@ -40,7 +36,7 @@ class Modulo11Test extends \PHPUnit_Framework_TestCase
         $this->assertTrue($m->verify('007007013X'));
         $this->assertTrue($m->verify('013139139119'));
         $this->assertTrue($m->verify('0365300'));
-        
+
         // Invalid ckeck digits
         $this->assertFalse($m->verify('0365321'));
         $this->assertFalse($m->verify('3928444041'));
@@ -48,19 +44,17 @@ class Modulo11Test extends \PHPUnit_Framework_TestCase
         $this->assertFalse($m->verify('0070070131'));
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidStructureException
      * @dataProvider testGetCheckDigitStructureProvider
      */
-    function testGetCheckDigitStructure($nr)
+    public function testGetCheckDigitStructure($nr)
     {
         $m = new Modulo11();
         $m->getCheckDigit($nr);
     }
 
-
-    function testGetCheckDigitStructureProvider()
+    public function testGetCheckDigitStructureProvider()
     {
         return array(
             array('y'),
@@ -72,8 +66,7 @@ class Modulo11Test extends \PHPUnit_Framework_TestCase
         );
     }
 
-
-    function testGetCheckDigit()
+    public function testGetCheckDigit()
     {
         $m = new Modulo11();
         $this->assertEquals($m->getCheckDigit('036532'), '7');
@@ -83,5 +76,4 @@ class Modulo11Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals($m->getCheckDigit('007007013'), 'X');
         $this->assertEquals($m->getCheckDigit('036530'), '0');
     }
-
 }

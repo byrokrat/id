@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Accounting
  */
+
 namespace itbz\STB\Accounting;
+
 use itbz\STB\Exception\InvalidStructureException;
 use itbz\STB\Exception\InvalidTemplateException;
 use itbz\STB\Utils\Amount;
-
 
 /**
  * Simple accounting template class
@@ -24,46 +24,39 @@ use itbz\STB\Utils\Amount;
  */
 class Template
 {
-
     /**
      * Template id
      *
      * @var string
      */
-    private $_id;
-
+    private $id;
 
     /**
      * Template name
      *
      * @var string
      */
-    private $_name;
-
+    private $name;
 
     /**
      * Raw verification text
      *
      * @var string
      */
-    private $_text;
-
+    private $text;
 
     /**
      * Raw template transactions
      *
      * @var array
      */
-    private $_transactions = array();
-
+    private $transactions = array();
 
     /**
      * Optionaly set id, name and text
      *
      * @param string $id
-     *
      * @param string $name
-     *
      * @param string $text
      */
     public function __construct($id = '', $name = '', $text = '')
@@ -72,7 +65,6 @@ class Template
         $this->setName($name);
         $this->setText($text);
     }
-
 
     /**
      * Set template id
@@ -91,9 +83,8 @@ class Template
             $msg = "Invalid template id '$id'. Use max 6 characters.";
             throw new InvalidTemplateException($msg);
         }
-        $this->_id = $id;
+        $this->id = $id;
     }
-
 
     /**
      * Get template id
@@ -102,9 +93,8 @@ class Template
      */
     public function getId()
     {
-        return $this->_id;
+        return $this->id;
     }
-
 
     /**
      * Set template name
@@ -123,9 +113,8 @@ class Template
             $msg = "Invalid template name '$name'. Use max 20 characters.";
             throw new InvalidTemplateException($msg);
         }
-        $this->_name = $name;
+        $this->name = $name;
     }
-
 
     /**
      * Get template name
@@ -134,9 +123,8 @@ class Template
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
-
 
     /**
      * Set template text
@@ -155,9 +143,8 @@ class Template
             $msg = "Invalid template text '$text'. Use max 60 characters.";
             throw new InvalidTemplateException($msg);
         }
-        $this->_text = $text;
+        $this->text = $text;
     }
-
 
     /**
      * Get template text
@@ -166,16 +153,16 @@ class Template
      */
     public function getText()
     {
-        return $this->_text;
+        return $this->text;
     }
-
 
     /**
      * Add transaction data
      *
      * @param string $number
-     *
      * @param string $amount
+     *
+     * @return void
      */
     public function addTransaction($number, $amount)
     {
@@ -183,10 +170,9 @@ class Template
         assert('is_string($amount)');
         $number = trim($number);
         $amount = trim($amount);
-        $this->_transactions[] = array($number, $amount);
+        $this->transactions[] = array($number, $amount);
     }
 
-    
     /**
      * Get loaded transaction data
      *
@@ -194,9 +180,8 @@ class Template
      */
     public function getTransactions()
     {
-        return $this->_transactions;
+        return $this->transactions;
     }
-
 
     /**
      * Check if template is ready for conversion
@@ -209,19 +194,18 @@ class Template
      */
     public function ready(&$key)
     {
-        foreach ($this->_transactions as $arTransData) {
+        foreach ($this->transactions as $arTransData) {
             foreach ($arTransData as $data) {
                 if (preg_match("/\{[^}]*\}/", $data)) {
                     $key = $data;
-                    
-                    return FALSE;
+
+                    return false;
                 }
             }
         }
-        
-        return TRUE;
-    }
 
+        return true;
+    }
 
     /**
      * Apply list of substitutions to template
@@ -234,26 +218,25 @@ class Template
     {
         // Create map of substitution keys
         $keys = array_map(
-            function($val){
+            function ($val) {
                 return '{' . $val . '}';
             },
             array_keys($values)
         );
-        
+
         // Substitute terms in verification text
-        $this->_text = trim(str_replace($keys, $values, $this->_text));
+        $this->text = trim(str_replace($keys, $values, $this->text));
 
         // Substitue terms in transactions
-        $this->_transactions = array_map(
-            function($data) use ($keys, $values){
+        $this->transactions = array_map(
+            function ($data) use ($keys, $values) {
                 $data[0] = trim(str_replace($keys, $values, $data[0]));
                 $data[1] = trim(str_replace($keys, $values, $data[1]));
                 return $data;
             },
-            $this->_transactions
+            $this->transactions
         );
     }
-
 
     /**
      * Create verification from template
@@ -271,7 +254,7 @@ class Template
             $msg = "Unable to substitute template key '$key'";
             throw new InvalidStructureException($msg);
         }
-        
+
         // Build verification
         $ver = new Verification($this->getText());
         foreach ($this->getTransactions() as $arTransData) {
@@ -288,5 +271,4 @@ class Template
 
         return $ver;
     }
-
 }

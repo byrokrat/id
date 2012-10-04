@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Accounting
  */
+
 namespace itbz\STB\Accounting;
+
 use itbz\STB\Exception\InvalidTemplateException;
 use itbz\STB\Exception\InvalidStructureException;
-
 
 /**
  * Manage a collection of templates
@@ -23,14 +23,12 @@ use itbz\STB\Exception\InvalidStructureException;
  */
 class ChartOfTemplates
 {
-
     /**
      * List of loaded templates
      *
      * @var array
      */
-    private $_templates = array();
-
+    private $templates = array();
 
     /**
      * Add template
@@ -45,9 +43,8 @@ class ChartOfTemplates
     public function addTemplate(Template $template)
     {
         $id = $template->getId();
-        $this->_templates[$id] = $template;
+        $this->templates[$id] = $template;
     }
-
 
     /**
      * Drop template using id
@@ -59,9 +56,8 @@ class ChartOfTemplates
     public function dropTemplate($id)
     {
         assert('is_string($id)');
-        unset($this->_templates[$id]);
+        unset($this->templates[$id]);
     }
-
 
     /**
      * Check if template exists
@@ -73,9 +69,8 @@ class ChartOfTemplates
     public function exists($id)
     {
         assert('is_string($id)');
-        return isset($this->_templates[$id]);
+        return isset($this->templates[$id]);
     }
-
 
     /**
      * Get a template clone using id
@@ -89,13 +84,12 @@ class ChartOfTemplates
     public function getTemplate($id)
     {
         assert('is_string($id)');
-        if ( !$this->exists($id) ) {
+        if (!$this->exists($id)) {
             $msg = "Unable to fetch template '$id', does not exist";
             throw new InvalidTemplateException($msg);
         }
-        return clone $this->_templates[$id];
+        return clone $this->templates[$id];
     }
-
 
     /**
      * Get loaded tempaltes. 
@@ -104,7 +98,6 @@ class ChartOfTemplates
      */
     public function getTemplates()
     {
-        return $this->_templates;
+        return $this->templates;
     }
-
 }

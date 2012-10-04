@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Utils
  */
-namespace itbz\STB\Utils;
-use itbz\STB\Exception\InvalidStructureException;
 
+namespace itbz\STB\Utils;
+
+use itbz\STB\Exception\InvalidStructureException;
 
 /**
  * Modulo11 calculator
@@ -22,7 +22,6 @@ use itbz\STB\Exception\InvalidStructureException;
  */
 class Modulo11
 {
-
     /**
      * Verify that the last digit of nr is a valid check digit
      *
@@ -47,7 +46,7 @@ class Modulo11
         $weight = 0;
         $pos = strlen($nr);
         $sum = 0;
-        while (TRUE) {
+        while (true) {
             // Set string position
             $pos--;
             if ($pos < 0) {
@@ -70,7 +69,6 @@ class Modulo11
         return $sum % 11 === 0;
     }
 
-
     /**
      * Calculate check digit for nr
      *
@@ -90,7 +88,7 @@ class Modulo11
         $weight = 1;
         $pos = strlen($nr);
         $sum = 0;
-        while (TRUE) {
+        while (true) {
             // Set string position
             $pos--;
             if ($pos < 0) {
@@ -118,5 +116,4 @@ class Modulo11
 
         return $check;
     }
-
 }

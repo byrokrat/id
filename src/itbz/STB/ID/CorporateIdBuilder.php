@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\ID
  */
+
 namespace itbz\STB\ID;
+
 use itbz\STB\Exception\InvalidStructureException;
 use itbz\STB\Exception\InvalidCheckDigitException;
-
 
 /**
  * Build corporate ids
@@ -23,30 +23,26 @@ use itbz\STB\Exception\InvalidCheckDigitException;
  */
 class CorporateIdBuilder
 {
-
     /**
      * Flag if personal id is allowed
      *
      * @var bool
      */
-    private $_bUsePersonal = TRUE;
-
+    private $bUsePersonal = true;
 
     /**
      * Flag if coordination id is allowed
      *
      * @var bool
      */
-    private $_bUseCoord = TRUE;
-
+    private $bUseCoord = true;
 
     /**
      * Unprocessed id
      *
      * @var string
      */
-    private $_rawId = '';
-
+    private $rawId = '';
 
     /**
      * Set unproccessed id
@@ -58,11 +54,10 @@ class CorporateIdBuilder
     public function setId($rawId)
     {
         assert('is_string($rawId)');
-        $this->_rawId = $rawId;
+        $this->rawId = $rawId;
 
         return $this;
     }
-
 
     /**
      * Enable personal id
@@ -71,11 +66,10 @@ class CorporateIdBuilder
      */
     public function enablePersonalId()
     {
-        $this->_bUsePersonal = TRUE;
-        
+        $this->bUsePersonal = true;
+
         return $this;
     }
-
 
     /**
      * Disable personal id
@@ -84,11 +78,10 @@ class CorporateIdBuilder
      */
     public function disablePersonalId()
     {
-        $this->_bUsePersonal = FALSE;
+        $this->bUsePersonal = false;
 
         return $this;
     }
-
 
     /**
      * Enable coordination id
@@ -97,11 +90,10 @@ class CorporateIdBuilder
      */
     public function enableCoordinationId()
     {
-        $this->_bUseCoord = TRUE;
+        $this->bUseCoord = true;
 
         return $this;
     }
-
 
     /**
      * Disable coordination id
@@ -110,11 +102,10 @@ class CorporateIdBuilder
      */
     public function disableCoordinationId()
     {
-        $this->_bUseCoord = FALSE;
+        $this->bUseCoord = false;
 
         return $this;
     }
-
 
     /**
      * Get corporate id
@@ -126,7 +117,6 @@ class CorporateIdBuilder
      * @return CorporateId|PersonalId|CoordinationId
      *
      * @throws InvalidStructureException if structure is invalid
-     *
      * @throws InvalidCheckDigitException if check digit is invalid
      */
     public function getId()
@@ -134,30 +124,29 @@ class CorporateIdBuilder
         // Create CorporateId
         try {
 
-            return new CorporateId($this->_rawId);
+            return new CorporateId($this->rawId);
 
         } catch (InvalidStructureException $e) {
             // Throw exception if coord and personal id are disabled
-            if (!$this->_bUseCoord && !$this->_bUsePersonal) {
+            if (!$this->bUseCoord && !$this->bUsePersonal) {
                 throw $e;
             }
         }
 
         // Create PersonalId
-        if ($this->_bUsePersonal) {
+        if ($this->bUsePersonal) {
             try {
 
-                return new PersonalId($this->_rawId);
+                return new PersonalId($this->rawId);
             } catch (InvalidStructureException $e) {
                 // Throw exception if coordination is disabled
-                if (!$this->_bUseCoord) {
+                if (!$this->bUseCoord) {
                     throw $e;
                 }
             }
         }
-        
-        // Create CoordinationId
-        return new CoordinationId($this->_rawId);
-    }
 
+        // Create CoordinationId
+        return new CoordinationId($this->rawId);
+    }
 }

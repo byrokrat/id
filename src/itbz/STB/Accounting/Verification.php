@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Accounting
  */
+
 namespace itbz\STB\Accounting;
+
 use DateTime;
 use itbz\STB\Utils\Amount;
-
 
 /**
  * Simple accounting verification class
@@ -23,48 +23,42 @@ use itbz\STB\Utils\Amount;
  */
 class Verification
 {
-
     /**
      * Text describing verification
      *
      * @var string
      */
-    private $_text;
-    
+    private $text;
 
     /**
      * Verification date
      *
      * @var DateTime
      */
-    private $_date;
-
+    private $date;
 
     /**
      * List of transactions associated with this verification
      *
      * @var array
      */
-    private $_transactions = array();
-
+    private $transactions = array();
 
     /**
      * Construct and set transaction date
      *
      * @param string $text Text describing verification
-     *
      * @param DateTime $date
      */
-    public function __construct($text = '', DateTime $date = NULL)
+    public function __construct($text = '', DateTime $date = null)
     {
         assert('is_string($text)');
         if (!$date) {
             $date = new DateTime();
         }
-        $this->_text = $text;
-        $this->_date = $date;
+        $this->text = $text;
+        $this->date = $date;
     }
-
 
     /**
      * Add new transaction
@@ -75,10 +69,10 @@ class Verification
      */
     public function addTransaction(Transaction $trans)
     {
-        $this->_transactions[] = $trans;
-        return $this;
-    }    
+        $this->transactions[] = $trans;
 
+        return $this;
+    }
 
     /**
      * Get array of unique account numbers used in this verification
@@ -92,9 +86,9 @@ class Verification
             $account = $trans->getAccount();
             $accounts[$account->getNumber()] = $account;
         }
+
         return $accounts;
     }
-
 
     /**
      * Validate that this verification is balanced
@@ -105,7 +99,6 @@ class Verification
     {
         return $this->getDifference()->equals(new Amount('0'));
     }
-
 
     /**
      * Get transaction difference. 0 if verification is balanced
@@ -118,10 +111,9 @@ class Verification
         foreach ($this->getTransactions() as $trans) {
             $diff->add($trans->getAmount());
         }
-        
+
         return $diff;
     }
-
 
     /**
      * Get text describing verification
@@ -130,9 +122,8 @@ class Verification
      */
     public function getText()
     {
-        return $this->_text;
+        return $this->text;
     }
-
 
     /**
      * Set text describing verification
@@ -144,11 +135,10 @@ class Verification
     public function setText($text)
     {
         assert('is_string($text)');
-        $this->_text = $text;
-        
+        $this->text = $text;
+
         return $this;
     }
-
 
     /**
      * Get transaction date
@@ -157,9 +147,8 @@ class Verification
      */
     public function getDate()
     {
-        return $this->_date;
+        return $this->date;
     }
-
 
     /**
      * Set transaction date
@@ -170,11 +159,10 @@ class Verification
      */
     public function setDate(DateTime $date)
     {
-        $this->_date = $date;
+        $this->date = $date;
 
         return $this;
-    }    
-    
+    }
 
     /**
      * Get list of transactions
@@ -183,7 +171,6 @@ class Verification
      */
     public function getTransactions()
     {
-        return $this->_transactions;
+        return $this->transactions;
     }
-
 }

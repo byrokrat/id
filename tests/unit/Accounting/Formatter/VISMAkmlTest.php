@@ -1,12 +1,11 @@
 <?php
 namespace itbz\STB\Accounting\Formatter;
-use itbz\STB\Accounting\Template;
 
+use itbz\STB\Accounting\Template;
 
 class VISMAkmlTest extends \PHPUnit_Framework_TestCase
 {
-
-    function testExport()
+    public function testExport()
     {
         $kml = new VISMAkml();
 
@@ -21,16 +20,25 @@ class VISMAkmlTest extends \PHPUnit_Framework_TestCase
         $kml->addTemplate($t2);
 
         $str = $kml->export();
-        $expected = "[KontMall0]\r\nid=id\r\nnamn=fooname\r\ntext=foobar\r\nRad0_radnr=1\r\nRad0_konto=1920\r\nRad0_belopp=450\r\nRad1_radnr=2\r\nRad1_konto=3000\r\nRad1_belopp=-450\r\n[KontMall1]\r\nid=id2\r\nnamn=åäö\r\ntext=foobar\r\nRad0_radnr=1\r\nRad0_konto=1920\r\nRad0_belopp={amount}\r\nRad1_radnr=2\r\nRad1_konto=3000\r\nRad1_belopp=-{amount}\r\n";
+        $expected = "[KontMall0]\r\nid=id\r\nnamn=fooname\r\ntext=foobar\r\n"
+            ."Rad0_radnr=1\r\nRad0_konto=1920\r\nRad0_belopp=450\r\nRad1_radnr=2"
+            ."\r\nRad1_konto=3000\r\nRad1_belopp=-450\r\n[KontMall1]\r\nid=id2"
+            ."\r\nnamn=åäö\r\ntext=foobar\r\nRad0_radnr=1\r\nRad0_konto=1920"
+            ."\r\nRad0_belopp={amount}\r\nRad1_radnr=2\r\nRad1_konto=3000\r\n"
+            ."Rad1_belopp=-{amount}\r\n";
         $expected = iconv("UTF-8", "ISO-8859-1", $expected);
         $this->assertEquals($expected, $str);
     }
 
-
-    function testImport()
+    public function testImport()
     {
         $kml = new VISMAkml();
-        $raw = "[KontMall0]\r\nid=id\r\nnamn=fooname\r\ntext=foobar\r\nRad0_radnr=1\r\nRad0_konto=1920\r\nRad0_belopp=450\r\nRad1_radnr=2\r\nRad1_konto=3000\r\nRad1_belopp=-450\r\n[KontMall1]\r\nid=id2\r\nnamn=fooname\r\ntext=foobar\r\nRad0_radnr=1\r\nRad0_konto=1920\r\nRad0_belopp={amount}\r\nRad1_radnr=2\r\nRad1_konto=3000\r\nRad1_belopp=-{amount}\r\n";
+        $raw = "[KontMall0]\r\nid=id\r\nnamn=fooname\r\ntext=foobar\r\n"
+            ."Rad0_radnr=1\r\nRad0_konto=1920\r\nRad0_belopp=450\r\n"
+            ."Rad1_radnr=2\r\nRad1_konto=3000\r\nRad1_belopp=-450\r\n"
+            ."[KontMall1]\r\nid=id2\r\nnamn=fooname\r\ntext=foobar\r\n"
+            ."Rad0_radnr=1\r\nRad0_konto=1920\r\nRad0_belopp={amount}\r\n"
+            ."Rad1_radnr=2\r\nRad1_konto=3000\r\nRad1_belopp=-{amount}\r\n";
         $kml->import($raw);
 
         $t1 = new Template('id', 'fooname', 'foobar');
@@ -48,8 +56,7 @@ class VISMAkmlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $kml->getTemplates());
     }
 
-    
-    function testImportRealData()
+    public function testImportRealData()
     {
         $fname = realpath(__DIR__ . '/../../data/templates.kml');
         $raw = file_get_contents($fname);
@@ -83,9 +90,8 @@ class VISMAkmlTest extends \PHPUnit_Framework_TestCase
             'AA' => $AA,
             'AA1' => $AA1
         );
-        
+
         // Assert equality
         $this->assertEquals($expected, $kml->getTemplates());
     }
-
 }

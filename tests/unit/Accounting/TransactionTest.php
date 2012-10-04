@@ -1,12 +1,11 @@
 <?php
 namespace itbz\STB\Accounting;
-use itbz\STB\Utils\Amount;
 
+use itbz\STB\Utils\Amount;
 
 class TransactionTest extends \PHPUnit_Framework_TestCase
 {
-
-    function testGetAccount()
+    public function testGetAccount()
     {
         $account = new Account('1920', 'T', 'PlusGiro');
         $amount = new Amount(100.101);
@@ -14,8 +13,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($account, $t->getAccount());
     }
 
-    
-    function testGetAmount()
+    public function testGetAmount()
     {
         $account = new Account('1920', 'T', 'PlusGiro');
         $amount = new Amount(100);
@@ -23,5 +21,4 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
         $a = $t->getAmount();
         $this->assertEquals($amount, $a);
     }
-
 }

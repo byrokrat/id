@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Banking
  */
-namespace itbz\STB\Banking;
-use itbz\STB\Utils\Modulo11;
 
+namespace itbz\STB\Banking;
+
+use itbz\STB\Utils\Modulo11;
 
 /**
  * SwedbankTyp1 account number validator
@@ -22,7 +22,6 @@ use itbz\STB\Utils\Modulo11;
  */
 class SwedbankTyp1 extends AbstractAccount
 {
-
     /**
      * Validate clearing number
      *
@@ -35,7 +34,6 @@ class SwedbankTyp1 extends AbstractAccount
         return $nr >= 7000 &&  $nr <= 7999;
     }
 
- 
     /**
      * Validate account number structure
      *
@@ -48,12 +46,10 @@ class SwedbankTyp1 extends AbstractAccount
         return (boolean)preg_match("/^0{0,5}\d{7}$/", $nr);
     }
 
-
     /**
      * Validate check digit
      *
      * @param string $clearing
-     *
      * @param string $nr
      *
      * @return bool
@@ -68,7 +64,6 @@ class SwedbankTyp1 extends AbstractAccount
         return $modulo->verify($verify);
     }
 
-
     /**
      * Get string describing account type
      *
@@ -79,12 +74,10 @@ class SwedbankTyp1 extends AbstractAccount
         return "Swedbank";
     }
 
-
     /**
      * Get account as string
      *
      * @param string $clearing
-     *
      * @param string $nr
      *
      * @return string
@@ -96,5 +89,4 @@ class SwedbankTyp1 extends AbstractAccount
 
         return "$clearing,$nr";
     }
-
 }

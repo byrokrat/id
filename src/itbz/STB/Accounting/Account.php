@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Accounting
  */
-namespace itbz\STB\Accounting;
-use itbz\STB\Exception\InvalidAccountException;
 
+namespace itbz\STB\Accounting;
+
+use itbz\STB\Exception\InvalidAccountException;
 
 /**
  * Simple Account class
@@ -22,38 +22,32 @@ use itbz\STB\Exception\InvalidAccountException;
  */
 class Account
 {
-
     /**
      * Account number
      *
      * @var string
      */
-    private $_number;
-    
-    
+    private $number;
+
     /**
      * Account type
      *
      * @var string
      */
-    private $_type;
-
+    private $type;
 
     /**
      * Account name
      *
      * @var string
-     */    
-    private $_name;
-    
-    
+     */
+    private $name;
+
     /**
      * Set account number, type and name
      *
      * @param string $number
-     *
      * @param string $type Account type (T, S, I or K)
-     *
      * @param string $name
      *
      * @throws InvalidAccountException if any data is invalid
@@ -61,28 +55,27 @@ class Account
     public function __construct($number, $type, $name)
     {
         $number = intval($number);
-        if ( $number < 1000 || $number > 9999 ) {
+        if ($number < 1000 || $number > 9999) {
             $msg = "Account must be numeric, 999 < number < 10000";
             throw new InvalidAccountException($msg);
         }
-        
-        $this->_number = (string)$number;
 
-        if ( !in_array($type, array('T', 'S', 'I', 'K')) ) {
+        $this->number = (string)$number;
+
+        if (!in_array($type, array('T', 'S', 'I', 'K'))) {
             $msg = "Account type must be T, S, I or K";
             throw new InvalidAccountException($msg);
         }
 
-        $this->_type = $type;
+        $this->type = $type;
 
-        if ( !is_string($name) || empty($name) ) {
+        if (!is_string($name) || empty($name)) {
             $msg = "Account name can not be empty";
             throw new InvalidAccountException($msg);
         }
-        
-        $this->_name = $name;
-    }
 
+        $this->name = $name;
+    }
 
     /**
      * Get account number
@@ -91,9 +84,8 @@ class Account
      */
     public function getNumber()
     {
-        return $this->_number;
+        return $this->number;
     }
-
 
     /**
      * Get account type
@@ -102,9 +94,8 @@ class Account
      */
     public function getType()
     {
-        return $this->_type;
+        return $this->type;
     }
-
 
     /**
      * Get account name
@@ -113,9 +104,8 @@ class Account
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
-
 
     /**
      * Validate that $account equals this instance
@@ -131,9 +121,8 @@ class Account
             || ($this->getType() != $account->getType())
             || ($this->getName() != $account->getName())
         ) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
-
 }

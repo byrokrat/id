@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Banking
  */
-namespace itbz\STB\Banking;
-use itbz\STB\Utils\Modulo10;
 
+namespace itbz\STB\Banking;
+
+use itbz\STB\Utils\Modulo10;
 
 /**
  * NordeaPerson account number validator
@@ -22,7 +22,6 @@ use itbz\STB\Utils\Modulo10;
  */
 class NordeaPerson extends AbstractAccount
 {
-
     /**
      * Validate clearing number
      *
@@ -35,7 +34,6 @@ class NordeaPerson extends AbstractAccount
         return $nr == 3300 ||  $nr == 3782;
     }
 
- 
     /**
      * Validate account number structure
      *
@@ -48,12 +46,10 @@ class NordeaPerson extends AbstractAccount
         return (boolean)preg_match("/^0{0,2}\d{10}$/", $nr);
     }
 
-
     /**
      * Validate check digit
      *
      * @param string $clearing
-     *
      * @param string $nr
      *
      * @return bool
@@ -66,7 +62,6 @@ class NordeaPerson extends AbstractAccount
         return $modulo->verify($nr);
     }
 
-
     /**
      * Get string describing account type
      *
@@ -77,12 +72,10 @@ class NordeaPerson extends AbstractAccount
         return "Nordea";
     }
 
-
     /**
      * Get account as string
      *
      * @param string $clearing
-     *
      * @param string $nr
      *
      * @return string
@@ -94,5 +87,4 @@ class NordeaPerson extends AbstractAccount
 
         return "$clearing,$nr";
     }
-
 }

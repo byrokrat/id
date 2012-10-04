@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Banking
  */
+
 namespace itbz\STB\Banking;
+
 use itbz\STB\Exception;
 use itbz\STB\Exception\InvalidClearingException;
-
 
 /**
  * Build account from registered classes
@@ -23,13 +23,12 @@ use itbz\STB\Exception\InvalidClearingException;
  */
 class AccountBuilder
 {
-
     /**
      * List of possible account classes
      *
      * @var array
      */
-    private $_classes = array(
+    private $classes = array(
         'NordeaPerson',
         'NordeaTyp1A',
         'NordeaTyp1B',
@@ -38,14 +37,12 @@ class AccountBuilder
         'SEB'
     );
 
-
     /**
      * The raw account number
      *
      * @var string
      */
-    private $_rawNumber = '';
-
+    private $rawNumber = '';
 
     /**
      * Enable account type
@@ -58,11 +55,10 @@ class AccountBuilder
     {
         assert('is_string($classname)');
         $this->disable($classname);
-        $this->_classes[] = $classname;
+        $this->classes[] = $classname;
 
         return $this;
     }
-
 
     /**
      * Disable account type
@@ -74,14 +70,13 @@ class AccountBuilder
     public function disable($classname)
     {
         assert('is_string($classname)');
-        $index = array_search($classname, $this->_classes);
-        if ($index !== FALSE) {
-            unset($this->_classes[$index]);
+        $index = array_search($classname, $this->classes);
+        if ($index !== false) {
+            unset($this->classes[$index]);
         }
-        
+
         return $this;
     }
-
 
     /**
      * Disable all enabled account types
@@ -90,11 +85,10 @@ class AccountBuilder
      */
     public function clearClasses()
     {
-        $this->_classes = array();
+        $this->classes = array();
 
         return $this;
     }
-
 
     /**
      * Set raw account number
@@ -107,11 +101,10 @@ class AccountBuilder
     public function setAccount($rawNumber)
     {
         assert('is_string($rawNumber)');
-        $this->_rawNumber = $rawNumber;
-        
+        $this->rawNumber = $rawNumber;
+
         return $this;
     }
-
 
     /**
      * Get account object
@@ -119,14 +112,14 @@ class AccountBuilder
      * @return AbstractAccount
      *
      * @throws Exception if unable to create
-     */    
+     */
     public function getAccount()
     {
-        foreach ($this->_classes as $class) {
+        foreach ($this->classes as $class) {
             try {
                 // Create and return account object
                 $class = "\\itbz\\STB\\Banking\\$class";
-                $account = new $class($this->_rawNumber);
+                $account = new $class($this->rawNumber);
 
                 return $account;
             } catch (InvalidClearingException $e) {
@@ -136,8 +129,7 @@ class AccountBuilder
         }
 
         // Unable to create class
-        $msg = "Unable to create account for number '{$this->_rawNumber}'";
+        $msg = "Unable to create account for number '{$this->rawNumber}'";
         throw new Exception($msg);
     }
-
 }

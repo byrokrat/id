@@ -1,11 +1,9 @@
 <?php
 namespace itbz\STB\Banking;
 
-
 class FakeAccountTest extends \PHPUnit_Framework_TestCase
 {
-
-    function invalidClearingProvider()
+    public function invalidClearingProvider()
     {
         return array(
             array('915,1'),
@@ -13,18 +11,16 @@ class FakeAccountTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @expectedException \itbz\STB\Exception\InvalidClearingException
      * @dataProvider invalidClearingProvider
      */
-    function testInvalidClearing($nr)
+    public function testInvalidClearing($nr)
     {
-        $m = new FakeAccount($nr);
+        new FakeAccount($nr);
     }
 
-
-    function validProvider()
+    public function validProvider()
     {
         return array(
             array('5000,1111116'),
@@ -32,35 +28,30 @@ class FakeAccountTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @dataProvider validProvider
      */
-    function testConstruct($nr)
+    public function testConstruct($nr)
     {
-        $m = new FakeAccount($nr);
-        $this->assertTrue(TRUE);
+        new FakeAccount($nr);
+        $this->assertTrue(true);
     }
 
-
-    function testToString()
+    public function testToString()
     {
         $m = new FakeAccount('5000,000001111116');
         $this->assertEquals((string)$m, '5000,000001111116');
     }
 
-
-    function testTo16()
+    public function testTo16()
     {
         $m = new FakeAccount('5000,1111116');
         $this->assertEquals($m->to16(), '5000000001111116');
     }
 
-
-    function testGetType()
+    public function testGetType()
     {
         $m = new FakeAccount('5000,1111116');
         $this->assertEquals($m->getType(), 'Unknown');
     }
-
 }

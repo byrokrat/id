@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Accounting\Formatter
  */
-namespace itbz\STB\Accounting\Formatter;
-use itbz\STB\Accounting\Template;
 
+namespace itbz\STB\Accounting\Formatter;
+
+use itbz\STB\Accounting\Template;
 
 /**
  * Export and import accounting templates in VISMA kml format
@@ -22,7 +22,6 @@ use itbz\STB\Accounting\Template;
  */
 class VISMAkml
 {
-
     /**
      * End of line char
      */
@@ -33,8 +32,7 @@ class VISMAkml
      *
      * @var array
      */
-    private $_templates = array();
-
+    private $templates = array();
 
     /**
      * Add template
@@ -49,9 +47,8 @@ class VISMAkml
     public function addTemplate(Template $template)
     {
         $id = $template->getId();
-        $this->_templates[$id] = $template;
+        $this->templates[$id] = $template;
     }
-
 
     /**
      * Get loaded tempaltes. 
@@ -60,10 +57,9 @@ class VISMAkml
      */
     public function getTemplates()
     {
-        return $this->_templates;
+        return $this->templates;
     }
 
-    
     /**
      * Export templates in VISMA kml format
      *
@@ -75,26 +71,25 @@ class VISMAkml
     {
         $kml = "";
         $templateIndex = 0;
-        foreach ($this->_templates as $template) {
+        foreach ($this->templates as $template) {
             $kml .= "[KontMall{$templateIndex}]" . self::EOL;
             $kml .= "id={$template->getId()}" . self::EOL;
             $kml .= "namn={$template->getName()}" . self::EOL;
             $kml .= "text={$template->getText()}" . self::EOL;
 
-            foreach ( $template->getTransactions() as $index => $arTransData ) {
+            foreach ($template->getTransactions() as $index => $arTransData) {
                 list($number, $amount) = $arTransData;
                 $lineNr = $index + 1;
                 $kml .= "Rad{$index}_radnr={$lineNr}" . self::EOL;
                 $kml .= "Rad{$index}_konto={$number}" . self::EOL;
                 $kml .= "Rad{$index}_belopp={$amount}" . self::EOL;
             }
-            
+
             $templateIndex++;
         }
 
         return iconv("UTF-8", "ISO-8859-1", $kml);
     }
-
 
     /**
      * Import templates from VISMA kml format
@@ -106,9 +101,9 @@ class VISMAkml
     public function import($kml)
     {
         $kml = iconv("ISO-8859-1", "UTF-8", $kml);
-        $data = @parse_ini_string($kml, TRUE, INI_SCANNER_RAW);
+        $data = @parse_ini_string($kml, true, INI_SCANNER_RAW);
 
-        foreach ( $data as $values ) {
+        foreach ($data as $values) {
             $id = isset($values['id']) ? $values['id'] : '';
             $name = isset($values['namn']) ? $values['namn'] : '';
             $text = isset($values['text']) ? $values['text'] : '';
@@ -116,9 +111,9 @@ class VISMAkml
             $template->setId($id);
             $template->setName($name);
             $template->setText($text);
-            
+
             $index = 0;
-            while ( TRUE ) {
+            while (true) {
                 // Break when there are no more transactions
                 if (
                     !isset($values["Rad{$index}_konto"])
@@ -136,5 +131,4 @@ class VISMAkml
             $this->addTemplate($template);
         }
     }
-
 }

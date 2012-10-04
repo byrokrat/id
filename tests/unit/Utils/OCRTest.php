@@ -1,38 +1,33 @@
 <?php
 namespace itbz\STB\Utils;
 
-
 class OCRTest extends \PHPUnit_Framework_TestCase
 {
-
-    function testCreate()
+    public function testCreate()
     {
         $o = new OCR();
         $this->assertEquals('12345682', (string)$o->create('123456'));
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidStructureException
      */
-    function testCreateInvalidLength()
+    public function testCreateInvalidLength()
     {
         $o = new OCR();
         $o->create('123456789012345678901234');
     }
 
-    
     /**
      * @expectedException itbz\STB\Exception\InvalidStructureException
      */
-    function testCreateNotNumeric()
+    public function testCreateNotNumeric()
     {
         $o = new OCR();
         $o->create('123L');
     }
 
-
-    function testSetGet()
+    public function testSetGet()
     {
         $o = new OCR();
         $this->assertSame('', $o->get());
@@ -47,8 +42,7 @@ class OCRTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('12345682', (string)$o);
     }
 
-
-    function invalidStructuresProvider()
+    public function invalidStructuresProvider()
     {
         return array(
             array(123),
@@ -58,32 +52,28 @@ class OCRTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidStructureException
      * @dataProvider invalidStructuresProvider
      */
-    function testSetInvalidStructure($ocr)
+    public function testSetInvalidStructure($ocr)
     {
-        $o = new OCR($ocr);
+        new OCR($ocr);
     }
-
 
     /**
      * @expectedException itbz\STB\Exception\InvalidLengthDigitException
      */
-    function testSetInvalidLengthDigit()
+    public function testSetInvalidLengthDigit()
     {
-        $o = new OCR('12345602');
+        new OCR('12345602');
     }
-
 
     /**
      * @expectedException itbz\STB\Exception\InvalidCheckDigitException
      */
-    function testSetInvalidCheckDigit()
+    public function testSetInvalidCheckDigit()
     {
-        $o = new OCR('12345680');
+        new OCR('12345680');
     }
-
 }

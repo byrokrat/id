@@ -1,11 +1,9 @@
 <?php
 namespace itbz\STB\Banking;
 
-
 class SEBTest extends \PHPUnit_Framework_TestCase
 {
-
-    function invalidClearingProvider()
+    public function invalidClearingProvider()
     {
         return array(
             array('4999,1'),
@@ -17,18 +15,16 @@ class SEBTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @expectedException \itbz\STB\Exception\InvalidClearingException
      * @dataProvider invalidClearingProvider
      */
-    function testInvalidClearing($nr)
+    public function testInvalidClearing($nr)
     {
-        $m = new SEB($nr);
+        new SEB($nr);
     }
 
-
-    function invalidStructuresProvider()
+    public function invalidStructuresProvider()
     {
         return array(
             array('5000,111111'),
@@ -38,18 +34,16 @@ class SEBTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @dataProvider invalidStructuresProvider
      * @expectedException \itbz\STB\Exception\InvalidStructureException
      */
-    function testInvalidStructure($nr)
+    public function testInvalidStructure($nr)
     {
-        $m = new SEB($nr);
+        new SEB($nr);
     }
 
-
-    function invalidCheckDigitProvider()
+    public function invalidCheckDigitProvider()
     {
         return array(
             array('5000,1111111'),
@@ -65,18 +59,16 @@ class SEBTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @dataProvider invalidCheckDigitProvider
      * @expectedException \itbz\STB\Exception\InvalidCheckDigitException
      */
-    function testInvalidCheckDigit($nr)
+    public function testInvalidCheckDigit($nr)
     {
-        $m = new SEB($nr);
+        new SEB($nr);
     }
 
-
-    function validProvider()
+    public function validProvider()
     {
         return array(
             array('5000,1111116'),
@@ -93,39 +85,34 @@ class SEBTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @dataProvider validProvider
      */
-    function testConstruct($nr)
+    public function testConstruct($nr)
     {
-        $m = new SEB($nr);
-        $this->assertTrue(TRUE);
+        new SEB($nr);
+        $this->assertTrue(true);
     }
 
-
-    function testToString()
+    public function testToString()
     {
         $m = new SEB('5000,000001111116');
         $this->assertEquals((string)$m, '5000,1111116');
     }
 
-
-    function testTo16()
+    public function testTo16()
     {
         $m = new SEB('5000,1111116');
         $this->assertEquals($m->to16(), '5000000001111116');
     }
 
-
-    function testGetClearing()
+    public function testGetClearing()
     {
         $m = new SEB('5000,1111116');
         $this->assertEquals($m->getClearing(), '5000');
     }
 
-
-    function testGetNumber()
+    public function testGetNumber()
     {
         $m = new SEB('5000,1111116');
         $this->assertEquals($m->getNumber(), '1111116');
@@ -133,11 +120,9 @@ class SEBTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($m->getNumber(), '001111116');
     }
 
-
-    function testGetType()
+    public function testGetType()
     {
         $m = new SEB('5000,1111116');
         $this->assertEquals($m->getType(), 'SEB');
     }
-
 }

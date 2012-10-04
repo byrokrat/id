@@ -1,11 +1,9 @@
 <?php
 namespace itbz\STB\Utils;
 
-
 class Modulo10Test extends \PHPUnit_Framework_TestCase
 {
-
-    function invalidStructureProvider()
+    public function invalidStructureProvider()
     {
         return array(
             array('y'),
@@ -15,19 +13,17 @@ class Modulo10Test extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
-    function testGetCheckDigitStructure($nr)
+    public function testGetCheckDigitStructure($nr)
     {
         $m = new Modulo10();
         $m->getCheckDigit($nr);
     }
 
-
-    function testGetCheckDigit()
+    public function testGetCheckDigit()
     {
         $m = new Modulo10();
         $this->assertEquals($m->getCheckDigit('5555555'), '1');
@@ -36,19 +32,17 @@ class Modulo10Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals($m->getCheckDigit('4992739871'), '6');
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
-    function testVerifyStructure($nr)
+    public function testVerifyStructure($nr)
     {
         $m = new Modulo10();
         $m->verify($nr);
     }
 
-
-    function testVerify()
+    public function testVerify()
     {
         $m = new Modulo10();
 
@@ -64,5 +58,4 @@ class Modulo10Test extends \PHPUnit_Framework_TestCase
         $this->assertFalse($m->verify('9876543210'));
         $this->assertFalse($m->verify('49927398710'));
     }
-
 }

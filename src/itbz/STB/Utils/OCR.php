@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Utils
  */
+
 namespace itbz\STB\Utils;
+
 use itbz\STB\Exception\InvalidStructureException;
 use itbz\STB\Exception\InvalidLengthDigitException;
 use itbz\STB\Exception\InvalidCheckDigitException;
-
 
 /**
  * OCR number generation and validation
@@ -24,14 +24,12 @@ use itbz\STB\Exception\InvalidCheckDigitException;
  */
 class OCR
 {
-
     /**
      * Internal ocr representation
      *
      * @var string
      */
-    private $_ocr = '';
-
+    private $ocr = '';
 
     /**
      * Optionally set ocr at construct. See set().
@@ -45,7 +43,6 @@ class OCR
         }
     }
 
-
     /**
      * Set ocr number. Ocr must have a valid check and length digits
      *
@@ -55,9 +52,7 @@ class OCR
      *
      * @throws InvalidStructureException if ocr is not numerical or longer
      * than 25 digits
-     *
      * @throws InvalidLengthDigitException if length digit is invalid
-     *
      * @throws InvalidCheckDigitException if check digit is invalid
      */
     public function set($ocr)
@@ -66,8 +61,8 @@ class OCR
         if (
             !is_string($ocr)
             || !ctype_digit($ocr)
-            || strlen($ocr) > 25 
-            || strlen($ocr) < 2 
+            || strlen($ocr) > 25
+            || strlen($ocr) < 2
         ) {
             $msg = "\$ocr must be numeric and contain between 2 and 25 digits";
             throw new InvalidStructureException($msg);
@@ -87,11 +82,10 @@ class OCR
             $msg = "Invalid check digit";
             throw new InvalidCheckDigitException($msg);
         }
-        $this->_ocr = $ocr;
+        $this->ocr = $ocr;
 
         return $this;
     }
-
 
     /**
      * Get current ocr number
@@ -100,20 +94,18 @@ class OCR
      */
     public function get()
     {
-        return $this->_ocr;
+        return $this->ocr;
     }
-
 
     /**
      * Get current ocr number
      *
      * @return string
      */
-    public function __tostring()
+    public function __toString()
     {
         return $this->get();
     }
-
 
     /**
      * Create ocr from number. Check and length digits are appended
@@ -139,7 +131,6 @@ class OCR
         return $this->set($nr);
     }
 
-
     /**
      * Calculate length digit for string
      *
@@ -155,9 +146,8 @@ class OCR
         assert('is_string($nr)');
         $length = strlen($nr);
         $length += 2;
-        $legnth = $length % 10;
+        $length = $length % 10;
 
         return (string)$length;
     }
-
 }

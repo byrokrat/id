@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Utils
  */
-namespace itbz\STB\Utils;
-use itbz\STB\Exception\InvalidAmountException;
 
+namespace itbz\STB\Utils;
+
+use itbz\STB\Exception\InvalidAmountException;
 
 /**
  * Work with and represent monetary amounts
@@ -24,29 +24,26 @@ use itbz\STB\Exception\InvalidAmountException;
  */
 class Amount
 {
-
     /**
      * Internal amount
      *
      * @var string
      */
-    private $_amount;
-
+    private $amount;
 
     /**
      * The number of decimal digits to use
      *
      * @var int
      */
-    private $_precision;
-
+    private $precision;
 
     /**
      * Substitution map for signal strings
      *
      * @var array
      */
-    private static $_signals = array(
+    private static $signals = array(
         '0' => 'å',
         '1' => 'J',
         '2' => 'K',
@@ -59,7 +56,6 @@ class Amount
         '9' => 'R',
     );
 
-    
     /**
      * Work with and represent monetary amounts
      *
@@ -67,7 +63,6 @@ class Amount
      * to a loss of precision. See setInt() and setFloat() respectively.
      *
      * @param string|int|float $amount
-     *
      * @param int $precision The number of decimal digits used in calculations
      * and output. If omitted the 'frac_digits' value of the current monetary
      * locale is used (see localeconv() in the PHP documentation).
@@ -77,13 +72,13 @@ class Amount
      * @deprecated Creating new amounts from floats and integers is deprecated.
      * Use setFloat() and setInt() directly instead.
      */
-    public function __construct($amount = '0', $precision = NULL)
+    public function __construct($amount = '0', $precision = null)
     {
         if (is_null($precision)) {
             $locale = localeconv();
             $precision = $locale['frac_digits'];
         }
-        
+
         $this->setPrecision($precision);
 
         if (is_int($amount)) {
@@ -100,7 +95,6 @@ class Amount
         }
     }
 
-
     /**
      * Set the number of decimal digits used in calculations and output
      *
@@ -111,9 +105,8 @@ class Amount
     public function setPrecision($precision)
     {
         assert('is_int($precision)');
-        $this->_precision = $precision;
+        $this->precision = $precision;
     }
-
 
     /**
      * Get the number of decimal digits used in calculations and output
@@ -122,9 +115,8 @@ class Amount
      */
     public function getPrecision()
     {
-        return $this->_precision;
+        return $this->precision;
     }
-
 
     /**
      * Set amount from integer
@@ -145,10 +137,9 @@ class Amount
             $msg = "Amount must be an integer";
             throw new InvalidAmountException($msg);
         }
-        $this->_amount = sprintf('%F', $int);
+        $this->amount = sprintf('%F', $int);
     }
 
-    
     /**
      * Set amount from floating point number
      *
@@ -168,9 +159,8 @@ class Amount
             $msg = "Amount must be a floating point number";
             throw new InvalidAmountException($msg);
         }
-        $this->_amount = sprintf('%F', $float);
+        $this->amount = sprintf('%F', $float);
     }
-
 
     /**
      * Set amount from string
@@ -192,9 +182,8 @@ class Amount
             throw new InvalidAmountException($msg);
         }
 
-        $this->_amount = $str;
+        $this->amount = $str;
     }
-
 
     /**
      * Check if str is a valid signal string
@@ -207,7 +196,6 @@ class Amount
     {
         return preg_match("/^\d+(å|[JKLMNOPQR])?$/", $str);
     }
-
 
     /**
      * Set amount from signal string
@@ -242,8 +230,8 @@ class Amount
 
         if (!is_numeric($str)) {
             $str = str_replace(
-                self::$_signals,
-                array_keys(self::$_signals),
+                self::$signals,
+                array_keys(self::$signals),
                 $str
             );
             $str = "-$str";
@@ -253,26 +241,23 @@ class Amount
         $this->setString($str);
     }
 
-
     /**
      * Set a locale formatted string
      *
      * @param string $str
-     *
      * @param string $point Decimal point character. Replaced with '.' If
      * omitted omitted the 'mon_decimal_point' value of the current monetary
      * locale is used.
-     *
      * @param string $sep Group separator. Replaced with the empty string. If
      * omitted omitted the 'mon_thousands_sep' value of the current monetary
      * locale is used.
      *
      * @return void
      */
-    public function setLocaleString($str, $point = NULL, $sep = NULL)
+    public function setLocaleString($str, $point = null, $sep = null)
     {
         assert('is_string($str)');
-        
+
         if (is_null($sep)) {
             $locale = localeconv();
             $sep = $locale['mon_thousands_sep'];
@@ -280,15 +265,14 @@ class Amount
                 $point = $locale['mon_decimal_point'];
             }
         }
-        
+
         assert('is_string($point)');
         assert('is_string($sep)');
-        
+
         $str = str_replace($point, '.', $str);
         $str = str_replace($sep, '', $str);
         $this->setString($str);
     }
-
 
     /**
      * Get amount as float
@@ -302,9 +286,8 @@ class Amount
      */
     public function getFloat()
     {
-        return (float)round(floatval($this->_amount), $this->_precision);
+        return (float)round(floatval($this->amount), $this->precision);
     }
-
 
     /**
      * Get amount as a non-locale aware string
@@ -315,9 +298,8 @@ class Amount
      */
     public function getString()
     {
-        return bcadd($this->_amount, '0.0', $this->_precision);
+        return bcadd($this->amount, '0.0', $this->precision);
     }
-
 
     /**
      * Get the raw string representation
@@ -326,9 +308,8 @@ class Amount
      */
     public function getRawString()
     {
-        return $this->_amount;
+        return $this->amount;
     }
-
 
     /**
      * Locale aware format amount
@@ -347,17 +328,15 @@ class Amount
         return money_format($format, $this->getFloat());
     }
 
-
     /**
      * PHP magic function to get amount as string
      *
      * @return string
      */
-    public function __tostring()
+    public function __toString()
     {
         return $this->getString();
     }
-
 
     /**
      * Get amount as signal string
@@ -376,13 +355,12 @@ class Amount
             array_shift($arAmount);
             // Set singal character
             $last = count($arAmount) -1;
-            $arAmount[$last] = self::$_signals[$arAmount[$last]];
+            $arAmount[$last] = self::$signals[$arAmount[$last]];
         }
 
         // Remove decimal digit separator
         return str_replace('.', '', implode('', $arAmount));
     }
-
 
     /**
      * Add to amount
@@ -393,13 +371,12 @@ class Amount
      */
     public function add(Amount $amount)
     {
-        $this->_amount = bcadd(
-            $this->_amount,
+        $this->amount = bcadd(
+            $this->amount,
             $amount->getRawString(),
-            $this->_precision
+            $this->precision
         );
     }
-
 
     /**
      * Subtract from amount
@@ -410,13 +387,12 @@ class Amount
      */
     public function subtract(Amount $amount)
     {
-        $this->_amount = bcsub(
-            $this->_amount,
+        $this->amount = bcsub(
+            $this->amount,
             $amount->getRawString(),
-            $this->_precision
+            $this->precision
         );
     }
-
 
     /**
      * Swap sign of amount
@@ -425,13 +401,12 @@ class Amount
      */
     public function invert()
     {
-        $this->_amount = bcmul(
-            $this->_amount,
+        $this->amount = bcmul(
+            $this->amount,
             '-1',
-            $this->_precision
+            $this->precision
         );
     }
-
 
     /**
      * Check if instance equals amount
@@ -443,12 +418,11 @@ class Amount
     public function equals(Amount $amount)
     {
         return 0 === bccomp(
-            $this->_amount,
+            $this->amount,
             $amount->getRawString(),
-            $this->_precision
+            $this->precision
         );
     }
-
 
     /**
      * Check if instance is lesser than amount
@@ -460,12 +434,11 @@ class Amount
     public function isLesserThan(Amount $amount)
     {
         return -1 === bccomp(
-            $this->_amount,
+            $this->amount,
             $amount->getRawString(),
-            $this->_precision
+            $this->precision
         );
     }
-
 
     /**
      * Check if instance is greater than amount
@@ -477,10 +450,9 @@ class Amount
     public function isGreaterThan(Amount $amount)
     {
         return 1 === bccomp(
-            $this->_amount,
+            $this->amount,
             $amount->getRawString(),
-            $this->_precision
+            $this->precision
         );
     }
-
 }

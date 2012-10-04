@@ -1,11 +1,9 @@
 <?php
 namespace itbz\STB\Banking;
 
-
 class SwedbankTyp1Test extends \PHPUnit_Framework_TestCase
 {
-
-    function invalidClearingProvider()
+    public function invalidClearingProvider()
     {
         return array(
             array('6999,1'),
@@ -13,18 +11,16 @@ class SwedbankTyp1Test extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @expectedException \itbz\STB\Exception\InvalidClearingException
      * @dataProvider invalidClearingProvider
      */
-    function testInvalidClearing($nr)
+    public function testInvalidClearing($nr)
     {
-        $m = new SwedbankTyp1($nr);
+        new SwedbankTyp1($nr);
     }
 
-
-    function invalidStructuresProvider()
+    public function invalidStructuresProvider()
     {
         return array(
             array('7000,111111'),
@@ -34,18 +30,16 @@ class SwedbankTyp1Test extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @dataProvider invalidStructuresProvider
      * @expectedException \itbz\STB\Exception\InvalidStructureException
      */
-    function testInvalidStructure($nr)
+    public function testInvalidStructure($nr)
     {
-        $m = new SwedbankTyp1($nr);
+        new SwedbankTyp1($nr);
     }
 
-
-    function invalidCheckDigitProvider()
+    public function invalidCheckDigitProvider()
     {
         return array(
             array('7000,1111111'),
@@ -54,18 +48,16 @@ class SwedbankTyp1Test extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @dataProvider invalidCheckDigitProvider
      * @expectedException \itbz\STB\Exception\InvalidCheckDigitException
      */
-    function testInvalidCheckDigit($nr)
+    public function testInvalidCheckDigit($nr)
     {
-        $m = new SwedbankTyp1($nr);
+        new SwedbankTyp1($nr);
     }
 
-
-    function validProvider()
+    public function validProvider()
     {
         return array(
             array('7000,1111116'),
@@ -75,28 +67,24 @@ class SwedbankTyp1Test extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @dataProvider validProvider
      */
-    function testConstruct($nr)
+    public function testConstruct($nr)
     {
-        $m = new SwedbankTyp1($nr);
-        $this->assertTrue(TRUE);
+        new SwedbankTyp1($nr);
+        $this->assertTrue(true);
     }
 
-
-    function testToString()
+    public function testToString()
     {
         $m = new SwedbankTyp1('7000,000001111116');
         $this->assertEquals((string)$m, '7000,1111116');
     }
 
-
-    function testGetType()
+    public function testGetType()
     {
         $m = new SwedbankTyp1('7000,1111116');
         $this->assertEquals($m->getType(), 'Swedbank');
     }
-
 }

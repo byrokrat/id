@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\ID
  */
-namespace itbz\STB\ID;
-use itbz\STB\Utils\Modulo10;
 
+namespace itbz\STB\ID;
+
+use itbz\STB\Utils\Modulo10;
 
 /**
  * Swedish coordination id number
@@ -22,7 +22,6 @@ use itbz\STB\Utils\Modulo10;
  */
 class CoordinationId extends PersonalId
 {
-
     /**
      * Set coordination number
      *
@@ -34,7 +33,6 @@ class CoordinationId extends PersonalId
      * @return void
      *
      * @throws InvalidStructureException if structure is invalid
-     *
      * @throws InvalidCheckDigitException if check digit is invalid
      */
     public function setId($id)
@@ -49,11 +47,10 @@ class CoordinationId extends PersonalId
 
         foreach ($split as $part) {
             $id .= $part;
-        }                
-        
+        }
+
         return parent::setId($id);
     }
-
 
     /**
      * Get id
@@ -64,12 +61,11 @@ class CoordinationId extends PersonalId
      */
     public function getId()
     {
-        $dob = intval($this->_date->format('ymd'));
+        $dob = intval($this->date->format('ymd'));
         $dob += 60;
 
-        return $dob . $this->_delim . $this->_individualNr . $this->_check;
+        return $dob . $this->delim . $this->individualNr . $this->check;
     }
-
 
     /**
      * To string magic method
@@ -78,14 +74,13 @@ class CoordinationId extends PersonalId
      *
      * @return string
      */
-    public function __tostring()
+    public function __toString()
     {
-        $dob = intval($this->_date->format('Ymd'));
+        $dob = intval($this->date->format('Ymd'));
         $dob += 60;
 
-        return $dob . $this->_delim . $this->_individualNr . $this->_check;
+        return $dob . $this->delim . $this->individualNr . $this->check;
     }
-
 
     /**
      * Calculate check digit
@@ -94,12 +89,11 @@ class CoordinationId extends PersonalId
      */
     protected function calcCheckDigit()
     {
-        $dob = intval($this->_date->format('ymd'));
+        $dob = intval($this->date->format('ymd'));
         $dob += 60;
-        $nr = $dob . $this->_individualNr;
+        $nr = $dob . $this->individualNr;
         $modulo = new Modulo10();
 
         return $modulo->getCheckDigit($nr);
     }
-
 }

@@ -1,11 +1,9 @@
 <?php
 namespace itbz\STB\ID;
 
-
 class PersonalIdTest extends \PHPUnit_Framework_TestCase
 {
-
-    function invalidStructureProvider()
+    public function invalidStructureProvider()
     {
         return array(
             array('123456'),
@@ -34,8 +32,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
-    function invalidCheckDigitProvider()
+    public function invalidCheckDigitProvider()
     {
         return array(
             array('820323-2770'),
@@ -59,28 +56,25 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @expectedException itbz\STB\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
-    function testInvalidStructure($nr)
-    { 
-        $id = new PersonalId($nr);
+    public function testInvalidStructure($nr)
+    {
+        new PersonalId($nr);
     }
-
 
     /**
      * @expectedException itbz\STB\Exception\InvalidCheckDigitException
      * @dataProvider invalidCheckDigitProvider
      */
-    function testInvalidCheckDigit($nr)
+    public function testInvalidCheckDigit($nr)
     {
-        $id = new PersonalId($nr);
+        new PersonalId($nr);
     }
 
-
-    function testCentry()
+    public function testCentry()
     {
         $id = new PersonalId('820323-2775');
         $this->assertEquals('1982', $id->getDate()->format('Y'));
@@ -89,8 +83,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('1882', $id->getDate()->format('Y'));
     }
 
-    
-    function testDelimiter()
+    public function testDelimiter()
     {
         $id = new PersonalId('19820323+2775');
         $this->assertEquals('820323-2775', $id->getId());
@@ -99,8 +92,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('820323+2775', $id->getId());
     }
 
-
-    function testSex()
+    public function testSex()
     {
         $id = new PersonalId('820323-2775');
         $this->assertEquals('M', $id->getSex());
@@ -109,8 +101,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('F', $id->getSex());
     }
 
-
-    function testDOB()
+    public function testDOB()
     {
         $id = new PersonalId('820323-2775');
         $this->assertEquals('1982-03-23', $id->getDOB());
@@ -119,11 +110,9 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('1982-03-23', $id->getDOB());
     }
 
-
-    function testToString()
+    public function testToString()
     {
         $id = new PersonalId('820323-2775');
         $this->assertEquals('19820323-2775', (string)$id);
     }
-
 }

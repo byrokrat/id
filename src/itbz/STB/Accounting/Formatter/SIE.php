@@ -8,10 +8,11 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Accounting\Formatter
  */
+
 namespace itbz\STB\Accounting\Formatter;
+
 use itbz\STB\Accounting\Verification;
 use itbz\STB\Accounting\ChartOfAccounts;
 use itbz\STB\Accounting\Account;
@@ -19,7 +20,6 @@ use itbz\STB\Exception\VerificationNotBalancedException;
 use itbz\STB\Exception\InvalidYearException;
 use itbz\STB\Exception\InvalidChartException;
 use DateTime;
-
 
 /**
  * SIE 4I file format implementation.
@@ -36,101 +36,88 @@ use DateTime;
  */
 class SIE
 {
-
     /**
      * End of line chars used
      */
     const EOL = "\r\n";
-
 
     /**
      * Name of program generating SIE
      *
      * @var string
      */
-    private $_program = "itbz_STB_SIE";
-
+    private $program = "itbz_STB_SIE";
 
     /**
      * Version of program generating SIE
      *
      * @var string
      */
-    private $_version = '1.0';
-
+    private $version = '1.0';
 
     /**
      * Name of person (instance) generating SIE
      *
      * @var string
      */
-    private $_creator = 'itbz_STB_SIE';
-
+    private $creator = 'itbz_STB_SIE';
 
     /**
      * Name of company whose verifications are beeing handled
      *
      * @var string
      */
-    private $_company = "";
-
+    private $company = "";
 
     /**
      * Start of accounting year
      *
      * @var DateTime
      */
-    private $_yearStart;
-
+    private $yearStart;
 
     /**
      * End of accounting year
      *
      * @var DateTime
      */
-    private $_yearStop;
-
+    private $yearStop;
 
     /**
      * Creation date
      *
      * @var DateTime
      */
-    private $_date;
-
+    private $date;
 
     /**
      * Type of chart of accounts used
      *
      * @var string
      */
-    private $_typeOfChart = "EUBAS97";
-
+    private $typeOfChart = "EUBAS97";
 
     /**
      * Loaded verifications
      *
      * @var array
      */
-    private $_verifications = array();
-
+    private $verifications = array();
 
     /**
      * List of accounts used in loaded verifications
      *
      * @var array
      */
-    private $_usedAccounts = array();
-
+    private $usedAccounts = array();
 
     /**
      * Create date at construct
      */
     public function __construct()
     {
-        $this->_date = new DateTime();
+        $this->date = new DateTime();
     }
-
 
     /**
      * Clear added verifications
@@ -139,15 +126,13 @@ class SIE
      */
     public function clear()
     {
-        $this->_verifications = array();
+        $this->verifications = array();
     }
-
 
     /**
      * Set name of generating program
      *
      * @param string $program
-     *
      * @param string $version
      *
      * @return SIE instance for chaining
@@ -156,12 +141,11 @@ class SIE
     {
         assert('is_string($program)');
         assert('is_string($version)');
-        $this->_program = $program;
-        $this->_version = $version;
+        $this->program = $program;
+        $this->version = $version;
 
         return $this;
     }
-
 
     /**
      * Set creator name (normally logged in user or simliar)
@@ -173,11 +157,10 @@ class SIE
     public function setCreator($creator)
     {
         assert('is_string($creator)');
-        $this->_creator = $creator;
+        $this->creator = $creator;
 
         return $this;
     }
-
 
     /**
      * Set name of company whose verifications are beeing handled
@@ -189,17 +172,15 @@ class SIE
     public function setCompany($company)
     {
         assert('is_string($company)');
-        $this->_company = $company;
+        $this->company = $company;
 
         return $this;
     }
-
 
     /**
      * Set accounting year
      *
      * @param DateTime $start Only date part is used
-     *
      * @param DateTime $stop Only date part is used
      *
      * @return SIE instance for chaining
@@ -208,12 +189,11 @@ class SIE
     {
         $start->setTime(0, 0, 0);
         $stop->setTime(23, 59, 59);
-        $this->_yearStart = $start;
-        $this->_yearStop = $stop;
+        $this->yearStart = $start;
+        $this->yearStop = $stop;
 
         return $this;
     }
-
 
     /**
      * Set type of chart of accounts used
@@ -225,11 +205,10 @@ class SIE
     public function setTypeOfChart($typeOfChart)
     {
         assert('is_string($typeOfChart)');
-        $this->_typeOfChart = $typeOfChart;
+        $this->typeOfChart = $typeOfChart;
 
         return $this;
     }
-
 
     /**
      * Add verification to SIE, verification MUST be balanced
@@ -249,13 +228,13 @@ class SIE
             $msg = "Verification '{$ver->getText()}' is not balanced";
             throw new VerificationNotBalancedException($msg);
         }
-        
+
         // Verify that verification date matches accounting year
-        if (isset($this->_yearStart)) {
+        if (isset($this->yearStart)) {
             $verdate = $ver->getDate();
             if (
-                $verdate < $this->_yearStart
-                || $verdate > $this->_yearStop
+                $verdate < $this->yearStart
+                || $verdate > $this->yearStop
             ) {
                 $date = $verdate->format('Y-m-d');
                 $msg = "Verification date '$date' is out of bounds";
@@ -266,15 +245,14 @@ class SIE
         // Set names of used accounts
         foreach ($ver->getAccounts() as $account) {
             $nr = $account->getNumber();
-            $this->_usedAccounts[$nr] = $account;  
+            $this->usedAccounts[$nr] = $account;
         }
-        
+
         // Save verification
-        $this->_verifications[] = $ver;
-        
+        $this->verifications[] = $ver;
+
         return $this;
     }
-
 
     /**
      * Remove control characters, addslashes and quote $str
@@ -283,7 +261,7 @@ class SIE
      *
      * @return string
      */
-    static public function quote($str)
+    public static function quote($str)
     {
         assert('is_string($str)');
         $str = preg_replace('/[[:cntrl:]]/', '', $str);
@@ -291,7 +269,6 @@ class SIE
 
         return "\"$str\"";
     }
-
 
     /**
      * Generate SIE string (using charset CP437)
@@ -301,30 +278,30 @@ class SIE
     public function generate()
     {
         // Generate header
-        $program = self::quote($this->_program);
-        $version = self::quote($this->_version);
-        $creator = self::quote($this->_creator);
-        $company = self::quote($this->_company);
-        $chartType = self::quote($this->_typeOfChart);
+        $program = self::quote($this->program);
+        $version = self::quote($this->version);
+        $creator = self::quote($this->creator);
+        $company = self::quote($this->company);
+        $chartType = self::quote($this->typeOfChart);
 
         $sie = "#FLAGGA 0" . self::EOL;
         $sie .= "#PROGRAM $program $version" . self::EOL;
         $sie .= "#FORMAT PC8" . self::EOL;
-        $sie .= "#GEN {$this->_date->format('Ymd')} $creator" . self::EOL;
+        $sie .= "#GEN {$this->date->format('Ymd')} $creator" . self::EOL;
         $sie .= "#SIETYP 4" . self::EOL;
         $sie .= "#FNAMN $company" . self::EOL;
         $sie .= "#KPTYP $chartType" . self::EOL;
 
-        if (isset($this->_yearStart)) {
-            $start = $this->_yearStart->format('Ymd');
-            $stop = $this->_yearStop->format('Ymd');
+        if (isset($this->yearStart)) {
+            $start = $this->yearStart->format('Ymd');
+            $stop = $this->yearStop->format('Ymd');
             $sie .= "#RAR 0 $start $stop" . self::EOL;
         }
 
         $sie .= self::EOL;
 
         // Generate accounts
-        foreach ($this->_usedAccounts as $account) {
+        foreach ($this->usedAccounts as $account) {
             $number = self::quote($account->getNumber());
             $name = self::quote($account->getName());
             $type = self::quote($account->getType());
@@ -333,7 +310,7 @@ class SIE
         }
 
         // Generate verifications
-        foreach ($this->_verifications as $ver) {
+        foreach ($this->verifications as $ver) {
             $text = self::quote($ver->getText());
             $date = $ver->getDate()->format('Ymd');
             $sie .= self::EOL . "#VER \"\" \"\" $date $text" . self::EOL;
@@ -353,12 +330,10 @@ class SIE
         return $sie;
     }
 
-
     /**
      * Generate SIE string (using charset CP437) for $chart
      *
      * @param string $description String describing this chart of accounts
-     *
      * @param ChartOfAccounts $chart
      *
      * @return string 
@@ -366,25 +341,25 @@ class SIE
     public function exportChart($description, ChartOfAccounts $chart)
     {
         assert('is_string($description)');
-    
+
         // Generate header
-        $program = self::quote($this->_program);
+        $program = self::quote($this->program);
         $description = self::quote($description);
-        $version = self::quote($this->_version);
-        $creator = self::quote($this->_creator);
+        $version = self::quote($this->version);
+        $creator = self::quote($this->creator);
         $chartType = self::quote($chart->getChartType());
 
         $sie = "#FILTYP KONTO" . self::EOL;
         $sie .= "#PROGRAM $program $version" . self::EOL;
         $sie .= "#TEXT $description" . self::EOL;
         $sie .= "#FORMAT PC8" . self::EOL;
-        $sie .= "#GEN {$this->_date->format('Ymd')} $creator" . self::EOL;
+        $sie .= "#GEN {$this->date->format('Ymd')} $creator" . self::EOL;
         $sie .= "#KPTYP $chartType" . self::EOL;
 
         $sie .= self::EOL;
 
         // Generate accounts
-        foreach ( $chart->getAccounts() as $account ) {
+        foreach ($chart->getAccounts() as $account) {
             $number = self::quote($account->getNumber());
             $name = self::quote($account->getName());
             $type = self::quote($account->getType());
@@ -397,7 +372,6 @@ class SIE
 
         return $sie;
     }
-
 
     /**
      * Create a ChartOfAccounts object from SIE string (in charset CP437)
@@ -416,51 +390,48 @@ class SIE
         $chart = new ChartOfAccounts();
         $current = array();
 
-        foreach ( $lines as $nr => $line ) {
+        foreach ($lines as $nr => $line) {
             $data = str_getcsv($line, ' ', '"');
-            switch ( $data[0] ) {
+            switch ($data[0]) {
                 case '#KPTYP':
-                    if ( !isset($data[1]) ) {
+                    if (!isset($data[1])) {
                         $msg = "Invalid chart type at line $nr";
                         throw new InvalidChartException($msg);
                     }
                     $chart->setChartType($data[1]);
                     break;
-
                 case '#KONTO':
                     // Account must have form #KONTO number name
-                    if ( !isset($data[2]) ) {
+                    if (!isset($data[2])) {
                         $msg = "Invalid account values at line $nr";
                         throw new InvalidChartException($msg);
                     }
                     $current = array($data[1], $data[2]);
                     break;
-                
                 case '#KTYP':
                     // Account type must have form #KTYP number type
-                    if ( !isset($data[2]) ) {
+                    if (!isset($data[2])) {
                         $msg = "Invalid account values at line $nr";
                         throw new InvalidChartException($msg);
                     }
                     // Type must referer to current account
-                    if ( $data[1] != $current[0] ) {
+                    if ($data[1] != $current[0]) {
                         $msg = "Unexpected account type at line $nr";
                         throw new InvalidChartException($msg);
-                    }                    
+                    }
                     $account = new Account($data[1], $data[2], $current[1]);
                     $chart->addAccount($account);
                     $current = array();
-                    break;            
+                    break;
             }
         }
-        
+
         // There should be no half way processed accounts
-        if ( !empty($current) ) {
+        if (!empty($current)) {
             $msg = "Account type missing for '{$current[0]}'";
             throw new InvalidChartException($msg);
         }
-        
+
         return $chart;
     }
-
 }

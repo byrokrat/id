@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Utils
  */
-namespace itbz\STB\Utils;
-use itbz\STB\Exception\InvalidStructureException;
 
+namespace itbz\STB\Utils;
+
+use itbz\STB\Exception\InvalidStructureException;
 
 /**
  * Modulo10 calculator
@@ -22,8 +22,6 @@ use itbz\STB\Exception\InvalidStructureException;
  */
 class Modulo10
 {
-
-
     /**
      * Verify that the last digit of nr is a valid check digit
      *
@@ -48,7 +46,6 @@ class Modulo10
         // Verify check digit
         return $check == $this->getCheckDigit($nr);
     }
-
 
     /**
      * Calculate check digit for nr
@@ -81,5 +78,4 @@ class Modulo10
 
         return (string)$check;
     }
-
 }

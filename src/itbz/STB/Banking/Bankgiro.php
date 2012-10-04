@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- *
  * @package STB\Banking
  */
-namespace itbz\STB\Banking;
-use itbz\STB\Utils\Modulo10;
 
+namespace itbz\STB\Banking;
+
+use itbz\STB\Utils\Modulo10;
 
 /**
  * Bankgiro account number validator
@@ -22,7 +22,6 @@ use itbz\STB\Utils\Modulo10;
  */
 class Bankgiro extends AbstractAccount
 {
- 
     /**
      * Validate account number structure
      *
@@ -35,12 +34,10 @@ class Bankgiro extends AbstractAccount
         return (boolean)preg_match("/^\d{3,4}-\d{4}$/", $nr);
     }
 
-
     /**
      * Validate modulo 10 check digit
      *
      * @param string $clearing
-     *
      * @param string $nr
      *
      * @return bool
@@ -53,7 +50,6 @@ class Bankgiro extends AbstractAccount
         return $modulo->verify($nr);
     }
 
-
     /**
      * Get string describing account type
      *
@@ -63,7 +59,6 @@ class Bankgiro extends AbstractAccount
     {
         return "Bankgiro";
     }
-
 
     /**
      * Validate clearing number
@@ -77,12 +72,10 @@ class Bankgiro extends AbstractAccount
         return ( $nr == '0000' );
     }
 
-
     /**
      * Get account as string
      *
      * @param string $clearing
-     *
      * @param string $nr
      *
      * @return string
@@ -91,5 +84,4 @@ class Bankgiro extends AbstractAccount
     {
         return $nr;
     }
-
 }

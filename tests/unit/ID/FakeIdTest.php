@@ -1,11 +1,9 @@
 <?php
 namespace itbz\STB\ID;
 
-
 class FakeIdTest extends \PHPUnit_Framework_TestCase
 {
-
-    function invalidStructureProvider()
+    public function invalidStructureProvider()
     {
         return array(
             array('123456'),
@@ -32,21 +30,19 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
             array('123456+1234'),
             array('820323-2775'),
             array('820323+2775'),
-       );
+        );
     }
-
 
     /**
      * @expectedException itbz\STB\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
-    function testInvalidStructure($nr)
-    { 
-        $id = new FakeId($nr);
+    public function testInvalidStructure($nr)
+    {
+        new FakeId($nr);
     }
 
-
-    function testCentry()
+    public function testCentry()
     {
         $id = new FakeId('820323-xxxx');
         $this->assertEquals('1982', $id->getDate()->format('Y'));
@@ -55,8 +51,7 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('1882', $id->getDate()->format('Y'));
     }
 
-    
-    function testDelimiter()
+    public function testDelimiter()
     {
         $id = new FakeId('19820323+xx1x');
         $this->assertEquals('820323-xx1x', $id->getId());
@@ -65,8 +60,7 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('820323+xx2x', $id->getId());
     }
 
-
-    function testSex()
+    public function testSex()
     {
         $id = new FakeId('820323-xx1x');
         $this->assertEquals('M', $id->getSex());
@@ -78,18 +72,15 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('O', $id->getSex());
     }
 
-
-    function testDOB()
+    public function testDOB()
     {
         $id = new FakeId('820323-xxxx');
         $this->assertEquals('1982-03-23', $id->getDOB());
     }
 
-
-    function testToString()
+    public function testToString()
     {
         $id = new FakeId('820323-xxxx');
         $this->assertEquals('19820323-xxxx', (string)$id);
     }
-
 }

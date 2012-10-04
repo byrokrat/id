@@ -1,11 +1,9 @@
 <?php
 namespace itbz\STB\Banking;
 
-
 class BankgiroTest extends \PHPUnit_Framework_TestCase
 {
-
-    function validProvider()
+    public function validProvider()
     {
         return array(
             array('5050-1055'),
@@ -19,8 +17,7 @@ class BankgiroTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
-    function invalidCheckDigitProvider()
+    public function invalidCheckDigitProvider()
     {
         return array(
             array('5050-1050'),
@@ -34,8 +31,7 @@ class BankgiroTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
-    function invalidStructuresProvider()
+    public function invalidStructuresProvider()
     {
         return array(
             array('-1234'),
@@ -52,57 +48,50 @@ class BankgiroTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     /**
      * @expectedException \itbz\STB\Exception\InvalidClearingException
      */
-    function testInvalidClearing()
+    public function testInvalidClearing()
     {
-        $m = new Bankgiro('1234,5805-6200');
+        new Bankgiro('1234,5805-6200');
     }
-
 
     /**
      * @dataProvider validProvider
      */
-    function testConstruct($num)
+    public function testConstruct($num)
     {
-        $m = new Bankgiro($num);
-        $this->assertTrue(TRUE);
+        new Bankgiro($num);
+        $this->assertTrue(true);
     }
-
 
     /**
      * @dataProvider invalidStructuresProvider
      * @expectedException \itbz\STB\Exception\InvalidStructureException
      */
-    function testInvalidStructure($num)
+    public function testInvalidStructure($num)
     {
-        $m = new Bankgiro($num);
+        new Bankgiro($num);
     }
-
 
     /**
      * @dataProvider invalidCheckDigitProvider
      * @expectedException \itbz\STB\Exception\InvalidCheckDigitException
      */
-    function testInvalidCheckDigit($num)
+    public function testInvalidCheckDigit($num)
     {
-        $m = new Bankgiro($num);
+        new Bankgiro($num);
     }
 
-
-    function testToString()
+    public function testToString()
     {
         $m = new Bankgiro('5050-1055');
         $this->assertEquals((string)$m, '5050-1055');
     }
 
-
-    function testGetType()
+    public function testGetType()
     {
         $m = new Bankgiro('5050-1055');
         $this->assertEquals($m->getType(), 'Bankgiro');
     }
-
 }
