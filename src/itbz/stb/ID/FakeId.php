@@ -53,7 +53,7 @@ class FakeId extends PersonalId
 
         parent::setId($split[0] . $split[1] . '0000');
 
-        $this->setCheck('x');
+        $this->setCheckDigit('x');
         $this->setIndividualNr(substr($control, 0, 3));
     }
 

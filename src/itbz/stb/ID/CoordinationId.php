@@ -67,7 +67,7 @@ class CoordinationId extends PersonalId
         return $dob
             . $this->getDelimiter()
             . $this->getIndividualNr()
-            . $this->getCheck();
+            . $this->getCheckDigit();
     }
 
     /**
@@ -85,7 +85,7 @@ class CoordinationId extends PersonalId
         return $dob
             . $this->getDelimiter()
             . $this->getIndividualNr()
-            . $this->getCheck();
+            . $this->getCheckDigit();
     }
 
     /**

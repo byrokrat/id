@@ -141,11 +141,11 @@ class PersonalId
             throw new InvalidStructureException($msg);
         }
 
-        $this->setCheck(substr($control, -1));
+        $this->setCheckDigit(substr($control, -1));
         $this->setIndividualNr(substr($control, 0, 3));
 
         $validCheck = $this->calcCheckDigit();
-        if ($this->getCheck() != $validCheck) {
+        if ($this->getCheckDigit() != $validCheck) {
             $msg = "Invalid check digit for '$id'";
             throw new InvalidCheckDigitException($msg);
         }
@@ -197,23 +197,23 @@ class PersonalId
     }
 
     /**
-     * Get check number
+     * Get check digit
      *
      * @return string
      */
-    public function getCheck()
+    public function getCheckDigit()
     {
         return $this->check;
     }
 
     /**
-     * Set check'number
+     * Set check digit
      *
      * @param string $check
      *
      * @return void
      */
-    public function setCheck($check)
+    public function setCheckDigit($check)
     {
         assert('is_string($check)');
         $this->check = $check;
@@ -279,7 +279,7 @@ class PersonalId
         return $this->getDate()->format('ymd')
             . $this->getDelimiter()
             . $this->getIndividualNr()
-            . $this->getCheck();
+            . $this->getCheckDigit();
     }
 
     /**
@@ -294,7 +294,7 @@ class PersonalId
         return $this->getDate()->format('Ymd')
             . $this->getDelimiter()
             . $this->getIndividualNr()
-            . $this->getCheck();
+            . $this->getCheckDigit();
     }
 
     /**
