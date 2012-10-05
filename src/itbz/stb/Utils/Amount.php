@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the STB package
+ * This file is part of the stb package
  *
  * Copyright (c) 2012 Hannes Forsgård
  *
@@ -8,19 +8,19 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package STB\Utils
+ * @package stb\Utils
  */
 
-namespace itbz\STB\Utils;
+namespace itbz\stb\Utils;
 
-use itbz\STB\Exception\InvalidAmountException;
+use itbz\stb\Exception\InvalidAmountException;
 
 /**
  * Work with and represent monetary amounts
  *
  * Uses the bcmath extension for arbitrary floating point arithmetic precision
  *
- * @package STB\Utils
+ * @package stb\Utils
  */
 class Amount
 {

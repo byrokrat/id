@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the STB package
+ * This file is part of the stb package
  *
  * Copyright (c) 2012 Hannes Forsgård
  *
@@ -8,18 +8,18 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package STB\Banking
+ * @package stb\Banking
  */
 
-namespace itbz\STB\Banking;
+namespace itbz\stb\Banking;
 
-use itbz\STB\Exception;
-use itbz\STB\Exception\InvalidClearingException;
+use itbz\stb\Exception;
+use itbz\stb\Exception\InvalidClearingException;
 
 /**
  * Build account from registered classes
  *
- * @package STB\Banking
+ * @package stb\Banking
  */
 class AccountBuilder
 {
@@ -118,7 +118,7 @@ class AccountBuilder
         foreach ($this->classes as $class) {
             try {
                 // Create and return account object
-                $class = "\\itbz\\STB\\Banking\\$class";
+                $class = "\\itbz\\stb\\Banking\\$class";
                 $account = new $class($this->rawNumber);
 
                 return $account;

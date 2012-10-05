@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the STB package
+ * This file is part of the stb package
  *
  * Copyright (c) 2012 Hannes Forsgård
  *
@@ -8,19 +8,19 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package STB\ID
+ * @package stb\ID
  */
 
-namespace itbz\STB\ID;
+namespace itbz\stb\ID;
 
-use itbz\STB\Exception\InvalidStructureException;
+use itbz\stb\Exception\InvalidStructureException;
 
 /**
  * Fake swedish personal identity numbers
  *
  * Individual number replaced by xxxx, xx1x or xx2x.
  *
- * @package STB\ID
+ * @package stb\ID
  */
 class FakeId extends PersonalId
 {

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the STB package
+ * This file is part of the stb package
  *
  * Copyright (c) 2012 Hannes Forsgård
  *
@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package STB\Exception
+ * @package stb\Exception
  */
 
-namespace itbz\STB\Exception;
+namespace itbz\stb\Exception;
 
 /**
  * Account invalid exception
  *
- * @package STB\Exception
+ * @package stb\Exception
  */
-class InvalidAccountException extends \itbz\STB\Exception
+class InvalidAccountException extends \itbz\stb\Exception
 {
 }

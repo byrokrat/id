@@ -1,5 +1,5 @@
 <?php
-namespace itbz\STB\Utils;
+namespace itbz\stb\Utils;
 
 class OCRTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,7 +10,7 @@ class OCRTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\STB\Exception\InvalidStructureException
+     * @expectedException itbz\stb\Exception\InvalidStructureException
      */
     public function testCreateInvalidLength()
     {
@@ -19,7 +19,7 @@ class OCRTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\STB\Exception\InvalidStructureException
+     * @expectedException itbz\stb\Exception\InvalidStructureException
      */
     public function testCreateNotNumeric()
     {
@@ -53,7 +53,7 @@ class OCRTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\STB\Exception\InvalidStructureException
+     * @expectedException itbz\stb\Exception\InvalidStructureException
      * @dataProvider invalidStructuresProvider
      */
     public function testSetInvalidStructure($ocr)
@@ -62,7 +62,7 @@ class OCRTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\STB\Exception\InvalidLengthDigitException
+     * @expectedException itbz\stb\Exception\InvalidLengthDigitException
      */
     public function testSetInvalidLengthDigit()
     {
@@ -70,7 +70,7 @@ class OCRTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\STB\Exception\InvalidCheckDigitException
+     * @expectedException itbz\stb\Exception\InvalidCheckDigitException
      */
     public function testSetInvalidCheckDigit()
     {

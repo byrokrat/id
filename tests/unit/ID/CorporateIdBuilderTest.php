@@ -1,5 +1,5 @@
 <?php
-namespace itbz\STB\ID;
+namespace itbz\stb\ID;
 
 class CorporateIdBuilderTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,7 +10,7 @@ class CorporateIdBuilderTest extends \PHPUnit_Framework_TestCase
             ->disableCoordinationId()
             ->setId('702001-7781')
             ->getId();
-        $this->assertInstanceOf('\itbz\STB\ID\CorporateId', $id);
+        $this->assertInstanceOf('\itbz\stb\ID\CorporateId', $id);
     }
 
     public function testPersonalId()
@@ -20,7 +20,7 @@ class CorporateIdBuilderTest extends \PHPUnit_Framework_TestCase
             ->disableCoordinationId()
             ->setId('820323-2775')
             ->getId();
-        $this->assertInstanceOf('\itbz\STB\ID\PersonalId', $id);
+        $this->assertInstanceOf('\itbz\stb\ID\PersonalId', $id);
     }
 
     public function testCoordinationId()
@@ -30,7 +30,7 @@ class CorporateIdBuilderTest extends \PHPUnit_Framework_TestCase
             ->enableCoordinationId()
             ->setId('701063-2391')
             ->getId();
-        $this->assertInstanceOf('\itbz\STB\ID\CoordinationId', $id);
+        $this->assertInstanceOf('\itbz\stb\ID\CoordinationId', $id);
     }
 
     public function testCoordinationIdWhenInvalidPersonalId()
@@ -40,11 +40,11 @@ class CorporateIdBuilderTest extends \PHPUnit_Framework_TestCase
             ->enableCoordinationId()
             ->setId('701063-2391')
             ->getId();
-        $this->assertInstanceOf('\itbz\STB\ID\CoordinationId', $id);
+        $this->assertInstanceOf('\itbz\stb\ID\CoordinationId', $id);
     }
 
     /**
-     * @expectedException itbz\STB\Exception\InvalidStructureException
+     * @expectedException itbz\stb\Exception\InvalidStructureException
      */
     public function testInvalidPersonalIdStructureError()
     {
@@ -56,7 +56,7 @@ class CorporateIdBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\STB\Exception\InvalidStructureException
+     * @expectedException itbz\stb\Exception\InvalidStructureException
      */
     public function testInvalidCorporateStructureError()
     {
@@ -74,12 +74,12 @@ class CorporateIdBuilderTest extends \PHPUnit_Framework_TestCase
                 ->enableCoordinationId();
 
         $id = $builder->setId('702001-7781')->getId();
-        $this->assertInstanceOf('\itbz\STB\ID\CorporateId', $id);
+        $this->assertInstanceOf('\itbz\stb\ID\CorporateId', $id);
 
         $id = $builder->setId('820323-2775')->getId();
-        $this->assertInstanceOf('\itbz\STB\ID\PersonalId', $id);
+        $this->assertInstanceOf('\itbz\stb\ID\PersonalId', $id);
 
         $id = $builder->setId('701063-2391')->getId();
-        $this->assertInstanceOf('\itbz\STB\ID\CoordinationId', $id);
+        $this->assertInstanceOf('\itbz\stb\ID\CoordinationId', $id);
     }
 }

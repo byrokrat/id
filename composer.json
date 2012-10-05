@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-0": {
-            "itbz\\STB": "src/"
+            "itbz\\stb": "src/"
         }
     }
 }

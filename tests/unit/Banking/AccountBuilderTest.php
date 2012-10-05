@@ -1,5 +1,5 @@
 <?php
-namespace itbz\STB\Banking;
+namespace itbz\stb\Banking;
 
 class AccountBuilderTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,11 +10,11 @@ class AccountBuilderTest extends \PHPUnit_Framework_TestCase
             ->clearClasses()
             ->enable('NordeaPerson')
             ->getAccount();
-        $this->assertInstanceOf("itbz\\STB\\Banking\\NordeaPerson", $account);
+        $this->assertInstanceOf("itbz\\stb\\Banking\\NordeaPerson", $account);
     }
 
     /**
-     * @expectedException itbz\STB\Exception
+     * @expectedException itbz\stb\Exception
      */
     public function testClassMissingError()
     {

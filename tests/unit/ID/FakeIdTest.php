@@ -1,5 +1,5 @@
 <?php
-namespace itbz\STB\ID;
+namespace itbz\stb\ID;
 
 class FakeIdTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,7 +34,7 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\STB\Exception\InvalidStructureException
+     * @expectedException itbz\stb\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
     public function testInvalidStructure($nr)

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the STB package
+ * This file is part of the stb package
  *
  * Copyright (c) 2012 Hannes Forsgård
  *
@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package STB\Accounting\Formatter
+ * @package stb\Accounting\Formatter
  */
 
-namespace itbz\STB\Accounting\Formatter;
+namespace itbz\stb\Accounting\Formatter;
 
-use itbz\STB\Accounting\Template;
+use itbz\stb\Accounting\Template;
 
 /**
  * Export and import accounting templates in VISMA kml format
  *
- * @package STB\Accounting\Formatter
+ * @package stb\Accounting\Formatter
  */
 class VISMAkml
 {

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the STB package
+ * This file is part of the stb package
  *
  * Copyright (c) 2012 Hannes Forsgård
  *
@@ -8,18 +8,18 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package STB\Accounting
+ * @package stb\Accounting
  */
 
-namespace itbz\STB\Accounting;
+namespace itbz\stb\Accounting;
 
-use itbz\STB\Exception\InvalidChartException;
-use itbz\STB\Exception\InvalidAccountException;
+use itbz\stb\Exception\InvalidChartException;
+use itbz\stb\Exception\InvalidAccountException;
 
 /**
  * Container class for charts of accounts.
  *
- * @package STB\Accounting
+ * @package stb\Accounting
  */
 class ChartOfAccounts
 {

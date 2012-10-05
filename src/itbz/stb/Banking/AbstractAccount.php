@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the STB package
+ * This file is part of the stb package
  *
  * Copyright (c) 2012 Hannes Forsgård
  *
@@ -8,19 +8,19 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package STB\Banking
+ * @package stb\Banking
  */
 
-namespace itbz\STB\Banking;
+namespace itbz\stb\Banking;
 
-use itbz\STB\Exception\InvalidClearingException;
-use itbz\STB\Exception\InvalidStructureException;
-use itbz\STB\Exception\InvalidCheckDigitException;
+use itbz\stb\Exception\InvalidClearingException;
+use itbz\stb\Exception\InvalidStructureException;
+use itbz\stb\Exception\InvalidCheckDigitException;
 
 /**
  * Abstract account number
  *
- * @package STB\Banking
+ * @package stb\Banking
  */
 abstract class AbstractAccount
 {

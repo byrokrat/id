@@ -1,7 +1,7 @@
 <?php
-namespace itbz\STB\Accounting;
+namespace itbz\stb\Accounting;
 
-use itbz\STB\Utils\Amount;
+use itbz\stb\Utils\Amount;
 
 class TransactionTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,10 +1,10 @@
 <?php
-namespace itbz\STB\Utils;
+namespace itbz\stb\Utils;
 
 class Modulo11Test extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException itbz\STB\Exception\InvalidStructureException
+     * @expectedException itbz\stb\Exception\InvalidStructureException
      * @dataProvider testVerifyStructureProvider
      */
     public function testVerifyStructure($nr)
@@ -45,7 +45,7 @@ class Modulo11Test extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\STB\Exception\InvalidStructureException
+     * @expectedException itbz\stb\Exception\InvalidStructureException
      * @dataProvider testGetCheckDigitStructureProvider
      */
     public function testGetCheckDigitStructure($nr)

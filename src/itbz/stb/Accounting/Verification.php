@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the STB package
+ * This file is part of the stb package
  *
  * Copyright (c) 2012 Hannes Forsgård
  *
@@ -8,18 +8,18 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package STB\Accounting
+ * @package stb\Accounting
  */
 
-namespace itbz\STB\Accounting;
+namespace itbz\stb\Accounting;
 
 use DateTime;
-use itbz\STB\Utils\Amount;
+use itbz\stb\Utils\Amount;
 
 /**
  * Simple accounting verification class
  *
- * @package STB\Accounting
+ * @package stb\Accounting
  */
 class Verification
 {

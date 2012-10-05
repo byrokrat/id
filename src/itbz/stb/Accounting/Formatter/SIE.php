@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the STB package
+ * This file is part of the stb package
  *
  * Copyright (c) 2012 Hannes Forsgård
  *
@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package STB\Accounting\Formatter
+ * @package stb\Accounting\Formatter
  */
 
-namespace itbz\STB\Accounting\Formatter;
+namespace itbz\stb\Accounting\Formatter;
 
-use itbz\STB\Accounting\Verification;
-use itbz\STB\Accounting\ChartOfAccounts;
-use itbz\STB\Accounting\Account;
-use itbz\STB\Exception\VerificationNotBalancedException;
-use itbz\STB\Exception\InvalidYearException;
-use itbz\STB\Exception\InvalidChartException;
+use itbz\stb\Accounting\Verification;
+use itbz\stb\Accounting\ChartOfAccounts;
+use itbz\stb\Accounting\Account;
+use itbz\stb\Exception\VerificationNotBalancedException;
+use itbz\stb\Exception\InvalidYearException;
+use itbz\stb\Exception\InvalidChartException;
 use DateTime;
 
 /**
@@ -32,7 +32,7 @@ use DateTime;
  * This implementation is based on specification 4B from the
  * maintainer (SIE gruppen) dated 2008-09-30.
  *
- * @package STB\Accounting\Formatter
+ * @package stb\Accounting\Formatter
  */
 class SIE
 {
@@ -46,7 +46,7 @@ class SIE
      *
      * @var string
      */
-    private $program = "itbz_STB_SIE";
+    private $program = "itbz_stb_SIE";
 
     /**
      * Version of program generating SIE
@@ -60,7 +60,7 @@ class SIE
      *
      * @var string
      */
-    private $creator = 'itbz_STB_SIE';
+    private $creator = 'itbz_stb_SIE';
 
     /**
      * Name of company whose verifications are beeing handled

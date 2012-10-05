@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the STB package
+ * This file is part of the stb package
  *
  * Copyright (c) 2012 Hannes Forsgård
  *
@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package STB\Banking
+ * @package stb\Banking
  */
 
-namespace itbz\STB\Banking;
+namespace itbz\stb\Banking;
 
-use itbz\STB\Utils\Modulo11;
+use itbz\stb\Utils\Modulo11;
 
 /**
  * SEB account number validator
  *
- * @package STB\Banking
+ * @package stb\Banking
  */
 class SEB extends AbstractAccount
 {

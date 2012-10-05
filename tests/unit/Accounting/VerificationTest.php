@@ -1,8 +1,8 @@
 <?php
-namespace itbz\STB\Accounting;
+namespace itbz\stb\Accounting;
 
 use DateTime;
-use itbz\STB\Utils\Amount;
+use itbz\stb\Utils\Amount;
 
 class VerificationTest extends \PHPUnit_Framework_TestCase
 {

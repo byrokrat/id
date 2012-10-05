@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the STB package
+ * This file is part of the stb package
  *
  * Copyright (c) 2012 Hannes Forsgård
  *
@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package STB\Banking
+ * @package stb\Banking
  */
 
-namespace itbz\STB\Banking;
+namespace itbz\stb\Banking;
 
 /**
  * Fake account number validator, all is valid
  *
- * @package STB\Banking
+ * @package stb\Banking
  */
 class FakeAccount extends AbstractAccount
 {

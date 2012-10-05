@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the STB package
+ * This file is part of the stb package
  *
  * Copyright (c) 2012 Hannes Forsgård
  *
@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  *
  * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package STB\Utils
+ * @package stb\Utils
  */
 
-namespace itbz\STB\Utils;
+namespace itbz\stb\Utils;
 
-use itbz\STB\Exception\InvalidStructureException;
+use itbz\stb\Exception\InvalidStructureException;
 
 /**
  * Modulo10 calculator
  *
- * @package STB\Utils
+ * @package stb\Utils
  */
 class Modulo10
 {

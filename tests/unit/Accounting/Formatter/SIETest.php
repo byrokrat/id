@@ -1,17 +1,17 @@
 <?php
-namespace itbz\STB\Accounting\Formatter;
+namespace itbz\stb\Accounting\Formatter;
 
 use DateTime;
-use itbz\STB\Accounting\Verification;
-use itbz\STB\Accounting\Transaction;
-use itbz\STB\Accounting\ChartOfAccounts;
-use itbz\STB\Accounting\Account;
-use itbz\STB\Utils\Amount;
+use itbz\stb\Accounting\Verification;
+use itbz\stb\Accounting\Transaction;
+use itbz\stb\Accounting\ChartOfAccounts;
+use itbz\stb\Accounting\Account;
+use itbz\stb\Utils\Amount;
 
 class SIETest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException itbz\STB\Exception\VerificationNotBalancedException
+     * @expectedException itbz\stb\Exception\VerificationNotBalancedException
      */
     public function testUnbalancedVerification()
     {
@@ -23,7 +23,7 @@ class SIETest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\STB\Exception\InvalidYearException
+     * @expectedException itbz\stb\Exception\InvalidYearException
      */
     public function testAccountingYearError()
     {
@@ -40,7 +40,7 @@ class SIETest extends \PHPUnit_Framework_TestCase
         $txt = $sie->generate();
         $date = date('Ymd');
         $expected = "#FLAGGA 0\r\n#PROGRAM \"foo\\\"bar\" \"1.0\"\r\n#FORMAT PC8"
-            ."\r\n#GEN $date \"itbz_STB_SIE\"\r\n#SIETYP 4\r\n#FNAMN \"\"\r\n"
+            ."\r\n#GEN $date \"itbz_stb_SIE\"\r\n#SIETYP 4\r\n#FNAMN \"\"\r\n"
             ."#KPTYP \"EUBAS97\"\r\n\r\n";
         $expected = iconv("UTF-8", "CP437", $expected);
         $this->assertEquals($txt, $expected);
@@ -52,7 +52,7 @@ class SIETest extends \PHPUnit_Framework_TestCase
         $sie->setCreator('foo');
         $txt = $sie->generate();
         $date = date('Ymd');
-        $expected = "#FLAGGA 0\r\n#PROGRAM \"itbz_STB_SIE\" \"1.0\"\r\n#FORMAT"
+        $expected = "#FLAGGA 0\r\n#PROGRAM \"itbz_stb_SIE\" \"1.0\"\r\n#FORMAT"
             ." PC8\r\n#GEN $date \"foo\"\r\n#SIETYP 4\r\n#FNAMN \"\"\r\n#KPTYP"
             ." \"EUBAS97\"\r\n\r\n";
         $expected = iconv("UTF-8", "CP437", $expected);
@@ -65,8 +65,8 @@ class SIETest extends \PHPUnit_Framework_TestCase
         $sie->setCompany('foo');
         $txt = $sie->generate();
         $date = date('Ymd');
-        $expected = "#FLAGGA 0\r\n#PROGRAM \"itbz_STB_SIE\" \"1.0\"\r\n#FORMAT"
-           ." PC8\r\n#GEN $date \"itbz_STB_SIE\"\r\n#SIETYP 4\r\n#FNAMN \"foo\""
+        $expected = "#FLAGGA 0\r\n#PROGRAM \"itbz_stb_SIE\" \"1.0\"\r\n#FORMAT"
+           ." PC8\r\n#GEN $date \"itbz_stb_SIE\"\r\n#SIETYP 4\r\n#FNAMN \"foo\""
             ."\r\n#KPTYP \"EUBAS97\"\r\n\r\n";
         $expected = iconv("UTF-8", "CP437", $expected);
         $this->assertEquals($txt, $expected);
@@ -78,8 +78,8 @@ class SIETest extends \PHPUnit_Framework_TestCase
         $sie->setYear(new DateTime('2013-01-01'), new DateTime('2013-12-31'));
         $txt = $sie->generate();
         $date = date('Ymd');
-        $expected = "#FLAGGA 0\r\n#PROGRAM \"itbz_STB_SIE\" \"1.0\"\r\n#FORMAT"
-            ." PC8\r\n#GEN $date \"itbz_STB_SIE\"\r\n#SIETYP 4\r\n#FNAMN \"\""
+        $expected = "#FLAGGA 0\r\n#PROGRAM \"itbz_stb_SIE\" \"1.0\"\r\n#FORMAT"
+            ." PC8\r\n#GEN $date \"itbz_stb_SIE\"\r\n#SIETYP 4\r\n#FNAMN \"\""
             ."\r\n#KPTYP \"EUBAS97\"\r\n#RAR 0 20130101 20131231\r\n\r\n";
         $expected = iconv("UTF-8", "CP437", $expected);
         $this->assertEquals($txt, $expected);
@@ -92,8 +92,8 @@ class SIETest extends \PHPUnit_Framework_TestCase
         $sie->setTypeOfChart('BAS96');
         $txt = $sie->generate();
         $date = date('Ymd');
-        $expected = "#FLAGGA 0\r\n#PROGRAM \"itbz_STB_SIE\" \"1.0\"\r\n#FORMAT"
-            ." PC8\r\n#GEN $date \"itbz_STB_SIE\"\r\n#SIETYP 4\r\n#FNAMN \"foo"
+        $expected = "#FLAGGA 0\r\n#PROGRAM \"itbz_stb_SIE\" \"1.0\"\r\n#FORMAT"
+            ." PC8\r\n#GEN $date \"itbz_stb_SIE\"\r\n#SIETYP 4\r\n#FNAMN \"foo"
             ."\"\r\n#KPTYP \"BAS96\"\r\n\r\n";
         $expected = iconv("UTF-8", "CP437", $expected);
         $this->assertEquals($txt, $expected);
@@ -113,8 +113,8 @@ class SIETest extends \PHPUnit_Framework_TestCase
         $txt = $sie->generate();
 
         $date = date('Ymd');
-        $expected = "#FLAGGA 0\r\n#PROGRAM \"itbz_STB_SIE\" \"1.0\"\r\n#FORMAT"
-            ." PC8\r\n#GEN $date \"itbz_STB_SIE\"\r\n#SIETYP 4\r\n#FNAMN \"\""
+        $expected = "#FLAGGA 0\r\n#PROGRAM \"itbz_stb_SIE\" \"1.0\"\r\n#FORMAT"
+            ." PC8\r\n#GEN $date \"itbz_stb_SIE\"\r\n#SIETYP 4\r\n#FNAMN \"\""
             ."\r\n#KPTYP \"EUBAS97\"\r\n#RAR 0 {$year}0101 {$year}1231\r\n\r\n"
             ."#KONTO \"1920\" \"Bank\"\r\n#KTYP \"1920\" \"T\"\r\n#KONTO \"3000"
             ."\" \"Income\"\r\n#KTYP \"3000\" \"I\"\r\n"
@@ -137,8 +137,8 @@ class SIETest extends \PHPUnit_Framework_TestCase
         $txt = $sie->exportChart('FOOBAR', $chart);
 
         $date = date('Ymd');
-        $expected = "#FILTYP KONTO\r\n#PROGRAM \"itbz_STB_SIE\" \"1.0\"\r\n#TEXT"
-            ." \"FOOBAR\"\r\n#FORMAT PC8\r\n#GEN $date \"itbz_STB_SIE\"\r\n#KPTYP"
+        $expected = "#FILTYP KONTO\r\n#PROGRAM \"itbz_stb_SIE\" \"1.0\"\r\n#TEXT"
+            ." \"FOOBAR\"\r\n#FORMAT PC8\r\n#GEN $date \"itbz_stb_SIE\"\r\n#KPTYP"
             ." \"EUBAS97\"\r\n\r\n"
             ."#KONTO \"1920\" \"Bank\"\r\n#KTYP \"1920\" \"T\"\r\n#KONTO \"3000\""
             ." \"Income\"\r\n#KTYP \"3000\" \"I\"\r\n";
@@ -149,8 +149,8 @@ class SIETest extends \PHPUnit_Framework_TestCase
 
     public function testImportChart()
     {
-        $siestr = "#FILTYP KONTO\r\n#PROGRAM \"itbz_STB_SIE\" \"1.0\"\r\n#TEXT"
-            ." \"FOOBAR\"\r\n#FORMAT PC8\r\n#GEN 20120430 \"itbz_STB_SIE\"\r\n"
+        $siestr = "#FILTYP KONTO\r\n#PROGRAM \"itbz_stb_SIE\" \"1.0\"\r\n#TEXT"
+            ." \"FOOBAR\"\r\n#FORMAT PC8\r\n#GEN 20120430 \"itbz_stb_SIE\"\r\n"
             ."#KPTYP \"BAS2010\"\r\n\r\n"
             ."#KONTO \"1920\" \"Bank\"\r\n#KTYP \"1920\" \"T\"\r\n#KONTO \""
             ."3000\" \"Income\"\r\n#KTYP \"3000\" \"I\"\r\n";
@@ -169,7 +169,7 @@ class SIETest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\STB\Exception\InvalidChartException
+     * @expectedException itbz\stb\Exception\InvalidChartException
      */
     public function testImportChartInvalidChartType()
     {
@@ -190,7 +190,7 @@ class SIETest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\STB\Exception\InvalidChartException
+     * @expectedException itbz\stb\Exception\InvalidChartException
      * @dataProvider invalidSieAccountStringProvider
      */
     public function testImportChartInvalidAccount($account)

@@ -1,5 +1,5 @@
 <?php
-namespace itbz\STB\Banking;
+namespace itbz\stb\Banking;
 
 class SEBTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,7 +16,7 @@ class SEBTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \itbz\STB\Exception\InvalidClearingException
+     * @expectedException \itbz\stb\Exception\InvalidClearingException
      * @dataProvider invalidClearingProvider
      */
     public function testInvalidClearing($nr)
@@ -36,7 +36,7 @@ class SEBTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidStructuresProvider
-     * @expectedException \itbz\STB\Exception\InvalidStructureException
+     * @expectedException \itbz\stb\Exception\InvalidStructureException
      */
     public function testInvalidStructure($nr)
     {
@@ -61,7 +61,7 @@ class SEBTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidCheckDigitProvider
-     * @expectedException \itbz\STB\Exception\InvalidCheckDigitException
+     * @expectedException \itbz\stb\Exception\InvalidCheckDigitException
      */
     public function testInvalidCheckDigit($nr)
     {
