@@ -30,28 +30,28 @@ class PersonalId
      *
      * @var DateTime
      */
-    protected $date = '';
+    private $date;
 
     /**
      * Individual number
      *
      * @var string
      */
-    protected $individualNr = '';
+    private $individualNr = '';
 
     /**
      * Check digit
      *
      * @var string
      */
-    protected $check = '';
+    private $check = '';
 
     /**
      * Date and control string delimiter, - or +
      *
      * @var string
      */
-    protected $delim = '';
+    private $delim = '';
 
     /**
      * Construct and set id number
@@ -92,7 +92,7 @@ class PersonalId
         }
 
         $datestr = $split[0];
-        $this->delim = $split[1];
+        $this->setDelimiter($split[1]);
 
         if (!ctype_digit($datestr)) {
             throw new InvalidStructureException('The parsed date was invalid');
@@ -100,24 +100,25 @@ class PersonalId
 
         if (strlen($datestr) == 6) {
             // Six digit date. Calculate century based on delimiter
-            $this->date = DateTime::createFromFormat('ymd', $datestr);
+            $date = DateTime::createFromFormat('ymd', $datestr);
             $dateerrors = DateTime::getLastErrors();
             // Date is over a hundred years ago if delimiter is +
-            if ($this->delim == '+') {
-                $this->date->modify('-100 year');
+            if ($this->getDelimiter() == '+') {
+                $date->modify('-100 year');
             }
+            $this->setDate($date);
 
         } elseif (strlen($datestr) == 8) {
             // Eight digit date. Set delimiter based on date.
-            $this->date = DateTime::createFromFormat('Ymd', $datestr);
+            $this->setDate(DateTime::createFromFormat('Ymd', $datestr));
             $dateerrors = DateTime::getLastErrors();
             // Delimiter should be + if date is more then a hundred years old
             $century = new DateTime();
             $century->modify('-100 year');
-            if ($this->date < $century) {
-                $this->delim = '+';
+            if ($this->getDate() < $century) {
+                $this->setDelimiter('+');
             } else {
-                $this->delim = '-';
+                $this->setDelimiter('-');
             }
 
         } else {
@@ -140,14 +141,26 @@ class PersonalId
             throw new InvalidStructureException($msg);
         }
 
-        $this->check = substr($control, -1);
-        $this->individualNr = substr($control, 0, 3);
+        $this->setCheck(substr($control, -1));
+        $this->setIndividualNr(substr($control, 0, 3));
 
         $validCheck = $this->calcCheckDigit();
-        if ($this->check != $validCheck) {
+        if ($this->getCheck() != $validCheck) {
             $msg = "Invalid check digit for '$id'";
             throw new InvalidCheckDigitException($msg);
         }
+    }
+
+    /**
+     * Set date
+     * 
+     * @param DateTime $date
+     *
+     * @return void
+     */
+    public function setDate(DateTime $date)
+    {
+        $this->date = $date;
     }
 
     /**
@@ -161,13 +174,82 @@ class PersonalId
     }
 
     /**
+     * Get individualNr
+     *
+     * @return string
+     */
+    public function getIndividualNr()
+    {
+        return $this->individualNr;
+    }
+
+    /**
+     * Set individualNr
+     *
+     * @param string $individualNr
+     *
+     * @return void
+     */
+    public function setIndividualNr($individualNr)
+    {
+        assert('is_string($individualNr)');
+        $this->individualNr = $individualNr;
+    }
+
+    /**
+     * Get check number
+     *
+     * @return string
+     */
+    public function getCheck()
+    {
+        return $this->check;
+    }
+
+    /**
+     * Set check'number
+     *
+     * @param string $check
+     *
+     * @return void
+     */
+    public function setCheck($check)
+    {
+        assert('is_string($check)');
+        $this->check = $check;
+    }
+
+    /**
+     * Get delimiter
+     *
+     * @return string
+     */
+    public function getDelimiter()
+    {
+        return $this->delim;
+    }
+
+    /**
+     * Set delimiter
+     *
+     * @param string $delim
+     *
+     * @return void
+     */
+    public function setDelimiter($delim)
+    {
+        assert('is_string($delim)');
+        $this->delim = $delim;
+    }
+
+    /**
      * Get date of birth formatted as YYYY-MM-DD
      *
      * @return string
      */
     public function getDOB()
     {
-        return $this->date->format('Y-m-d');
+        return $this->getDate()->format('Y-m-d');
     }
 
     /**
@@ -179,9 +261,10 @@ class PersonalId
      */
     public function getSex()
     {
-        $int = intval($this->individualNr[2]);
+        $nr = $this->getIndividualNr();
+        $int = intval($nr[2]);
 
-        return ( $int%2 == 0 ) ? 'F' : 'M';
+        return ($int%2 == 0) ? 'F' : 'M';
     }
 
     /**
@@ -193,10 +276,10 @@ class PersonalId
      */
     public function getId()
     {
-        return $this->date->format('ymd')
-            . $this->delim
-            . $this->individualNr
-            . $this->check;
+        return $this->getDate()->format('ymd')
+            . $this->getDelimiter()
+            . $this->getIndividualNr()
+            . $this->getCheck();
     }
 
     /**
@@ -208,10 +291,10 @@ class PersonalId
      */
     public function __toString()
     {
-        return $this->date->format('Ymd')
-            . $this->delim
-            . $this->individualNr
-            . $this->check;
+        return $this->getDate()->format('Ymd')
+            . $this->getDelimiter()
+            . $this->getIndividualNr()
+            . $this->getCheck();
     }
 
     /**
@@ -221,7 +304,7 @@ class PersonalId
      */
     protected function calcCheckDigit()
     {
-        $nr = $this->date->format('ymd') . $this->individualNr;
+        $nr = $this->getDate()->format('ymd') . $this->getIndividualNr();
         $modulo = new Modulo10();
 
         return $modulo->getCheckDigit($nr);

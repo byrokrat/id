@@ -53,8 +53,8 @@ class FakeId extends PersonalId
 
         parent::setId($split[0] . $split[1] . '0000');
 
-        $this->check = 'x';
-        $this->individualNr = substr($control, 0, 3);
+        $this->setCheck('x');
+        $this->setIndividualNr(substr($control, 0, 3));
     }
 
     /**
@@ -66,7 +66,8 @@ class FakeId extends PersonalId
      */
     public function getSex()
     {
-        if (is_numeric($this->individualNr[2])) {
+        $nr = $this->getIndividualNr();
+        if (is_numeric($nr[2])) {
 
             return parent::getSex();
         } else {

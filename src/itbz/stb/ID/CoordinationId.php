@@ -61,10 +61,13 @@ class CoordinationId extends PersonalId
      */
     public function getId()
     {
-        $dob = intval($this->date->format('ymd'));
+        $dob = intval($this->getDate()->format('ymd'));
         $dob += 60;
 
-        return $dob . $this->delim . $this->individualNr . $this->check;
+        return $dob
+            . $this->getDelimiter()
+            . $this->getIndividualNr()
+            . $this->getCheck();
     }
 
     /**
@@ -76,10 +79,13 @@ class CoordinationId extends PersonalId
      */
     public function __toString()
     {
-        $dob = intval($this->date->format('Ymd'));
+        $dob = intval($this->getDate()->format('Ymd'));
         $dob += 60;
 
-        return $dob . $this->delim . $this->individualNr . $this->check;
+        return $dob
+            . $this->getDelimiter()
+            . $this->getIndividualNr()
+            . $this->getCheck();
     }
 
     /**
@@ -89,9 +95,9 @@ class CoordinationId extends PersonalId
      */
     protected function calcCheckDigit()
     {
-        $dob = intval($this->date->format('ymd'));
+        $dob = intval($this->getDate()->format('ymd'));
         $dob += 60;
-        $nr = $dob . $this->individualNr;
+        $nr = $dob . $this->getIndividualNr();
         $modulo = new Modulo10();
 
         return $modulo->getCheckDigit($nr);
