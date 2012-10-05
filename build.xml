@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="mreg" basedir="." default="buildAll">
-    <property name="APP_NAME" value="STB"/>
+    <property name="APP_NAME" value="Swedish Technical Bureaucracy"/>
     <property name="APP_ROOT" value="${project.basedir}"/>
     <property name="SRC_DIR" value="${APP_ROOT}/src"/>
     <property name="TEST_DIR" value="${APP_ROOT}/tests"/>
