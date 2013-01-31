@@ -1,5 +1,5 @@
 <?php
-namespace itbz\stb\Banking;
+namespace iio\stb\Banking;
 
 class BankgiroTest extends \PHPUnit_Framework_TestCase
 {
@@ -49,7 +49,7 @@ class BankgiroTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \itbz\stb\Exception\InvalidClearingException
+     * @expectedException \iio\stb\Exception\InvalidClearingException
      */
     public function testInvalidClearing()
     {
@@ -67,7 +67,7 @@ class BankgiroTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidStructuresProvider
-     * @expectedException \itbz\stb\Exception\InvalidStructureException
+     * @expectedException \iio\stb\Exception\InvalidStructureException
      */
     public function testInvalidStructure($num)
     {
@@ -76,7 +76,7 @@ class BankgiroTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidCheckDigitProvider
-     * @expectedException \itbz\stb\Exception\InvalidCheckDigitException
+     * @expectedException \iio\stb\Exception\InvalidCheckDigitException
      */
     public function testInvalidCheckDigit($num)
     {

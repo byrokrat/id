@@ -1,7 +1,7 @@
 <?php
-namespace itbz\stb\Accounting\Formatter;
+namespace iio\stb\Accounting\Formatter;
 
-use itbz\stb\Accounting\Template;
+use iio\stb\Accounting\Template;
 
 class VISMAkmlTest extends \PHPUnit_Framework_TestCase
 {

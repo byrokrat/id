@@ -1,5 +1,5 @@
 <?php
-namespace itbz\stb\Accounting;
+namespace iio\stb\Accounting;
 
 class AccountTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,7 +20,7 @@ class AccountTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidAccountException
+     * @expectedException iio\stb\Exception\InvalidAccountException
      * @dataProvider invalidAccountProvider
      */
     public function testAddAccountFaliure($account, $type, $name)

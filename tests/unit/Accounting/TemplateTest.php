@@ -1,8 +1,8 @@
 <?php
-namespace itbz\stb\Accounting;
+namespace iio\stb\Accounting;
 
 use DateTime;
-use itbz\stb\Utils\Amount;
+use iio\stb\Utils\Amount;
 
 class TemplateTest extends \PHPUnit_Framework_TestCase
 {
@@ -25,7 +25,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidTemplateException
+     * @expectedException iio\stb\Exception\InvalidTemplateException
      */
     public function testSetIdError()
     {
@@ -42,7 +42,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidTemplateException
+     * @expectedException iio\stb\Exception\InvalidTemplateException
      */
     public function testSetNameError()
     {
@@ -59,7 +59,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidTemplateException
+     * @expectedException iio\stb\Exception\InvalidTemplateException
      */
     public function testSetTextError()
     {
@@ -118,7 +118,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidStructureException
+     * @expectedException iio\stb\Exception\InvalidStructureException
      */
     public function testMissingAmountKey()
     {

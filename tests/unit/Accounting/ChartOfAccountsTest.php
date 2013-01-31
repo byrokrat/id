@@ -1,5 +1,5 @@
 <?php
-namespace itbz\stb\Accounting;
+namespace iio\stb\Accounting;
 
 class ChartOfAccountsTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,7 +32,7 @@ class ChartOfAccountsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidAccountException
+     * @expectedException iio\stb\Exception\InvalidAccountException
      */
     public function testGetInvalidAccount()
     {
@@ -49,7 +49,7 @@ class ChartOfAccountsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidAccountException
+     * @expectedException iio\stb\Exception\InvalidAccountException
      */
     public function testGetInvalidAccountFromName()
     {

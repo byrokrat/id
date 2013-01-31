@@ -1,5 +1,5 @@
 <?php
-namespace itbz\stb\Banking;
+namespace iio\stb\Banking;
 
 class FakeAccountTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class FakeAccountTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \itbz\stb\Exception\InvalidClearingException
+     * @expectedException \iio\stb\Exception\InvalidClearingException
      * @dataProvider invalidClearingProvider
      */
     public function testInvalidClearing($nr)

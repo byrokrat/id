@@ -1,5 +1,5 @@
 <?php
-namespace itbz\stb\Accounting;
+namespace iio\stb\Accounting;
 
 class ChartOfTemplatesTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,7 +22,7 @@ class ChartOfTemplatesTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidTemplateException
+     * @expectedException iio\stb\Exception\InvalidTemplateException
      */
     public function testTemplateDoesNotExistError()
     {

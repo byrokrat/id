@@ -1,5 +1,5 @@
 <?php
-namespace itbz\stb\Utils;
+namespace iio\stb\Utils;
 
 class AmountTest extends \PHPUnit_Framework_TestCase
 {
@@ -232,7 +232,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidAmountException
+     * @expectedException iio\stb\Exception\InvalidAmountException
      */
     public function testInvalidAmount()
     {
@@ -240,7 +240,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidAmountException
+     * @expectedException iio\stb\Exception\InvalidAmountException
      */
     public function testInvalidFloat()
     {
@@ -249,7 +249,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidAmountException
+     * @expectedException iio\stb\Exception\InvalidAmountException
      */
     public function testInvalidInt()
     {
@@ -258,7 +258,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidAmountException
+     * @expectedException iio\stb\Exception\InvalidAmountException
      */
     public function testInvalidString()
     {
@@ -267,7 +267,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidAmountException
+     * @expectedException iio\stb\Exception\InvalidAmountException
      */
     public function testInvalidSignal()
     {

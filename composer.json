@@ -1,8 +1,8 @@
 {
-    "name": "itbz/stb",
+    "name": "iio/stb",
     "description": "Swedish Technical Bureaucracy",
     "keywords": ["Banking", "Accounting", "Bureaucracy"],
-    "homepage": "https://github.com/itbz/STB",
+    "homepage": "https://github.com/iio/Swedish-Technical-Bureaucracy",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-0": {
-            "itbz\\stb": "src/"
+            "iio\\stb": "src/"
         }
     }
 }

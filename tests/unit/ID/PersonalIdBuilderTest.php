@@ -1,5 +1,5 @@
 <?php
-namespace itbz\stb\ID;
+namespace iio\stb\ID;
 
 class PersonalIdBuilderTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,7 +10,7 @@ class PersonalIdBuilderTest extends \PHPUnit_Framework_TestCase
             ->disableCoordinationId()
             ->setId('820323-2775')
             ->getId();
-        $this->assertInstanceOf('\itbz\stb\ID\PersonalId', $id);
+        $this->assertInstanceOf('\iio\stb\ID\PersonalId', $id);
     }
 
     public function testCoordinationId()
@@ -20,7 +20,7 @@ class PersonalIdBuilderTest extends \PHPUnit_Framework_TestCase
             ->enableCoordinationId()
             ->setId('701063-2391')
             ->getId();
-        $this->assertInstanceOf('\itbz\stb\ID\CoordinationId', $id);
+        $this->assertInstanceOf('\iio\stb\ID\CoordinationId', $id);
     }
 
     public function testFakeId()
@@ -30,7 +30,7 @@ class PersonalIdBuilderTest extends \PHPUnit_Framework_TestCase
             ->disableCoordinationId()
             ->setId('701023-xxxx')
             ->getId();
-        $this->assertInstanceOf('\itbz\stb\ID\FakeId', $id);
+        $this->assertInstanceOf('\iio\stb\ID\FakeId', $id);
     }
 
     public function testFakeIdWhenInvalidCoordinationId()
@@ -40,11 +40,11 @@ class PersonalIdBuilderTest extends \PHPUnit_Framework_TestCase
             ->enableCoordinationId()
             ->setId('701023-xxxx')
             ->getId();
-        $this->assertInstanceOf('\itbz\stb\ID\FakeId', $id);
+        $this->assertInstanceOf('\iio\stb\ID\FakeId', $id);
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidStructureException
+     * @expectedException iio\stb\Exception\InvalidStructureException
      */
     public function testInvalidCoordinationStructureError()
     {
@@ -56,7 +56,7 @@ class PersonalIdBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidStructureException
+     * @expectedException iio\stb\Exception\InvalidStructureException
      */
     public function testInvalidPersonalIdStructureError()
     {
@@ -74,12 +74,12 @@ class PersonalIdBuilderTest extends \PHPUnit_Framework_TestCase
             ->enableCoordinationId();
 
         $id = $builder->setId('820323-2775')->getId();
-        $this->assertInstanceOf('\itbz\stb\ID\PersonalId', $id);
+        $this->assertInstanceOf('\iio\stb\ID\PersonalId', $id);
 
         $id = $builder->setId('701063-2391')->getId();
-        $this->assertInstanceOf('\itbz\stb\ID\CoordinationId', $id);
+        $this->assertInstanceOf('\iio\stb\ID\CoordinationId', $id);
 
         $id = $builder->setId('701023-xxxx')->getId();
-        $this->assertInstanceOf('\itbz\stb\ID\FakeId', $id);
+        $this->assertInstanceOf('\iio\stb\ID\FakeId', $id);
     }
 }

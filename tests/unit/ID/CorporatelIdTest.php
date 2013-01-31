@@ -1,5 +1,5 @@
 <?php
-namespace itbz\stb\ID;
+namespace iio\stb\ID;
 
 class CorporateIdTest extends \PHPUnit_Framework_TestCase
 {
@@ -55,7 +55,7 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidStructureException
+     * @expectedException iio\stb\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
     public function testInvalidStructure($nr)
@@ -64,7 +64,7 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException itbz\stb\Exception\InvalidCheckDigitException
+     * @expectedException iio\stb\Exception\InvalidCheckDigitException
      * @dataProvider invalidCheckDigitProvider
      */
     public function testInvalidCheckDigit($nr)

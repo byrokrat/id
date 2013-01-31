@@ -1,5 +1,5 @@
 <?php
-namespace itbz\stb\Banking;
+namespace iio\stb\Banking;
 
 class NordeaPersonTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +14,7 @@ class NordeaPersonTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \itbz\stb\Exception\InvalidClearingException
+     * @expectedException \iio\stb\Exception\InvalidClearingException
      * @dataProvider invalidClearingProvider
      */
     public function testInvalidClearing($nr)
@@ -33,7 +33,7 @@ class NordeaPersonTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidStructuresProvider
-     * @expectedException \itbz\stb\Exception\InvalidStructureException
+     * @expectedException \iio\stb\Exception\InvalidStructureException
      */
     public function testInvalidStructure($nr)
     {
@@ -58,7 +58,7 @@ class NordeaPersonTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider invalidCheckDigitProvider
-     * @expectedException \itbz\stb\Exception\InvalidCheckDigitException
+     * @expectedException \iio\stb\Exception\InvalidCheckDigitException
      */
     public function testInvalidCheckDigit($nr)
     {
