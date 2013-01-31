@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Banking
  */
 
 namespace iio\stb\Banking;
@@ -19,14 +16,13 @@ use iio\stb\Exception\InvalidClearingException;
 /**
  * Build account from registered classes
  *
- * @package stb\Banking
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class AccountBuilder
 {
     /**
-     * List of possible account classes
-     *
-     * @var array
+     * @var array List of possible account classes
      */
     private $classes = array(
         'NordeaPerson',
@@ -38,17 +34,14 @@ class AccountBuilder
     );
 
     /**
-     * The raw account number
-     *
-     * @var string
+     * @var string The raw account number
      */
     private $rawNumber = '';
 
     /**
      * Enable account type
      *
-     * @param string $classname
-     *
+     * @param  string         $classname
      * @return AccountBuilder Returns instance to enable chaining
      */
     public function enable($classname)
@@ -63,8 +56,7 @@ class AccountBuilder
     /**
      * Disable account type
      *
-     * @param string $classname
-     *
+     * @param  string         $classname
      * @return AccountBuilder Returns instance to enable chaining
      */
     public function disable($classname)
@@ -93,9 +85,7 @@ class AccountBuilder
     /**
      * Set raw account number
      *
-     * @param string $rawNumber Account number, including clearing number
-     * separated by a comma.
-     *
+     * @param  string         $rawNumber Clearing + , + account number
      * @return AccountBuilder Returns instance to enable chaining
      */
     public function setAccount($rawNumber)
@@ -110,8 +100,7 @@ class AccountBuilder
      * Get account object
      *
      * @return AbstractAccount
-     *
-     * @throws Exception if unable to create
+     * @throws Exception       If unable to create
      */
     public function getAccount()
     {

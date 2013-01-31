@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Accounting
  */
 
 namespace iio\stb\Accounting;
@@ -18,39 +15,33 @@ use iio\stb\Exception\InvalidAccountException;
 /**
  * Simple Account class
  *
- * @package stb\Accounting
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class Account
 {
     /**
-     * Account number
-     *
-     * @var string
+     * @var string Account number
      */
     private $number;
 
     /**
-     * Account type
-     *
-     * @var string
+     * @var string Account type
      */
     private $type;
 
     /**
-     * Account name
-     *
-     * @var string
+     * @var string Account name
      */
     private $name;
 
     /**
-     * Set account number, type and name
+     * Constructor
      *
-     * @param string $number
-     * @param string $type Account type (T, S, I or K)
-     * @param string $name
-     *
-     * @throws InvalidAccountException if any data is invalid
+     * @param  string                  $number
+     * @param  string                  $type   Account type (T, S, I or K)
+     * @param  string                  $name
+     * @throws InvalidAccountException If any data is invalid
      */
     public function __construct($number, $type, $name)
     {
@@ -110,8 +101,7 @@ class Account
     /**
      * Validate that $account equals this instance
      *
-     * @param Account $account
-     *
+     * @param  Account $account
      * @return bool
      */
     public function equals(Account $account)

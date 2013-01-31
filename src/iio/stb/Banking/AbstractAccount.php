@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Banking
  */
 
 namespace iio\stb\Banking;
@@ -20,32 +17,28 @@ use iio\stb\Exception\InvalidCheckDigitException;
 /**
  * Abstract account number
  *
- * @package stb\Banking
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 abstract class AbstractAccount
 {
     /**
-     * Clearing number
-     *
-     * @var string
+     * @var string Clearing number
      */
     private $clear;
 
     /**
-     * Account number
-     *
-     * @var string
+     * @var string Account number
      */
     private $nr;
 
     /**
-     * Construct and set account number
+     * Constructor
      *
-     * @param string $nr
-     *
-     * @throws InvalidClearingException if clearing number is invalid
-     * @throws InvalidStructureException if structure is invalid
-     * @throws InvalidCheckDigitException if check digit is invalid
+     * @param  string                     $nr
+     * @throws InvalidClearingException   If clearing number is invalid
+     * @throws InvalidStructureException  If structure is invalid
+     * @throws InvalidCheckDigitException If check digit is invalid
      */
     public function __construct($nr)
     {
@@ -135,8 +128,7 @@ abstract class AbstractAccount
     /**
      * Validate clearing number
      *
-     * @param string $nr
-     *
+     * @param  string $nr
      * @return bool
      */
     abstract public function isValidClearing($nr);
@@ -144,8 +136,7 @@ abstract class AbstractAccount
     /**
      * Validate account number structure
      *
-     * @param string $nr
-     *
+     * @param  string $nr
      * @return bool
      */
     abstract public function isValidStructure($nr);
@@ -153,10 +144,8 @@ abstract class AbstractAccount
     /**
      * Validate account number check digit
      *
-     * @param string $clearing
-     *
-     * @param string $nr
-     *
+     * @param  string $clearing
+     * @param  string $nr
      * @return bool
      */
     abstract public function isValidCheckDigit($clearing, $nr);
@@ -171,9 +160,8 @@ abstract class AbstractAccount
     /**
      * Get account as string
      *
-     * @param string $clearing
-     * @param string $nr
-     *
+     * @param  string $clearing
+     * @param  string $nr
      * @return string
      */
     protected function tostring($clearing, $nr)

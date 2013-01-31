@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Accounting\Formatter
  */
 
 namespace iio\stb\Accounting\Formatter;
@@ -32,7 +29,8 @@ use DateTime;
  * This implementation is based on specification 4B from the
  * maintainer (SIE gruppen) dated 2008-09-30.
  *
- * @package stb\Accounting\Formatter
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class SIE
 {
@@ -42,77 +40,57 @@ class SIE
     const EOL = "\r\n";
 
     /**
-     * Name of program generating SIE
-     *
-     * @var string
+     * @var string Name of program generating SIE
      */
     private $program = "iio_stb_SIE";
 
     /**
-     * Version of program generating SIE
-     *
-     * @var string
+     * @var string Version of program generating SIE
      */
     private $version = '1.0';
 
     /**
-     * Name of person (instance) generating SIE
-     *
-     * @var string
+     * @var string Name of person (instance) generating SIE
      */
     private $creator = 'iio_stb_SIE';
 
     /**
-     * Name of company whose verifications are beeing handled
-     *
-     * @var string
+     * @var string Name of company whose verifications are beeing handled
      */
     private $company = "";
 
     /**
-     * Start of accounting year
-     *
-     * @var DateTime
+     * @var DateTime Start of accounting year
      */
     private $yearStart;
 
     /**
-     * End of accounting year
-     *
-     * @var DateTime
+     * @var DateTime End of accounting year
      */
     private $yearStop;
 
     /**
-     * Creation date
-     *
-     * @var DateTime
+     * @var DateTime Creation date
      */
     private $date;
 
     /**
-     * Type of chart of accounts used
-     *
-     * @var string
+     * @var string Type of chart of accounts used
      */
     private $typeOfChart = "EUBAS97";
 
     /**
-     * Loaded verifications
-     *
-     * @var array
+     * @var array Loaded verifications
      */
     private $verifications = array();
 
     /**
-     * List of accounts used in loaded verifications
-     *
-     * @var array
+     * @var array List of accounts used in loaded verifications
      */
     private $usedAccounts = array();
 
     /**
-     * Create date at construct
+     * Construct
      */
     public function __construct()
     {
@@ -132,9 +110,8 @@ class SIE
     /**
      * Set name of generating program
      *
-     * @param string $program
-     * @param string $version
-     *
+     * @param  string $program
+     * @param  string $version
      * @return SIE instance for chaining
      */
     public function setProgram($program, $version)
@@ -150,8 +127,7 @@ class SIE
     /**
      * Set creator name (normally logged in user or simliar)
      *
-     * @param string $creator
-     *
+     * @param  string $creator
      * @return SIE instance for chaining
      */
     public function setCreator($creator)
@@ -165,8 +141,7 @@ class SIE
     /**
      * Set name of company whose verifications are beeing handled
      *
-     * @param string $company
-     *
+     * @param  string $company
      * @return SIE instance for chaining
      */
     public function setCompany($company)
@@ -180,9 +155,8 @@ class SIE
     /**
      * Set accounting year
      *
-     * @param DateTime $start Only date part is used
-     * @param DateTime $stop Only date part is used
-     *
+     * @param  DateTime $start Only date part is used
+     * @param  DateTime $stop Only date part is used
      * @return SIE instance for chaining
      */
     public function setYear(DateTime $start, DateTime $stop)
@@ -198,8 +172,7 @@ class SIE
     /**
      * Set type of chart of accounts used
      *
-     * @param string $typeOfChart
-     *
+     * @param  string $typeOfChart
      * @return SIE instance for chaining
      */
     public function setTypeOfChart($typeOfChart)
@@ -213,13 +186,10 @@ class SIE
     /**
      * Add verification to SIE, verification MUST be balanced
      *
-     * @param Verification $ver
-     *
+     * @param  Verification                     $ver
+     * @throws VerificationNotBalancedException If $ver is unbalanced
+     * @throws InvalidYearException             If $ver date is out of bounds
      * @return SIE Instance for chaining
-     *
-     * @throws VerificationNotBalancedException if $ver is unbalanced
-     *
-     * @throws InvalidYearException if $ver date is out of bounds
      */
     public function addVerification(Verification $ver)
     {
@@ -257,8 +227,7 @@ class SIE
     /**
      * Remove control characters, addslashes and quote $str
      *
-     * @param string $str
-     *
+     * @param  string $str
      * @return string
      */
     public static function quote($str)
@@ -333,9 +302,8 @@ class SIE
     /**
      * Generate SIE string (using charset CP437) for $chart
      *
-     * @param string $description String describing this chart of accounts
-     * @param ChartOfAccounts $chart
-     *
+     * @param  string          $description String describing this chart of accounts
+     * @param  ChartOfAccounts $chart
      * @return string 
      */
     public function exportChart($description, ChartOfAccounts $chart)
@@ -376,11 +344,9 @@ class SIE
     /**
      * Create a ChartOfAccounts object from SIE string (in charset CP437)
      *
-     * @param string $sie
-     *
-     * @return ChartOfAccounts
-     *
+     * @param  string                $sie
      * @throws InvalidChartException If $sie is not valid
+     * @return ChartOfAccounts
      */
     public function importChart($sie)
     {

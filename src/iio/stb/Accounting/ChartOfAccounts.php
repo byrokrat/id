@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Accounting
  */
 
 namespace iio\stb\Accounting;
@@ -19,29 +16,25 @@ use iio\stb\Exception\InvalidAccountException;
 /**
  * Container class for charts of accounts.
  *
- * @package stb\Accounting
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class ChartOfAccounts
 {
     /**
-     * Internal chart
-     *
-     * @var array
+     * @var array Internal chart
      */
     private $accounts = array();
 
     /**
-     * Chart type
-     *
-     * @var string
+     * @var string Chart type
      */
     private $type = 'EUBAS97';
 
     /**
      * Add account
      *
-     * @param Account $account
-     *
+     * @param  Account $account
      * @return void
      */
     public function addAccount(Account $account)
@@ -53,11 +46,9 @@ class ChartOfAccounts
     /**
      * Get account object for number
      *
-     * @param string $number
-     *
+     * @param  string                  $number
      * @return Account
-     *
-     * @throws InvalidAccountException if account does not exist
+     * @throws InvalidAccountException If account does not exist
      */
     public function getAccount($number)
     {
@@ -72,11 +63,9 @@ class ChartOfAccounts
     /**
      * Get account object for name
      *
-     * @param string $name
-     *
+     * @param  string                  $name
      * @return Account
-     *
-     * @throws InvalidAccountException if account does not exist
+     * @throws InvalidAccountException If account does not exist
      */
     public function getAccountFromName($name)
     {
@@ -92,8 +81,7 @@ class ChartOfAccounts
     /**
      * Remove account
      *
-     * @param string $number
-     *
+     * @param  string $number
      * @return void
      */
     public function removeAccount($number)
@@ -104,8 +92,7 @@ class ChartOfAccounts
     /**
      * Validate that account exists in chart
      *
-     * @param string $number
-     *
+     * @param  string $number
      * @return bool
      */
     public function accountExists($number)
@@ -126,8 +113,7 @@ class ChartOfAccounts
     /**
      * Set string describing type of chart used
      *
-     * @param string $type
-     *
+     * @param  string $type
      * @return void
      */
     public function setChartType($type)

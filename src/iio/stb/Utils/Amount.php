@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Utils
  */
 
 namespace iio\stb\Utils;
@@ -20,28 +17,23 @@ use iio\stb\Exception\InvalidAmountException;
  *
  * Uses the bcmath extension for arbitrary floating point arithmetic precision
  *
- * @package stb\Utils
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class Amount
 {
     /**
-     * Internal amount
-     *
-     * @var string
+     * @var string Internal amount
      */
     private $amount;
 
     /**
-     * The number of decimal digits to use
-     *
-     * @var int
+     * @var int The number of decimal digits to use
      */
     private $precision;
 
     /**
-     * Substitution map for signal strings
-     *
-     * @var array
+     * @var array Substitution map for signal strings
      */
     private static $signals = array(
         '0' => 'å',
@@ -57,18 +49,18 @@ class Amount
     );
 
     /**
-     * Work with and represent monetary amounts
+     * Constructor
      *
      * Note that setting amount from floating point number or integer may lead
      * to a loss of precision. See setInt() and setFloat() respectively.
      *
-     * @param string|int|float $amount
-     * @param int $precision The number of decimal digits used in calculations
-     * and output. If omitted the 'frac_digits' value of the current monetary
-     * locale is used (see localeconv() in the PHP documentation).
-     *
-     * @throws InvalidAmountException if amount is not valid
-     *
+     * @param  string|int|float        $amount
+     * @param  int                     $precision The number of decimal digits
+     *     used in calculations and output. If omitted the 'frac_digits' value
+     *     of the current monetary locale is used (see localeconv() in the PHP
+     *     documentation).
+     * @throws InvalidAmountException If amount is not valid
+     * 
      * @deprecated Creating new amounts from floats and integers is deprecated.
      * Use setFloat() and setInt() directly instead.
      */
@@ -98,8 +90,7 @@ class Amount
     /**
      * Set the number of decimal digits used in calculations and output
      *
-     * @param int $precision
-     *
+     * @param  int  $precision
      * @return void
      */
     public function setPrecision($precision)
@@ -125,11 +116,9 @@ class Amount
      * string may involve rounding and yield unexpected results. To keep
      * precision use setString() instead.
      *
-     * @param float $int
-     *
+     * @param  float                  $int
      * @return void
-     *
-     * @throws InvalidAmountException if float is not an integer
+     * @throws InvalidAmountException If float is not an integer
      */
     public function setInt($int)
     {
@@ -147,11 +136,9 @@ class Amount
      * string may involve rounding and yield unexpected results. To keep
      * precision use setString() instead.
      *
-     * @param float $float
-     *
+     * @param  float                  $float
      * @return void
-     *
-     * @throws InvalidAmountException if float is not a floating point number
+     * @throws InvalidAmountException If float is not a floating point number
      */
     public function setFloat($float)
     {
@@ -165,11 +152,9 @@ class Amount
     /**
      * Set amount from string
      *
-     * @param stringt $str
-     *
+     * @param  stringt                $str
      * @return void
-     *
-     * @throws InvalidAmountException if str is not a numerical string
+     * @throws InvalidAmountException If str is not a numerical string
      */
     public function setString($str)
     {
@@ -188,8 +173,7 @@ class Amount
     /**
      * Check if str is a valid signal string
      *
-     * @param string $str
-     *
+     * @param  string $str
      * @return bool
      */
     public function isSignalString($str)
@@ -215,11 +199,9 @@ class Amount
      * Q: 8
      * R: 9</code>
      *
-     * @param string $str
-     *
+     * @param  string                 $str
      * @return void
-     *
-     * @throws InvalidAmountException if amount is not a valid signal string
+     * @throws InvalidAmountException If amount is not a valid signal string
      */
     public function setSignalString($str)
     {
@@ -244,14 +226,13 @@ class Amount
     /**
      * Set a locale formatted string
      *
-     * @param string $str
-     * @param string $point Decimal point character. Replaced with '.' If
-     * omitted omitted the 'mon_decimal_point' value of the current monetary
-     * locale is used.
-     * @param string $sep Group separator. Replaced with the empty string. If
-     * omitted omitted the 'mon_thousands_sep' value of the current monetary
-     * locale is used.
-     *
+     * @param  string $str
+     * @param  string $point Decimal point character. Replaced with '.' If
+     *     omitted omitted the 'mon_decimal_point' value of the current monetary
+     *     locale is used.
+     * @param  string $sep   Group separator. Replaced with the empty string. If
+     *     omitted omitted the 'mon_thousands_sep' value of the current monetary
+     *     locale is used.
      * @return void
      */
     public function setLocaleString($str, $point = null, $sep = null)
@@ -317,9 +298,8 @@ class Amount
      * Note that amount is converted to a floating point number before
      * formatting takes place. This may lead to a loss of precision.
      *
-     * @param string $format Format string as accepted by money_format().
-     * Defaults to '%!n': national currency format without currency symbol.
-     *
+     * @param  string $format Format string as accepted by money_format().
+     *     Defaults to '%!n': national currency format without currency symbol.
      * @return string
      */
     public function format($format = '%!n')
@@ -365,8 +345,7 @@ class Amount
     /**
      * Add to amount
      *
-     * @param Amount $amount
-     *
+     * @param  Amount $amount
      * @return void
      */
     public function add(Amount $amount)
@@ -381,8 +360,7 @@ class Amount
     /**
      * Subtract from amount
      *
-     * @param Amount $amount
-     *
+     * @param  Amount $amount
      * @return void
      */
     public function subtract(Amount $amount)
@@ -411,8 +389,7 @@ class Amount
     /**
      * Check if instance equals amount
      *
-     * @param Amount $amount
-     *
+     * @param  Amount $amount
      * @return bool
      */
     public function equals(Amount $amount)
@@ -427,8 +404,7 @@ class Amount
     /**
      * Check if instance is lesser than amount
      *
-     * @param Amount $amount
-     *
+     * @param  Amount $amount
      * @return bool
      */
     public function isLesserThan(Amount $amount)
@@ -443,8 +419,7 @@ class Amount
     /**
      * Check if instance is greater than amount
      *
-     * @param Amount $amount
-     *
+     * @param  Amount $amount
      * @return bool
      */
     public function isGreaterThan(Amount $amount)

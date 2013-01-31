@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\ID
  */
 
 namespace iio\stb\ID;
@@ -20,33 +17,28 @@ use iio\stb\Exception\InvalidCheckDigitException;
 /**
  * Swedish corporate identity numbers
  *
- * @package stb\ID
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class CorporateId
 {
     /**
-     * Group number
-     *
-     * @var string
+     * @var string Group number
      */
     private $groupNr = '';
 
     /**
-     * Serial number in tow parts, pre and post delimiter
-     *
-     * @var array
+     * @var array Serial number in tow parts, pre and post delimiter
      */
     private $serialNr = array('', '');
 
     /**
-     * Check digit
-     *
-     * @var string
+     * @var string Check digit
      */
     private $check = '';
 
     /**
-     * Construct and set id number
+     * Constructor
      *
      * @param string $id
      */
@@ -60,12 +52,10 @@ class CorporateId
     /**
      * Set id number
      *
-     * @param string $id
-     *
+     * @param  string                     $id
      * @return void
-     *
-     * @throws InvalidStructureException if structure is invalid
-     * @throws InvalidCheckDigitException if check digit is invalid
+     * @throws InvalidStructureException  If structure is invalid
+     * @throws InvalidCheckDigitException If check digit is invalid
      */
     public function setId($id)
     {

@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Utils
  */
 
 namespace iio\stb\Utils;
@@ -18,19 +15,18 @@ use iio\stb\Exception\InvalidStructureException;
 /**
  * Modulo11 calculator
  *
- * @package stb\Utils
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class Modulo11
 {
     /**
      * Verify that the last digit of nr is a valid check digit
      *
-     * @param string $nr
-     *
+     * @param  string                    $nr
      * @return bool
-     *
-     * @throws InvalidStructureException if nr does not consist of 0-9
-     * and possibly ending with an X
+     * @throws InvalidStructureException If nr does not consist of 0-9
+     *     and possibly ending with an X
      */
     public function verify($nr)
     {
@@ -72,11 +68,9 @@ class Modulo11
     /**
      * Calculate check digit for nr
      *
-     * @param string $nr
-     *
+     * @param  string                    $nr
      * @return string
-     *
-     * @throws InvalidStructureException if nr is not numerical
+     * @throws InvalidStructureException If nr is not numerical
      */
     public function getCheckDigit($nr)
     {

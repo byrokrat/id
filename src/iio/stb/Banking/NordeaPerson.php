@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Banking
  */
 
 namespace iio\stb\Banking;
@@ -18,15 +15,15 @@ use iio\stb\Utils\Modulo10;
 /**
  * NordeaPerson account number validator
  *
- * @package stb\Banking
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class NordeaPerson extends AbstractAccount
 {
     /**
-     * Validate clearing number
+     * {@inheritdoc}
      *
-     * @param string $nr
-     *
+     * @param  string $nr
      * @return bool
      */
     public function isValidClearing($nr)
@@ -35,10 +32,9 @@ class NordeaPerson extends AbstractAccount
     }
 
     /**
-     * Validate account number structure
+     * {@inheritdoc}
      *
-     * @param string $nr
-     *
+     * @param  string $nr
      * @return bool
      */
     public function isValidStructure($nr)
@@ -47,11 +43,10 @@ class NordeaPerson extends AbstractAccount
     }
 
     /**
-     * Validate check digit
+     * {@inheritdoc}
      *
-     * @param string $clearing
-     * @param string $nr
-     *
+     * @param  string $clearing
+     * @param  string $nr
      * @return bool
      */
     public function isValidCheckDigit($clearing, $nr)
@@ -63,7 +58,7 @@ class NordeaPerson extends AbstractAccount
     }
 
     /**
-     * Get string describing account type
+     * {@inheritdoc}
      *
      * @return string
      */
@@ -73,11 +68,10 @@ class NordeaPerson extends AbstractAccount
     }
 
     /**
-     * Get account as string
+     * {@inheritdoc}
      *
-     * @param string $clearing
-     * @param string $nr
-     *
+     * @param  string $clearing
+     * @param  string $nr
      * @return string
      */
     protected function tostring($clearing, $nr)

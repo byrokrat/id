@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
  */
 
 namespace iio\stb;
@@ -16,6 +13,7 @@ namespace iio\stb;
 /**
  * stb base exception
  *
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
  * @package stb
  */
 class Exception extends \Exception

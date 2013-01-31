@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Accounting
  */
 
 namespace iio\stb\Accounting;
@@ -20,40 +17,33 @@ use iio\stb\Utils\Amount;
 /**
  * Simple accounting template class
  *
- * @package stb\Accounting
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class Template
 {
     /**
-     * Template id
-     *
-     * @var string
+     * @var string Template id
      */
     private $id;
 
     /**
-     * Template name
-     *
-     * @var string
+     * @var string Template name
      */
     private $name;
 
     /**
-     * Raw verification text
-     *
-     * @var string
+     * @var string Raw verification text
      */
     private $text;
 
     /**
-     * Raw template transactions
-     *
-     * @var array
+     * @var array Raw template transactions
      */
     private $transactions = array();
 
     /**
-     * Optionaly set id, name and text
+     * Constructor
      *
      * @param string $id
      * @param string $name
@@ -69,11 +59,9 @@ class Template
     /**
      * Set template id
      *
-     * @param string $id
-     *
+     * @param  string                   $id
      * @return void
-     *
-     * @throws InvalidTemplateException if id is longer than 6 characters
+     * @throws InvalidTemplateException If id is longer than 6 characters
      */
     public function setId($id)
     {
@@ -99,11 +87,9 @@ class Template
     /**
      * Set template name
      *
-     * @param string $name
-     *
+     * @param  string                   $name
      * @return void
-     *
-     * @throws InvalidTemplateException if name is longer than 20 characters
+     * @throws InvalidTemplateException If name is longer than 20 characters
      */
     public function setName($name)
     {
@@ -129,11 +115,9 @@ class Template
     /**
      * Set template text
      *
-     * @param string $text
-     *
+     * @param  string                   $text
      * @return void
-     *
-     * @throws InvalidTemplateException if text is longer than 60 characters
+     * @throws InvalidTemplateException If text is longer than 60 characters
      */
     public function setText($text)
     {
@@ -159,9 +143,8 @@ class Template
     /**
      * Add transaction data
      *
-     * @param string $number
-     * @param string $amount
-     *
+     * @param  string $number
+     * @param  string $amount
      * @return void
      */
     public function addTransaction($number, $amount)
@@ -188,8 +171,7 @@ class Template
      *
      * If all variables are substituted
      *
-     * @param string &$key Will contian non-substituted key on error
-     *
+     * @param  string &$key Will contian non-substituted key on error
      * @return bool
      */
     public function ready(&$key)
@@ -210,8 +192,7 @@ class Template
     /**
      * Apply list of substitutions to template
      *
-     * @param array $values Substitution key-value-pairs
-     *
+     * @param  array $values Substitution key-value-pairs
      * @return void
      */
     public function substitute(array $values)
@@ -241,12 +222,9 @@ class Template
     /**
      * Create verification from template
      *
-     * @param ChartOfAccounts $chart
-     *
+     * @param  ChartOfAccounts           $chart
      * @return Verification
-     *
-     * @throws InvalidStructureException if any substitution key is NOT
-     * substituted
+     * @throws InvalidStructureException If any key is NOT substituted
      */
     public function buildVerification(ChartOfAccounts $chart)
     {

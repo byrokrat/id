@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Accounting
  */
 
 namespace iio\stb\Accounting;
@@ -18,29 +15,26 @@ use iio\stb\Utils\Amount;
 /**
  * Simple accounting transaction class
  *
- * @package stb\Accounting
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class Transaction
 {
     /**
-     * Account object
-     *
-     * @var Account
+     * @var Account Account object
      */
     private $account;
 
     /**
-     * Amount object
-     *
-     * @var Amount
+     * @var Amount Amount object
      */
     private $amount;
 
     /**
-     * Set account and amount.
+     * Constructor
      *
      * @param Account $account
-     * @param Amount $amount
+     * @param Amount  $amount
      */
     public function __construct(Account $account, Amount $amount)
     {

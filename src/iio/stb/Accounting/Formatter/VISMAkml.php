@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Accounting\Formatter
  */
 
 namespace iio\stb\Accounting\Formatter;
@@ -18,7 +15,8 @@ use iio\stb\Accounting\Template;
 /**
  * Export and import accounting templates in VISMA kml format
  *
- * @package stb\Accounting\Formatter
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class VISMAkml
 {
@@ -28,9 +26,7 @@ class VISMAkml
     const EOL = "\r\n";
 
     /**
-     * List of loaded templates
-     *
-     * @var array
+     * @var array List of loaded templates
      */
     private $templates = array();
 
@@ -40,8 +36,7 @@ class VISMAkml
      * If multiple templates with the same id are added the former is
      * overwritten
      *
-     * @param Template $template
-     *
+     * @param  Template $template
      * @return void
      */
     public function addTemplate(Template $template)
@@ -64,8 +59,6 @@ class VISMAkml
      * Export templates in VISMA kml format
      *
      * @return string In ISO-8859-1 charset
-     *
-     * @return void
      */
     public function export()
     {
@@ -94,8 +87,7 @@ class VISMAkml
     /**
      * Import templates from VISMA kml format
      *
-     * @param string $kml Must be ISO-8859-1 charset
-     *
+     * @param  string $kml Must be ISO-8859-1 charset
      * @return void
      */
     public function import($kml)

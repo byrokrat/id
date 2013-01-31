@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Accounting
  */
 
 namespace iio\stb\Accounting;
@@ -19,14 +16,13 @@ use iio\stb\Exception\InvalidStructureException;
 /**
  * Manage a collection of templates
  *
- * @package stb\Accounting
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class ChartOfTemplates
 {
     /**
-     * List of loaded templates
-     *
-     * @var array
+     * @var array List of loaded templates
      */
     private $templates = array();
 
@@ -36,8 +32,7 @@ class ChartOfTemplates
      * If multiple templates with the same id are added the former is
      * overwritten
      *
-     * @param Template $template
-     *
+     * @param  Template $template
      * @return void
      */
     public function addTemplate(Template $template)
@@ -49,8 +44,7 @@ class ChartOfTemplates
     /**
      * Drop template using id
      *
-     * @param string $id
-     *
+     * @param  string $id
      * @return void
      */
     public function dropTemplate($id)
@@ -62,8 +56,7 @@ class ChartOfTemplates
     /**
      * Check if template exists
      *
-     * @param string $id
-     *
+     * @param  string $id
      * @return bool
      */
     public function exists($id)
@@ -75,11 +68,9 @@ class ChartOfTemplates
     /**
      * Get a template clone using id
      *
-     * @param string $id
-     *
+     * @param  string                   $id
      * @return Template
-     *
-     * @throws InvalidTemplateException if template does not exist
+     * @throws InvalidTemplateException If template does not exist
      */
     public function getTemplate($id)
     {

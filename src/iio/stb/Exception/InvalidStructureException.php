@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Exception
  */
 
 namespace iio\stb\Exception;
@@ -16,7 +13,8 @@ namespace iio\stb\Exception;
 /**
  * stb base exception
  *
- * @package stb\Exception
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class InvalidStructureException extends \iio\stb\Exception
 {

@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\ID
  */
 
 namespace iio\stb\ID;
@@ -19,36 +16,30 @@ use iio\stb\Exception\InvalidCheckDigitException;
 /**
  * Build corporate ids
  *
- * @package stb\ID
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class CorporateIdBuilder
 {
     /**
-     * Flag if personal id is allowed
-     *
-     * @var bool
+     * @var bool Flag if personal id is allowed
      */
     private $bUsePersonal = true;
 
     /**
-     * Flag if coordination id is allowed
-     *
-     * @var bool
+     * @var bool Flag if coordination id is allowed
      */
     private $bUseCoord = true;
 
     /**
-     * Unprocessed id
-     *
-     * @var string
+     * @var string Unprocessed id
      */
     private $rawId = '';
 
     /**
      * Set unproccessed id
      *
-     * @param string $rawId
-     *
+     * @param  string             $rawId
      * @return CorporateIdBuilder Returns instance to enable chaining
      */
     public function setId($rawId)
@@ -115,9 +106,8 @@ class CorporateIdBuilder
      * PersonalId takes precedence over CoordinationId
      *
      * @return CorporateId|PersonalId|CoordinationId
-     *
-     * @throws InvalidStructureException if structure is invalid
-     * @throws InvalidCheckDigitException if check digit is invalid
+     * @throws InvalidStructureException             If structure is invalid
+     * @throws InvalidCheckDigitException            If check digit is invalid
      */
     public function getId()
     {

@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\ID
  */
 
 namespace iio\stb\ID;
@@ -21,40 +18,33 @@ use DateTime;
 /**
  * Swedish personal identity numbers
  *
- * @package stb\ID
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class PersonalId
 {
     /**
-     * Date of birth
-     *
-     * @var DateTime
+     * @var DateTime Date of birth
      */
     private $date;
 
     /**
-     * Individual number
-     *
-     * @var string
+     * @var string Individual number
      */
     private $individualNr = '';
 
     /**
-     * Check digit
-     *
-     * @var string
+     * @var string Check digit
      */
     private $check = '';
 
     /**
-     * Date and control string delimiter, - or +
-     *
-     * @var string
+     * @var string Date and control string delimiter, - or +
      */
     private $delim = '';
 
     /**
-     * Construct and set id number
+     * Constructor
      *
      * @param string $id
      */
@@ -74,12 +64,10 @@ class PersonalId
      * delimiter (+ signals more than a hundred years old). If year is set using
      * four digits delimiter is calculated based on century.
      *
-     * @param string $id
-     *
+     * @param  string                     $id
      * @return void
-     *
-     * @throws InvalidStructureException if structure is invalid
-     * @throws InvalidCheckDigitException if check digit is invalid
+     * @throws InvalidStructureException  If structure is invalid
+     * @throws InvalidCheckDigitException If check digit is invalid
      */
     public function setId($id)
     {
@@ -154,8 +142,7 @@ class PersonalId
     /**
      * Set date
      * 
-     * @param DateTime $date
-     *
+     * @param  DateTime $date
      * @return void
      */
     public function setDate(DateTime $date)
@@ -186,8 +173,7 @@ class PersonalId
     /**
      * Set individualNr
      *
-     * @param string $individualNr
-     *
+     * @param  string $individualNr
      * @return void
      */
     public function setIndividualNr($individualNr)
@@ -209,8 +195,7 @@ class PersonalId
     /**
      * Set check digit
      *
-     * @param string $check
-     *
+     * @param  string $check
      * @return void
      */
     public function setCheckDigit($check)
@@ -232,8 +217,7 @@ class PersonalId
     /**
      * Set delimiter
      *
-     * @param string $delim
-     *
+     * @param  string $delim
      * @return void
      */
     public function setDelimiter($delim)

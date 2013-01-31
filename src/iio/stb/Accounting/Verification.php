@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Accounting
  */
 
 namespace iio\stb\Accounting;
@@ -19,35 +16,30 @@ use iio\stb\Utils\Amount;
 /**
  * Simple accounting verification class
  *
- * @package stb\Accounting
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class Verification
 {
     /**
-     * Text describing verification
-     *
-     * @var string
+     * @var string Text describing verification
      */
     private $text;
 
     /**
-     * Verification date
-     *
-     * @var DateTime
+     * @var DateTime Verification date
      */
     private $date;
 
     /**
-     * List of transactions associated with this verification
-     *
-     * @var array
+     * @var array List of transactions associated with this verification
      */
     private $transactions = array();
 
     /**
-     * Construct and set transaction date
+     * Constructor
      *
-     * @param string $text Text describing verification
+     * @param string   $text Text describing verification
      * @param DateTime $date
      */
     public function __construct($text = '', DateTime $date = null)
@@ -63,8 +55,7 @@ class Verification
     /**
      * Add new transaction
      *
-     * @param Transaction $trans
-     *
+     * @param  Transaction  $trans
      * @return Verification Instance for chaining
      */
     public function addTransaction(Transaction $trans)
@@ -128,8 +119,7 @@ class Verification
     /**
      * Set text describing verification
      *
-     * @param string $text
-     *
+     * @param  string       $text
      * @return Verification Instance for chaining
      */
     public function setText($text)
@@ -153,8 +143,7 @@ class Verification
     /**
      * Set transaction date
      *
-     * @param DateTime $date
-     *
+     * @param  DateTime     $date
      * @return Verification Instance for chaining
      */
     public function setDate(DateTime $date)

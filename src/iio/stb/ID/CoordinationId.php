@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\ID
  */
 
 namespace iio\stb\ID;
@@ -18,7 +15,8 @@ use iio\stb\Utils\Modulo10;
 /**
  * Swedish coordination id number
  *
- * @package stb\ID
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class CoordinationId extends PersonalId
 {
@@ -28,12 +26,10 @@ class CoordinationId extends PersonalId
      * A coordination number is like a personal number except that 60 is added
      * to the date of birth.
      *
-     * @param string $id
-     *
+     * @param  string                     $id
      * @return void
-     *
-     * @throws InvalidStructureException if structure is invalid
-     * @throws InvalidCheckDigitException if check digit is invalid
+     * @throws InvalidStructureException  If structure is invalid
+     * @throws InvalidCheckDigitException If check digit is invalid
      */
     public function setId($id)
     {

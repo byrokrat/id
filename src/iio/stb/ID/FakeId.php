@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\ID
  */
 
 namespace iio\stb\ID;
@@ -20,19 +17,18 @@ use iio\stb\Exception\InvalidStructureException;
  *
  * Individual number replaced by xxxx, xx1x or xx2x.
  *
- * @package stb\ID
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class FakeId extends PersonalId
 {
     /**
      * Set id number
      *
-     * @param string $id
-     *
+     * @param  string                     $id
      * @return void
-     *
-     * @throws InvalidStructureException if structure is invalid
-     * @throws InvalidCheckDigitException if check digit is invalid
+     * @throws InvalidStructureException  If structure is invalid
+     * @throws InvalidCheckDigitException If check digit is invalid
      */
     public function setId($id)
     {

@@ -6,9 +6,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb\Banking
  */
 
 namespace iio\stb\Banking;
@@ -16,15 +13,15 @@ namespace iio\stb\Banking;
 /**
  * Fake account number validator, all is valid
  *
- * @package stb\Banking
+ * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
+ * @package stb
  */
 class FakeAccount extends AbstractAccount
 {
     /**
-     * Validate clearing number
+     * {@inheritdoc}
      *
-     * @param string $nr
-     *
+     * @param  string $nr
      * @return bool
      */
     public function isValidClearing($nr)
@@ -33,10 +30,9 @@ class FakeAccount extends AbstractAccount
     }
 
     /**
-     * Validate account number structure
+     * {@inheritdoc}
      *
-     * @param string $nr
-     *
+     * @param  string $nr
      * @return bool
      */
     public function isValidStructure($nr)
@@ -45,11 +41,10 @@ class FakeAccount extends AbstractAccount
     }
 
     /**
-     * Validate check digit
+     * {@inheritdoc}
      *
-     * @param string $clearing
-     * @param string $nr
-     *
+     * @param  string $clearing
+     * @param  string $nr
      * @return bool
      */
     public function isValidCheckDigit($clearing, $nr)
@@ -58,7 +53,7 @@ class FakeAccount extends AbstractAccount
     }
 
     /**
-     * Get string describing account type
+     * {@inheritdoc}
      *
      * @return string
      */
