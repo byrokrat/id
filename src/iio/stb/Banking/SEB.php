@@ -15,8 +15,7 @@ use iio\stb\Utils\Modulo11;
 /**
  * SEB account number validator
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class SEB extends AbstractAccount
 {

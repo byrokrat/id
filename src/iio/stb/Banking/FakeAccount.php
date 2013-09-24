@@ -13,8 +13,7 @@ namespace iio\stb\Banking;
 /**
  * Fake account number validator, all is valid
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class FakeAccount extends AbstractAccount
 {

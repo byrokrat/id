@@ -17,8 +17,7 @@ use iio\stb\Exception\InvalidCheckDigitException;
 /**
  * Abstract account number
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 abstract class AbstractAccount
 {

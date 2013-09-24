@@ -13,8 +13,7 @@ namespace iio\stb;
 /**
  * stb base exception
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class Exception extends \Exception
 {

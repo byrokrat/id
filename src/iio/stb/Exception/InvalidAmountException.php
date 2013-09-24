@@ -13,8 +13,7 @@ namespace iio\stb\Exception;
 /**
  * InvalidAmountException
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class InvalidAmountException extends \iio\stb\Exception
 {

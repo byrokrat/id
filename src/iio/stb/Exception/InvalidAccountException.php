@@ -13,8 +13,7 @@ namespace iio\stb\Exception;
 /**
  * Account invalid exception
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class InvalidAccountException extends \iio\stb\Exception
 {

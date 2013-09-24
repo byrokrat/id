@@ -17,8 +17,7 @@ use iio\stb\Exception\InvalidCheckDigitException;
 /**
  * OCR number generation and validation
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class OCR
 {

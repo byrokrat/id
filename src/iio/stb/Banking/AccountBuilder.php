@@ -16,8 +16,7 @@ use iio\stb\Exception\InvalidClearingException;
 /**
  * Build account from registered classes
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class AccountBuilder
 {

@@ -15,8 +15,7 @@ use iio\stb\Utils\Modulo11;
 /**
  * NordeaTyp1B account number validator
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class NordeaTyp1B extends AbstractAccount
 {

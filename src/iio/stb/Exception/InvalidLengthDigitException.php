@@ -13,8 +13,7 @@ namespace iio\stb\Exception;
 /**
  * InvalidLengthDigitException
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class InvalidLengthDigitException extends \iio\stb\Exception
 {

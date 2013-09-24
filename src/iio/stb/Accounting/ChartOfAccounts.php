@@ -16,8 +16,7 @@ use iio\stb\Exception\InvalidAccountException;
 /**
  * Container class for charts of accounts.
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class ChartOfAccounts
 {

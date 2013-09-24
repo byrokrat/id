@@ -17,8 +17,7 @@ use iio\stb\Exception\InvalidCheckDigitException;
 /**
  * Swedish corporate identity numbers
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class CorporateId
 {

@@ -15,8 +15,7 @@ use iio\stb\Utils\Modulo10;
 /**
  * SwedbankTyp2 account number
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class SwedbankTyp2 extends AbstractAccount
 {

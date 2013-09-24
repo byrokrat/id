@@ -13,8 +13,7 @@ namespace iio\stb\Exception;
 /**
  * InvalidYearException
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class InvalidYearException extends \iio\stb\Exception
 {

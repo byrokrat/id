@@ -13,8 +13,7 @@ namespace iio\stb\Exception;
 /**
  * InvalidTemplateException
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class InvalidTemplateException extends \iio\stb\Exception
 {

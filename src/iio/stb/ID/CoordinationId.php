@@ -15,8 +15,7 @@ use iio\stb\Utils\Modulo10;
 /**
  * Swedish coordination id number
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class CoordinationId extends PersonalId
 {

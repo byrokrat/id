@@ -16,8 +16,7 @@ use iio\stb\Exception\InvalidStructureException;
 /**
  * Manage a collection of templates
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class ChartOfTemplates
 {

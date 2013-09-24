@@ -13,8 +13,7 @@ namespace iio\stb\Exception;
 /**
  * InvalidCheckDigitException
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class InvalidCheckDigitException extends \iio\stb\Exception
 {

@@ -16,8 +16,7 @@ use iio\stb\Utils\Amount;
 /**
  * Simple accounting verification class
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class Verification
 {

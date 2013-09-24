@@ -18,8 +18,7 @@ use DateTime;
 /**
  * Swedish personal identity numbers
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class PersonalId
 {

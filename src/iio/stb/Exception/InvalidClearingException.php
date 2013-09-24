@@ -13,8 +13,7 @@ namespace iio\stb\Exception;
 /**
  * stb base exception
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class InvalidClearingException extends \iio\stb\Exception
 {

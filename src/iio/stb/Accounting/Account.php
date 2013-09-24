@@ -15,8 +15,7 @@ use iio\stb\Exception\InvalidAccountException;
 /**
  * Simple Account class
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class Account
 {

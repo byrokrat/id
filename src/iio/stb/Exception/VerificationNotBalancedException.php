@@ -13,8 +13,7 @@ namespace iio\stb\Exception;
 /**
  * VerificationNotBalancedException
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class VerificationNotBalancedException extends \iio\stb\Exception
 {

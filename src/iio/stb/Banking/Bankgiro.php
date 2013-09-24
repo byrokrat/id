@@ -15,8 +15,7 @@ use iio\stb\Utils\Modulo10;
 /**
  * Bankgiro account number validator
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class Bankgiro extends AbstractAccount
 {

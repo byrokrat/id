@@ -15,8 +15,7 @@ use iio\stb\Accounting\Template;
 /**
  * Export and import accounting templates in VISMA kml format
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class VISMAkml
 {

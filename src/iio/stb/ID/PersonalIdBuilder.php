@@ -16,8 +16,7 @@ use iio\stb\Exception\InvalidCheckDigitException;
 /**
  * Build personal ids
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class PersonalIdBuilder
 {

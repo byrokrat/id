@@ -17,8 +17,7 @@ use iio\stb\Exception\InvalidAmountException;
  *
  * Uses the bcmath extension for arbitrary floating point arithmetic precision
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class Amount
 {

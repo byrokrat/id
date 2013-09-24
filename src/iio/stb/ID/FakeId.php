@@ -17,8 +17,7 @@ use iio\stb\Exception\InvalidStructureException;
  *
  * Individual number replaced by xxxx, xx1x or xx2x.
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class FakeId extends PersonalId
 {

@@ -15,8 +15,7 @@ use iio\stb\Utils\Modulo11;
 /**
  * SwedbankTyp1 account number validator
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class SwedbankTyp1 extends AbstractAccount
 {

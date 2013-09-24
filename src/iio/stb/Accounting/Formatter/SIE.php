@@ -29,8 +29,7 @@ use DateTime;
  * This implementation is based on specification 4B from the
  * maintainer (SIE gruppen) dated 2008-09-30.
  *
- * @author  Hannes Forsgård <hannes.forsgard@gmail.com>
- * @package stb
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class SIE
 {
