@@ -74,7 +74,7 @@ class PersonalId
         assert('is_string($id)');
 
         $split = preg_split("/([-+])/", $id, 2, PREG_SPLIT_DELIM_CAPTURE);
-        if ( count($split) != 3 ) {
+        if (count($split) != 3) {
             $msg = 'IDs must use form (NN)NNNNNN-NNNN or (NN)NNNNNN+NNNN';
             throw new InvalidStructureException($msg);
         }

@@ -31,8 +31,7 @@ class Modulo11
     public function verify($nr)
     {
         // Throw exception if input is invalid
-        if (
-            !is_string($nr)
+        if (!is_string($nr)
             || !preg_match("/^[0-9]*X?$/", $nr)
             || strlen($nr) < 1
         ) {

@@ -106,10 +106,9 @@ class Account
      */
     public function equals(Account $account)
     {
-        if (
-            ($this->getNumber() != $account->getNumber())
-            || ($this->getType() != $account->getType())
-            || ($this->getName() != $account->getName())
+        if ($this->getNumber() != $account->getNumber()
+            || $this->getType() != $account->getType()
+            || $this->getName() != $account->getName()
         ) {
             return false;
         }

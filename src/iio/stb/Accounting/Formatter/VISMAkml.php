@@ -107,10 +107,7 @@ class VISMAkml
             $index = 0;
             while (true) {
                 // Break when there are no more transactions
-                if (
-                    !isset($values["Rad{$index}_konto"])
-                    || !isset($values["Rad{$index}_belopp"])
-                ) {
+                if (!isset($values["Rad{$index}_konto"]) || !isset($values["Rad{$index}_belopp"])) {
                     break;
                 }
                 // Add this transaction

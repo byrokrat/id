@@ -63,8 +63,7 @@ class CorporateId
 
         // Validate form
         $split = preg_split("/([-])/", $id, 2, PREG_SPLIT_DELIM_CAPTURE);
-        if (
-            count($split) != 3
+        if (count($split) != 3
             || strlen($split[0]) != 6
             || strlen($split[2]) != 4
             || !ctype_digit($split[0])

@@ -52,8 +52,7 @@ class OCR
     public function set($ocr)
     {
         // Validate length
-        if (
-            !is_string($ocr)
+        if (!is_string($ocr)
             || !ctype_digit($ocr)
             || strlen($ocr) > 25
             || strlen($ocr) < 2

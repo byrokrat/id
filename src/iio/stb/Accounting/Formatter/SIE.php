@@ -202,10 +202,7 @@ class SIE
         // Verify that verification date matches accounting year
         if (isset($this->yearStart)) {
             $verdate = $ver->getDate();
-            if (
-                $verdate < $this->yearStart
-                || $verdate > $this->yearStop
-            ) {
+            if ($verdate < $this->yearStart || $verdate > $this->yearStop) {
                 $date = $verdate->format('Y-m-d');
                 $msg = "Verification date '$date' is out of bounds";
                 throw new InvalidYearException($msg);

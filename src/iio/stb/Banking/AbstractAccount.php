@@ -58,8 +58,7 @@ abstract class AbstractAccount
         }
 
         // Validate clearing number
-        if (
-            strlen($this->clear) != 4
+        if (strlen($this->clear) != 4
             || !ctype_digit($this->clear)
             || !$this->isValidClearing($this->clear)
         ) {
