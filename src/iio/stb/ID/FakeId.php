@@ -22,38 +22,28 @@ use iio\stb\Exception\InvalidStructureException;
 class FakeId extends PersonalId
 {
     /**
-     * Set id number
+     * {@inheritdoc}
      *
      * @param  string                     $id
-     * @return void
      * @throws InvalidStructureException  If structure is invalid
      * @throws InvalidCheckDigitException If check digit is invalid
      */
-    public function setId($id)
+    public function __construct($id)
     {
-        assert('is_string($id)');
-
-        $split = preg_split("/([-+])/", $id, 2, PREG_SPLIT_DELIM_CAPTURE);
-        if (count($split) != 3) {
-            $msg = 'IDs must use form (NN)NNNNNN-xxxx or (NN)NNNNNN+xxxx';
-            throw new InvalidStructureException($msg);
+        if (!preg_match("/^((?:\d\d)?)(\d{6})([-+])(xx[12x])(x)$/i", $id, $matches)) {
+            throw new InvalidStructureException('Fake ids must use form (NN)NNNNNN-xx[12x]x');
         }
 
-        $control = strtolower($split[2]);
+        list(, $century, $datestr, $delimiter, $individual, $check) = $matches;
 
-        if (!in_array($control, array('xxxx', 'xx1x', 'xx2x'))) {
-            $msg = 'Fake id control number must be xxxx, xx1x or xx2x';
-            throw new InvalidStructureException($msg);
-        }
+        parent::__construct($century . $datestr . $delimiter . '0000');
 
-        parent::setId($split[0] . $split[1] . '0000');
-
-        $this->setCheckDigit('x');
-        $this->setIndividualNr(substr($control, 0, 3));
+        $this->setCheckDigit($check);
+        $this->setIndividualNr($individual);
     }
 
     /**
-     * Get sex as denoted by id
+     * {@inheritdoc}
      *
      * Returns 'O' for other if sex could not be determined
      *
@@ -72,7 +62,7 @@ class FakeId extends PersonalId
     }
 
     /**
-     * Calculate check digit
+     * {@inheritdoc}
      *
      * @return string
      */

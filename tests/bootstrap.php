@@ -37,6 +37,7 @@ include_once "$src/Banking/StaticAccountBuilder.php";
 include_once "$src/Banking/SwedbankTyp1.php";
 include_once "$src/Banking/SwedbankTyp2.php";
 
+include_once "$src/ID/IdInterface.php";
 include_once "$src/ID/PersonalId.php";
 include_once "$src/ID/PersonalIdBuilder.php";
 include_once "$src/ID/CoordinationId.php";

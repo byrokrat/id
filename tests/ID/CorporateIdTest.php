@@ -15,6 +15,7 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
             array('A23456-1234'),
             array('123456-A234'),
             array('111111-1234'),
+            array('')
         );
     }
 

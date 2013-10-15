@@ -19,82 +19,51 @@ use iio\stb\Exception\InvalidCheckDigitException;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class CorporateId
+class CorporateId implements IdInterface
 {
     /**
      * @var string Group number
      */
-    private $groupNr = '';
+    private $groupNr;
 
     /**
      * @var array Serial number in tow parts, pre and post delimiter
      */
-    private $serialNr = array('', '');
+    private $serialNr;
 
     /**
      * @var string Check digit
      */
-    private $check = '';
-
-    /**
-     * Constructor
-     *
-     * @param string $id
-     */
-    public function __construct($id = '')
-    {
-        if ($id) {
-            $this->setId($id);
-        }
-    }
+    private $check;
 
     /**
      * Set id number
      *
      * @param  string                     $id
-     * @return void
      * @throws InvalidStructureException  If structure is invalid
      * @throws InvalidCheckDigitException If check digit is invalid
      */
-    public function setId($id)
+    public function __construct($id)
     {
-        assert('is_string($id)');
-
-        // Validate form
-        $split = preg_split("/([-])/", $id, 2, PREG_SPLIT_DELIM_CAPTURE);
-        if (count($split) != 3
-            || strlen($split[0]) != 6
-            || strlen($split[2]) != 4
-            || !ctype_digit($split[0])
-            || !ctype_digit($split[2])
-        ) {
-            $msg = 'IDs must use form NNNNNN-NNNN';
-            throw new InvalidStructureException($msg);
+        if (!preg_match("/^(\d)(\d{5})[-](\d{3})(\d)$/", $id, $matches)) {
+            throw new InvalidStructureException('Corporate ids must use form XXXXXX-XXXX');
         }
 
-        // Validate 3rd digit
-        if ($split[0][2] < 2) {
-            $msg = "Third digit must be at lest 2";
-            throw new InvalidStructureException($msg);
+        list(, $this->groupNr, $pre, $post, $this->check) = $matches;
+
+        if ($pre[1] < 2) {
+            throw new InvalidStructureException('Third digit must be at lest 2');
         }
 
-        // Validate check digit
-        $this->groupNr = $split[0][0];
-        $this->serialNr = array(
-            substr($split[0], 1),
-            substr($split[2], 0, -1),
-        );
-        $this->check = $split[2][3];
+        $this->serialNr = array($pre, $post);
 
-        $validCheck = $this->calcCheckDigit();
-        if ($this->check != $validCheck) {
-            $msg = "Invalid check digit for '$id'";
-            throw new InvalidCheckDigitException($msg);
+        if ($this->getCheckDigit() != $this->calcCheckDigit()) {
+            throw new InvalidCheckDigitException("Invalid check digit for <$id>");
         }
     }
 
     /**
-     * Get full ID
+     * {@inheritdoc}
      *
      * @return string
      */
@@ -102,15 +71,34 @@ class CorporateId
     {
         return $this->groupNr
             . $this->serialNr[0]
-            . '-'
+            . $this->getDelimiter()
             . $this->serialNr[1]
-            . $this->check;
+            . $this->getCheckDigit();
     }
 
     /**
-     * To string magic method
+     * {@inheritdoc}
      *
-     * Get full ID
+     * @return string
+     */
+    public function getCheckDigit()
+    {
+        return $this->check;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
+    public function getDelimiter()
+    {
+        return '-';
+    }
+
+
+    /**
+     * {@inheritdoc}
      *
      * @return string
      */

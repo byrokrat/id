@@ -20,20 +20,17 @@ use iio\stb\Utils\Modulo10;
 class CoordinationId extends PersonalId
 {
     /**
-     * Set coordination number
+     * {@inheritdoc}
      *
      * A coordination number is like a personal number except that 60 is added
      * to the date of birth.
      *
      * @param  string                     $id
-     * @return void
      * @throws InvalidStructureException  If structure is invalid
      * @throws InvalidCheckDigitException If check digit is invalid
      */
-    public function setId($id)
+    public function __construct($id)
     {
-        assert('is_string($id)');
-
         // Deduct 60 from dob before setting id
         $split = preg_split("/([-+])/", $id, 2, PREG_SPLIT_DELIM_CAPTURE);
         $id = intval(array_shift($split));
@@ -44,13 +41,11 @@ class CoordinationId extends PersonalId
             $id .= $part;
         }
 
-        return parent::setId($id);
+        return parent::__construct($id);
     }
 
     /**
-     * Get id
-     *
-     * Year represented using two digits
+     * {@inheritdoc}
      *
      * @return string
      */
@@ -66,9 +61,7 @@ class CoordinationId extends PersonalId
     }
 
     /**
-     * To string magic method
-     *
-     * Year represented using four digits
+     * {@inheritdoc}
      *
      * @return string
      */
@@ -84,7 +77,7 @@ class CoordinationId extends PersonalId
     }
 
     /**
-     * Calculate check digit
+     * {@inheritdoc}
      *
      * @return string
      */

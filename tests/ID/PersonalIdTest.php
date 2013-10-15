@@ -29,6 +29,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
             array('120101-12345'),
             array('120101+A234'),
             array('120101+12345'),
+            array('')
         );
     }
 
