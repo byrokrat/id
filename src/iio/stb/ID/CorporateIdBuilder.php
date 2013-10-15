@@ -104,7 +104,7 @@ class CorporateIdBuilder
      * builder settings. CorporateId takes precedence over PersonalId and
      * PersonalId takes precedence over CoordinationId
      *
-     * @return CorporateId|PersonalId|CoordinationId
+     * @return ÍdInterface
      * @throws InvalidStructureException             If structure is invalid
      * @throws InvalidCheckDigitException            If check digit is invalid
      */
