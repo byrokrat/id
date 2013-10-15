@@ -19,7 +19,7 @@ use iio\stb\Exception\InvalidCheckDigitException;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-abstract class AbstractAccount
+abstract class AbstractAccount implements AccountInterface
 {
     /**
      * @var string Clearing number
@@ -41,12 +41,8 @@ abstract class AbstractAccount
      */
     public function __construct($nr)
     {
-        assert('is_string($nr)');
-
-        // Strip spaces from number
         $nr = str_replace(' ', '', $nr);
 
-        // Save clearing and account number
         $arr = explode(',', $nr, 2);
         if (count($arr) == 1) {
             $this->clear = '0000';
@@ -56,30 +52,24 @@ abstract class AbstractAccount
             $this->nr = $arr[1];
         }
 
-        // Validate clearing number
         if (strlen($this->clear) != 4
             || !ctype_digit($this->clear)
-            || !$this->isValidClearing($this->clear)
+            || !static::isValidClearing($this->clear)
         ) {
-            $msg = "Invalid clearing number for '$nr'";
-            throw new InvalidClearingException($msg);
+            throw new InvalidClearingException("Invalid clearing number for <$nr>");
         }
 
-        // Validate structure
-        if (!$this->isValidStructure($this->nr)) {
-            $msg = "Invalid account number structre for '$nr'";
-            throw new InvalidStructureException($msg);
+        if (!static::isValidStructure($this->nr)) {
+            throw new InvalidStructureException("Invalid account number structre for <$nr>");
         }
 
-        // Validate check digit
-        if (!$this->isValidCheckDigit($this->clear, $this->nr)) {
-            $msg = "Invalid check digit for '$nr'";
-            throw new InvalidCheckDigitException($msg);
+        if (!static::isValidCheckDigit($this->clear, $this->nr)) {
+            throw new InvalidCheckDigitException("Invalid check digit for <$nr>");
         }
     }
 
     /**
-     * PHP magic method get string
+     * {@inheritdoc}
      *
      * @return string
      */
@@ -89,9 +79,7 @@ abstract class AbstractAccount
     }
 
     /**
-     * Get account as a 16 digit number
-     *
-     * Clearing number + x number of ceros + account number
+     * {@inheritdoc}
      *
      * @return string
      */
@@ -104,7 +92,7 @@ abstract class AbstractAccount
     }
 
     /**
-     * Get clearing number
+     * {@inheritdoc}
      *
      * @return string
      */
@@ -114,7 +102,7 @@ abstract class AbstractAccount
     }
 
     /**
-     * Get account number
+     * {@inheritdoc}
      *
      * @return string
      */
@@ -122,38 +110,6 @@ abstract class AbstractAccount
     {
         return $this->nr;
     }
-
-    /**
-     * Validate clearing number
-     *
-     * @param  string $nr
-     * @return bool
-     */
-    abstract public function isValidClearing($nr);
-
-    /**
-     * Validate account number structure
-     *
-     * @param  string $nr
-     * @return bool
-     */
-    abstract public function isValidStructure($nr);
-
-    /**
-     * Validate account number check digit
-     *
-     * @param  string $clearing
-     * @param  string $nr
-     * @return bool
-     */
-    abstract public function isValidCheckDigit($clearing, $nr);
-
-    /**
-     * Get string describing account type
-     *
-     * @return string
-     */
-    abstract public function getType();
 
     /**
      * Get account as string
@@ -165,5 +121,39 @@ abstract class AbstractAccount
     protected function tostring($clearing, $nr)
     {
         return "$clearing,$nr";
+    }
+
+    /**
+     * Validate clearing number
+     *
+     * @param  string $nr
+     * @return bool
+     */
+    protected static function isValidClearing($nr)
+    {
+        return false;
+    }
+
+    /**
+     * Validate account number structure
+     *
+     * @param  string $nr
+     * @return bool
+     */
+    protected static function isValidStructure($nr)
+    {
+        return false;
+    }
+
+    /**
+     * Validate account number check digit
+     *
+     * @param  string $clearing
+     * @param  string $check
+     * @return bool
+     */
+    protected static function isValidCheckDigit($clearing, $check)
+    {
+        return false;
     }
 }

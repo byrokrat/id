@@ -22,43 +22,6 @@ class NordeaTyp1B extends AbstractAccount
     /**
      * {@inheritdoc}
      *
-     * @param  string $nr
-     * @return bool
-     */
-    public function isValidClearing($nr)
-    {
-        return $nr >= 4000 &&  $nr <= 4999;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param  string $nr
-     * @return bool
-     */
-    public function isValidStructure($nr)
-    {
-        return (boolean)preg_match("/^0{0,5}\d{7}$/", $nr);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param  string $clearing
-     * @param  string $nr
-     * @return bool
-     */
-    public function isValidCheckDigit($clearing, $nr)
-    {
-        $nr = substr($nr, strlen($nr) - 7);
-        $modulo = new Modulo11();
-
-        return $modulo->verify($clearing . $nr);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
      * @return string
      */
     public function getType()
@@ -79,5 +42,42 @@ class NordeaTyp1B extends AbstractAccount
         $nr = substr($nr, strlen($nr) - 7);
 
         return "$clearing,$nr";
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param  string $nr
+     * @return bool
+     */
+    protected static function isValidClearing($nr)
+    {
+        return $nr >= 4000 &&  $nr <= 4999;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param  string $nr
+     * @return bool
+     */
+    protected static function isValidStructure($nr)
+    {
+        return (boolean)preg_match("/^0{0,5}\d{7}$/", $nr);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param  string $clearing
+     * @param  string $check
+     * @return bool
+     */
+    protected static function isValidCheckDigit($clearing, $check)
+    {
+        $check = substr($check, strlen($check) - 7);
+        $modulo = new Modulo11();
+
+        return $modulo->verify($clearing . $check);
     }
 }

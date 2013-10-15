@@ -20,10 +20,20 @@ class FakeAccount extends AbstractAccount
     /**
      * {@inheritdoc}
      *
+     * @return string
+     */
+    public function getType()
+    {
+        return "Unknown";
+    }
+
+    /**
+     * {@inheritdoc}
+     *
      * @param  string $nr
      * @return bool
      */
-    public function isValidClearing($nr)
+    protected static function isValidClearing($nr)
     {
         return true;
     }
@@ -34,7 +44,7 @@ class FakeAccount extends AbstractAccount
      * @param  string $nr
      * @return bool
      */
-    public function isValidStructure($nr)
+    protected static function isValidStructure($nr)
     {
         return true;
     }
@@ -43,21 +53,11 @@ class FakeAccount extends AbstractAccount
      * {@inheritdoc}
      *
      * @param  string $clearing
-     * @param  string $nr
+     * @param  string $check
      * @return bool
      */
-    public function isValidCheckDigit($clearing, $nr)
+    protected static function isValidCheckDigit($clearing, $check)
     {
         return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return "Unknown";
     }
 }

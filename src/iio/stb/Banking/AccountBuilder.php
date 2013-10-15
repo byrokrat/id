@@ -98,8 +98,8 @@ class AccountBuilder
     /**
      * Get account object
      *
-     * @return AbstractAccount
-     * @throws Exception       If unable to create
+     * @return AccountInterface
+     * @throws Exception        If unable to create
      */
     public function getAccount()
     {

@@ -75,9 +75,9 @@ class StaticAccountBuilder
     /**
      * Get account object
      *
-     * @param  string          $number Clearing + , + account number
-     * @return AbstractAccount
-     * @throws Exception       If unable to create
+     * @param  string           $number Clearing + , + account number
+     * @return AccountInterface
+     * @throws Exception        If unable to create
      */
     public static function build($number)
     {
