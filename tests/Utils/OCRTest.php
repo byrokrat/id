@@ -5,8 +5,7 @@ class OCRTest extends \PHPUnit_Framework_TestCase
 {
     public function testCreate()
     {
-        $o = new OCR();
-        $this->assertEquals('12345682', (string)$o->create('123456'));
+        $this->assertEquals('12345682', (string)OCR::create('123456'));
     }
 
     /**
@@ -14,8 +13,7 @@ class OCRTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateInvalidLength()
     {
-        $o = new OCR();
-        $o->create('123456789012345678901234');
+        OCR::create('123456789012345678901234');
     }
 
     /**
@@ -23,22 +21,17 @@ class OCRTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateNotNumeric()
     {
-        $o = new OCR();
-        $o->create('123L');
+        OCR::create('123L');
     }
 
     public function testSetGet()
     {
-        $o = new OCR();
-        $this->assertSame('', $o->get());
-        $this->assertSame('', (string)$o);
-
-        $o->set('12345682');
-        $this->assertSame('12345682', $o->get());
+        $o = new OCR('12345682');
+        $this->assertSame('12345682', $o->getOCR());
         $this->assertSame('12345682', (string)$o);
 
         $o = new OCR('12345682');
-        $this->assertSame('12345682', $o->get());
+        $this->assertSame('12345682', $o->getOCR());
         $this->assertSame('12345682', (string)$o);
     }
 
