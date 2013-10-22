@@ -68,8 +68,10 @@ class PersonalId implements IdInterface
         $this->setCheckDigit($check);
 
         if ($century) {
+            // Century specified in $datestr
             $this->setDate(DateTime::createFromFormat('Ymd', $century.$datestr));
             $dateerrors = DateTime::getLastErrors();
+            
             // Set delimiter based on date (+ if date is more then a hundred years old)
             $hundredYearsAgo = new DateTime();
             $hundredYearsAgo->modify('-100 year');
@@ -78,13 +80,22 @@ class PersonalId implements IdInterface
             } else {
                 $this->setDelimiter('-');
             }
+
         } else {
+            // No century in $datestr
             $date = DateTime::createFromFormat('ymd', $datestr);
-            $dateerrors = DateTime::getLastErrors();
+            
+            // If in the future century is wrong
+            if ($date > new DateTime) {
+                $date->modify('-100 year');
+            }
+
             // Date is over a hundred years ago if delimiter is +
             if ($this->getDelimiter() == '+') {
                 $date->modify('-100 year');
             }
+
+            $dateerrors = DateTime::getLastErrors();
             $this->setDate($date);
         }
 

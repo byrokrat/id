@@ -15,7 +15,6 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
             array('1234567-1234'),
             array('123456-1A34'),
             array('12A456-1234'),
-            array('123456-xxxx'),
             array('123456+'),
             array('+1234'),
             array('123456+123'),
@@ -24,7 +23,6 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
             array('1234567+1234'),
             array('123456+1A34'),
             array('12A456+1234'),
-            array('123456+xxxx'),
 
             array('123456-1234'),
             array('123456+1234'),
@@ -49,6 +47,9 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
 
         $id = new FakeId('820323+xxxx');
         $this->assertEquals('1882', $id->getDate()->format('Y'));
+
+        $id = new FakeId('450415+xxxx');
+        $this->assertEquals('1845', $id->getDate()->format('Y'));
     }
 
     public function testDelimiter()

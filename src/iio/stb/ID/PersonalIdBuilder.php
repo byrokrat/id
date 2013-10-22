@@ -10,8 +10,7 @@
 
 namespace iio\stb\ID;
 
-use iio\stb\Exception\InvalidStructureException;
-use iio\stb\Exception\InvalidCheckDigitException;
+use iio\stb\Exception;
 
 /**
  * Build personal ids
@@ -105,17 +104,14 @@ class PersonalIdBuilder
      * CoordinationId takes precedence over FakeId.
      *
      * @return PersonalId
-     * @throws InvalidStructureException  If structure is invalid
-     * @throws InvalidCheckDigitException If check digit is invalid
+     * @throws Exception  If id could not be built
      */
     public function getId()
     {
         // Create PersonalId
         try {
-
             return new PersonalId($this->rawId);
-
-        } catch (InvalidStructureException $e) {
+        } catch (Exception $e) {
             // Throw exception if coord and fake are disabled
             if (!$this->bUseCoord && !$this->bUseFake) {
                 throw $e;
@@ -125,9 +121,8 @@ class PersonalIdBuilder
         // Create CoordinationId
         if ($this->bUseCoord) {
             try {
-
                 return new CoordinationId($this->rawId);
-            } catch (InvalidStructureException $e) {
+            } catch (Exception $e) {
                 // Throw exception if fake is disabled
                 if (!$this->bUseFake) {
                     throw $e;

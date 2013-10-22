@@ -10,8 +10,7 @@
 
 namespace iio\stb\ID;
 
-use iio\stb\Exception\InvalidStructureException;
-use iio\stb\Exception\InvalidCheckDigitException;
+use iio\stb\Exception;
 
 /**
  * Build corporate ids
@@ -104,18 +103,15 @@ class CorporateIdBuilder
      * builder settings. CorporateId takes precedence over PersonalId and
      * PersonalId takes precedence over CoordinationId
      *
-     * @return ÍdInterface
-     * @throws InvalidStructureException             If structure is invalid
-     * @throws InvalidCheckDigitException            If check digit is invalid
+     * @return IdInterface
+     * @throws Exception   If id could not be built
      */
     public function getId()
     {
         // Create CorporateId
         try {
-
             return new CorporateId($this->rawId);
-
-        } catch (InvalidStructureException $e) {
+        } catch (Exception $e) {
             // Throw exception if coord and personal id are disabled
             if (!$this->bUseCoord && !$this->bUsePersonal) {
                 throw $e;
@@ -125,9 +121,8 @@ class CorporateIdBuilder
         // Create PersonalId
         if ($this->bUsePersonal) {
             try {
-
                 return new PersonalId($this->rawId);
-            } catch (InvalidStructureException $e) {
+            } catch (Exception $e) {
                 // Throw exception if coordination is disabled
                 if (!$this->bUseCoord) {
                     throw $e;

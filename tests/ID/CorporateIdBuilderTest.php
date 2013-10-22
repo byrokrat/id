@@ -44,9 +44,9 @@ class CorporateIdBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException iio\stb\Exception\InvalidStructureException
+     * @expectedException iio\stb\Exception\InvalidCheckDigitException
      */
-    public function testInvalidPersonalIdStructureError()
+    public function testInvalidPersonalIdError()
     {
         $builder = new CorporateIdBuilder();
         $builder->enablePersonalId()

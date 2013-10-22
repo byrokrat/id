@@ -56,9 +56,9 @@ class PersonalIdBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException iio\stb\Exception\InvalidStructureException
+     * @expectedException iio\stb\Exception\InvalidCheckDigitException
      */
-    public function testInvalidPersonalIdStructureError()
+    public function testInvalidPersonalIdError()
     {
         $builder = new PersonalIdBuilder();
         $builder->disableFakeId()

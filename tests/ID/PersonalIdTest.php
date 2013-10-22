@@ -15,7 +15,6 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
             array('1234567-1234'),
             array('123456-1A34'),
             array('12A456-1234'),
-            array('123456-1234'),
             array('123456+'),
             array('+1234'),
             array('123456+123'),
@@ -24,7 +23,6 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
             array('1234567+1234'),
             array('123456+1A34'),
             array('12A456+1234'),
-            array('123456+1234'),
             array('120101-A234'),
             array('120101-12345'),
             array('120101+A234'),
@@ -54,6 +52,8 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
             array('820323+2777'),
             array('820323+2778'),
             array('820323+2779'),
+            array('123456-1234'),
+            array('123456+1234'),
         );
     }
 
@@ -82,6 +82,9 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
 
         $id = new PersonalId('820323+2775');
         $this->assertEquals('1882', $id->getDate()->format('Y'));
+
+        $id = new PersonalId('450415-0220');
+        $this->assertEquals('1945', $id->getDate()->format('Y'));
     }
 
     public function testDelimiter()
