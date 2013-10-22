@@ -82,6 +82,6 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
     public function testToString()
     {
         $id = new FakeId('820323-xxxx');
-        $this->assertEquals('19820323-xxxx', (string)$id);
+        $this->assertEquals('820323-xxxx', (string)$id);
     }
 }

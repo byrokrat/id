@@ -117,6 +117,12 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
     public function testToString()
     {
         $id = new PersonalId('820323-2775');
-        $this->assertEquals('19820323-2775', (string)$id);
+        $this->assertEquals('820323-2775', (string)$id);
+    }
+
+    public function testGetLongId()
+    {
+        $id = new PersonalId('820323-2775');
+        $this->assertEquals('19820323-2775', $id->getLongId());
     }
 }

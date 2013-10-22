@@ -240,18 +240,28 @@ class PersonalId implements IdInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get id as long string
      *
      * Year represented using four digits
      *
      * @return string
      */
-    public function __toString()
+    public function getLongId()
     {
         return $this->getDate()->format('Ymd')
             . $this->getDelimiter()
             . $this->getIndividualNr()
             . $this->getCheckDigit();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getId();
     }
 
     /**
