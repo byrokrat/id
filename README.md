@@ -18,21 +18,33 @@ VISMA series of accounting software is also supported.
 Banking
 -------
 
-Data types for accounts in the swedish banking system. Se *AccountBuilder* for
+Data types for accounts in the swedish banking system. Se `AccountBuilder` for
 a way to transparently create account objects.
+
+    use iio\stb\Banking\AccountBuilder;
+    $builder = new AccountBuilder();
+    $account = $builder->setAccount('3300,1111111116')->getAccount();
+    // $account is an instance of iio\stb\Banking\NordeaPerson
 
 
 ID
 --
 
 Data types for swedish social security and corporation id numbers. Se
-*CorporateIdBuilder* and *PersonalIdBuilder* for ways to transparently create ID
+`CorporateIdBuilder` and `PersonalIdBuilder` for ways to transparently create ID
 objects.
+
+    use iio\stb\ID\PersonalIdBuilder;
+    $builder = new PersonalIdBuilder();
+    $id = $builder->enableCoordinationId()
+        ->setId('701063-2391')
+        ->getId();
+    // $id is an instance of iio\stb\ID\CoordinationId
 
 
 Utils
 -----
 
-Some utility classes. *Amount* represent transaction amounts using bcmath for 
-arithmetic precision. *OCR* represents transaction numbers used in the swedish
+Some utility classes. `Amount` represent transaction amounts using bcmath for 
+arithmetic precision. `OCR` represents transaction numbers used in the swedish
 banking system.
