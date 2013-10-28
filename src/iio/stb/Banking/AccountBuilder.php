@@ -29,7 +29,8 @@ class AccountBuilder
         'NordeaTyp1B',
         'SwedbankTyp1',
         'SwedbankTyp2',
-        'SEB'
+        'SEB',
+        'FakeAccount'
     );
 
     /**
