@@ -41,10 +41,21 @@ objects.
         ->getId();
     // $id is an instance of iio\stb\ID\CoordinationId
 
+### PersonalId
+
+    use iio\stb\ID\PersonalId;
+    $id = new PersonalId('820323-2775');
+    echo $id->getId();                      //820323-2775
+    echo $id->getLondId();                  //19820323-2775
+    echo $id->getDate()->format('Y-m-d');   //1982-03-23
+    echo $id->getSex();                     //M
+
 
 Utils
 -----
 
-Some utility classes. `Amount` represent transaction amounts using bcmath for 
-arithmetic precision. `OCR` represents transaction numbers used in the swedish
-banking system.
+Some utility classes.
+ 
+ * `Amount` represent transaction amounts using bcmath for arithmetic precision.
+ 
+ * `OCR` represents transaction numbers used in the swedish banking system.
