@@ -93,6 +93,9 @@ class SwedbankTyp2Test extends \PHPUnit_Framework_TestCase
     {
         $m = new SwedbankTyp2('8000,001111111116');
         $this->assertEquals('8000,1111111116', (string)$m);
+
+        $m = new SwedbankTyp2('8105,744202466');
+        $this->assertEquals('8105,744202466', (string)$m);
     }
 
     public function testGetType()

@@ -39,7 +39,7 @@ class SwedbankTyp2 extends AbstractAccount
     protected function tostring($clearing, $nr)
     {
         // Remove starting ceros if they exist
-        $nr = substr($nr, strlen($nr) - 10);
+        $nr = ltrim($nr, '0');
 
         return "$clearing,$nr";
     }
