@@ -50,6 +50,13 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $this->assertSame("1231J", $a->getSignalString());
     }
 
+    public function testSetInt()
+    {
+        $a = new Amount();
+        $a->setInt(100);
+        $this->assertSame(100, $a->getInt());
+    }
+
     public function testSetString()
     {
         $a = new Amount('0', 2);
@@ -99,7 +106,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
 
     public function testConstruct()
     {
-        $a = new Amount(123.23, 2);
+        $a = new Amount('123.23', 2);
         $this->assertSame(123.23, $a->getFloat());
         $this->assertSame("123.23", $a->getString());
         $this->assertSame("123.23", (string)$a);
@@ -213,7 +220,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
     public function testSetEmptyString()
     {
         $a = new Amount('');
-        $this->assertTrue($a->equals(new Amount(0.0)));
+        $this->assertTrue($a->equals(new Amount('0.0')));
     }
 
     public function testFormat()

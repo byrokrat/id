@@ -234,15 +234,18 @@ class Template
 
         // Build verification
         $ver = new Verification($this->getText());
+
         foreach ($this->getTransactions() as $arTransData) {
             list($number, $amount) = $arTransData;
 
             // Ignore 0 amount transactions
-            $amount = floatval($amount);
-            if ($amount != 0) {
-                $account = $chart->getAccount($number);
-                $amount = new Amount($amount);
-                $ver->addTransaction(new Transaction($account, $amount));
+            if (0 != floatval($amount)) {
+                $ver->addTransaction(
+                    new Transaction(
+                        $chart->getAccount($number),
+                        new Amount($amount)
+                    )
+                );
             }
         }
 

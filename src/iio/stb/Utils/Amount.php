@@ -53,36 +53,35 @@ class Amount
      * Note that setting amount from floating point number or integer may lead
      * to a loss of precision. See setInt() and setFloat() respectively.
      *
-     * @param  string|int|float        $amount
-     * @param  int                     $precision The number of decimal digits
-     *     used in calculations and output. If omitted the 'frac_digits' value
-     *     of the current monetary locale is used (see localeconv() in the PHP
-     *     documentation).
-     * @throws InvalidAmountException If amount is not valid
-     * 
-     * @deprecated Creating new amounts from floats and integers is deprecated.
-     * Use setFloat() and setInt() directly instead.
+     * @param string $amount
+     * @param int    $precision The number of decimal digits used in calculations
+     *     and output. If omitted the 'frac_digits' value of the current
+     *     monetary locale is used (see localeconv() in the PHP documentation).
+     *     If the monetary locale is 'C' a precision of 2 is used.
      */
     public function __construct($amount = '0', $precision = null)
     {
         if (is_null($precision)) {
-            $locale = localeconv();
-            $precision = $locale['frac_digits'];
+            if ('C' == setlocale(LC_MONETARY, 0)) {
+                $precision = 2;
+            } else {
+                $info = localeconv();
+                $precision = $info['frac_digits'];
+            }
         }
 
         $this->setPrecision($precision);
 
         if (is_int($amount)) {
+            trigger_error('Creating new amounts from integers is deprecated, use setInt() instead.', E_USER_DEPRECATED);
             $this->setInt($amount);
 
         } elseif (is_float($amount)) {
+            trigger_error('Creating new amounts from floats is deprecated, use setFloat() instead.', E_USER_DEPRECATED);
             $this->setFloat($amount);
 
-        } elseif (is_string($amount)) {
-            $this->setString($amount);
-
         } else {
-            throw new InvalidAmountException("Invalid amount");
+            $this->setString($amount);
         }
     }
 
@@ -267,6 +266,18 @@ class Amount
     public function getFloat()
     {
         return (float)round(floatval($this->amount), $this->precision);
+    }
+
+    /**
+     * Get amount as integer
+     *
+     * Amount is evaluated using intval
+     *
+     * @return int
+     */
+    public function getInt()
+    {
+        return intval($this->amount);
     }
 
     /**
