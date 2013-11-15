@@ -21,6 +21,7 @@ class AccountBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new AccountBuilder();
         $builder->setAccount('3300,1111111116')
             ->disable('NordeaPerson')
+            ->disable('FakeAccount')
             ->getAccount();
     }
 }
