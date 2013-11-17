@@ -22,7 +22,7 @@ use iio\stb\Exception\InvalidStructureException;
 class FakeId extends PersonalId
 {
     /**
-     * {@inheritdoc}
+     * Fake swedish personal identity numbers
      *
      * @param  string                     $id
      * @throws InvalidStructureException  If structure is invalid
@@ -43,7 +43,7 @@ class FakeId extends PersonalId
     }
 
     /**
-     * {@inheritdoc}
+     * Get sex as denoted by id
      *
      * Returns 'O' for other if sex could not be determined
      *
@@ -62,7 +62,7 @@ class FakeId extends PersonalId
     }
 
     /**
-     * {@inheritdoc}
+     * Calculate check digit
      *
      * @return string
      */

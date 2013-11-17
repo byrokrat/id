@@ -156,7 +156,7 @@ class PersonalId implements IdInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get check digit
      *
      * @return string
      */
@@ -178,7 +178,7 @@ class PersonalId implements IdInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get delimiter
      *
      * @return string
      */
@@ -225,7 +225,7 @@ class PersonalId implements IdInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get id
      *
      * Year represented using two digits
      *
@@ -255,11 +255,11 @@ class PersonalId implements IdInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get id as string
      *
      * @return string
      */
-    public function __toString()
+    public function __tostring()
     {
         return $this->getId();
     }
@@ -271,9 +271,8 @@ class PersonalId implements IdInterface
      */
     protected function calcCheckDigit()
     {
-        $nr = $this->getDate()->format('ymd') . $this->getIndividualNr();
-        $modulo = new Modulo10();
-
-        return $modulo->getCheckDigit($nr);
+        return Modulo10::getCheckDigit(
+            $this->getDate()->format('ymd') . $this->getIndividualNr()
+        );
     }
 }

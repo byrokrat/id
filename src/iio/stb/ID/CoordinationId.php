@@ -20,7 +20,7 @@ use iio\stb\Utils\Modulo10;
 class CoordinationId extends PersonalId
 {
     /**
-     * {@inheritdoc}
+     * Swedish coordination id number
      *
      * A coordination number is like a personal number except that 60 is added
      * to the date of birth.
@@ -33,9 +33,7 @@ class CoordinationId extends PersonalId
     {
         // Deduct 60 from dob before setting id
         $split = preg_split("/([-+])/", $id, 2, PREG_SPLIT_DELIM_CAPTURE);
-        $id = intval(array_shift($split));
-        $id -= 60;
-        $id = (string)$id;
+        $id = intval(array_shift($split)) - 60;
 
         foreach ($split as $part) {
             $id .= $part;
@@ -45,49 +43,40 @@ class CoordinationId extends PersonalId
     }
 
     /**
-     * {@inheritdoc}
+     * Get id
      *
      * @return string
      */
     public function getId()
     {
-        $dob = intval($this->getDate()->format('ymd'));
-        $dob += 60;
-
-        return $dob
+        return intval($this->getDate()->format('ymd')) + 60
             . $this->getDelimiter()
             . $this->getIndividualNr()
             . $this->getCheckDigit();
     }
 
     /**
-     * {@inheritdoc}
+     * Get id as string
      *
      * @return string
      */
-    public function __toString()
+    public function __tostring()
     {
-        $dob = intval($this->getDate()->format('Ymd'));
-        $dob += 60;
-
-        return $dob
+        return intval($this->getDate()->format('Ymd')) + 60
             . $this->getDelimiter()
             . $this->getIndividualNr()
             . $this->getCheckDigit();
     }
 
     /**
-     * {@inheritdoc}
+     * Calculate check digit
      *
      * @return string
      */
     protected function calcCheckDigit()
     {
-        $dob = intval($this->getDate()->format('ymd'));
-        $dob += 60;
-        $nr = $dob . $this->getIndividualNr();
-        $modulo = new Modulo10();
-
-        return $modulo->getCheckDigit($nr);
+        return Modulo10::getCheckDigit(
+            intval($this->getDate()->format('ymd')) + 60 . $this->getIndividualNr()
+        );
     }
 }

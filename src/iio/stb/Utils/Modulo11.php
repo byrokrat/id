@@ -24,17 +24,12 @@ class Modulo11
      *
      * @param  string                    $nr
      * @return bool
-     * @throws InvalidStructureException If nr does not consist of 0-9
-     *     and possibly ending with an X
+     * @throws InvalidStructureException If nr is invalid
      */
     public static function verify($nr)
     {
-        if (!is_string($nr)
-            || !preg_match("/^[0-9]*X?$/", $nr)
-            || strlen($nr) < 1
-        ) {
-            $msg = "Number must consist of characters 0-9 or X";
-            throw new InvalidStructureException($msg);
+        if (!is_string($nr) || !preg_match("/^[0-9]*X?$/", $nr) || strlen($nr) < 1) {
+            throw new InvalidStructureException("Number must consist of characters 0-9 and optionally end with X");
         }
 
         $weight = 0;
@@ -74,8 +69,7 @@ class Modulo11
     public static function getCheckDigit($nr)
     {
         if (!is_string($nr) || !ctype_digit($nr)) {
-            $msg = "Number must consist of characters 0-9";
-            throw new InvalidStructureException($msg);
+            throw new InvalidStructureException("Number must consist of characters 0-9");
         }
 
         $weight = 1;

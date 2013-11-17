@@ -43,5 +43,5 @@ interface IdInterface
      *
      * @return string
      */
-    public function __toString();
+    public function __tostring();
 }

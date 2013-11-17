@@ -44,8 +44,7 @@ class OCR
             || strlen($ocr) > 25
             || strlen($ocr) < 2
         ) {
-            $msg = "\$ocr must be numeric and contain between 2 and 25 digits";
-            throw new InvalidStructureException($msg);
+            throw new InvalidStructureException("\$ocr must be numeric and contain between 2 and 25 digits");
         }
 
         $arOcr = str_split($ocr);
@@ -55,15 +54,12 @@ class OCR
 
         // Validate length digit
         if ($length != self::calcLengthDigit($base)) {
-            $msg = "Invalid length digit";
-            throw new InvalidLengthDigitException($msg);
+            throw new InvalidLengthDigitException("Invalid length digit");
         }
 
         // Validate check digit
-        $modulo = new Modulo10();
-        if ($check != $modulo->getCheckDigit($base.$length)) {
-            $msg = "Invalid check digit";
-            throw new InvalidCheckDigitException($msg);
+        if ($check != Modulo10::getCheckDigit($base . $length)) {
+            throw new InvalidCheckDigitException("Invalid check digit");
         }
 
         $this->ocr = $ocr;
@@ -101,16 +97,14 @@ class OCR
     public static function create($nr)
     {
         if (!is_string($nr) || !ctype_digit($nr) || strlen($nr) > 23) {
-            $msg = "\$nr must be numeric and contain a maximum of 23 digits";
-            throw new InvalidStructureException($msg);
+            throw new InvalidStructureException("\$nr must be numeric and contain a maximum of 23 digits");
         }
 
         // Calculate and append length digit
         $nr .= self::calcLengthDigit($nr);
 
         // Calculate and append check digit
-        $modulo = new Modulo10();
-        $nr .= $modulo->getCheckDigit($nr);
+        $nr .= Modulo10::getCheckDigit($nr);
 
         return new OCR($nr);
     }
@@ -126,9 +120,6 @@ class OCR
      */
     private static function calcLengthDigit($nr)
     {
-        $length = strlen($nr) + 2;
-        $length = $length % 10;
-
-        return (string)$length;
+        return (string)(strlen($nr) + 2) % 10;
     }
 }

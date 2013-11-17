@@ -118,7 +118,6 @@ class AccountBuilder
         }
 
         // Unable to create class
-        $msg = "Unable to create account for number '{$this->rawNumber}'";
-        throw new Exception($msg);
+        throw new Exception("Unable to create account for number '{$this->rawNumber}'");
     }
 }

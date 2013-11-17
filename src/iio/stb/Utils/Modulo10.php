@@ -29,8 +29,7 @@ class Modulo10
     public static function verify($nr)
     {
         if (!is_string($nr) || !ctype_digit($nr)) {
-            $msg = "Number must consist of characters 0-9";
-            throw new InvalidStructureException($msg);
+            throw new InvalidStructureException("Number must consist of characters 0-9");
         }
 
         $check = substr($nr, -1);
@@ -49,8 +48,7 @@ class Modulo10
     public static function getCheckDigit($nr)
     {
         if (!is_string($nr) || !ctype_digit($nr)) {
-            $msg = "Number must consist of characters 0-9";
-            throw new InvalidStructureException($msg);
+            throw new InvalidStructureException("Number must consist of characters 0-9");
         }
 
         $n = 2;

@@ -63,7 +63,7 @@ class CorporateId implements IdInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get id
      *
      * @return string
      */
@@ -77,7 +77,7 @@ class CorporateId implements IdInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get check digit
      *
      * @return string
      */
@@ -87,7 +87,7 @@ class CorporateId implements IdInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get delimiter
      *
      * @return string
      */
@@ -98,11 +98,11 @@ class CorporateId implements IdInterface
 
 
     /**
-     * {@inheritdoc}
+     * Get id as string
      *
      * @return string
      */
-    public function __toString()
+    public function __tostring()
     {
         return $this->getId();
     }
@@ -142,9 +142,8 @@ class CorporateId implements IdInterface
      */
     private function calcCheckDigit()
     {
-        $nr = $this->groupNr . $this->serialNr[0] . $this->serialNr[1];
-        $modulo = new Modulo10();
-
-        return $modulo->getCheckDigit($nr);
+        return Modulo10::getCheckDigit(
+            $this->groupNr . $this->serialNr[0] . $this->serialNr[1]
+        );
     }
 }
