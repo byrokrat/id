@@ -170,7 +170,7 @@ class Template
      *
      * If all variables are substituted
      *
-     * @param  string &$key Will contian non-substituted key on error
+     * @param  string $key Will contian non-substituted key on error
      * @return bool
      */
     public function ready(&$key)
