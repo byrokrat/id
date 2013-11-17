@@ -13,14 +13,14 @@ namespace iio\stb\Banking;
 use iio\stb\Utils\Modulo11;
 
 /**
- * SwedbankTyp1 account number validator
+ * SwedbankTyp1 account
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class SwedbankTyp1 extends AbstractAccount
 {
     /**
-     * {@inheritdoc}
+     * Get string describing account type
      *
      * @return string
      */
@@ -30,56 +30,44 @@ class SwedbankTyp1 extends AbstractAccount
     }
 
     /**
-     * {@inheritdoc}
+     * Get account as string
      *
-     * @param  string $clearing
-     * @param  string $nr
      * @return string
      */
-    protected function tostring($clearing, $nr)
+    public function __tostring()
     {
-        // Remove starting ceros if they exist
-        $nr = substr($nr, strlen($nr) - 7);
-
-        return "$clearing,$nr";
+        return $this->getClearing() . ',' . substr($this->getNumber(), strlen($this->getNumber()) - 7);
     }
 
     /**
-     * {@inheritdoc}
+     * Get string describing account structure
      *
-     * @param  string $nr
-     * @return bool
+     * @return string
      */
-    protected static function isValidClearing($nr)
+    protected function getStructure()
     {
-        return $nr >= 7000 &&  $nr <= 7999;
+        return "/^0{0,5}\d{7}$/";
     }
 
     /**
-     * {@inheritdoc}
+     * Validate clearing number
      *
-     * @param  string $nr
      * @return bool
      */
-    protected static function isValidStructure($nr)
+    protected function isValidClearing()
     {
-        return (boolean)preg_match("/^0{0,5}\d{7}$/", $nr);
+        return $this->getClearing() >= 7000 && $this->getClearing() <= 7999;
     }
 
     /**
-     * {@inheritdoc}
+     * Validate account number check digit
      *
-     * @param  string $clearing
-     * @param  string $check
      * @return bool
      */
-    protected static function isValidCheckDigit($clearing, $check)
+    protected function isValidCheckDigit()
     {
-        $verify = substr($clearing, 1);
-        $check = substr($check, strlen($check) - 7);
-        $verify .= $check;
-        $modulo = new Modulo11();
-
-        return $modulo->verify($verify);
+        return Modulo11::verify(
+            substr($this->getClearing(), 1) . substr($this->getNumber(), strlen($this->getNumber()) - 7)
+        );
     }
 }

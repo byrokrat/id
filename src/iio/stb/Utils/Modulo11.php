@@ -27,9 +27,8 @@ class Modulo11
      * @throws InvalidStructureException If nr does not consist of 0-9
      *     and possibly ending with an X
      */
-    public function verify($nr)
+    public static function verify($nr)
     {
-        // Throw exception if input is invalid
         if (!is_string($nr)
             || !preg_match("/^[0-9]*X?$/", $nr)
             || strlen($nr) < 1
@@ -37,9 +36,11 @@ class Modulo11
             $msg = "Number must consist of characters 0-9 or X";
             throw new InvalidStructureException($msg);
         }
+
         $weight = 0;
         $pos = strlen($nr);
         $sum = 0;
+
         while (true) {
             // Set string position
             $pos--;
@@ -70,16 +71,17 @@ class Modulo11
      * @return string
      * @throws InvalidStructureException If nr is not numerical
      */
-    public function getCheckDigit($nr)
+    public static function getCheckDigit($nr)
     {
-        // Throw exception if input is invalid
         if (!is_string($nr) || !ctype_digit($nr)) {
             $msg = "Number must consist of characters 0-9";
             throw new InvalidStructureException($msg);
         }
+
         $weight = 1;
         $pos = strlen($nr);
         $sum = 0;
+
         while (true) {
             // Set string position
             $pos--;
@@ -95,13 +97,16 @@ class Modulo11
             $n = $nr[$pos];
             $sum += $n * $weight;
         }
+
         // Calculate check digit from remainder
         $rest = $sum % 11;
         $check = 11 - $rest;
         $check = (string)$check;
+
         if ($check == '10') {
             $check = 'X';
         }
+
         if ($check == '11') {
             $check = '0';
         }

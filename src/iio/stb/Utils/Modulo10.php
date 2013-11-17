@@ -26,20 +26,17 @@ class Modulo10
      * @return bool
      * @throws InvalidStructureException If nr is not numerical
      */
-    public function verify($nr)
+    public static function verify($nr)
     {
-        // Throw exception if input is invalid
         if (!is_string($nr) || !ctype_digit($nr)) {
             $msg = "Number must consist of characters 0-9";
             throw new InvalidStructureException($msg);
         }
-        // Save current check digit
+
         $check = substr($nr, -1);
-        // Remove check digit
         $nr = substr($nr, 0, strlen($nr)-1);
 
-        // Verify check digit
-        return $check == $this->getCheckDigit($nr);
+        return $check == self::getCheckDigit($nr);
     }
 
     /**
@@ -49,24 +46,28 @@ class Modulo10
      * @return string
      * @throws InvalidStructureException If nr is not numerical
      */
-    public function getCheckDigit($nr)
+    public static function getCheckDigit($nr)
     {
-        // Throw exception if input is invalid
         if (!is_string($nr) || !ctype_digit($nr)) {
             $msg = "Number must consist of characters 0-9";
             throw new InvalidStructureException($msg);
         }
+
         $n = 2;
         $sum = 0;
+
         for ($i=strlen($nr)-1; $i>=0; $i--) {
             $tmp = $nr[$i] * $n;
             ($tmp > 9) ? $sum += 1 + ($tmp % 10) : $sum += $tmp;
             ($n == 2) ? $n = 1 : $n = 2;
         }
+
         $ceil = $sum;
+
         while ($ceil % 10 != 0) {
             $ceil++;
         }
+
         $check = $ceil-$sum;
 
         return (string)$check;

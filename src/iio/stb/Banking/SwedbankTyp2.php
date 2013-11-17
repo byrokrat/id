@@ -13,14 +13,14 @@ namespace iio\stb\Banking;
 use iio\stb\Utils\Modulo10;
 
 /**
- * SwedbankTyp2 account number
+ * SwedbankTyp2 account
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class SwedbankTyp2 extends AbstractAccount
 {
     /**
-     * {@inheritdoc}
+     * Get string describing account type
      *
      * @return string
      */
@@ -30,54 +30,44 @@ class SwedbankTyp2 extends AbstractAccount
     }
 
     /**
-     * {@inheritdoc}
+     * Get account as string
      *
-     * @param  string $clearing
-     * @param  string $nr
      * @return string
      */
-    protected function tostring($clearing, $nr)
+    public function __tostring()
     {
-        // Remove starting ceros if they exist
-        $nr = ltrim($nr, '0');
-
-        return "$clearing,$nr";
+        return $this->getClearing() . ',' . ltrim($this->getNumber(), '0');
     }
 
     /**
-     * {@inheritdoc}
+     * Get string describing account structure
      *
-     * @param  string $nr
-     * @return bool
+     * @return string
      */
-    protected static function isValidClearing($nr)
+    protected function getStructure()
     {
-        return $nr >= 8000 &&  $nr <= 8999;
+        return "/^0{0,2}\d{2,10}$/";
     }
 
     /**
-     * {@inheritdoc}
+     * Validate clearing number
      *
-     * @param  string $nr
      * @return bool
      */
-    protected static function isValidStructure($nr)
+    protected function isValidClearing()
     {
-        return (boolean)preg_match("/^0{0,2}\d{2,10}$/", $nr);
+        return $this->getClearing() >= 8000 && $this->getClearing() <= 8999;
     }
 
     /**
-     * {@inheritdoc}
+     * Validate account number check digit
      *
-     * @param  string $clearing
-     * @param  string $check
      * @return bool
      */
-    protected static function isValidCheckDigit($clearing, $check)
+    protected function isValidCheckDigit()
     {
-        $check = ltrim($check, '0');
-        $modulo = new Modulo10();
-
-        return $modulo->verify($check);
+        return Modulo10::verify(
+            ltrim($this->getNumber(), '0')
+        );
     }
 }

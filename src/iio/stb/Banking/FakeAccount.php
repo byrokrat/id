@@ -11,14 +11,14 @@
 namespace iio\stb\Banking;
 
 /**
- * Fake account number validator, all is valid
+ * Fake account, all is valid
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class FakeAccount extends AbstractAccount
 {
     /**
-     * {@inheritdoc}
+     * Get string describing account type
      *
      * @return string
      */
@@ -28,35 +28,31 @@ class FakeAccount extends AbstractAccount
     }
 
     /**
-     * {@inheritdoc}
+     * Get string describing account structure
      *
-     * @param  string $nr
+     * @return string
+     */
+    protected function getStructure()
+    {
+        return "/.*/";
+    }
+
+    /**
+     * Validate clearing number
+     *
      * @return bool
      */
-    protected static function isValidClearing($nr)
+    protected function isValidClearing()
     {
         return true;
     }
 
     /**
-     * {@inheritdoc}
+     * Validate account number check digit
      *
-     * @param  string $nr
      * @return bool
      */
-    protected static function isValidStructure($nr)
-    {
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param  string $clearing
-     * @param  string $check
-     * @return bool
-     */
-    protected static function isValidCheckDigit($clearing, $check)
+    protected function isValidCheckDigit()
     {
         return true;
     }

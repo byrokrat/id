@@ -34,7 +34,7 @@ abstract class AbstractAccount implements AccountInterface
     /**
      * Constructor
      *
-     * @param  string                     $nr
+     * @param  string                     $nr The account number
      * @throws InvalidClearingException   If clearing number is invalid
      * @throws InvalidStructureException  If structure is invalid
      * @throws InvalidCheckDigitException If check digit is invalid
@@ -54,45 +54,42 @@ abstract class AbstractAccount implements AccountInterface
 
         if (strlen($this->clear) != 4
             || !ctype_digit($this->clear)
-            || !static::isValidClearing($this->clear)
+            || !$this->isValidClearing()
         ) {
             throw new InvalidClearingException("Invalid clearing number for <$nr>");
         }
 
-        if (!static::isValidStructure($this->nr)) {
+        if (!$this->isValidStructure()) {
             throw new InvalidStructureException("Invalid account number structre for <$nr>");
         }
 
-        if (!static::isValidCheckDigit($this->clear, $this->nr)) {
+        if (!$this->isValidCheckDigit()) {
             throw new InvalidCheckDigitException("Invalid check digit for <$nr>");
         }
     }
 
     /**
-     * {@inheritdoc}
+     * Get account as string
      *
      * @return string
      */
-    public function __toString()
+    public function __tostring()
     {
-        return $this->tostring($this->clear, $this->nr);
+        return "{$this->getClearing()},{$this->getNumber()}";
     }
 
     /**
-     * {@inheritdoc}
+     * Get account as a 16 digit number
      *
      * @return string
      */
     public function to16()
     {
-        // Add starting ceros if they don't exist
-        $nr = str_pad($this->nr, 12, '0', STR_PAD_LEFT);
-
-        return $this->clear . $nr;
+        return $this->clear . str_pad($this->nr, 12, '0', STR_PAD_LEFT);
     }
 
     /**
-     * {@inheritdoc}
+     * Get clearing number
      *
      * @return string
      */
@@ -102,7 +99,7 @@ abstract class AbstractAccount implements AccountInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get account number
      *
      * @return string
      */
@@ -112,48 +109,33 @@ abstract class AbstractAccount implements AccountInterface
     }
 
     /**
-     * Get account as string
+     * Get string describing account structure
      *
-     * @param  string $clearing
-     * @param  string $nr
      * @return string
      */
-    protected function tostring($clearing, $nr)
+    abstract protected function getStructure();
+
+    /**
+     * Validate account number structure
+     *
+     * @return bool
+     */
+    protected function isValidStructure()
     {
-        return "$clearing,$nr";
+        return (boolean)preg_match($this->getStructure(), $this->getNumber());
     }
 
     /**
      * Validate clearing number
      *
-     * @param  string $nr
      * @return bool
      */
-    protected static function isValidClearing($nr)
-    {
-        return false;
-    }
-
-    /**
-     * Validate account number structure
-     *
-     * @param  string $nr
-     * @return bool
-     */
-    protected static function isValidStructure($nr)
-    {
-        return false;
-    }
+    abstract protected function isValidClearing();
 
     /**
      * Validate account number check digit
      *
-     * @param  string $clearing
-     * @param  string $check
      * @return bool
      */
-    protected static function isValidCheckDigit($clearing, $check)
-    {
-        return false;
-    }
+    abstract protected function isValidCheckDigit();
 }

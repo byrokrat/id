@@ -13,14 +13,14 @@ namespace iio\stb\Banking;
 use iio\stb\Utils\Modulo10;
 
 /**
- * PlusGiro account number validator
+ * PlusGiro account
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class PlusGiro extends AbstractAccount
+class PlusGiro extends AbstractGiro
 {
     /**
-     * {@inheritdoc}
+     * Get string describing account type
      *
      * @return string
      */
@@ -30,51 +30,12 @@ class PlusGiro extends AbstractAccount
     }
 
     /**
-     * {@inheritdoc}
+     * Get string describing account structure
      *
-     * @param  string $clearing
-     * @param  string $nr
      * @return string
      */
-    protected function tostring($clearing, $nr)
+    protected function getStructure()
     {
-        return $nr;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param  string $nr
-     * @return bool
-     */
-    protected static function isValidClearing($nr)
-    {
-        return $nr == '0000';
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param  string $nr
-     * @return bool
-     */
-    protected static function isValidStructure($nr)
-    {
-        return (boolean)preg_match("/^\d{1,7}-\d$/", $nr);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param  string $clearing
-     * @param  string $check
-     * @return bool
-     */
-    protected static function isValidCheckDigit($clearing, $check)
-    {
-        $check = str_replace('-', '', $check);
-        $modulo = new Modulo10();
-
-        return $modulo->verify($check);
+        return "/^\d{1,7}-\d$/";
     }
 }

@@ -26,6 +26,7 @@ include_once "$src/Accounting/Formatter/VISMAkml.php";
 
 include_once "$src/Banking/AccountInterface.php";
 include_once "$src/Banking/AbstractAccount.php";
+include_once "$src/Banking/AbstractGiro.php";
 include_once "$src/Banking/AccountBuilder.php";
 include_once "$src/Banking/Bankgiro.php";
 include_once "$src/Banking/FakeAccount.php";
