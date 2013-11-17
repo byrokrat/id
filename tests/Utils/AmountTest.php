@@ -200,7 +200,12 @@ class AmountTest extends \PHPUnit_Framework_TestCase
 
     public function testGetPrecision()
     {
-        $a = new Amount('0', 2);
+        $a = new Amount();
+        $a->setPrecision(10);
+        $this->assertSame(10, $a->getPrecision());
+
+        setlocale(LC_MONETARY, 'C');
+        $a = new Amount();
         $this->assertSame(2, $a->getPrecision());
     }
 

@@ -55,33 +55,13 @@ class Amount
      *
      * @param string $amount
      * @param int    $precision The number of decimal digits used in calculations
-     *     and output. If omitted the 'frac_digits' value of the current
-     *     monetary locale is used (see localeconv() in the PHP documentation).
-     *     If the monetary locale is 'C' a precision of 2 is used.
      */
     public function __construct($amount = '0', $precision = null)
     {
-        if (is_null($precision)) {
-            if ('C' == setlocale(LC_MONETARY, 0)) {
-                $precision = 2;
-            } else {
-                $info = localeconv();
-                $precision = $info['frac_digits'];
-            }
-        }
+        $this->setString($amount);
 
-        $this->setPrecision($precision);
-
-        if (is_int($amount)) {
-            trigger_error('Creating new amounts from integers is deprecated, use setInt() instead.', E_USER_DEPRECATED);
-            $this->setInt($amount);
-
-        } elseif (is_float($amount)) {
-            trigger_error('Creating new amounts from floats is deprecated, use setFloat() instead.', E_USER_DEPRECATED);
-            $this->setFloat($amount);
-
-        } else {
-            $this->setString($amount);
+        if ($precision) {
+            $this->setPrecision($precision);
         }
     }
 
@@ -100,10 +80,26 @@ class Amount
     /**
      * Get the number of decimal digits used in calculations and output
      *
+     * Can be set using at construct or using setPrecision(). If no precision is
+     * specified the 'frac_digits' value of the current monetary locale is used
+     * (see localeconv() in the PHP documentation).
+     *
+     * If the monetary locale is 'C' a precision of 2 is used.
+     *
      * @return int
      */
     public function getPrecision()
     {
+        if (!isset($this->precision)) {
+            $info = localeconv();
+
+            if ('C' == setlocale(LC_MONETARY, 0)) {
+                $info['frac_digits'] = 2;
+            }
+
+            $this->precision = $info['frac_digits'];
+        }
+
         return $this->precision;
     }
 
@@ -116,13 +112,12 @@ class Amount
      *
      * @param  float                  $int
      * @return void
-     * @throws InvalidAmountException If float is not an integer
+     * @throws InvalidAmountException If $int is not an integer
      */
     public function setInt($int)
     {
         if (!is_int($int)) {
-            $msg = "Amount must be an integer";
-            throw new InvalidAmountException($msg);
+            throw new InvalidAmountException("Amount must be an integer");
         }
         $this->amount = sprintf('%F', $int);
     }
@@ -136,13 +131,12 @@ class Amount
      *
      * @param  float                  $float
      * @return void
-     * @throws InvalidAmountException If float is not a floating point number
+     * @throws InvalidAmountException If $float is not a floating point number
      */
     public function setFloat($float)
     {
         if (!is_float($float)) {
-            $msg = "Amount must be a floating point number";
-            throw new InvalidAmountException($msg);
+            throw new InvalidAmountException("Amount must be a floating point number");
         }
         $this->amount = sprintf('%F', $float);
     }
@@ -152,7 +146,7 @@ class Amount
      *
      * @param  stringt                $str
      * @return void
-     * @throws InvalidAmountException If str is not a numerical string
+     * @throws InvalidAmountException If $str is not a numerical string
      */
     public function setString($str)
     {
@@ -161,8 +155,7 @@ class Amount
         }
 
         if (!is_string($str) || !is_numeric($str)) {
-            $msg = "Amount must be a numerical string";
-            throw new InvalidAmountException($msg);
+            throw new InvalidAmountException("Amount must be a numerical string");
         }
 
         $this->amount = $str;
@@ -204,8 +197,7 @@ class Amount
     public function setSignalString($str)
     {
         if (!$this->isSignalString($str)) {
-            $msg = "Amount must be a valid singal string";
-            throw new InvalidAmountException($msg);
+            throw new InvalidAmountException("Amount must be a valid singal string");
         }
 
         if (!is_numeric($str)) {
@@ -265,7 +257,7 @@ class Amount
      */
     public function getFloat()
     {
-        return (float)round(floatval($this->amount), $this->precision);
+        return (float)round(floatval($this->amount), $this->getPrecision());
     }
 
     /**
@@ -289,7 +281,7 @@ class Amount
      */
     public function getString()
     {
-        return bcadd($this->amount, '0.0', $this->precision);
+        return bcadd($this->amount, '0.0', $this->getPrecision());
     }
 
     /**
@@ -363,7 +355,7 @@ class Amount
         $this->amount = bcadd(
             $this->amount,
             $amount->getRawString(),
-            $this->precision
+            $this->getPrecision()
         );
     }
 
@@ -378,7 +370,7 @@ class Amount
         $this->amount = bcsub(
             $this->amount,
             $amount->getRawString(),
-            $this->precision
+            $this->getPrecision()
         );
     }
 
@@ -392,7 +384,7 @@ class Amount
         $this->amount = bcmul(
             $this->amount,
             '-1',
-            $this->precision
+            $this->getPrecision()
         );
     }
 
@@ -407,7 +399,7 @@ class Amount
         return 0 === bccomp(
             $this->amount,
             $amount->getRawString(),
-            $this->precision
+            $this->getPrecision()
         );
     }
 
@@ -422,7 +414,7 @@ class Amount
         return -1 === bccomp(
             $this->amount,
             $amount->getRawString(),
-            $this->precision
+            $this->getPrecision()
         );
     }
 
@@ -437,7 +429,7 @@ class Amount
         return 1 === bccomp(
             $this->amount,
             $amount->getRawString(),
-            $this->precision
+            $this->getPrecision()
         );
     }
 }

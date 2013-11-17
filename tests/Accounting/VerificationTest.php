@@ -110,7 +110,7 @@ class VerificationTest extends \PHPUnit_Framework_TestCase
         foreach ($trans as $t) {
             $v->addTransaction($t);
         }
-        $this->assertEquals(new Amount('0'), $v->getDifference());
+        $this->assertEquals((string)new Amount('0'), (string)$v->getDifference());
 
         // A negaitve verification
         $trans = array(
@@ -121,7 +121,7 @@ class VerificationTest extends \PHPUnit_Framework_TestCase
         foreach ($trans as $t) {
             $v->addTransaction($t);
         }
-        $this->assertEquals(new Amount('-200'), $v->getDifference());
+        $this->assertEquals((string)new Amount('-200'), (string)$v->getDifference());
 
         // A positive verification
         $trans = array(
@@ -132,6 +132,6 @@ class VerificationTest extends \PHPUnit_Framework_TestCase
         foreach ($trans as $t) {
             $v->addTransaction($t);
         }
-        $this->assertEquals(new Amount('100'), $v->getDifference());
+        $this->assertEquals((string)new Amount('100'), (string)$v->getDifference());
     }
 }
