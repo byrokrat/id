@@ -10,8 +10,6 @@
 
 namespace iio\stb\Banking;
 
-use iio\stb\Utils\Modulo10;
-
 /**
  * PlusGiro account
  *

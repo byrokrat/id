@@ -72,7 +72,7 @@
 
     <target name="document" depends="createBuildDir">
         <exec
-            command="phpdoc --title '${APP_NAME}' -d ${SRC_DIR} -t ${BUILD_DIR}/apidocs --defaultpackagename='${APP_NAME}' --validate"
+            command="phpdoc --title '${APP_NAME}' -d ${SRC_DIR} -t ${BUILD_DIR}/apidocs --defaultpackagename='${APP_NAME}' --validate --template responsive"
             dir="${APP_ROOT}"
             passthru="true"
             />
