@@ -63,6 +63,9 @@ Some utility classes.
 
 Continuous integration
 ----------------------
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/badges/quality-score.png?s=7b3a25b6ccb38244fb5bb0b5d3fa2556bf35726e)](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/)
+[![Code Coverage](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/badges/coverage.png?s=53a09ec7902fb2e92b1264a9a527162f21639187)](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/)
+
 Running unit tests and other code analysis tools can be handled using `phing`.
 To run CI tests type `phing` from the project root directory, point your browser
 to `build/index.html` to view the results.
