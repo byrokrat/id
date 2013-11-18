@@ -1,6 +1,5 @@
-build
-vendor
-composer.phar
-composer.lock
-STB.sublime-project
-STB.sublime-workspace
+/build/*
+/vendor
+/composer.phar
+/composer.lock
+/scrutinizer.phar

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="mreg" basedir="." default="buildAll">
+<project name="stb" basedir="." default="buildAll">
     <property name="APP_NAME" value="Swedish Technical Bureaucracy"/>
     <property name="APP_ROOT" value="${project.basedir}"/>
     <property name="SRC_DIR" value="${APP_ROOT}/src"/>
@@ -86,17 +86,39 @@
         <mkdir dir="${BUILD_DIR}"/>
         <mkdir dir="${BUILD_DIR}/phpcs"/>
         <mkdir dir="${BUILD_DIR}/pdepend"/>
+        <mkdir dir="${BUILD_DIR}/scrutinizer"/>
         <if>
-            <not>
-                 <available file="${BUILD_DIR}/index.html"/>
-            </not>
-            <then>
+            <available file="${BUILD_DIR}/index.html"/>
+            <else>
                 <exec
                     command="wget https://raw.github.com/iio/php-skeleton/0.1.0/index.html"
                     dir="${BUILD_DIR}"
                     passthru="true"
                     />
-            </then>
+            </else>
+        </if>
+    </target>
+
+    <target name="scrutinizer" depends="getscrutinizer,createBuildDir">
+        <exec
+            command="php scrutinizer.phar run . --format=json --output-file=${BUILD_DIR}/scrutinizer/json > ${BUILD_DIR}/scrutinizer/output"
+            dir="${APP_ROOT}"
+            checkreturn="true"
+            passthru="true"
+            />
+    </target>
+
+    <target name="getscrutinizer">
+        <if>
+            <available file="${APP_ROOT}/scrutinizer.phar"/>
+            <else>
+                <exec
+                    command="wget https://scrutinizer-ci.com/scrutinizer.phar"
+                    dir="${APP_ROOT}"
+                    checkreturn="true"
+                    passthru="true"
+                    />
+            </else>
         </if>
     </target>
 

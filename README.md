@@ -1,15 +1,18 @@
 Swedish Technical Bureaucracy (STB)
 ===================================
-
 [![Build Status](https://travis-ci.org/iio/Swedish-Technical-Bureaucracy.png?branch=master)](https://travis-ci.org/iio/Swedish-Technical-Bureaucracy)
 
 STB is a collection of classes useful when processing data related to swedish 
 bureaucracy and banking systems. Browse the source for a complete listing.
 
 
+Installation using composer
+---------------------------
+Simply add `iio/stb` to your list of required libraries.
+
+
 Accounting
 ----------
-
 The accounting subpackage handles bookkeeping data. Specifically transaction
 data can be read and written in the SIE format. Accounting templates from the
 VISMA series of accounting software is also supported.
@@ -17,7 +20,6 @@ VISMA series of accounting software is also supported.
 
 Banking
 -------
-
 Data types for accounts in the swedish banking system. Se `AccountBuilder` for
 a way to transparently create account objects.
 
@@ -29,7 +31,6 @@ a way to transparently create account objects.
 
 ID
 --
-
 Data types for swedish social security and corporation id numbers. Se
 `CorporateIdBuilder` and `PersonalIdBuilder` for ways to transparently create ID
 objects.
@@ -53,9 +54,22 @@ objects.
 
 Utils
 -----
-
 Some utility classes.
  
  * `Amount` represent transaction amounts using bcmath for arithmetic precision.
  
  * `OCR` represents transaction numbers used in the swedish banking system.
+
+
+Continuous integration
+----------------------
+Running unit tests and other code analysis tools can be handled using `phing`.
+To run CI tests type `phing` from the project root directory, point your browser
+to `build/index.html` to view the results.
+
+
+Running unit tests
+------------------
+From project root simply type
+
+    > phpunit
