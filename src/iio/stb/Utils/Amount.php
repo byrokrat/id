@@ -385,6 +385,36 @@ class Amount
     }
 
     /**
+     * Multiply amount with other amount
+     *
+     * @param  Amount $amount
+     * @return void
+     */
+    public function multiplyWith(Amount $amount)
+    {
+        $this->amount = bcmul(
+            $this->amount,
+            $amount->getRawString(),
+            $this->getPrecision()
+        );
+    }
+
+    /**
+     * Divide amount by other amount
+     *
+     * @param  Amount $amount
+     * @return void
+     */
+    public function divideBy(Amount $amount)
+    {
+        $this->amount = bcdiv(
+            $this->amount,
+            $amount->getRawString(),
+            $this->getPrecision()
+        );
+    }
+
+    /**
      * Swap sign of amount
      *
      * @return void

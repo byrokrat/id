@@ -201,6 +201,22 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('-1.50', $a->getString());
     }
 
+    public function testMultiplyWith()
+    {
+        $a = new Amount('10');
+        $a->multiplyWith(new Amount('10'));
+        $a->setPrecision(0);
+        $this->assertSame('100', $a->getString());
+    }
+
+    public function testDivideBy()
+    {
+        $a = new Amount('10');
+        $a->divideBy(new Amount('10'));
+        $a->setPrecision(0);
+        $this->assertSame('1', $a->getString());
+    }
+
     public function testInvert()
     {
         $a = new Amount('50.50');
