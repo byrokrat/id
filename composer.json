@@ -4,7 +4,7 @@
     "keywords": ["Banking", "Accounting", "Bureaucracy"],
     "homepage": "https://github.com/iio/Swedish-Technical-Bureaucracy",
     "type": "library",
-    "license": "MIT",
+    "license": "GPL-3.0+",
     "authors": [
         {
             "name": "Hannes Forsgård",
