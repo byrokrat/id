@@ -21,18 +21,37 @@
 namespace iio\stb\Banking;
 
 /**
- * Account interface
+ * AccountInterface null object
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-interface AccountInterface
+class NullAccount implements AccountInterface
 {
+    /**
+     * @var string String returned instead of account number
+     */
+    private static $str = '-';
+
+    /**
+     * Set string returned instead of account number
+     *
+     * @param  string $str
+     * @return void
+     */
+    public static function setString($str)
+    {
+        self::$str = $str;
+    }
+
     /**
      * Get account as string
      *
      * @return string
      */
-    public function __toString();
+    public function __toString()
+    {
+        return $this->getNumber();
+    }
 
     /**
      * Get account as a 16 digit number
@@ -41,26 +60,38 @@ interface AccountInterface
      *
      * @return string
      */
-    public function to16();
+    public function to16()
+    {
+        return $this->getNumber();
+    }
 
     /**
      * Get clearing number
      *
      * @return string
      */
-    public function getClearing();
+    public function getClearing()
+    {
+        return '-';
+    }
 
     /**
      * Get account number
      *
      * @return string
      */
-    public function getNumber();
+    public function getNumber()
+    {
+        return self::$str;
+    }
 
     /**
      * Get string describing account type
      *
      * @return string
      */
-    public function getType();
+    public function getType()
+    {
+        return '-';
+    }
 }

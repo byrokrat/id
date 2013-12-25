@@ -20,47 +20,26 @@
 
 namespace iio\stb\Banking;
 
-/**
- * Account interface
- *
- * @author Hannes Forsgård <hannes.forsgard@fripost.org>
- */
-interface AccountInterface
+class NullAccountTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Get account as string
-     *
-     * @return string
-     */
-    public function __toString();
+    public function testGetClearing()
+    {
+        $account = new NullAccount();
+        $this->assertEquals('-', $account->getClearing());
+    }
 
-    /**
-     * Get account as a 16 digit number
-     *
-     * Clearing number + x number of ceros + account number
-     *
-     * @return string
-     */
-    public function to16();
+    public function testGetType()
+    {
+        $account = new NullAccount();
+        $this->assertEquals('-', $account->getType());
+    }
 
-    /**
-     * Get clearing number
-     *
-     * @return string
-     */
-    public function getClearing();
-
-    /**
-     * Get account number
-     *
-     * @return string
-     */
-    public function getNumber();
-
-    /**
-     * Get string describing account type
-     *
-     * @return string
-     */
-    public function getType();
+    public function testGetString()
+    {
+        NullAccount::setString('foobar');        
+        $account = new NullAccount();
+        $this->assertEquals('foobar', (string)$account);
+        $this->assertEquals('foobar', $account->getNumber());
+        $this->assertEquals('foobar', $account->to16());
+    }
 }

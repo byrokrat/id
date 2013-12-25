@@ -18,49 +18,68 @@
  * with Swedish-Technical-Bureaucracy.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace iio\stb\Banking;
+namespace iio\stb\ID;
 
 /**
- * Account interface
+ * IdInterface null object
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-interface AccountInterface
+class NullId implements IdInterface
 {
     /**
-     * Get account as string
-     *
-     * @return string
+     * @var string String returned by getId()
      */
-    public function __toString();
+    private static $str = '-';
 
     /**
-     * Get account as a 16 digit number
+     * Set string returned by getId()
      *
-     * Clearing number + x number of ceros + account number
-     *
-     * @return string
+     * @param  string $str
+     * @return void
      */
-    public function to16();
+    public static function setString($str)
+    {
+        self::$str = $str;
+    }
 
     /**
-     * Get clearing number
+     * Get check digit
      *
      * @return string
      */
-    public function getClearing();
+    public function getCheckDigit()
+    {
+        return '0';
+    }
 
     /**
-     * Get account number
+     * Get delimiter
      *
      * @return string
      */
-    public function getNumber();
+    public function getDelimiter()
+    {
+        return '-';
+    }
 
     /**
-     * Get string describing account type
+     * Get id
      *
      * @return string
      */
-    public function getType();
+    public function getId()
+    {
+        return self::$str;
+    }
+
+    /**
+     * Get id as string
+     *
+     * @return string
+     */
+    public function __tostring()
+    {
+        return $this->getId();
+    }
 }

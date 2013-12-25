@@ -25,6 +25,7 @@ include_once "$src/Accounting/Formatter/SIE.php";
 include_once "$src/Accounting/Formatter/VISMAkml.php";
 
 include_once "$src/Banking/AccountInterface.php";
+include_once "$src/Banking/NullAccount.php";
 include_once "$src/Banking/AbstractAccount.php";
 include_once "$src/Banking/AbstractGiro.php";
 include_once "$src/Banking/AccountBuilder.php";
@@ -40,6 +41,7 @@ include_once "$src/Banking/SwedbankTyp1.php";
 include_once "$src/Banking/SwedbankTyp2.php";
 
 include_once "$src/ID/IdInterface.php";
+include_once "$src/ID/NullId.php";
 include_once "$src/ID/PersonalId.php";
 include_once "$src/ID/PersonalIdBuilder.php";
 include_once "$src/ID/CoordinationId.php";

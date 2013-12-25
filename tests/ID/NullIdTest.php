@@ -18,49 +18,27 @@
  * with Swedish-Technical-Bureaucracy.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace iio\stb\Banking;
+namespace iio\stb\ID;
 
-/**
- * Account interface
- *
- * @author Hannes Forsgård <hannes.forsgard@fripost.org>
- */
-interface AccountInterface
+class NullIdTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Get account as string
-     *
-     * @return string
-     */
-    public function __toString();
+    public function testGetCheckDigit()
+    {
+        $id = new NullId();
+        $this->assertEquals('0', $id->getCheckDigit());
+    }
 
-    /**
-     * Get account as a 16 digit number
-     *
-     * Clearing number + x number of ceros + account number
-     *
-     * @return string
-     */
-    public function to16();
+    public function testGetDelimiter()
+    {
+        $id = new NullId();
+        $this->assertEquals('-', $id->getDelimiter());
+    }
 
-    /**
-     * Get clearing number
-     *
-     * @return string
-     */
-    public function getClearing();
-
-    /**
-     * Get account number
-     *
-     * @return string
-     */
-    public function getNumber();
-
-    /**
-     * Get string describing account type
-     *
-     * @return string
-     */
-    public function getType();
+    public function testGetString()
+    {
+        NullId::setString('foobar');        
+        $id = new NullId();
+        $this->assertEquals('foobar', (string)$id);
+        $this->assertEquals('foobar', $id->getId());
+    }
 }
