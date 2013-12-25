@@ -36,7 +36,7 @@ class NullAccountTest extends \PHPUnit_Framework_TestCase
 
     public function testGetString()
     {
-        NullAccount::setString('foobar');        
+        NullAccount::setString('foobar');
         $account = new NullAccount();
         $this->assertEquals('foobar', (string)$account);
         $this->assertEquals('foobar', $account->getNumber());

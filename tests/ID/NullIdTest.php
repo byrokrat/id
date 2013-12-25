@@ -36,7 +36,7 @@ class NullIdTest extends \PHPUnit_Framework_TestCase
 
     public function testGetString()
     {
-        NullId::setString('foobar');        
+        NullId::setString('foobar');
         $id = new NullId();
         $this->assertEquals('foobar', (string)$id);
         $this->assertEquals('foobar', $id->getId());
