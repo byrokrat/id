@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('UTC');
+
 $src = __DIR__ . '/../src/iio/stb';
 
 include_once "$src/Exception.php";
