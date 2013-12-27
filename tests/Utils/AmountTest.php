@@ -330,4 +330,13 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $b = new Amount('-10');
         $this->assertTrue($b->hasValue());
     }
+
+    public function testChaining()
+    {
+        $a = new Amount('0');
+        $this->assertSame(
+            '10',
+            $a->subtract(new Amount('10'))->invert()->setPrecision(0)->getString()
+        );
+    }
 }

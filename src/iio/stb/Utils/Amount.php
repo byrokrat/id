@@ -79,12 +79,14 @@ class Amount
      * Set the number of decimal digits used in calculations and output
      *
      * @param  int  $precision
-     * @return void
+     * @return Amount Instance for chaining
      */
     public function setPrecision($precision)
     {
         assert('is_int($precision)');
         $this->precision = $precision;
+
+        return $this;
     }
 
     /**
@@ -121,7 +123,7 @@ class Amount
      * precision use setString() instead.
      *
      * @param  float                  $int
-     * @return void
+     * @return Amount Instance for chaining
      * @throws InvalidAmountException If $int is not an integer
      */
     public function setInt($int)
@@ -130,6 +132,8 @@ class Amount
             throw new InvalidAmountException("Amount must be an integer");
         }
         $this->amount = sprintf('%F', $int);
+
+        return $this;
     }
 
     /**
@@ -140,7 +144,7 @@ class Amount
      * precision use setString() instead.
      *
      * @param  float                  $float
-     * @return void
+     * @return Amount Instance for chaining
      * @throws InvalidAmountException If $float is not a floating point number
      */
     public function setFloat($float)
@@ -149,13 +153,15 @@ class Amount
             throw new InvalidAmountException("Amount must be a floating point number");
         }
         $this->amount = sprintf('%F', $float);
+
+        return $this;
     }
 
     /**
      * Set amount from string
      *
      * @param  stringt                $str
-     * @return void
+     * @return Amount Instance for chaining
      * @throws InvalidAmountException If $str is not a numerical string
      */
     public function setString($str)
@@ -169,6 +175,8 @@ class Amount
         }
 
         $this->amount = $str;
+
+        return $this;
     }
 
     /**
@@ -201,7 +209,7 @@ class Amount
      * R: 9</code>
      *
      * @param  string                 $str
-     * @return void
+     * @return Amount Instance for chaining
      * @throws InvalidAmountException If amount is not a valid signal string
      */
     public function setSignalString($str)
@@ -220,7 +228,7 @@ class Amount
         }
         $str = preg_replace("/^(-?\d*)(\d\d)$/", "$1.$2", $str, 1);
 
-        $this->setString($str);
+        return $this->setString($str);
     }
 
     /**
@@ -233,7 +241,7 @@ class Amount
      * @param  string $sep   Group separator. Replaced with the empty string. If
      *     omitted omitted the 'mon_thousands_sep' value of the current monetary
      *     locale is used.
-     * @return void
+     * @return Amount Instance for chaining
      */
     public function setLocaleString($str, $point = null, $sep = null)
     {
@@ -252,7 +260,8 @@ class Amount
 
         $str = str_replace($point, '.', $str);
         $str = str_replace($sep, '', $str);
-        $this->setString($str);
+
+        return $this->setString($str);
     }
 
     /**
@@ -358,7 +367,7 @@ class Amount
      * Add to amount
      *
      * @param  Amount $amount
-     * @return void
+     * @return Amount Instance for chaining
      */
     public function add(Amount $amount)
     {
@@ -367,13 +376,15 @@ class Amount
             $amount->getRawString(),
             $this->getPrecision()
         );
+
+        return $this;
     }
 
     /**
      * Subtract from amount
      *
      * @param  Amount $amount
-     * @return void
+     * @return Amount Instance for chaining
      */
     public function subtract(Amount $amount)
     {
@@ -382,13 +393,15 @@ class Amount
             $amount->getRawString(),
             $this->getPrecision()
         );
+
+        return $this;
     }
 
     /**
      * Multiply amount with other amount
      *
      * @param  Amount $amount
-     * @return void
+     * @return Amount Instance for chaining
      */
     public function multiplyWith(Amount $amount)
     {
@@ -397,13 +410,15 @@ class Amount
             $amount->getRawString(),
             $this->getPrecision()
         );
+
+        return $this;
     }
 
     /**
      * Divide amount by other amount
      *
      * @param  Amount $amount
-     * @return void
+     * @return Amount Instance for chaining
      */
     public function divideBy(Amount $amount)
     {
@@ -412,12 +427,14 @@ class Amount
             $amount->getRawString(),
             $this->getPrecision()
         );
+
+        return $this;
     }
 
     /**
      * Swap sign of amount
      *
-     * @return void
+     * @return Amount Instance for chaining
      */
     public function invert()
     {
@@ -426,6 +443,8 @@ class Amount
             '-1',
             $this->getPrecision()
         );
+
+        return $this;
     }
 
     /**
