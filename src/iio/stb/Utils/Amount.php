@@ -472,4 +472,14 @@ class Amount
             $this->getPrecision()
         );
     }
+
+    /**
+     * Check if amount is non-cero
+     *
+     * @return boolean
+     */
+    public function hasValue()
+    {
+        return !$this->equals(new Amount('0'));
+    }
 }

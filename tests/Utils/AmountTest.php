@@ -321,4 +321,13 @@ class AmountTest extends \PHPUnit_Framework_TestCase
         $a = new Amount();
         $a->setSignalString('Q123Q');
     }
+
+    public function testHasValue()
+    {
+        $a = new Amount('0');
+        $this->assertFalse($a->hasValue());
+
+        $b = new Amount('-10');
+        $this->assertTrue($b->hasValue());
+    }
 }
