@@ -54,4 +54,8 @@ include_once "$src/ID/CorporateIdBuilder.php";
 include_once "$src/Utils/Amount.php";
 include_once "$src/Utils/Modulo10.php";
 include_once "$src/Utils/Modulo11.php";
-include_once "$src/Utils/OCR.php";
+
+include_once "$src/Billing/OCR.php";
+include_once "$src/Billing/Invoice.php";
+include_once "$src/Billing/InvoicePost.php";
+include_once "$src/Billing/LegalPerson.php";

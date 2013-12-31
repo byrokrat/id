@@ -18,7 +18,7 @@
  * with Swedish-Technical-Bureaucracy.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace iio\stb\Utils;
+namespace iio\stb\Billing;
 
 class OCRTest extends \PHPUnit_Framework_TestCase
 {

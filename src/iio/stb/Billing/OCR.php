@@ -18,11 +18,12 @@
  * with Swedish-Technical-Bureaucracy.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace iio\stb\Utils;
+namespace iio\stb\Billing;
 
 use iio\stb\Exception\InvalidStructureException;
 use iio\stb\Exception\InvalidLengthDigitException;
 use iio\stb\Exception\InvalidCheckDigitException;
+use iio\stb\Utils\Modulo10;
 
 /**
  * OCR number generation and validation

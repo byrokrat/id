@@ -18,5 +18,8 @@
         "psr-0": {
             "iio\\stb": "src/"
         }
+    },
+    "suggest" : {
+        "iio/paperinvoice": "Create paper (pdf) representations of invoices"
     }
 }

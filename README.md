@@ -1,14 +1,31 @@
 Swedish Technical Bureaucracy (STB)
 ===================================
 [![Build Status](https://travis-ci.org/iio/Swedish-Technical-Bureaucracy.png?branch=master)](https://travis-ci.org/iio/Swedish-Technical-Bureaucracy)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/badges/quality-score.png?s=7b3a25b6ccb38244fb5bb0b5d3fa2556bf35726e)](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/)
+[![Code Coverage](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/badges/coverage.png?s=53a09ec7902fb2e92b1264a9a527162f21639187)](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/)
 
 STB is a collection of classes useful when processing data related to swedish 
-bureaucracy and banking systems. Browse the source for a complete listing.
+bureaucracy and banking systems. The functionality is split into different
+subpackages.
+
+
+Table of contents
+-----------------
+* [Installing](#installation-using-composer)
+* [Accounting](#accounting)
+* [Banking](#banking)
+    * [Creating bank account objects](#creating-bank-account-objects)
+* [Billing](#billing)
+* [ID](#id)
+* [Utils](#utils)
+* [Continuous integration](#continuous-integration)
+* [Unit testing](#running-unit-tests)
 
 
 Installation using composer
 ---------------------------
-Simply add `iio/stb` to your list of required libraries.
+The usage of [composer](http://getcomposer.org/) is recommended. Simply add
+`iio/stb` to your list of required libraries.
 
 
 Accounting
@@ -23,10 +40,17 @@ Banking
 Data types for accounts in the swedish banking system. Se `AccountBuilder` for
 a way to transparently create account objects.
 
+### Creating bank account objects
+
     use iio\stb\Banking\AccountBuilder;
     $builder = new AccountBuilder();
     $account = $builder->setAccount('3300,1111111116')->getAccount();
     // $account is an instance of iio\stb\Banking\NordeaPerson
+
+
+Billing
+-------
+Invoice and support classes.
 
 
 ID
@@ -63,9 +87,6 @@ Some utility classes.
 
 Continuous integration
 ----------------------
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/badges/quality-score.png?s=7b3a25b6ccb38244fb5bb0b5d3fa2556bf35726e)](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/)
-[![Code Coverage](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/badges/coverage.png?s=53a09ec7902fb2e92b1264a9a527162f21639187)](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/)
-
 Running unit tests and other code analysis tools can be handled using `phing`.
 To run CI tests type `phing` from the project root directory, point your browser
 to `build/index.html` to view the results.
