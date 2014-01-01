@@ -1,8 +1,8 @@
 Swedish Technical Bureaucracy (STB)
 ===================================
 [![Build Status](https://travis-ci.org/iio/Swedish-Technical-Bureaucracy.png?branch=master)](https://travis-ci.org/iio/Swedish-Technical-Bureaucracy)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/badges/quality-score.png?s=7b3a25b6ccb38244fb5bb0b5d3fa2556bf35726e)](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/)
 [![Code Coverage](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/badges/coverage.png?s=53a09ec7902fb2e92b1264a9a527162f21639187)](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/badges/quality-score.png?s=7b3a25b6ccb38244fb5bb0b5d3fa2556bf35726e)](https://scrutinizer-ci.com/g/iio/Swedish-Technical-Bureaucracy/)
 
 STB is a collection of classes useful when processing data related to swedish 
 bureaucracy and banking systems. The functionality is split into different
@@ -51,7 +51,35 @@ a way to transparently create account objects.
 
 Billing
 -------
-Invoice and support classes.
+Invoice and support classes. `InvoicePost` represents a purchased item.
+
+    // 1 unit of a 100 EUR item with 25% VAT
+    $item = new InvoicePost(
+        'Item description',
+        new Amount('1'),
+        new Amount('100'),
+        new Amount('.25')
+    );
+
+The simplest way to create invoices is by using the `InvoiceBuilder`.
+
+    $builder = new InvoiceBuilder();
+
+    $invoice = $builder->reset()
+        ->setSerial('1')
+        ->generateOCR()
+        ->setSeller(new LegalPerson('Company X', ...))
+        ->setBuyer(new LegalPerson('Mrs Y', ...))
+        ->setMessage('Pay in time or else!')
+        ->setCurrency('EUR')
+        ->addPost($item)
+        ->getInvoice();
+
+`Invoice` represents the actual invoice. Se the class definition for a complete
+list of access methods.
+
+    echo $invoice->getInvoiceTotal();
+    // prints 125 (100 EUR plus 25% VAT)
 
 
 ID

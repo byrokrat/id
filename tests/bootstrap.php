@@ -59,5 +59,6 @@ include_once "$src/Utils/Modulo11.php";
 
 include_once "$src/Billing/OCR.php";
 include_once "$src/Billing/Invoice.php";
+include_once "$src/Billing/InvoiceBuilder.php";
 include_once "$src/Billing/InvoicePost.php";
 include_once "$src/Billing/LegalPerson.php";
