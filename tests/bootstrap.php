@@ -44,11 +44,14 @@ include_once "$src/Banking/SwedbankTyp2.php";
 include_once "$src/ID/IdInterface.php";
 include_once "$src/ID/NullId.php";
 include_once "$src/ID/PersonalId.php";
-include_once "$src/ID/PersonalIdBuilder.php";
 include_once "$src/ID/CoordinationId.php";
 include_once "$src/ID/CorporateId.php";
 include_once "$src/ID/FakeId.php";
-include_once "$src/ID/CorporateIdBuilder.php";
+include_once "$src/ID/IdFactory.php";
+include_once "$src/ID/PersonalIdFactory.php";
+include_once "$src/ID/CoordinationIdFactory.php";
+include_once "$src/ID/CorporateIdFactory.php";
+include_once "$src/ID/FakeIdFactory.php";
 
 include_once "$src/Utils/Amount.php";
 include_once "$src/Utils/Modulo10.php";
