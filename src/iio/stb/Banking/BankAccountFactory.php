@@ -28,7 +28,7 @@ use iio\stb\Exception\InvalidClearingException;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class AccountBuilder
+class BankAccountFactory
 {
     /**
      * @var array List of possible account classes
@@ -40,7 +40,7 @@ class AccountBuilder
         'SwedbankTyp1',
         'SwedbankTyp2',
         'SEB',
-        'FakeAccount'
+        'UnknownAccount'
     );
 
     /**
@@ -51,8 +51,8 @@ class AccountBuilder
     /**
      * Enable account type
      *
-     * @param  string         $classname
-     * @return AccountBuilder Returns instance to enable chaining
+     * @param  string             $classname
+     * @return BankAccountFactory Returns instance to enable chaining
      */
     public function enable($classname)
     {
@@ -66,8 +66,8 @@ class AccountBuilder
     /**
      * Disable account type
      *
-     * @param  string         $classname
-     * @return AccountBuilder Returns instance to enable chaining
+     * @param  string             $classname
+     * @return BankAccountFactory Returns instance to enable chaining
      */
     public function disable($classname)
     {
@@ -83,7 +83,7 @@ class AccountBuilder
     /**
      * Disable all enabled account types
      *
-     * @return AccountBuilder Returns instance to enable chaining
+     * @return BankAccountFactory Returns instance to enable chaining
      */
     public function clearClasses()
     {
@@ -95,8 +95,8 @@ class AccountBuilder
     /**
      * Set raw account number
      *
-     * @param  string         $rawNumber Clearing + , + account number
-     * @return AccountBuilder Returns instance to enable chaining
+     * @param  string             $rawNumber Clearing + , + account number
+     * @return BankAccountFactory Returns instance to enable chaining
      */
     public function setAccount($rawNumber)
     {
@@ -109,7 +109,7 @@ class AccountBuilder
     /**
      * Get account object
      *
-     * @return AccountInterface
+     * @return BankAccountInterface
      * @throws Exception        If unable to create
      */
     public function getAccount()

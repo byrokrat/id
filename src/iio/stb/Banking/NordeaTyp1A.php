@@ -27,7 +27,7 @@ use iio\stb\Utils\Modulo11;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class NordeaTyp1A extends AbstractAccount
+class NordeaTyp1A extends AbstractBankAccount
 {
     /**
      * Get string describing account type

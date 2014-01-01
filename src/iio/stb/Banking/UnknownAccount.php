@@ -21,46 +21,49 @@
 namespace iio\stb\Banking;
 
 /**
- * Account interface
+ * Fake account, all is valid
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-interface AccountInterface
+class UnknownAccount extends AbstractBankAccount
 {
-    /**
-     * Get account as string
-     *
-     * @return string
-     */
-    public function __toString();
-
-    /**
-     * Get account as a 16 digit number
-     *
-     * Clearing number + x number of ceros + account number
-     *
-     * @return string
-     */
-    public function to16();
-
-    /**
-     * Get clearing number
-     *
-     * @return string
-     */
-    public function getClearing();
-
-    /**
-     * Get account number
-     *
-     * @return string
-     */
-    public function getNumber();
-
     /**
      * Get string describing account type
      *
      * @return string
      */
-    public function getType();
+    public function getType()
+    {
+        return "Unknown";
+    }
+
+    /**
+     * Get string describing account structure
+     *
+     * @return string
+     */
+    protected function getStructure()
+    {
+        return "/.*/";
+    }
+
+    /**
+     * Validate clearing number
+     *
+     * @return bool
+     */
+    protected function isValidClearing()
+    {
+        return true;
+    }
+
+    /**
+     * Validate account number check digit
+     *
+     * @return bool
+     */
+    protected function isValidCheckDigit()
+    {
+        return true;
+    }
 }

@@ -20,7 +20,7 @@
 
 namespace iio\stb\Banking;
 
-class FakeAccountTest extends \PHPUnit_Framework_TestCase
+class UnknownAccountTest extends \PHPUnit_Framework_TestCase
 {
     public function invalidClearingProvider()
     {
@@ -36,7 +36,7 @@ class FakeAccountTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidClearing($nr)
     {
-        new FakeAccount($nr);
+        new UnknownAccount($nr);
     }
 
     public function validProvider()
@@ -52,25 +52,25 @@ class FakeAccountTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct($nr)
     {
-        new FakeAccount($nr);
+        new UnknownAccount($nr);
         $this->assertTrue(true);
     }
 
     public function testToString()
     {
-        $m = new FakeAccount('5000,000001111116');
+        $m = new UnknownAccount('5000,000001111116');
         $this->assertEquals((string)$m, '5000,000001111116');
     }
 
     public function testTo16()
     {
-        $m = new FakeAccount('5000,1111116');
+        $m = new UnknownAccount('5000,1111116');
         $this->assertEquals($m->to16(), '5000000001111116');
     }
 
     public function testGetType()
     {
-        $m = new FakeAccount('5000,1111116');
+        $m = new UnknownAccount('5000,1111116');
         $this->assertEquals($m->getType(), 'Unknown');
     }
 }

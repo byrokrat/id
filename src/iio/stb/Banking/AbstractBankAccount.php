@@ -29,7 +29,7 @@ use iio\stb\Exception\InvalidCheckDigitException;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-abstract class AbstractAccount implements AccountInterface
+abstract class AbstractBankAccount implements BankAccountInterface
 {
     /**
      * @var string Clearing number

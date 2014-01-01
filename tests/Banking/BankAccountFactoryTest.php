@@ -20,50 +20,27 @@
 
 namespace iio\stb\Banking;
 
-/**
- * Fake account, all is valid
- *
- * @author Hannes Forsgård <hannes.forsgard@fripost.org>
- */
-class FakeAccount extends AbstractAccount
+class BankAccountFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Get string describing account type
-     *
-     * @return string
-     */
-    public function getType()
+    public function testNordeaPerson()
     {
-        return "Unknown";
+        $builder = new BankAccountFactory();
+        $account = $builder->setAccount('3300,1111111116')
+            ->clearClasses()
+            ->enable('NordeaPerson')
+            ->getAccount();
+        $this->assertInstanceOf("iio\\stb\\Banking\\NordeaPerson", $account);
     }
 
     /**
-     * Get string describing account structure
-     *
-     * @return string
+     * @expectedException iio\stb\Exception
      */
-    protected function getStructure()
+    public function testClassMissingError()
     {
-        return "/.*/";
-    }
-
-    /**
-     * Validate clearing number
-     *
-     * @return bool
-     */
-    protected function isValidClearing()
-    {
-        return true;
-    }
-
-    /**
-     * Validate account number check digit
-     *
-     * @return bool
-     */
-    protected function isValidCheckDigit()
-    {
-        return true;
+        $builder = new BankAccountFactory();
+        $builder->setAccount('3300,1111111116')
+            ->disable('NordeaPerson')
+            ->disable('UnknownAccount')
+            ->getAccount();
     }
 }

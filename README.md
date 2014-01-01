@@ -37,13 +37,13 @@ VISMA series of accounting software is also supported.
 
 Banking
 -------
-Data types for accounts in the swedish banking system. Se `AccountBuilder` for
+Data types for accounts in the swedish banking system. Se `BankAccountFactory` for
 a way to transparently create account objects.
 
 ### Creating bank account objects
 
-    use iio\stb\Banking\AccountBuilder;
-    $builder = new AccountBuilder();
+    use iio\stb\Banking\BankAccountFactory;
+    $builder = new BankAccountFactory();
     $account = $builder->setAccount('3300,1111111116')->getAccount();
     // $account is an instance of iio\stb\Banking\NordeaPerson
 

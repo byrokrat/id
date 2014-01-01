@@ -28,22 +28,22 @@ use iio\stb\Exception\InvalidClearingException;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class StaticAccountBuilder
+class StaticBankAccountFactory
 {
     /**
-     * @var AccountBuilder Regular AccountBuilder instance
+     * @var BankAccountFactory Regular BankAccountFactory instance
      */
     private static $builder;
 
     /**
-     * Create internal AccountBuilder instance
+     * Create internal BankAccountFactory instance
      *
      * @return void
      */
     private static function init()
     {
         if (!isset(self::$builder)) {
-            self::$builder = new AccountBuilder();
+            self::$builder = new BankAccountFactory();
         }
     }
 
@@ -85,9 +85,9 @@ class StaticAccountBuilder
     /**
      * Get account object
      *
-     * @param  string           $number Clearing + , + account number
-     * @return AccountInterface
-     * @throws Exception        If unable to create
+     * @param  string               $number Clearing + , + account number
+     * @return BankAccountInterface
+     * @throws Exception            If unable to create
      */
     public static function build($number)
     {

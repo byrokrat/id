@@ -36,7 +36,7 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
             $this->getPosts(),
             'message',
             1,
-            new Amount ('100'),
+            new Amount('100'),
             'SEK'
         );
     }
@@ -54,7 +54,7 @@ class InvoiceTest extends \PHPUnit_Framework_TestCase
                 '',
                 new Amount('2'),
                 new Amount('50', 2),
-                new Amount('0', 2) 
+                new Amount('0', 2)
             )
         );
     }

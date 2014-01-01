@@ -22,7 +22,7 @@ namespace iio\stb\Billing;
 
 use iio\stb\ID\IdInterface;
 use iio\stb\ID\NullId;
-use iio\stb\Banking\AccountInterface;
+use iio\stb\Banking\BankAccountInterface;
 use iio\stb\Banking\NullAccount;
 
 /**
@@ -46,7 +46,7 @@ class LegalPerson
     private $id;
 
     /**
-     * @var AccountInterface Account registered with person
+     * @var BankAccountInterface Account registered with person
      */
     private $account;
 
@@ -68,17 +68,17 @@ class LegalPerson
     /**
      * Construct legal person container
      *
-     * @param string           $name        Name of legal person
-     * @param IdInterface      $id          Peronal identifier
-     * @param AccountInterface $account     Account number
-     * @param string           $customerNr  Customer number for billing
-     * @param boolean          $corporation Flag if person is a corporation
-     * @param boolean          $vat         Flag if corporation is registered for VAT
+     * @param string               $name        Name of legal person
+     * @param IdInterface          $id          Peronal identifier
+     * @param BankAccountInterface $account     Account number
+     * @param string               $customerNr  Customer number for billing
+     * @param boolean              $corporation Flag if person is a corporation
+     * @param boolean              $vat         Flag if corporation is registered for VAT
      */
     public function __construct(
         $name,
         IdInterface $id = null,
-        AccountInterface $account = null,
+        BankAccountInterface $account = null,
         $customerNr = '',
         $corporation = false,
         $vat = false
@@ -116,7 +116,7 @@ class LegalPerson
     /**
      * Get account
      *
-     * @return AccountInterface
+     * @return BankAccountInterface
      */
     public function getAccount()
     {

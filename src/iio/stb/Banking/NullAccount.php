@@ -21,11 +21,11 @@
 namespace iio\stb\Banking;
 
 /**
- * AccountInterface null object
+ * BankAccountInterface null object
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class NullAccount implements AccountInterface
+class NullAccount implements BankAccountInterface
 {
     /**
      * @var string String returned instead of account number

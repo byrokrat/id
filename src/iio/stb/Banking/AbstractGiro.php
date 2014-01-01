@@ -27,7 +27,7 @@ use iio\stb\Utils\Modulo10;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-abstract class AbstractGiro extends AbstractAccount
+abstract class AbstractGiro extends AbstractBankAccount
 {
     /**
      * Get account as string

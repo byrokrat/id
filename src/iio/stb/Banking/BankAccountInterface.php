@@ -20,25 +20,47 @@
 
 namespace iio\stb\Banking;
 
-class StaticAccountBuilderTest extends \PHPUnit_Framework_TestCase
+/**
+ * Account interface
+ *
+ * @author Hannes Forsgård <hannes.forsgard@fripost.org>
+ */
+interface BankAccountInterface
 {
-    public function test()
-    {
-        StaticAccountBuilder::clearClasses();
-        StaticAccountBuilder::enable('NordeaPerson');
-        $account = StaticAccountBuilder::build('3300,1111111116');
-        $this->assertInstanceOf(
-            "iio\\stb\\Banking\\NordeaPerson",
-            $account
-        );
-    }
+    /**
+     * Get account as string
+     *
+     * @return string
+     */
+    public function __toString();
 
     /**
-     * @expectedException iio\stb\Exception
+     * Get account as a 16 digit number
+     *
+     * Clearing number + x number of ceros + account number
+     *
+     * @return string
      */
-    public function testClassMissingError()
-    {
-        StaticAccountBuilder::disable('NordeaPerson');
-        StaticAccountBuilder::build('3300,1111111116');
-    }
+    public function to16();
+
+    /**
+     * Get clearing number
+     *
+     * @return string
+     */
+    public function getClearing();
+
+    /**
+     * Get account number
+     *
+     * @return string
+     */
+    public function getNumber();
+
+    /**
+     * Get string describing account type
+     *
+     * @return string
+     */
+    public function getType();
 }

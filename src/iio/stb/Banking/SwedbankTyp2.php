@@ -27,7 +27,7 @@ use iio\stb\Utils\Modulo10;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class SwedbankTyp2 extends AbstractAccount
+class SwedbankTyp2 extends AbstractBankAccount
 {
     /**
      * Get string describing account type
