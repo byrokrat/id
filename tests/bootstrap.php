@@ -38,7 +38,6 @@ include_once "$src/Banking/NordeaTyp1A.php";
 include_once "$src/Banking/NordeaTyp1B.php";
 include_once "$src/Banking/PlusGiro.php";
 include_once "$src/Banking/SEB.php";
-include_once "$src/Banking/StaticBankAccountFactory.php";
 include_once "$src/Banking/SwedbankTyp1.php";
 include_once "$src/Banking/SwedbankTyp2.php";
 

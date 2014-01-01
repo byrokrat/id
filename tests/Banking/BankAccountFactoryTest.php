@@ -22,14 +22,12 @@ namespace iio\stb\Banking;
 
 class BankAccountFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    public function testNordeaPerson()
+    public function testCreate()
     {
-        $builder = new BankAccountFactory();
-        $account = $builder->setAccount('3300,1111111116')
-            ->clearClasses()
-            ->enable('NordeaPerson')
-            ->getAccount();
-        $this->assertInstanceOf("iio\\stb\\Banking\\NordeaPerson", $account);
+        $this->assertInstanceOf(
+            "iio\\stb\\Banking\\NordeaPerson",
+            BankAccountFactory::create('3300,1111111116')
+        );
     }
 
     /**
@@ -37,10 +35,7 @@ class BankAccountFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testClassMissingError()
     {
-        $builder = new BankAccountFactory();
-        $builder->setAccount('3300,1111111116')
-            ->disable('NordeaPerson')
-            ->disable('UnknownAccount')
-            ->getAccount();
+        // Clearing numbers must have 4 digits
+        BankAccountFactory::create('12345,1');
     }
 }

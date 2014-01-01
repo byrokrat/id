@@ -24,7 +24,7 @@ use iio\stb\Exception;
 use iio\stb\Exception\InvalidClearingException;
 
 /**
- * Build account from registered classes
+ * Create bank account object from account number
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
@@ -33,7 +33,7 @@ class BankAccountFactory
     /**
      * @var array List of possible account classes
      */
-    private $classes = array(
+    private static $classes = array(
         'NordeaPerson',
         'NordeaTyp1A',
         'NordeaTyp1B',
@@ -44,83 +44,19 @@ class BankAccountFactory
     );
 
     /**
-     * @var string The raw account number
-     */
-    private $rawNumber = '';
-
-    /**
-     * Enable account type
+     * Create bank account object from account number
      *
-     * @param  string             $classname
-     * @return BankAccountFactory Returns instance to enable chaining
-     */
-    public function enable($classname)
-    {
-        assert('is_string($classname)');
-        $this->disable($classname);
-        $this->classes[] = $classname;
-
-        return $this;
-    }
-
-    /**
-     * Disable account type
-     *
-     * @param  string             $classname
-     * @return BankAccountFactory Returns instance to enable chaining
-     */
-    public function disable($classname)
-    {
-        assert('is_string($classname)');
-        $index = array_search($classname, $this->classes);
-        if ($index !== false) {
-            unset($this->classes[$index]);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Disable all enabled account types
-     *
-     * @return BankAccountFactory Returns instance to enable chaining
-     */
-    public function clearClasses()
-    {
-        $this->classes = array();
-
-        return $this;
-    }
-
-    /**
-     * Set raw account number
-     *
-     * @param  string             $rawNumber Clearing + , + account number
-     * @return BankAccountFactory Returns instance to enable chaining
-     */
-    public function setAccount($rawNumber)
-    {
-        assert('is_string($rawNumber)');
-        $this->rawNumber = $rawNumber;
-
-        return $this;
-    }
-
-    /**
-     * Get account object
-     *
+     * @param  string               $account Clearing + , + account number
      * @return BankAccountInterface
-     * @throws Exception        If unable to create
+     * @throws Exception            If unable to create
      */
-    public function getAccount()
+    public static function create($account)
     {
-        foreach ($this->classes as $class) {
+        foreach (self::$classes as $class) {
             try {
                 // Create and return account object
                 $class = "\\iio\\stb\\Banking\\$class";
-                $account = new $class($this->rawNumber);
-
-                return $account;
+                return new $class($account);
             } catch (InvalidClearingException $e) {
                 // Invalid clearing, try next class
                 continue;
@@ -128,6 +64,6 @@ class BankAccountFactory
         }
 
         // Unable to create class
-        throw new Exception("Unable to create account for number '{$this->rawNumber}'");
+        throw new Exception("Unable to create account for number '{$account}'");
     }
 }
