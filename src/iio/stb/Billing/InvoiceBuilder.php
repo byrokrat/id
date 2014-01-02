@@ -87,6 +87,16 @@ class InvoiceBuilder
     private $currency = 'SEK';
 
     /**
+     * Create builder
+     *
+     * @return InvoiceBuilder
+     */
+    public static function create()
+    {
+        return new InvoiceBuilder();
+    }
+
+    /**
      * Construct invoice
      *
      * @return Invoice

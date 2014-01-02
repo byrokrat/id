@@ -89,9 +89,7 @@ class InvoiceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testGetInvoice()
     {
-        $builder = new InvoiceBuilder();
-
-        $invoice = $builder->reset()
+        $invoice = InvoiceBuilder::create()
             ->setSerial('1')
             ->generateOCR()
             ->setSeller(new LegalPerson('seller'))
