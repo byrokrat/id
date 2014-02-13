@@ -6,23 +6,9 @@ $src = __DIR__ . '/../src/iio/stb';
 
 include_once "$src/Exception.php";
 
-include_once "$src/Exception/InvalidAccountException.php";
-include_once "$src/Exception/InvalidChartException.php";
 include_once "$src/Exception/InvalidCheckDigitException.php";
 include_once "$src/Exception/InvalidClearingException.php";
 include_once "$src/Exception/InvalidStructureException.php";
-include_once "$src/Exception/InvalidTemplateException.php";
-include_once "$src/Exception/InvalidYearException.php";
-include_once "$src/Exception/VerificationNotBalancedException.php";
-
-include_once "$src/Accounting/Account.php";
-include_once "$src/Accounting/ChartOfAccounts.php";
-include_once "$src/Accounting/ChartOfTemplates.php";
-include_once "$src/Accounting/Template.php";
-include_once "$src/Accounting/Transaction.php";
-include_once "$src/Accounting/Verification.php";
-include_once "$src/Accounting/Formatter/SIE.php";
-include_once "$src/Accounting/Formatter/VISMAkml.php";
 
 include_once "$src/Banking/BankAccountInterface.php";
 include_once "$src/Banking/NullAccount.php";
