@@ -7,7 +7,6 @@ $src = __DIR__ . '/../src/iio/stb';
 include_once "$src/Exception.php";
 
 include_once "$src/Exception/InvalidAccountException.php";
-include_once "$src/Exception/InvalidAmountException.php";
 include_once "$src/Exception/InvalidChartException.php";
 include_once "$src/Exception/InvalidCheckDigitException.php";
 include_once "$src/Exception/InvalidClearingException.php";
@@ -51,7 +50,3 @@ include_once "$src/ID/PersonalIdFactory.php";
 include_once "$src/ID/CoordinationIdFactory.php";
 include_once "$src/ID/CorporateIdFactory.php";
 include_once "$src/ID/FakeIdFactory.php";
-
-include_once "$src/Utils/Amount.php";
-include_once "$src/Utils/Modulo10.php";
-include_once "$src/Utils/Modulo11.php";

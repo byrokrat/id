@@ -18,7 +18,6 @@ Table of contents
 * [ID](#id)
     * [PersonalId](#personalid)
     * [Creating ID objects](#creating-id-objects)
-* [Utils](#utils)
 * [Continuous integration](#continuous-integration)
 * [Unit testing](#running-unit-tests)
 
@@ -84,15 +83,6 @@ with the abilities you need by chaining factory objects at creation time.
 
 In this example the factory will first try to create a PersonalId, if this fails
 it will try to create a CoordinationId, if this fails it will throw an Exception.
-
-
-Utils
------
-Some utility classes.
- 
- * `Amount` represent transaction amounts using bcmath for arithmetic precision.
- 
- * `OCR` represents transaction numbers used in the swedish banking system.
 
 
 Running unit tests
