@@ -15,7 +15,6 @@ Table of contents
 * [Accounting](#accounting)
 * [Banking](#banking)
     * [Creating bank account objects](#creating-bank-account-objects)
-* [Billing](#billing)
 * [ID](#id)
     * [PersonalId](#personalid)
     * [Creating ID objects](#creating-id-objects)
@@ -47,39 +46,6 @@ a way to transparently create account objects.
     use iio\stb\Banking\BankAccountFactory;
     $account = BankAccountFactory::create('3300,1111111116');
     // $account is an instance of iio\stb\Banking\NordeaPerson
-
-
-Billing
--------
-Invoice and support classes. `InvoicePost` represents a purchased item.
-
-    // 1 unit of a 100 EUR item with 25% VAT
-    $item = new InvoicePost(
-        'Item description',
-        new Amount('1'),
-        new Amount('100'),
-        new Amount('.25')
-    );
-
-The simplest way to create invoices is by using the `InvoiceBuilder`.
-
-    $builder = new InvoiceBuilder();
-
-    $invoice = $builder->reset()
-        ->setSerial('1')
-        ->generateOCR()
-        ->setSeller(new LegalPerson('Company X', ...))
-        ->setBuyer(new LegalPerson('Mrs Y', ...))
-        ->setMessage('Pay in time or else!')
-        ->setCurrency('EUR')
-        ->addPost($item)
-        ->getInvoice();
-
-`Invoice` represents the actual invoice. Se the class definition for a complete
-list of access methods.
-
-    echo $invoice->getInvoiceTotal();
-    // prints 125 (100 EUR plus 25% VAT)
 
 
 ID
@@ -127,13 +93,6 @@ Some utility classes.
  * `Amount` represent transaction amounts using bcmath for arithmetic precision.
  
  * `OCR` represents transaction numbers used in the swedish banking system.
-
-
-Continuous integration
-----------------------
-Running unit tests and other code analysis tools can be handled using `phing`.
-To run CI tests type `phing` from the project root directory, point your browser
-to `build/index.html` to view the results.
 
 
 Running unit tests
