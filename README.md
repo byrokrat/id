@@ -1,39 +1,11 @@
 Swedish Technical Bureaucracy (STB)
 ===================================
 
-STB is a collection of classes useful when processing data related to swedish 
-bureaucracy and banking systems. The functionality is split into different
-subpackages.
-
-
-Table of contents
------------------
-* [Installing](#installation-using-composer)
-* [Banking](#banking)
-    * [Creating bank account objects](#creating-bank-account-objects)
-* [ID](#id)
-    * [PersonalId](#personalid)
-    * [Creating ID objects](#creating-id-objects)
-* [Continuous integration](#continuous-integration)
-* [Unit testing](#running-unit-tests)
-
 
 Installation using composer
 ---------------------------
 The usage of [composer](http://getcomposer.org/) is recommended. Simply add
 `iio/stb` to your list of required libraries.
-
-
-Banking
--------
-Data types for accounts in the swedish banking system. Se `BankAccountFactory` for
-a way to transparently create account objects.
-
-### Creating bank account objects
-
-    use iio\stb\Banking\BankAccountFactory;
-    $account = BankAccountFactory::create('3300,1111111116');
-    // $account is an instance of iio\stb\Banking\NordeaPerson
 
 
 ID

@@ -7,23 +7,7 @@ $src = __DIR__ . '/../src/iio/stb';
 include_once "$src/Exception.php";
 
 include_once "$src/Exception/InvalidCheckDigitException.php";
-include_once "$src/Exception/InvalidClearingException.php";
 include_once "$src/Exception/InvalidStructureException.php";
-
-include_once "$src/Banking/BankAccountInterface.php";
-include_once "$src/Banking/NullAccount.php";
-include_once "$src/Banking/AbstractBankAccount.php";
-include_once "$src/Banking/AbstractGiro.php";
-include_once "$src/Banking/BankAccountFactory.php";
-include_once "$src/Banking/Bankgiro.php";
-include_once "$src/Banking/UnknownAccount.php";
-include_once "$src/Banking/NordeaPerson.php";
-include_once "$src/Banking/NordeaTyp1A.php";
-include_once "$src/Banking/NordeaTyp1B.php";
-include_once "$src/Banking/PlusGiro.php";
-include_once "$src/Banking/SEB.php";
-include_once "$src/Banking/SwedbankTyp1.php";
-include_once "$src/Banking/SwedbankTyp2.php";
 
 include_once "$src/ID/IdInterface.php";
 include_once "$src/ID/NullId.php";
