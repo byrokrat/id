@@ -1,22 +1,21 @@
-# ledgr/id
+# ledgr/id [![Code Coverage](https://scrutinizer-ci.com/g/ledgr/id/badges/coverage.png?s=7a9fefd7d6535b32d2d97be1a9e583535391dd33)](https://scrutinizer-ci.com/g/ledgr/id/)
 
 
-
-Installation using composer
----------------------------
-The usage of [composer](http://getcomposer.org/) is recommended. Simply add
-`iio/stb` to your list of required libraries.
-
-
-ID
---
 Data types for swedish social security and corporation id numbers.
 
-### PersonalId
+**License**: [GPL](/LICENSE)
 
+
+Installation using [composer](http://getcomposer.org/)
+------------------------------------------------------
+Simply add `ledgr/id` to your list of required libraries.
+
+
+Usage
+-----
 Personal id is presented here as an example of what you can do with the id objects.
 
-    use iio\stb\ID\PersonalId;
+    use ledgr\id\PersonalId;
     $id = new PersonalId('820323-2775');
     echo $id->getId();                      //820323-2775
     echo $id->getLondId();                  //19820323-2775
@@ -46,8 +45,10 @@ In this example the factory will first try to create a PersonalId, if this fails
 it will try to create a CoordinationId, if this fails it will throw an Exception.
 
 
-Running unit tests
-------------------
-From project root simply type
+Run tests  using [phpunit](http://phpunit.de/)
+----------------------------------------------
+To run the tests you must first install dependencies using composer.
 
-    > phpunit
+    $ curl -sS https://getcomposer.org/installer | php
+    $ php composer.phar install
+    $ phpunit
