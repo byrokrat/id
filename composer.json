@@ -1,8 +1,8 @@
 {
-    "name": "iio/stb",
-    "description": "Swedish Technical Bureaucracy",
-    "keywords": ["Banking", "Accounting", "Bureaucracy"],
-    "homepage": "https://github.com/iio/Swedish-Technical-Bureaucracy",
+    "name": "ledgr/id",
+    "description": "Data types for swedish social security and corporation id numbers",
+    "keywords": ["Personnummer", "Organisationsnummer", "Personal id", "Social security number", "id", "Corporation id"],
+    "homepage": "https://github.com/ledgr/id",
     "type": "library",
     "license": "GPL-3.0+",
     "authors": [
@@ -11,12 +11,13 @@
             "email": "hannes.forsgard@fripost.org"
         }
     ],
-    "require": {
-        "php": ">=5.3.0"
-    },
     "autoload": {
-        "psr-0": {
-            "iio\\stb": "src/"
+        "psr-4": {
+            "ledgr\\id\\": "src/"
         }
+    },
+    "require": {
+        "php": ">=5.3.0",
+        "ledgr/utils": "dev-master"
     }
 }

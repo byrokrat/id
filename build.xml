@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="stb" basedir="." default="buildAll">
-    <property name="APP_NAME" value="Swedish Technical Bureaucracy"/>
+<project name="id" basedir="." default="buildAll">
+    <property name="APP_NAME" value="id"/>
     <property name="APP_ROOT" value="${project.basedir}"/>
     <property name="SRC_DIR" value="${APP_ROOT}/src"/>
     <property name="TEST_DIR" value="${APP_ROOT}/tests"/>
@@ -18,7 +18,7 @@
     <target name="buildAll" depends="test,sniff,phpcpd,phpmd,pdepend,document">
     </target>
 
-    <target name="test" depends="createBuildDir">
+    <target name="test" depends="install,createBuildDir">
         <exec
             command="phpunit --coverage-html ${BUILD_DIR}/test-coverage --coverage-text=${BUILD_DIR}/test-coverage.txt"
             dir="${APP_ROOT}"
@@ -92,6 +92,47 @@
                 <exec
                     command="wget https://raw.github.com/hanneskod/php-skeleton/0.1.1/index.html"
                     dir="${BUILD_DIR}"
+                    passthru="true"
+                    />
+            </else>
+        </if>
+    </target>
+
+    <target name="update" depends="install">
+        <exec
+            command="php composer.phar self-update"
+            dir="${APP_ROOT}"
+            checkreturn="true"
+            />
+        <exec
+            command="php composer.phar update"
+            dir="${APP_ROOT}"
+            checkreturn="true"
+            />
+    </target>
+
+    <target name="install" depends="getcomposer">
+        <if>
+            <available file="${APP_ROOT}/vendor"/>
+            <else>
+                <exec
+                    command="php composer.phar install --dev"
+                    dir="${APP_ROOT}"
+                    checkreturn="true"
+                    passthru="true"
+                    />
+            </else>
+        </if>
+    </target>
+
+    <target name="getcomposer">
+        <if>
+            <available file="${APP_ROOT}/composer.phar"/>
+            <else>
+                <exec
+                    command="curl -sS https://getcomposer.org/installer | php"
+                    dir="${APP_ROOT}"
+                    checkreturn="true"
                     passthru="true"
                     />
             </else>
