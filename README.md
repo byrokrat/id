@@ -1,7 +1,7 @@
-# ledgr/id [![Code Coverage](https://scrutinizer-ci.com/g/ledgr/id/badges/coverage.png?s=7a9fefd7d6535b32d2d97be1a9e583535391dd33)](https://scrutinizer-ci.com/g/ledgr/id/)
+# ledgr/id [![Build Status](https://travis-ci.org/ledgr/id.png?branch=master)](https://travis-ci.org/ledgr/id) [![Dependency Status](https://gemnasium.com/ledgr/id.png)](https://gemnasium.com/ledgr/id) [![Code Coverage](https://scrutinizer-ci.com/g/ledgr/id/badges/coverage.png?s=7a9fefd7d6535b32d2d97be1a9e583535391dd33)](https://scrutinizer-ci.com/g/ledgr/id/)
 
 
-Data types for swedish social security and corporation id numbers.
+Data types for swedish social security and corporation id numbers
 
 **License**: [GPL](/LICENSE)
 
