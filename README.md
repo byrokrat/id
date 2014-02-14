@@ -1,4 +1,4 @@
-# ledgr/id [![Build Status](https://travis-ci.org/ledgr/id.png?branch=master)](https://travis-ci.org/ledgr/id) [![Dependency Status](https://gemnasium.com/ledgr/id.png)](https://gemnasium.com/ledgr/id) [![Code Coverage](https://scrutinizer-ci.com/g/ledgr/id/badges/coverage.png?s=7a9fefd7d6535b32d2d97be1a9e583535391dd33)](https://scrutinizer-ci.com/g/ledgr/id/)
+# ledgr/id [![Latest Stable Version](https://poser.pugx.org/ledgr/id/v/stable.png)](https://packagist.org/packages/ledgr/id) [![Build Status](https://travis-ci.org/ledgr/id.png?branch=master)](https://travis-ci.org/ledgr/id) [![Code Coverage](https://scrutinizer-ci.com/g/ledgr/id/badges/coverage.png?s=7a9fefd7d6535b32d2d97be1a9e583535391dd33)](https://scrutinizer-ci.com/g/ledgr/id/) [![Dependency Status](https://gemnasium.com/ledgr/id.png)](https://gemnasium.com/ledgr/id)
 
 
 Data types for swedish social security and corporation id numbers
