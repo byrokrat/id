@@ -23,6 +23,6 @@ namespace ledgr\id;
 /**
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class Exception extends \Exception
+interface Exception
 {
 }

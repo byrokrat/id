@@ -18,26 +18,14 @@
  * along with ledgr/id.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace ledgr\id;
+namespace ledgr\id\Exception;
 
-use ledgr\id\Exception\UnableToCreateIdException;
+use ledgr\id\Exception;
+use RuntimeException;
 
 /**
- * Create ID object from raw id string
- *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class IdFactory
+class UnableToCreateIdException extends RuntimeException implements Exception
 {
-    /**
-     * Create ID object from raw id string
-     *
-     * @param  string $rawId             Raw id string
-     * @return void                      never returns
-     * @throws UnableToCreateIdException Always throws exception
-     */
-    public function create($rawId)
-    {
-        throw new UnableToCreateIdException("Unable to create ID for number '{$rawId}'");
-    }
 }
