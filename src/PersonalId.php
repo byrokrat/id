@@ -20,7 +20,7 @@
 
 namespace ledgr\id;
 
-use ledgr\utils\Modulo10;
+use ledgr\checkdigit\Modulo10;
 use ledgr\id\Exception\InvalidStructureException;
 use ledgr\id\Exception\InvalidCheckDigitException;
 use DateTime;
