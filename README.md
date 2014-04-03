@@ -3,8 +3,6 @@
 
 Data types for swedish social security and corporation id numbers
 
-**License**: [GPL](/LICENSE)
-
 
 Installation using [composer](http://getcomposer.org/)
 ------------------------------------------------------
