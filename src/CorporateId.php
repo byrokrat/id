@@ -9,17 +9,20 @@
 
 namespace ledgr\id;
 
-use ledgr\checkdigit\Modulo10;
-use ledgr\id\Exception\InvalidStructureException;
-use ledgr\id\Exception\InvalidCheckDigitException;
-
 /**
  * Swedish corporate identity numbers
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class CorporateId implements IdInterface
+class CorporateId implements Id
 {
+    use Component\Structure, Component\CheckDigit, Component\SexualIdentity, Component\Stringify;
+
+    /**
+     * @var string Regular expression describing structure
+     */
+    protected static $structure = '/^(\d)(\d{5})[-](\d{3})(\d)$/';
+
     /**
      * @var string Group number
      */
@@ -31,34 +34,23 @@ class CorporateId implements IdInterface
     private $serialNr;
 
     /**
-     * @var string Check digit
-     */
-    private $check;
-
-    /**
      * Set id number
      *
      * @param  string                     $id
-     * @throws InvalidStructureException  If structure is invalid
-     * @throws InvalidCheckDigitException If check digit is invalid
+     * @throws Exception\InvalidStructureException  If structure is invalid
      */
     public function __construct($id)
     {
-        if (!preg_match("/^(\d)(\d{5})[-](\d{3})(\d)$/", $id, $matches)) {
-            throw new InvalidStructureException('Corporate ids must use form XXXXXX-XXXX');
-        }
-
-        list(, $this->groupNr, $pre, $post, $this->check) = $matches;
+        list(, $this->groupNr, $pre, $post, $check) = CorporateId::parseStructure($id);
 
         if ($pre[1] < 2) {
-            throw new InvalidStructureException('Third digit must be at lest 2');
+            throw new Exception\InvalidStructureException('Third digit must be at lest 2');
         }
 
         $this->serialNr = array($pre, $post);
 
-        if ($this->getCheckDigit() != $this->calcCheckDigit()) {
-            throw new InvalidCheckDigitException("Invalid check digit for <$id>");
-        }
+        $this->setCheckDigit($check);
+        $this->validateCheckDigit();
     }
 
     /**
@@ -76,16 +68,6 @@ class CorporateId implements IdInterface
     }
 
     /**
-     * Get check digit
-     *
-     * @return string
-     */
-    public function getCheckDigit()
-    {
-        return $this->check;
-    }
-
-    /**
      * Get delimiter
      *
      * @return string
@@ -93,17 +75,6 @@ class CorporateId implements IdInterface
     public function getDelimiter()
     {
         return '-';
-    }
-
-
-    /**
-     * Get id as string
-     *
-     * @return string
-     */
-    public function __tostring()
-    {
-        return $this->getId();
     }
 
     /**
@@ -132,17 +103,5 @@ class CorporateId implements IdInterface
             default:
                 return "Okänd";
         }
-    }
-
-    /**
-     * Calculate check digit
-     *
-     * @return string
-     */
-    private function calcCheckDigit()
-    {
-        return Modulo10::getCheckDigit(
-            $this->groupNr . $this->serialNr[0] . $this->serialNr[1]
-        );
     }
 }

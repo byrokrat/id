@@ -9,8 +9,6 @@
 
 namespace ledgr\id;
 
-use ledgr\id\Exception\InvalidStructureException;
-
 /**
  * Fake swedish personal identity numbers
  *
@@ -21,19 +19,18 @@ use ledgr\id\Exception\InvalidStructureException;
 class FakeId extends PersonalId
 {
     /**
+     * @var string Regular expression describing structure
+     */
+    protected static $structure = '/^((?:\d\d)?)(\d{6})([-+])(xx[12x])(x)$/i';
+
+    /**
      * Fake swedish personal identity numbers
      *
-     * @param  string                     $id
-     * @throws InvalidStructureException  If structure is invalid
-     * @throws InvalidCheckDigitException If check digit is invalid
+     * @param string $id
      */
     public function __construct($id)
     {
-        if (!preg_match("/^((?:\d\d)?)(\d{6})([-+])(xx[12x])(x)$/i", $id, $matches)) {
-            throw new InvalidStructureException('Fake ids must use form (NN)NNNNNN-xx[12x]x');
-        }
-
-        list(, $century, $datestr, $delimiter, $individual, $check) = $matches;
+        list(, $century, $datestr, $delimiter, $individual, $check) = FakeId::parseStructure($id);
 
         parent::__construct($century . $datestr . $delimiter . '0000');
 
@@ -44,29 +41,19 @@ class FakeId extends PersonalId
     /**
      * Get sex as denoted by id
      *
-     * Returns 'O' for other if sex could not be determined
-     *
-     * @return string
+     * @return string One of the sex identifier constants
      */
     public function getSex()
     {
-        $nr = $this->getIndividualNr();
-        if (is_numeric($nr[2])) {
-
-            return parent::getSex();
-        } else {
-
-            return 'O';
-        }
+        return is_numeric($this->getIndividualNr()[2]) ? parent::getSex() : self::SEX_UNDEFINED;
     }
 
     /**
-     * Calculate check digit
+     * Fake ids always have valid check digits
      *
-     * @return string
+     * @return void
      */
-    protected function calcCheckDigit()
+    protected function validateCheckDigit()
     {
-        return '0';
     }
 }

@@ -9,12 +9,9 @@
 
 namespace ledgr\id\Exception;
 
-use ledgr\id\Exception;
-use RuntimeException;
-
 /**
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class InvalidStructureException extends RuntimeException implements Exception
+class InvalidStructureException extends \RuntimeException implements \ledgr\id\Exception
 {
 }

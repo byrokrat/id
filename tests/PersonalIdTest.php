@@ -100,10 +100,16 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
     public function testSex()
     {
         $id = new PersonalId('820323-2775');
-        $this->assertEquals('M', $id->getSex());
+        $this->assertEquals(Id::SEX_MALE, $id->getSex());
+        $this->assertTrue($id->isMale());
+        $this->assertFalse($id->isFemale());
+        $this->assertFalse($id->isSexUndefined());
 
         $id = new PersonalId('770314-0348');
-        $this->assertEquals('F', $id->getSex());
+        $this->assertEquals(Id::SEX_FEMALE, $id->getSex());
+        $this->assertFalse($id->isMale());
+        $this->assertTrue($id->isFemale());
+        $this->assertFalse($id->isSexUndefined());
     }
 
     public function testDOB()

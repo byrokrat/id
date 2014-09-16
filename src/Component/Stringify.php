@@ -7,40 +7,29 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-namespace ledgr\id;
+namespace ledgr\id\Component;
 
 /**
- * Id Interface
+ * Helper that defines __tostring()
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-interface IdInterface
+trait Stringify
 {
     /**
-     * Get check digit
+     * Used as a handle to get string representation
      *
      * @return string
      */
-    public function getCheckDigit();
-
-    /**
-     * Get delimiter
-     *
-     * @return string
-     */
-    public function getDelimiter();
-
-    /**
-     * Get id
-     *
-     * @return string
-     */
-    public function getId();
+    abstract public function getId();
 
     /**
      * Get id as string
      *
      * @return string
      */
-    public function __tostring();
+    public function __tostring()
+    {
+        return $this->getId();
+    }
 }

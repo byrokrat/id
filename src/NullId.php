@@ -10,12 +10,12 @@
 namespace ledgr\id;
 
 /**
- * IdInterface null object
- *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class NullId implements IdInterface
+class NullId implements Id
 {
+    use Component\SexualIdentity, Component\Stringify;
+
     /**
      * @var string String returned by getId()
      */
@@ -60,15 +60,5 @@ class NullId implements IdInterface
     public function getId()
     {
         return self::$str;
-    }
-
-    /**
-     * Get id as string
-     *
-     * @return string
-     */
-    public function __tostring()
-    {
-        return $this->getId();
     }
 }

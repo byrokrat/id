@@ -65,13 +65,22 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
     public function testSex()
     {
         $id = new FakeId('820323-xx1x');
-        $this->assertEquals('M', $id->getSex());
+        $this->assertEquals(Id::SEX_MALE, $id->getSex());
+        $this->assertTrue($id->isMale());
+        $this->assertFalse($id->isFemale());
+        $this->assertFalse($id->isSexUndefined());
 
         $id = new FakeId('770314-xx2x');
-        $this->assertEquals('F', $id->getSex());
+        $this->assertEquals(Id::SEX_FEMALE, $id->getSex());
+        $this->assertFalse($id->isMale());
+        $this->assertTrue($id->isFemale());
+        $this->assertFalse($id->isSexUndefined());
 
         $id = new FakeId('770314-xxxx');
-        $this->assertEquals('O', $id->getSex());
+        $this->assertEquals(Id::SEX_UNDEFINED, $id->getSex());
+        $this->assertFalse($id->isMale());
+        $this->assertFalse($id->isFemale());
+        $this->assertTrue($id->isSexUndefined());
     }
 
     public function testDOB()

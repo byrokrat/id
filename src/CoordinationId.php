@@ -9,8 +9,6 @@
 
 namespace ledgr\id;
 
-use ledgr\checkdigit\Modulo10;
-
 /**
  * Swedish coordination id number
  *
@@ -24,9 +22,7 @@ class CoordinationId extends PersonalId
      * A coordination number is like a personal number except that 60 is added
      * to the date of birth.
      *
-     * @param  string                     $id
-     * @throws InvalidStructureException  If structure is invalid
-     * @throws InvalidCheckDigitException If check digit is invalid
+     * @param string $id
      */
     public function __construct($id)
     {
@@ -52,30 +48,5 @@ class CoordinationId extends PersonalId
             . $this->getDelimiter()
             . $this->getIndividualNr()
             . $this->getCheckDigit();
-    }
-
-    /**
-     * Get id as string
-     *
-     * @return string
-     */
-    public function __tostring()
-    {
-        return intval($this->getDate()->format('Ymd')) + 60
-            . $this->getDelimiter()
-            . $this->getIndividualNr()
-            . $this->getCheckDigit();
-    }
-
-    /**
-     * Calculate check digit
-     *
-     * @return string
-     */
-    protected function calcCheckDigit()
-    {
-        return Modulo10::getCheckDigit(
-            intval($this->getDate()->format('ymd')) + 60 . $this->getIndividualNr()
-        );
     }
 }

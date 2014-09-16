@@ -9,9 +9,6 @@
 
 namespace ledgr\id;
 
-use ledgr\checkdigit\Modulo10;
-use ledgr\id\Exception\InvalidStructureException;
-use ledgr\id\Exception\InvalidCheckDigitException;
 use DateTime;
 
 /**
@@ -19,8 +16,15 @@ use DateTime;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class PersonalId implements IdInterface
+class PersonalId implements Id
 {
+    use Component\Structure, Component\CheckDigit, Component\SexualIdentity, Component\Stringify;
+
+    /**
+     * @var string Regular expression describing structure
+     */
+    protected static $structure = '/^((?:\d\d)?)(\d{6})([-+])(\d{3})(\d)$/';
+
     /**
      * @var DateTime Date of birth
      */
@@ -30,11 +34,6 @@ class PersonalId implements IdInterface
      * @var string Individual number
      */
     private $individualNr;
-
-    /**
-     * @var string Check digit
-     */
-    private $check;
 
     /**
      * @var string Date and control string delimiter (- or +)
@@ -50,21 +49,15 @@ class PersonalId implements IdInterface
      * delimiter (+ signals more than a hundred years old). If year is set using
      * four digits delimiter is calculated based on century.
      *
-     * @param  string                     $id
-     * @throws InvalidStructureException  If structure is invalid
-     * @throws InvalidCheckDigitException If check digit is invalid
+     * @param  string $id
+     * @throws Exception\InvalidStructureException  If structure is invalid
      */
     public function __construct($id)
     {
-        if (!preg_match("/^((?:\d\d)?)(\d{6})([-+])(\d{3})(\d)$/", $id, $matches)) {
-            throw new InvalidStructureException('Personal ids must use form (XX)XXXXXX-XXXX or (XX)XXXXXX+XXXX');
-        }
-
-        list(, $century, $datestr, $delimiter, $individual, $check) = $matches;
+        list(, $century, $datestr, $delimiter, $individual, $check) = PersonalId::parseStructure($id);
 
         $this->setDelimiter($delimiter);
         $this->setIndividualNr($individual);
-        $this->setCheckDigit($check);
 
         if ($century) {
             // Century specified in $datestr
@@ -103,12 +96,11 @@ class PersonalId implements IdInterface
         $errors .= ' ' . implode(', ', $dateerrors['warnings']);
         $errors = trim($errors);
         if (!empty($errors)) {
-            throw new InvalidStructureException($errors);
+            throw new Exception\InvalidStructureException($errors);
         }
 
-        if ($this->getCheckDigit() != $this->calcCheckDigit()) {
-            throw new InvalidCheckDigitException("Invalid check digit for <$id>");
-        }
+        $this->setCheckDigit($check);
+        $this->validateCheckDigit();
     }
 
     /**
@@ -155,28 +147,6 @@ class PersonalId implements IdInterface
     }
 
     /**
-     * Get check digit
-     *
-     * @return string
-     */
-    public function getCheckDigit()
-    {
-        return $this->check;
-    }
-
-    /**
-     * Set check digit
-     *
-     * @param  string $check
-     * @return void
-     */
-    protected function setCheckDigit($check)
-    {
-        assert('is_string($check)');
-        $this->check = $check;
-    }
-
-    /**
      * Get delimiter
      *
      * @return string
@@ -199,28 +169,13 @@ class PersonalId implements IdInterface
     }
 
     /**
-     * Get date of birth formatted as YYYY-MM-DD
-     *
-     * @return string
-     */
-    public function getDOB()
-    {
-        return $this->getDate()->format('Y-m-d');
-    }
-
-    /**
      * Get sex as denoted by id
      *
-     * Returns 'M' for Male or 'F' for Female.
-     *
-     * @return string
+     * @return string One of the sex identifier constants
      */
     public function getSex()
     {
-        $nr = $this->getIndividualNr();
-        $int = intval($nr[2]);
-
-        return ($int%2 == 0) ? 'F' : 'M';
+        return (intval($this->getIndividualNr()[2])%2 == 0) ? self::SEX_FEMALE : self::SEX_MALE;
     }
 
     /**
@@ -254,24 +209,12 @@ class PersonalId implements IdInterface
     }
 
     /**
-     * Get id as string
+     * Get date of birth formatted as YYYY-MM-DD
      *
      * @return string
      */
-    public function __tostring()
+    public function getDOB()
     {
-        return $this->getId();
-    }
-
-    /**
-     * Calculate check digit
-     *
-     * @return string
-     */
-    protected function calcCheckDigit()
-    {
-        return Modulo10::getCheckDigit(
-            $this->getDate()->format('ymd') . $this->getIndividualNr()
-        );
+        return $this->getDate()->format('Y-m-d');
     }
 }

@@ -90,10 +90,10 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
     public function testSex()
     {
         $id = new CoordinationId('701063-2391');
-        $this->assertEquals('M', $id->getSex());
+        $this->assertEquals(Id::SEX_MALE, $id->getSex());
 
         $id = new CoordinationId('770374-0345');
-        $this->assertEquals('F', $id->getSex());
+        $this->assertEquals(Id::SEX_FEMALE, $id->getSex());
     }
 
     public function testDOB()
@@ -105,6 +105,6 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
     public function testToString()
     {
         $id = new CoordinationId('701063-2391');
-        $this->assertEquals('19701063-2391', (string)$id);
+        $this->assertEquals('701063-2391', (string)$id);
     }
 }
