@@ -32,6 +32,15 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException ledgr\id\Exception\InvalidStructureException
+     * @dataProvider invalidStructureProvider
+     */
+    public function testInvalidStructure($nr)
+    {
+        new PersonalId($nr);
+    }
+
     public function invalidCheckDigitProvider()
     {
         return array(
@@ -59,21 +68,29 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException ledgr\id\Exception\InvalidStructureException
-     * @dataProvider invalidStructureProvider
-     */
-    public function testInvalidStructure($nr)
-    {
-        new PersonalId($nr);
-    }
-
-    /**
      * @expectedException ledgr\id\Exception\InvalidCheckDigitException
      * @dataProvider invalidCheckDigitProvider
      */
     public function testInvalidCheckDigit($nr)
     {
         new PersonalId($nr);
+    }
+
+    public function interchangeableFormulasProvider()
+    {
+        return array(
+            array(new PersonalId('820323-2775'), new PersonalId('8203232775')),
+            array(new PersonalId('19820323-2775'), new PersonalId('198203232775')),
+            array(new PersonalId('19820323-2775'), new PersonalId('19820323+2775'))
+        );
+    }
+
+    /**
+     * @dataProvider interchangeableFormulasProvider
+     */
+    public function testInterchangeableFormulas($a, $b)
+    {
+        $this->assertEquals($a, $b);
     }
 
     public function testCentry()

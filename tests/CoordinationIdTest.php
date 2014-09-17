@@ -27,6 +27,15 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException ledgr\id\Exception\InvalidStructureException
+     * @dataProvider invalidStructureProvider
+     */
+    public function testInvalidStructure($nr)
+    {
+        new CoordinationId($nr);
+    }
+
     public function invalidCheckDigitProvider()
     {
         return array(
@@ -52,21 +61,29 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException ledgr\id\Exception\InvalidStructureException
-     * @dataProvider invalidStructureProvider
-     */
-    public function testInvalidStructure($nr)
-    {
-        new CoordinationId($nr);
-    }
-
-    /**
      * @expectedException ledgr\id\Exception\InvalidCheckDigitException
      * @dataProvider invalidCheckDigitProvider
      */
     public function testInvalidCheckDigit($nr)
     {
         new CoordinationId($nr);
+    }
+
+    public function interchangeableFormulasProvider()
+    {
+        return array(
+            array(new CoordinationId('701063-2391'), new CoordinationId('7010632391')),
+            array(new CoordinationId('19701063-2391'), new CoordinationId('197010632391')),
+            array(new CoordinationId('19701063-2391'), new CoordinationId('19701063+2391'))
+        );
+    }
+
+    /**
+     * @dataProvider interchangeableFormulasProvider
+     */
+    public function testInterchangeableFormulas($a, $b)
+    {
+        $this->assertEquals($a, $b);
     }
 
     public function testCentry()

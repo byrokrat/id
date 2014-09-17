@@ -41,6 +41,23 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
         new FakeId($nr);
     }
 
+    public function interchangeableFormulasProvider()
+    {
+        return array(
+            array(new FakeId('820323-xxxx'), new FakeId('820323xxxx')),
+            array(new FakeId('19820323-xxxx'), new FakeId('19820323xxxx')),
+            array(new FakeId('19820323-xxxx'), new FakeId('19820323+xxxx'))
+        );
+    }
+
+    /**
+     * @dataProvider interchangeableFormulasProvider
+     */
+    public function testInterchangeableFormulas($a, $b)
+    {
+        $this->assertEquals($a, $b);
+    }
+
     public function testCentry()
     {
         $id = new FakeId('820323-xxxx');

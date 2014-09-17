@@ -21,7 +21,7 @@ class FakeId extends PersonalId
     /**
      * @var string Regular expression describing structure
      */
-    protected static $structure = '/^((?:\d\d)?)(\d{6})([-+])(xx[12x])(x)$/i';
+    protected static $structure = '/^((?:\d\d)?)(\d{6})([-+]?)(xx[12x])(x)$/i';
 
     /**
      * Fake swedish personal identity numbers
@@ -31,11 +31,9 @@ class FakeId extends PersonalId
     public function __construct($id)
     {
         list(, $century, $datestr, $delimiter, $individual, $check) = FakeId::parseStructure($id);
-
         parent::__construct($century . $datestr . $delimiter . '0000');
-
         $this->setCheckDigit($check);
-        $this->setIndividualNr($individual);
+        $this->individualNr = $individual;
     }
 
     /**

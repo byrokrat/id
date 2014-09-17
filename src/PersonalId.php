@@ -9,8 +9,6 @@
 
 namespace ledgr\id;
 
-use DateTime;
-
 /**
  * Swedish personal identity numbers
  *
@@ -23,22 +21,22 @@ class PersonalId implements Id
     /**
      * @var string Regular expression describing structure
      */
-    protected static $structure = '/^((?:\d\d)?)(\d{6})([-+])(\d{3})(\d)$/';
+    protected static $structure = '/^((?:\d\d)?)(\d{6})([-+]?)(\d{3})(\d)$/';
 
     /**
      * @var DateTime Date of birth
      */
-    private $date;
+    protected $date;
 
     /**
      * @var string Individual number
      */
-    private $individualNr;
+    protected $individualNr;
 
     /**
      * @var string Date and control string delimiter (- or +)
      */
-    private $delim;
+    protected $delimiter;
 
     /**
      * Set id
@@ -49,54 +47,33 @@ class PersonalId implements Id
      * delimiter (+ signals more than a hundred years old). If year is set using
      * four digits delimiter is calculated based on century.
      *
-     * @param  string $id
-     * @throws Exception\InvalidStructureException  If structure is invalid
+     * @param string $id
      */
     public function __construct($id)
     {
-        list(, $century, $datestr, $delimiter, $individual, $check) = PersonalId::parseStructure($id);
+        list(, $century, $datestr, $delimiter, $this->individualNr, $check) = PersonalId::parseStructure($id);
 
-        $this->setDelimiter($delimiter);
-        $this->setIndividualNr($individual);
+        $this->delimiter = $delimiter ?: '-';
 
         if ($century) {
-            // Century specified in $datestr
-            $this->setDate(DateTime::createFromFormat('Ymd', $century.$datestr));
-            $dateerrors = DateTime::getLastErrors();
-            
             // Set delimiter based on date (+ if date is more then a hundred years old)
+            $this->date = DateTime::createFromFormat('Ymd', $century.$datestr);
             $hundredYearsAgo = new DateTime();
             $hundredYearsAgo->modify('-100 year');
-            if ($this->getDate() < $hundredYearsAgo) {
-                $this->setDelimiter('+');
-            } else {
-                $this->setDelimiter('-');
-            }
-
+            $this->delimiter = $this->getDate() < $hundredYearsAgo ? '+' : '-';
         } else {
             // No century in $datestr
-            $date = DateTime::createFromFormat('ymd', $datestr);
+            $this->date = DateTime::createFromFormat('ymd', $datestr);
             
             // If in the future century is wrong
-            if ($date > new DateTime) {
-                $date->modify('-100 year');
+            if ($this->date > new DateTime) {
+                $this->date->modify('-100 year');
             }
 
             // Date is over a hundred years ago if delimiter is +
             if ($this->getDelimiter() == '+') {
-                $date->modify('-100 year');
+                $this->date->modify('-100 year');
             }
-
-            $dateerrors = DateTime::getLastErrors();
-            $this->setDate($date);
-        }
-
-        // Check if there was an error parsing date
-        $errors = implode(', ', $dateerrors['errors']);
-        $errors .= ' ' . implode(', ', $dateerrors['warnings']);
-        $errors = trim($errors);
-        if (!empty($errors)) {
-            throw new Exception\InvalidStructureException($errors);
         }
 
         $this->setCheckDigit($check);
@@ -114,17 +91,6 @@ class PersonalId implements Id
     }
 
     /**
-     * Set date
-     * 
-     * @param  DateTime $date
-     * @return void
-     */
-    protected function setDate(DateTime $date)
-    {
-        $this->date = $date;
-    }
-
-    /**
      * Get individualNr
      *
      * @return string
@@ -135,37 +101,13 @@ class PersonalId implements Id
     }
 
     /**
-     * Set individualNr
-     *
-     * @param  string $individualNr
-     * @return void
-     */
-    protected function setIndividualNr($individualNr)
-    {
-        assert('is_string($individualNr)');
-        $this->individualNr = $individualNr;
-    }
-
-    /**
      * Get delimiter
      *
      * @return string
      */
     public function getDelimiter()
     {
-        return $this->delim;
-    }
-
-    /**
-     * Set delimiter
-     *
-     * @param  string $delim
-     * @return void
-     */
-    protected function setDelimiter($delim)
-    {
-        assert('is_string($delim)');
-        $this->delim = $delim;
+        return $this->delimiter;
     }
 
     /**

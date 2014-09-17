@@ -20,6 +20,15 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException ledgr\id\Exception\InvalidStructureException
+     * @dataProvider invalidStructureProvider
+     */
+    public function testInvalidStructure($nr)
+    {
+        new CorporateId($nr);
+    }
+
     public function invalidCheckDigitProvider()
     {
         return array(
@@ -36,6 +45,15 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
             array('835000-0890'),
             array('702001-7780'),
         );
+    }
+
+    /**
+     * @expectedException ledgr\id\Exception\InvalidCheckDigitException
+     * @dataProvider invalidCheckDigitProvider
+     */
+    public function testInvalidCheckDigit($nr)
+    {
+        new CorporateId($nr);
     }
 
     public function validProvider()
@@ -57,30 +75,17 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException ledgr\id\Exception\InvalidStructureException
-     * @dataProvider invalidStructureProvider
-     */
-    public function testInvalidStructure($nr)
-    {
-        new CorporateId($nr);
-    }
-
-    /**
-     * @expectedException ledgr\id\Exception\InvalidCheckDigitException
-     * @dataProvider invalidCheckDigitProvider
-     */
-    public function testInvalidCheckDigit($nr)
-    {
-        new CorporateId($nr);
-    }
-
-    /**
      * @dataProvider validProvider
      */
     public function testValidIds($id)
     {
         $id = new CorporateId($id);
         $this->assertTrue(true);
+    }
+
+    public function testInterchangeableFormulas()
+    {
+        $this->assertEquals(new CorporateId('502017-7753'), new CorporateId('5020177753'));
     }
 
     public function testGetId()

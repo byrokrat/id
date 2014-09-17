@@ -21,7 +21,7 @@ class CorporateId implements Id
     /**
      * @var string Regular expression describing structure
      */
-    protected static $structure = '/^(\d)(\d{5})[-](\d{3})(\d)$/';
+    protected static $structure = '/^(\d)(\d{5})[-]?(\d{3})(\d)$/';
 
     /**
      * @var string Group number

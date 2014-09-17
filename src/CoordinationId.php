@@ -26,15 +26,9 @@ class CoordinationId extends PersonalId
      */
     public function __construct($id)
     {
-        // Deduct 60 from dob before setting id
-        $split = preg_split("/([-+])/", $id, 2, PREG_SPLIT_DELIM_CAPTURE);
-        $id = intval(array_shift($split)) - 60;
-
-        foreach ($split as $part) {
-            $id .= $part;
-        }
-
-        return parent::__construct($id);
+        list(, $century, $datestr, $delim, $nr, $check) = CoordinationId::parseStructure($id);
+        $dob = intval($datestr) - 60;
+        return parent::__construct($century.$dob.$delim.$nr.$check);
     }
 
     /**
