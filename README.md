@@ -25,16 +25,16 @@ echo $id->getSex();                     //M
 
 ### Class hierarchy
 
-* `[Id](src/Id.php)` The base interface. Look here for a complete API reference.
-    - `[PersonalId](src/PersonalId.php)` ([personnummer](http://sv.wikipedia.org/wiki/Personnummer_i_Sverige))
+* [`Id`](src/Id.php) The base interface. Look here for a complete API reference.
+    - [`PersonalId`](src/PersonalId.php) ([personnummer](http://sv.wikipedia.org/wiki/Personnummer_i_Sverige))
       The identification number of a swedish individual.
-        + `[CoordinationId](src/CoordinationId.php)` ([amordningsnummer](http://sv.wikipedia.org/wiki/Samordningsnummer#Sverige))
+        + [`CoordinationId`](src/CoordinationId.php) ([samordningsnummer](http://sv.wikipedia.org/wiki/Samordningsnummer#Sverige))
           Identifies a non-swedish citizen registered in Sweden for tax reasons (or similar).
-        + `[FakeId](src/FakeId.php)` can be used as a replacement when a person
+        + [`FakeId`](src/FakeId.php) can be used as a replacement when a person
           must have an id, but is not registered with the swedish authorities
-    - `[CorporateId](src/CorporateId.php)` ([organisationsnummer](http://sv.wikipedia.org/wiki/Organisationsnummer))
+    - [`CorporateId`](src/CorporateId.php) ([organisationsnummer](http://sv.wikipedia.org/wiki/Organisationsnummer))
       Identifies a swedish company or organization.
-    - `[NullId](src/NullId.php)`
+    - [`NullId`](src/NullId.php) Null object implementation
 
 
 ### Creating ID objects
@@ -42,15 +42,15 @@ echo $id->getSex();                     //M
 Creating ID objects can be comlicated.
 
 * A personal id can be a coordination id, if the personal identified as not a
-swedish citicen.
+  swedish citizen.
 * A corporation id can be a personal id if the corporation is registered with a
-single individual (egenföretagare).
+  single individual (egenföretagare).
 * A single individual company can use a coordination id if the individual is
-not a swedish citizen.
+  not a swedish citizen.
 * At times you may wish to process persons without a valid swedish personal id,
-using the FakeId implementation.
+  using the FakeId implementation.
 
-To solve these difficulties a decoratable IdFactory is included. Create a factory
+To solve these difficulties a decoratable `IdFactory` is included. Create a factory
 with the abilities you need by chaining factory objects at creation time.
 
 ```php
@@ -60,5 +60,5 @@ $factory = new PersonalIdFactory(new CoordinationIdFactory());
 $id = $factory->create('some id...');
 ```
 
-In this example the factory will first try to create a PersonalId, if this fails
-it will try to create a CoordinationId, if this fails it will throw an Exception.
+In this example the factory will first try to create a `PersonalId`, if this fails
+it will try to create a `CoordinationId`, if this fails it will throw an Exception.
