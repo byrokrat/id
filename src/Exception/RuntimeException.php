@@ -10,10 +10,8 @@
 namespace ledgr\id\Exception;
 
 /**
- * Exception thrown when factory is unable to create an id object
- *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class UnableToCreateIdException extends RuntimeException
+class RuntimeException extends \RuntimeException implements \ledgr\id\Exception
 {
 }

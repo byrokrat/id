@@ -10,6 +10,8 @@
 namespace ledgr\id\Exception;
 
 /**
+ * Exception thrown when the date part of an id is unvalid
+ *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class InvalidDateStructureException extends InvalidStructureException

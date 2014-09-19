@@ -7,13 +7,25 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-namespace ledgr\id\Exception;
+namespace ledgr\id\Component;
+
+use ledgr\id\Formatter;
 
 /**
- * Exception thrown when factory is unable to create an id object
+ * Helper that defines format()
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class UnableToCreateIdException extends RuntimeException
+trait Format
 {
+    /**
+     * Format id according to format string
+     *
+     * @param  string $format
+     * @return string
+     */
+    public function format($format)
+    {
+        return (new Formatter($format))->format($this);
+    }
 }

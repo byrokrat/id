@@ -86,42 +86,58 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($a, $b);
     }
 
-    public function testCentry()
+    public function testGetCentry()
     {
-        $id = new CoordinationId('701063-2391');
-        $this->assertEquals('1970', $id->getDate()->format('Y'));
+        $this->assertEquals(
+            '19',
+            (new CoordinationId('701063-2391'))->getCentury()
+        );
 
-        $id = new CoordinationId('701063+2391');
-        $this->assertEquals('1870', $id->getDate()->format('Y'));
+        $this->assertEquals(
+            '18',
+            (new CoordinationId('701063+2391'))->getCentury()
+        );
     }
 
-    public function testDelimiter()
+    public function testGetDelimiter()
     {
-        $id = new CoordinationId('19701063+2391');
-        $this->assertEquals('701063-2391', $id->getId());
+        $this->assertEquals(
+            '-',
+            (new CoordinationId('19701063+2391'))->getDelimiter()
+        );
 
-        $id = new CoordinationId('18701063-2391');
-        $this->assertEquals('701063+2391', $id->getId());
+        $this->assertEquals(
+            '+',
+            (new CoordinationId('18701063-2391'))->getDelimiter()
+        );
     }
 
-    public function testSex()
+    public function testGetSex()
     {
-        $id = new CoordinationId('701063-2391');
-        $this->assertEquals(Id::SEX_MALE, $id->getSex());
+        $this->assertEquals(
+            Id::SEX_MALE,
+            (new CoordinationId('701063-2391'))->getSex()
+        );
 
-        $id = new CoordinationId('770374-0345');
-        $this->assertEquals(Id::SEX_FEMALE, $id->getSex());
+        $this->assertEquals(
+            Id::SEX_FEMALE,
+            (new CoordinationId('770374-0345'))->getSex()
+        );
     }
 
-    public function testDOB()
+    public function testGetDate()
     {
-        $id = new CoordinationId('701063-2391');
-        $this->assertEquals('1970-10-03', $id->getDOB());
+        $this->assertEquals(
+            '1970-10-03',
+            (new CoordinationId('701063-2391'))->getDate()->format('Y-m-d')
+        );
     }
 
     public function testToString()
     {
-        $id = new CoordinationId('701063-2391');
-        $this->assertEquals('701063-2391', (string)$id);
+        $this->assertEquals(
+            '701063-2391',
+            (string) new CoordinationId('701063-2391')
+        );
     }
 }

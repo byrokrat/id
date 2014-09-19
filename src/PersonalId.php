@@ -16,7 +16,7 @@ namespace ledgr\id;
  */
 class PersonalId implements Id
 {
-    use Component\Structure, Component\CheckDigit, Component\SexualIdentity, Component\Stringify;
+    use Component\Structure, Component\Date, Component\CheckDigit, Component\SexualIdentity, Component\Stringify, Component\Format;
 
     /**
      * @var string Regular expression describing structure
@@ -29,14 +29,14 @@ class PersonalId implements Id
     protected $date;
 
     /**
-     * @var string Individual number
-     */
-    protected $individualNr;
-
-    /**
      * @var string Date and control string delimiter (- or +)
      */
     protected $delimiter;
+
+    /**
+     * @var string Part of serial number after delimiter, 3 digits
+     */
+    protected $serialPost;
 
     /**
      * Set id
@@ -51,7 +51,7 @@ class PersonalId implements Id
      */
     public function __construct($id)
     {
-        list(, $century, $datestr, $delimiter, $this->individualNr, $check) = PersonalId::parseStructure($id);
+        list(, $century, $datestr, $delimiter, $this->serialPost, $check) = PersonalId::parseStructure($id);
 
         $this->delimiter = $delimiter ?: '-';
 
@@ -81,9 +81,9 @@ class PersonalId implements Id
     }
 
     /**
-     * Get date
+     * Get date of birth
      *
-     * @return DateTime
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -91,13 +91,23 @@ class PersonalId implements Id
     }
 
     /**
-     * Get individualNr
+     * Get part of serial number before delimiter, 6 digits
      *
      * @return string
      */
-    public function getIndividualNr()
+    public function getSerialPreDelimiter()
     {
-        return $this->individualNr;
+        return $this->getDate()->format('ymd');
+    }
+
+    /**
+     * Get part of serial number after delimiter, 3 digits
+     *
+     * @return string
+     */
+    public function getSerialPostDelimiter()
+    {
+        return $this->serialPost;
     }
 
     /**
@@ -117,46 +127,6 @@ class PersonalId implements Id
      */
     public function getSex()
     {
-        return (intval($this->getIndividualNr()[2])%2 == 0) ? self::SEX_FEMALE : self::SEX_MALE;
-    }
-
-    /**
-     * Get id
-     *
-     * Year represented using two digits
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->getDate()->format('ymd')
-            . $this->getDelimiter()
-            . $this->getIndividualNr()
-            . $this->getCheckDigit();
-    }
-
-    /**
-     * Get id as long string
-     *
-     * Year represented using four digits
-     *
-     * @return string
-     */
-    public function getLongId()
-    {
-        return $this->getDate()->format('Ymd')
-            . $this->getDelimiter()
-            . $this->getIndividualNr()
-            . $this->getCheckDigit();
-    }
-
-    /**
-     * Get date of birth formatted as YYYY-MM-DD
-     *
-     * @return string
-     */
-    public function getDOB()
-    {
-        return $this->getDate()->format('Y-m-d');
+        return (intval($this->getSerialPostDelimiter()[2])%2 == 0) ? self::SEX_FEMALE : self::SEX_MALE;
     }
 }

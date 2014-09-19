@@ -10,8 +10,10 @@
 namespace ledgr\id\Exception;
 
 /**
+ * Exception thrown when supplied id is not valid
+ *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class InvalidStructureException extends \RuntimeException implements \ledgr\id\Exception
+class InvalidStructureException extends RuntimeException
 {
 }

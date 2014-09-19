@@ -10,8 +10,10 @@
 namespace ledgr\id\Exception;
 
 /**
+ * Exception thrown when trying to create on id with invalid check digit
+ *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class InvalidCheckDigitException extends \RuntimeException implements \ledgr\id\Exception
+class InvalidCheckDigitException extends RuntimeException
 {
 }

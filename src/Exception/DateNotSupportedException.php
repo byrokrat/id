@@ -10,10 +10,10 @@
 namespace ledgr\id\Exception;
 
 /**
- * Exception thrown when factory is unable to create an id object
+ * Exception thrown when trying to access date on id types where date is not supported
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class UnableToCreateIdException extends RuntimeException
+class DateNotSupportedException extends LogicException
 {
 }

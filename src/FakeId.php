@@ -30,10 +30,13 @@ class FakeId extends PersonalId
      */
     public function __construct($id)
     {
-        list(, $century, $datestr, $delimiter, $individual, $check) = FakeId::parseStructure($id);
+        list(, $century, $datestr, $delimiter, $serialPost, $check) = FakeId::parseStructure($id);
         parent::__construct($century . $datestr . $delimiter . '0000');
         $this->setCheckDigit($check);
-        $this->individualNr = $individual;
+
+        // TODO: bättre att implementera genom att definiera getSerialPost
+        //      gör alla properties i PersonalId private
+        $this->serialPost = $serialPost;
     }
 
     /**
@@ -43,7 +46,7 @@ class FakeId extends PersonalId
      */
     public function getSex()
     {
-        return is_numeric($this->getIndividualNr()[2]) ? parent::getSex() : self::SEX_UNDEFINED;
+        return is_numeric($this->getSerialPostDelimiter()[2]) ? parent::getSex() : self::SEX_UNDEFINED;
     }
 
     /**

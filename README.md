@@ -18,7 +18,7 @@ Usage
 use ledgr\id\PersonalId;
 $id = new PersonalId('820323-2775');
 echo $id->getId();                      //820323-2775
-echo $id->getLongId();                  //19820323-2775
+echo $id->format('Ymd-sk');             //19820323-2775
 echo $id->getDate()->format('Y-m-d');   //1982-03-23
 echo $id->getSex();                     //M
 ```

@@ -93,25 +93,35 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($a, $b);
     }
 
-    public function testCentry()
+    public function testGetCentry()
     {
-        $id = new PersonalId('820323-2775');
-        $this->assertEquals('1982', $id->getDate()->format('Y'));
+        $this->assertEquals(
+            '19',
+            (new PersonalId('820323-2775'))->getCentury()
+        );
 
-        $id = new PersonalId('820323+2775');
-        $this->assertEquals('1882', $id->getDate()->format('Y'));
+        $this->assertEquals(
+            '18',
+            (new PersonalId('820323+2775'))->getCentury()
+        );
 
-        $id = new PersonalId('450415-0220');
-        $this->assertEquals('1945', $id->getDate()->format('Y'));
+        $this->assertEquals(
+            '19',
+            (new PersonalId('450415-0220'))->getCentury()
+        );
     }
 
     public function testDelimiter()
     {
-        $id = new PersonalId('19820323+2775');
-        $this->assertEquals('820323-2775', $id->getId());
+        $this->assertEquals(
+            '820323-2775',
+            (new PersonalId('19820323+2775'))->getId()
+        );
 
-        $id = new PersonalId('18820323-2775');
-        $this->assertEquals('820323+2775', $id->getId());
+        $this->assertEquals(
+            '820323+2775',
+            (new PersonalId('18820323-2775'))->getId()
+        );
     }
 
     public function testSex()
@@ -129,24 +139,35 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($id->isSexUndefined());
     }
 
-    public function testDOB()
-    {
-        $id = new PersonalId('820323-2775');
-        $this->assertEquals('1982-03-23', $id->getDOB());
-
-        $id = new PersonalId('19820323-2775');
-        $this->assertEquals('1982-03-23', $id->getDOB());
-    }
-
     public function testToString()
     {
-        $id = new PersonalId('820323-2775');
-        $this->assertEquals('820323-2775', (string)$id);
+        $this->assertEquals(
+            '820323-2775',
+            (string) new PersonalId('820323-2775')
+        );
     }
 
-    public function testGetLongId()
+    public function testGetAge()
     {
-        $id = new PersonalId('820323-2775');
-        $this->assertEquals('19820323-2775', $id->getLongId());
+        $this->assertGreaterThan(
+            30,
+            (new PersonalId('19820323-2775'))->getAge()
+        );
+    }
+
+    public function testGetCentury()
+    {
+        $this->assertEquals(
+            '19',
+            (new PersonalId('19820323-2775'))->getCentury()
+        );
+    }
+
+    public function testFormat()
+    {
+        $this->assertEquals(
+            '82',
+            (new PersonalId('19820323-2775'))->format('y')
+        );
     }
 }

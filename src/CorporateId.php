@@ -10,13 +10,13 @@
 namespace ledgr\id;
 
 /**
- * Swedish corporate identity numbers
+ * Swedish organizational identity numbers
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class CorporateId implements Id
 {
-    use Component\Structure, Component\CheckDigit, Component\SexualIdentity, Component\Stringify;
+    use Component\Structure, Component\Date, Component\CheckDigit, Component\SexualIdentity, Component\Stringify, Component\Format;
 
     /**
      * @var string Regular expression describing structure
@@ -36,8 +36,8 @@ class CorporateId implements Id
     /**
      * Set id number
      *
-     * @param  string                     $id
-     * @throws Exception\InvalidStructureException  If structure is invalid
+     * @param  string $id
+     * @throws Exception\InvalidStructureException If structure is invalid
      */
     public function __construct($id)
     {
@@ -54,17 +54,23 @@ class CorporateId implements Id
     }
 
     /**
-     * Get id
+     * Get part of serial number before delimiter, 6 digits
      *
      * @return string
      */
-    public function getId()
+    public function getSerialPreDelimiter()
     {
-        return $this->groupNr
-            . $this->serialNr[0]
-            . $this->getDelimiter()
-            . $this->serialNr[1]
-            . $this->getCheckDigit();
+        return $this->groupNr . $this->serialNr[0];
+    }
+
+    /**
+     * Get part of serial number after delimiter, 3 digits
+     *
+     * @return string
+     */
+    public function getSerialPostDelimiter()
+    {
+        return $this->serialNr[1];
     }
 
     /**

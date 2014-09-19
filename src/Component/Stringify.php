@@ -10,18 +10,24 @@
 namespace ledgr\id\Component;
 
 /**
- * Helper that defines __tostring()
+ * Helper that defines getId() and __tostring()
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 trait Stringify
 {
     /**
-     * Used as a handle to get string representation
+     * Get id as string
      *
      * @return string
      */
-    abstract public function getId();
+    public function getId()
+    {
+        return $this->getSerialPreDelimiter()
+            . $this->getDelimiter()
+            . $this->getSerialPostDelimiter()
+            . $this->getCheckDigit();
+    }
 
     /**
      * Get id as string

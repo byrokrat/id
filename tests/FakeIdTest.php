@@ -100,12 +100,6 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($id->isSexUndefined());
     }
 
-    public function testDOB()
-    {
-        $id = new FakeId('820323-xxxx');
-        $this->assertEquals('1982-03-23', $id->getDOB());
-    }
-
     public function testToString()
     {
         $id = new FakeId('820323-xxxx');

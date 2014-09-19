@@ -124,12 +124,18 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Okänd', $id->getGroupDescription());
     }
 
-    public function testSex()
+    public function testGetSex()
     {
         $id = new CorporateId('132100-0018');
         $this->assertEquals(Id::SEX_UNDEFINED, $id->getSex());
         $this->assertFalse($id->isMale());
         $this->assertFalse($id->isFemale());
         $this->assertTrue($id->isSexUndefined());
+    }
+
+    public function testGetDate()
+    {
+        $this->setExpectedException('ledgr\id\Exception\DateNotSupportedException');
+        (new CorporateId('132100-0018'))->getDate();
     }
 }

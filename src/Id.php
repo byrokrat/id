@@ -32,6 +32,77 @@ interface Id
     const SEX_UNDEFINED = 'O';
 
     /**
+     * Get id as string
+     *
+     * @return string
+     */
+    public function getId();
+
+    /**
+     * Get id as string
+     *
+     * @return string
+     */
+    public function __tostring();
+
+    /**
+     * Format id according to format string
+     *
+     * @param  string $format
+     * @return string
+     */
+    public function format($format);
+
+    /**
+     * Get part of serial number before delimiter, 6 digits
+     *
+     * @return string
+     */
+    public function getSerialPreDelimiter();
+
+    /**
+     * Get part of serial number after delimiter, 3 digits
+     *
+     * @return string
+     */
+    public function getSerialPostDelimiter();
+
+    /**
+     * Get delimiter
+     *
+     * @return string
+     */
+    public function getDelimiter();
+
+    /**
+     * Get check digit
+     *
+     * @return string
+     */
+    public function getCheckDigit();
+
+    /**
+     * Get birth date
+     *
+     * @return DateTime
+     */
+    public function getDate();
+
+    /**
+     * Get current age
+     *
+     * @return int
+     */
+    public function getAge();
+
+    /**
+     * Get century part of date, 2 digits
+     *
+     * @return string
+     */
+    public function getCentury();
+
+    /**
      * Get sex as denoted by id
      *
      * @return string One of the sex identifier constants
@@ -58,32 +129,4 @@ interface Id
      * @return boolean
      */
     public function isSexUndefined();
-
-    /**
-     * Get check digit
-     *
-     * @return string
-     */
-    public function getCheckDigit();
-
-    /**
-     * Get delimiter
-     *
-     * @return string
-     */
-    public function getDelimiter();
-
-    /**
-     * Get id
-     *
-     * @return string
-     */
-    public function getId();
-
-    /**
-     * Get id as string
-     *
-     * @return string
-     */
-    public function __tostring();
 }

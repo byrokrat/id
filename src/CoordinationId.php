@@ -32,15 +32,12 @@ class CoordinationId extends PersonalId
     }
 
     /**
-     * Get id
+     * Get part of serial number after delimiter, 3 digits
      *
      * @return string
      */
-    public function getId()
+    public function getSerialPreDelimiter()
     {
-        return intval($this->getDate()->format('ymd')) + 60
-            . $this->getDelimiter()
-            . $this->getIndividualNr()
-            . $this->getCheckDigit();
+        return intval(parent::getSerialPreDelimiter()) + 60;
     }
 }
