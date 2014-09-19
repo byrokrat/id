@@ -1,6 +1,8 @@
 <?php
 
-namespace ledgr\id;
+namespace ledgr\id\Formatter;
+
+use ledgr\id\FakeId;
 
 class FormatterTest extends \PHPUnit_Framework_TestCase
 {

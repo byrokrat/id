@@ -10,9 +10,10 @@
 namespace ledgr\id;
 
 /**
- * Fake swedish personal identity numbers
+ * Fake personal identity numbers
  *
- * Individual number replaced by xxxx, xx1x or xx2x.
+ * Fake ids replace serial number post delimiter with xxxx. If sex should be
+ * encoded xx1x or xx2x can be used.
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
@@ -24,7 +25,7 @@ class FakeId extends PersonalId
     protected static $structure = '/^((?:\d\d)?)(\d{6})([-+]?)(xx[12x])(x)$/i';
 
     /**
-     * Fake swedish personal identity numbers
+     * {@inheritdoc}
      *
      * @param string $id
      */
@@ -32,15 +33,12 @@ class FakeId extends PersonalId
     {
         list(, $century, $datestr, $delimiter, $serialPost, $check) = FakeId::parseStructure($id);
         parent::__construct($century . $datestr . $delimiter . '0000');
-        $this->setCheckDigit($check);
-
-        // TODO: bättre att implementera genom att definiera getSerialPost
-        //      gör alla properties i PersonalId private
         $this->serialPost = $serialPost;
+        $this->checkDigit = $check;
     }
 
     /**
-     * Get sex as denoted by id
+     * {@inheritdoc}
      *
      * @return string One of the sex identifier constants
      */

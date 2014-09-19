@@ -2,7 +2,7 @@
 
 namespace ledgr\id;
 
-class CorporateIdTest extends \PHPUnit_Framework_TestCase
+class OrganizationIdTest extends \PHPUnit_Framework_TestCase
 {
     public function invalidStructureProvider()
     {
@@ -26,7 +26,7 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidStructure($nr)
     {
-        new CorporateId($nr);
+        new OrganizationId($nr);
     }
 
     public function invalidCheckDigitProvider()
@@ -53,7 +53,7 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidCheckDigit($nr)
     {
-        new CorporateId($nr);
+        new OrganizationId($nr);
     }
 
     public function validProvider()
@@ -79,54 +79,54 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidIds($id)
     {
-        $id = new CorporateId($id);
+        $id = new OrganizationId($id);
         $this->assertTrue(true);
     }
 
     public function testInterchangeableFormulas()
     {
-        $this->assertEquals(new CorporateId('502017-7753'), new CorporateId('5020177753'));
+        $this->assertEquals(new OrganizationId('502017-7753'), new OrganizationId('5020177753'));
     }
 
     public function testGetId()
     {
-        $id = new CorporateId('702001-7781');
+        $id = new OrganizationId('702001-7781');
         $this->assertEquals($id->getId(), '702001-7781');
     }
 
     public function testToString()
     {
-        $id = new CorporateId('702001-7781');
+        $id = new OrganizationId('702001-7781');
         $this->assertEquals((string)$id, '702001-7781');
     }
 
     public function testGetGroupDescription()
     {
-        $id = new CorporateId('232100-0016');
+        $id = new OrganizationId('232100-0016');
         $this->assertEquals('Stat, landsting, kommun eller församling', $id->getGroupDescription());
 
-        $id = new CorporateId('502017-7753');
+        $id = new OrganizationId('502017-7753');
         $this->assertEquals('Aktiebolag', $id->getGroupDescription());
 
-        $id = new CorporateId('662011-0541');
+        $id = new OrganizationId('662011-0541');
         $this->assertEquals('Enkelt bolag', $id->getGroupDescription());
 
-        $id = new CorporateId('702001-7781');
+        $id = new OrganizationId('702001-7781');
         $this->assertEquals('Ekonomisk förening', $id->getGroupDescription());
 
-        $id = new CorporateId('835000-0892');
+        $id = new OrganizationId('835000-0892');
         $this->assertEquals('Ideell förening eller stiftelse', $id->getGroupDescription());
 
-        $id = new CorporateId('916452-6197');
+        $id = new OrganizationId('916452-6197');
         $this->assertEquals('Handelsbolag, kommanditbolag eller enkelt bolag', $id->getGroupDescription());
 
-        $id = new CorporateId('132100-0018');
+        $id = new OrganizationId('132100-0018');
         $this->assertEquals('Okänd', $id->getGroupDescription());
     }
 
     public function testGetSex()
     {
-        $id = new CorporateId('132100-0018');
+        $id = new OrganizationId('132100-0018');
         $this->assertEquals(Id::SEX_UNDEFINED, $id->getSex());
         $this->assertFalse($id->isMale());
         $this->assertFalse($id->isFemale());
@@ -136,6 +136,6 @@ class CorporateIdTest extends \PHPUnit_Framework_TestCase
     public function testGetDate()
     {
         $this->setExpectedException('ledgr\id\Exception\DateNotSupportedException');
-        (new CorporateId('132100-0018'))->getDate();
+        (new OrganizationId('132100-0018'))->getDate();
     }
 }

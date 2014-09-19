@@ -22,11 +22,11 @@ class IdFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testCorporateIdFactory()
+    public function testOrganizationIdFactory()
     {
-        $factory = new CorporateIdFactory();
+        $factory = new OrganizationIdFactory();
         $this->assertInstanceOf(
-            '\ledgr\id\CorporateId',
+            '\ledgr\id\OrganizationId',
             $factory->create('702001-7781')
         );
     }
@@ -45,7 +45,7 @@ class IdFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecoration()
     {
-        $factory = new CorporateIdFactory(
+        $factory = new OrganizationIdFactory(
             new FakeIdFactory(
                 new PersonalIdFactory(
                     new CoordinationIdFactory()

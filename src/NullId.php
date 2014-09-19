@@ -14,7 +14,7 @@ namespace ledgr\id;
  */
 class NullId implements Id
 {
-    use Component\Date, Component\SexualIdentity, Component\Stringify, Component\Format;
+    use Component\Base, Component\Date, Component\SexualIdentity, Component\Format;
 
     /**
      * @var string String returned by getId()
@@ -40,45 +40,5 @@ class NullId implements Id
     public function getId()
     {
         return self::$str;
-    }
-
-    /**
-     * Get part of serial number before delimiter, 6 digits
-     *
-     * @return string
-     */
-    public function getSerialPreDelimiter()
-    {
-        return '000000';
-    }
-
-    /**
-     * Get part of serial number after delimiter, 3 digits
-     *
-     * @return string
-     */
-    public function getSerialPostDelimiter()
-    {
-        return '000';
-    }
-
-    /**
-     * Get delimiter
-     *
-     * @return string
-     */
-    public function getDelimiter()
-    {
-        return '-';
-    }
-
-    /**
-     * Get check digit
-     *
-     * @return string
-     */
-    public function getCheckDigit()
-    {
-        return '0';
     }
 }

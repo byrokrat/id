@@ -14,7 +14,7 @@ namespace ledgr\id;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class CorporateIdFactory extends IdFactory
+class OrganizationIdFactory extends IdFactory
 {
     private $factory;
 
@@ -26,7 +26,7 @@ class CorporateIdFactory extends IdFactory
     public function create($rawId)
     {
         try {
-            return new CorporateId($rawId);
+            return new OrganizationId($rawId);
         } catch (Exception $e) {
             return $this->factory->create($rawId);
         }

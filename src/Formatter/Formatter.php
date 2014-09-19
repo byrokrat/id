@@ -7,75 +7,18 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-namespace ledgr\id;
+namespace ledgr\id\Formatter;
+
+use ledgr\id\Id;
 
 /**
  * Id formatter
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class Formatter
+class Formatter implements FormatTokens
 {
-    /**
-     * A full numeric representation of a year, 4 digits
-     */
-    const TOKEN_DATE_YEAR_FULL = 'Y';
-
-    /**
-     * A two digit representation of a year
-     */
-    const TOKEN_DATE_YEAR = 'y';
-
-    /**
-     * Numeric representation of a month, with leading zeros
-     */
-    const TOKEN_DATE_MONTH = 'm';
-
-    /**
-     * Day of the month, 2 digits with leading zeros
-     */
-    const TOKEN_DATE_DAY = 'd';
-
-    /**
-     * Century part of date, 2 digits
-     */
-    const TOKEN_DATE_CENTURY = 'C';
-
-    /**
-     * Part of serial number before delimiter, 6 digits
-     */
-    const TOKEN_SERIAL_PRE = 'S';
-
-    /**
-     * Part of serial number after delimiter, 3 digits
-     */
-    const TOKEN_SERIAL_POST = 's';
-
-    /**
-     * Date and control string delimiter (- or +)
-     */
-    const TOKEN_DELIMITER = '-';
-
-    /**
-     * Check digit
-     */
-    const TOKEN_CHECK_DIGIT = 'k';
-
-    /**
-     * Escape the following character
-     */
-    const TOKEN_ESCAPE = '\\';
-
-    /**
-     * @var string[] Maps tokens to formatting functions
-     */
-    static private $tokenMap = [
-        self::TOKEN_DATE_CENTURY => 'formatCentury',
-        self::TOKEN_SERIAL_PRE => 'formatSerialPre',
-        self::TOKEN_SERIAL_POST => 'formatSerialPost',
-        self::TOKEN_DELIMITER => 'formatDelimiter',
-        self::TOKEN_CHECK_DIGIT => 'formatCheckDigit'
-    ];
+    use FormattingFunctions;
 
     /**
      * @var \Closure Formatting function, takes an Id object and returns a string
@@ -152,60 +95,5 @@ class Formatter
     {
         $formatter = $this->formatter;
         return $formatter($id);
-    }
-
-    /**
-     * Format function for century
-     *
-     * @param  Id $id
-     * @return string
-     */
-    static private function formatCentury(Id $id)
-    {
-        return $id->getCentury();
-    }
-
-    /**
-     * Format function for serial pre delimiter
-     *
-     * @param  Id $id
-     * @return string
-     */
-    static private function formatSerialPre(Id $id)
-    {
-        return $id->getSerialPreDelimiter();
-    }
-
-    /**
-     * Format function for serial post delimiter
-     *
-     * @param  Id $id
-     * @return string
-     */
-    static private function formatSerialPost(Id $id)
-    {
-        return $id->getSerialPostDelimiter();
-    }
-
-    /**
-     * Format function for delimiter
-     *
-     * @param  Id $id
-     * @return string
-     */
-    static private function formatDelimiter(Id $id)
-    {
-        return $id->getDelimiter();
-    }
-
-    /**
-     * Format function for check digit
-     *
-     * @param  Id $id
-     * @return string
-     */
-    static private function formatCheckDigit(Id $id)
-    {
-        return $id->getCheckDigit();
     }
 }

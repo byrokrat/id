@@ -9,7 +9,7 @@
 
 namespace ledgr\id\Component;
 
-use ledgr\id\Formatter;
+use ledgr\id\Formatter\Formatter;
 
 /**
  * Helper that defines format()

@@ -10,17 +10,17 @@
 namespace ledgr\id;
 
 /**
- * Swedish coordination id number
+ * Coordination id number
+ *
+ * A coordination number is like a personal number except that 60 is added
+ * to the date of birth.
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class CoordinationId extends PersonalId
 {
     /**
-     * Swedish coordination id number
-     *
-     * A coordination number is like a personal number except that 60 is added
-     * to the date of birth.
+     * {@inheritdoc}
      *
      * @param string $id
      */
@@ -32,12 +32,12 @@ class CoordinationId extends PersonalId
     }
 
     /**
-     * Get part of serial number after delimiter, 3 digits
+     * {@inheritdoc}
      *
      * @return string
      */
     public function getSerialPreDelimiter()
     {
-        return intval(parent::getSerialPreDelimiter()) + 60;
+        return (string) intval(parent::getSerialPreDelimiter()) + 60;
     }
 }

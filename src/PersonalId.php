@@ -16,7 +16,7 @@ namespace ledgr\id;
  */
 class PersonalId implements Id
 {
-    use Component\Structure, Component\Date, Component\CheckDigit, Component\SexualIdentity, Component\Stringify, Component\Format;
+    use Component\Structure, Component\Base, Component\Date, Component\SexualIdentity, Component\Format;
 
     /**
      * @var string Regular expression describing structure
@@ -26,44 +26,34 @@ class PersonalId implements Id
     /**
      * @var DateTime Date of birth
      */
-    protected $date;
-
-    /**
-     * @var string Date and control string delimiter (- or +)
-     */
-    protected $delimiter;
-
-    /**
-     * @var string Part of serial number after delimiter, 3 digits
-     */
-    protected $serialPost;
+    private $date;
 
     /**
      * Set id
      *
-     * Format is YYYMMDD(+-)NNNC or YYMMDD(+-)NNNC where parenthesis represents a
-     * one char delimiter, N represents the individual number and C the check
-     * digit. If year is set using two digits century is calculated based on
-     * delimiter (+ signals more than a hundred years old). If year is set using
-     * four digits delimiter is calculated based on century.
+     * Format is YYYYMMDD(+-)NNNC or YYMMDD(+-)NNNC where parenthesis represents
+     * an optional one char delimiter, N represents the individual number and C
+     * the check digit. If year is set using two digits century is calculated
+     * based on delimiter (+ signals more than a hundred years old). If year is
+     * set using four digits delimiter is calculated based on century.
      *
      * @param string $id
      */
     public function __construct($id)
     {
-        list(, $century, $datestr, $delimiter, $this->serialPost, $check) = PersonalId::parseStructure($id);
+        list(, $century, $this->serialPre, $delimiter, $this->serialPost, $this->checkDigit) = PersonalId::parseStructure($id);
 
         $this->delimiter = $delimiter ?: '-';
 
         if ($century) {
             // Set delimiter based on date (+ if date is more then a hundred years old)
-            $this->date = DateTime::createFromFormat('Ymd', $century.$datestr);
+            $this->date = DateTime::createFromFormat('Ymd', $century.$this->serialPre);
             $hundredYearsAgo = new DateTime();
             $hundredYearsAgo->modify('-100 year');
             $this->delimiter = $this->getDate() < $hundredYearsAgo ? '+' : '-';
         } else {
-            // No century in $datestr
-            $this->date = DateTime::createFromFormat('ymd', $datestr);
+            // No century defined
+            $this->date = DateTime::createFromFormat('ymd', $this->serialPre);
             
             // If in the future century is wrong
             if ($this->date > new DateTime) {
@@ -76,7 +66,6 @@ class PersonalId implements Id
             }
         }
 
-        $this->setCheckDigit($check);
         $this->validateCheckDigit();
     }
 
@@ -88,36 +77,6 @@ class PersonalId implements Id
     public function getDate()
     {
         return $this->date;
-    }
-
-    /**
-     * Get part of serial number before delimiter, 6 digits
-     *
-     * @return string
-     */
-    public function getSerialPreDelimiter()
-    {
-        return $this->getDate()->format('ymd');
-    }
-
-    /**
-     * Get part of serial number after delimiter, 3 digits
-     *
-     * @return string
-     */
-    public function getSerialPostDelimiter()
-    {
-        return $this->serialPost;
-    }
-
-    /**
-     * Get delimiter
-     *
-     * @return string
-     */
-    public function getDelimiter()
-    {
-        return $this->delimiter;
     }
 
     /**

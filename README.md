@@ -17,23 +17,23 @@ Usage
 ```php
 use ledgr\id\PersonalId;
 $id = new PersonalId('820323-2775');
-echo $id->getId();                      //820323-2775
-echo $id->format('Ymd-sk');             //19820323-2775
-echo $id->getDate()->format('Y-m-d');   //1982-03-23
-echo $id->getSex();                     //M
+echo $id->getId();                   // 820323-2775
+echo $id->format('Ymd-sk');          // 19820323-2775
+echo $id->format('Y-m-d');           // 1982-03-23
+echo $id->getSex();                  // M
 ```
 
 ### Class hierarchy
 
 * [`Id`](src/Id.php) The base interface. Look here for a complete API reference.
-    - [`PersonalId`](src/PersonalId.php) ([personnummer](http://sv.wikipedia.org/wiki/Personnummer_i_Sverige))
-      The identification number of a swedish individual.
-        + [`CoordinationId`](src/CoordinationId.php) ([samordningsnummer](http://sv.wikipedia.org/wiki/Samordningsnummer#Sverige))
-          Identifies a non-swedish citizen registered in Sweden for tax reasons (or similar).
+    - [`PersonalId`](src/PersonalId.php) The identification number of a swedish individual
+      ([personnummer](http://sv.wikipedia.org/wiki/Personnummer_i_Sverige))
+        + [`CoordinationId`](src/CoordinationId.php) Identifies a non-swedish citizen
+          registered in Sweden for tax reasons (or similar). ([samordningsnummer](http://sv.wikipedia.org/wiki/Samordningsnummer#Sverige))
         + [`FakeId`](src/FakeId.php) can be used as a replacement when a person
           must have an id, but is not registered with the swedish authorities
-    - [`CorporateId`](src/CorporateId.php) ([organisationsnummer](http://sv.wikipedia.org/wiki/Organisationsnummer))
-      Identifies a swedish company or organization.
+    - [`OrganizationId`](src/OrganizationId.php) Identifies a swedish company or organization.
+      ([organisationsnummer](http://sv.wikipedia.org/wiki/Organisationsnummer))
     - [`NullId`](src/NullId.php) Null object implementation
 
 

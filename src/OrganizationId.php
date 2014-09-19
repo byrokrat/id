@@ -14,24 +14,14 @@ namespace ledgr\id;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class CorporateId implements Id
+class OrganizationId implements Id
 {
-    use Component\Structure, Component\Date, Component\CheckDigit, Component\SexualIdentity, Component\Stringify, Component\Format;
+    use Component\Structure, Component\Base, Component\Date, Component\SexualIdentity, Component\Format;
 
     /**
      * @var string Regular expression describing structure
      */
-    protected static $structure = '/^(\d)(\d{5})[-]?(\d{3})(\d)$/';
-
-    /**
-     * @var string Group number
-     */
-    private $groupNr;
-
-    /**
-     * @var array Serial number in tow parts, pre and post delimiter
-     */
-    private $serialNr;
+    protected static $structure = '/^(\d{6})[-]?(\d{3})(\d)$/';
 
     /**
      * Set id number
@@ -41,46 +31,13 @@ class CorporateId implements Id
      */
     public function __construct($id)
     {
-        list(, $this->groupNr, $pre, $post, $check) = CorporateId::parseStructure($id);
+        list(, $this->serialPre, $this->serialPost, $this->checkDigit) = OrganizationId::parseStructure($id);
 
-        if ($pre[1] < 2) {
+        if ($this->serialPre[2] < 2) {
             throw new Exception\InvalidStructureException('Third digit must be at lest 2');
         }
 
-        $this->serialNr = array($pre, $post);
-
-        $this->setCheckDigit($check);
         $this->validateCheckDigit();
-    }
-
-    /**
-     * Get part of serial number before delimiter, 6 digits
-     *
-     * @return string
-     */
-    public function getSerialPreDelimiter()
-    {
-        return $this->groupNr . $this->serialNr[0];
-    }
-
-    /**
-     * Get part of serial number after delimiter, 3 digits
-     *
-     * @return string
-     */
-    public function getSerialPostDelimiter()
-    {
-        return $this->serialNr[1];
-    }
-
-    /**
-     * Get delimiter
-     *
-     * @return string
-     */
-    public function getDelimiter()
-    {
-        return '-';
     }
 
     /**
@@ -93,7 +50,7 @@ class CorporateId implements Id
      */
     public function getGroupDescription()
     {
-        switch ($this->groupNr) {
+        switch ($this->serialPre[0]) {
             case "2":
                 return "Stat, landsting, kommun eller församling";
             case "5":
