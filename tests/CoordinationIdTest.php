@@ -86,19 +86,6 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($a, $b);
     }
 
-    public function testGetCentry()
-    {
-        $this->assertEquals(
-            '19',
-            (new CoordinationId('701063-2391'))->getCentury()
-        );
-
-        $this->assertEquals(
-            '18',
-            (new CoordinationId('701063+2391'))->getCentury()
-        );
-    }
-
     public function testGetDelimiter()
     {
         $this->assertEquals(
@@ -112,16 +99,11 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetSex()
+    public function testToString()
     {
         $this->assertEquals(
-            Id::SEX_MALE,
-            (new CoordinationId('701063-2391'))->getSex()
-        );
-
-        $this->assertEquals(
-            Id::SEX_FEMALE,
-            (new CoordinationId('770374-0345'))->getSex()
+            '701063-2391',
+            (string) new CoordinationId('701063-2391')
         );
     }
 
@@ -133,11 +115,29 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testToString()
+    public function testGetCentury()
     {
         $this->assertEquals(
-            '701063-2391',
-            (string) new CoordinationId('701063-2391')
+            '19',
+            (new CoordinationId('701063-2391'))->getCentury()
+        );
+
+        $this->assertEquals(
+            '18',
+            (new CoordinationId('701063+2391'))->getCentury()
+        );
+    }
+
+    public function testGetSex()
+    {
+        $this->assertEquals(
+            Id::SEX_MALE,
+            (new CoordinationId('701063-2391'))->getSex()
+        );
+
+        $this->assertEquals(
+            Id::SEX_FEMALE,
+            (new CoordinationId('770374-0345'))->getSex()
         );
     }
 }

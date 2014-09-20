@@ -32,6 +32,41 @@ interface Id
     const SEX_UNDEFINED = 'O';
 
     /**
+     * Undefined legal form identifier
+     */
+    const LEGAL_FORM_UNDEFINED = 'Okänd';
+
+    /**
+     * State, county, municipality or parish legal form identifier
+     */
+    const LEGAL_FORM_STATE = 'Stat, landsting, kommun eller församling';
+
+    /**
+     * Incorporated company legal form identifier
+     */
+    const LEGAL_FORM_INCORPORATED = 'Aktiebolag';
+
+    /**
+     * Partnership legal form identifier
+     */
+    const LEGAL_FORM_PARTNERSHIP = 'Enkelt bolag';
+
+    /**
+     * Economic association legal form identifier
+     */
+    const LEGAL_FORM_ASSOCIATION = 'Ekonomisk förening';
+
+    /**
+     * Non-profit organization or foundation legal form identifier
+     */
+    const LEGAL_FORM_NONPROFIT = 'Ideell förening eller stiftelse';
+
+    /**
+     * Trading company, limited partnership or partnership legal form identifier
+     */
+    const LEGAL_FORM_TRADING = 'Handelsbolag, kommanditbolag eller enkelt bolag';
+
+    /**
      * Get id as string
      *
      * @return string
@@ -129,4 +164,63 @@ interface Id
      * @return boolean
      */
     public function isSexUndefined();
+
+    /**
+     * Get string describing legal form
+     *
+     * NOTE: this is just a hint and does not conclusively determine the legal
+     * status of the organization.
+     *
+     * @return string One of the legal form identifier constants
+     */
+    public function getLegalForm();
+
+    /**
+     * Check if id legal form is undefined
+     *
+     * @return boolean
+     */
+    public function isLegalFormUndefined();
+
+    /**
+     * Check if id represents a state, county, municipality or parish
+     *
+     * @return boolean
+     */
+    public function isStateOrCounty();
+
+    /**
+     * Check if id represents a incorporated company
+     *
+     * @return boolean
+     */
+    public function isIncorporated();
+
+    /**
+     * Check if id represents a partnership
+     *
+     * @return boolean
+     */
+    public function isPartnership();
+
+    /**
+     * Check if id represents a economic association
+     *
+     * @return boolean
+     */
+    public function isAssociation();
+
+    /**
+     * Check if id represents a non-profit organization or foundation
+     *
+     * @return boolean
+     */
+    public function isNonProfit();
+
+    /**
+     * Check if id represents a trading company, limited partnership or partnership
+     *
+     * @return boolean
+     */
+    public function isTradingCompany();
 }

@@ -13,12 +13,14 @@ use ledgr\checkdigit\Modulo10;
 use ledgr\id\Exception\InvalidCheckDigitException;
 
 /**
- * Helper that defines methods for serial number, delimiter and check digit
+ * Base implementation of the Id interface
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-trait Base
+trait BaseImplementation
 {
+    use Date, SexualIdentity, LegalForm, Format;
+
     /**
      * @var string Serial number pre delimiter
      */

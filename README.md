@@ -17,10 +17,17 @@ Usage
 ```php
 use ledgr\id\PersonalId;
 $id = new PersonalId('820323-2775');
-echo $id->getId();                   // 820323-2775
+echo $id;                            // 820323-2775
 echo $id->format('Ymd-sk');          // 19820323-2775
 echo $id->format('Y-m-d');           // 1982-03-23
 echo $id->getSex();                  // M
+$id->isMale();                       // true
+
+use ledgr\id\OrganizationId;
+$id = new OrganizationId('835000-0892');
+echo $id->format('00Ssk');                // 008350000892
+$id->isSexUndefined()                     // true
+$id->isNonProfit();                       // true
 ```
 
 ### Class hierarchy
@@ -29,10 +36,10 @@ echo $id->getSex();                  // M
     - [`PersonalId`](src/PersonalId.php) The identification number of a swedish individual
       ([personnummer](http://sv.wikipedia.org/wiki/Personnummer_i_Sverige))
         + [`CoordinationId`](src/CoordinationId.php) Identifies a non-swedish citizen
-          registered in Sweden for tax reasons (or similar). ([samordningsnummer](http://sv.wikipedia.org/wiki/Samordningsnummer#Sverige))
+          registered in Sweden for tax reasons (or similar) ([samordningsnummer](http://sv.wikipedia.org/wiki/Samordningsnummer#Sverige))
         + [`FakeId`](src/FakeId.php) can be used as a replacement when a person
           must have an id, but is not registered with the swedish authorities
-    - [`OrganizationId`](src/OrganizationId.php) Identifies a swedish company or organization.
+    - [`OrganizationId`](src/OrganizationId.php) Identifies a swedish company or organization
       ([organisationsnummer](http://sv.wikipedia.org/wiki/Organisationsnummer))
     - [`NullId`](src/NullId.php) Null object implementation
 

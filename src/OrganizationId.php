@@ -16,12 +16,28 @@ namespace ledgr\id;
  */
 class OrganizationId implements Id
 {
-    use Component\Structure, Component\Base, Component\Date, Component\SexualIdentity, Component\Format;
+    use Component\Structure, Component\BaseImplementation;
 
     /**
      * @var string Regular expression describing structure
      */
     protected static $structure = '/^(\d{6})[-]?(\d{3})(\d)$/';
+
+    /**
+     * @var string[] Map of group number to legal form identifier
+     */
+    static private $legalFormMap = [
+        "0" => self::LEGAL_FORM_UNDEFINED,
+        "1" => self::LEGAL_FORM_UNDEFINED,
+        "2" => self::LEGAL_FORM_STATE,
+        "3" => self::LEGAL_FORM_UNDEFINED,
+        "4" => self::LEGAL_FORM_UNDEFINED,
+        "5" => self::LEGAL_FORM_INCORPORATED,
+        "6" => self::LEGAL_FORM_PARTNERSHIP,
+        "7" => self::LEGAL_FORM_ASSOCIATION,
+        "8" => self::LEGAL_FORM_NONPROFIT,
+        "9" => self::LEGAL_FORM_TRADING
+    ];
 
     /**
      * Set id number
@@ -41,30 +57,15 @@ class OrganizationId implements Id
     }
 
     /**
-     * Get string describing corporate group
+     * Get string describing legal form
      *
      * NOTE: this is just a hint and does not conclusively determine the legal
-     * status of the corporation
+     * status of the organization.
      *
-     * @return string
+     * @return string One of the legal form identifier constants
      */
-    public function getGroupDescription()
+    public function getLegalForm()
     {
-        switch ($this->serialPre[0]) {
-            case "2":
-                return "Stat, landsting, kommun eller församling";
-            case "5":
-                return "Aktiebolag";
-            case "6":
-                return "Enkelt bolag";
-            case "7":
-                return "Ekonomisk förening";
-            case "8":
-                return "Ideell förening eller stiftelse";
-            case "9":
-                return "Handelsbolag, kommanditbolag eller enkelt bolag";
-            default:
-                return "Okänd";
-        }
+        return self::$legalFormMap[$this->getSerialPreDelimiter()[0]];
     }
 }

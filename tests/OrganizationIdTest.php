@@ -90,38 +90,24 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
 
     public function testGetId()
     {
-        $id = new OrganizationId('702001-7781');
-        $this->assertEquals($id->getId(), '702001-7781');
+        $this->assertEquals(
+            '702001-7781',
+            (new OrganizationId('702001-7781'))->getId()
+        );
     }
 
     public function testToString()
     {
-        $id = new OrganizationId('702001-7781');
-        $this->assertEquals((string)$id, '702001-7781');
+        $this->assertEquals(
+            '702001-7781',
+            (string) new OrganizationId('702001-7781')
+        );
     }
 
-    public function testGetGroupDescription()
+    public function testGetDate()
     {
-        $id = new OrganizationId('232100-0016');
-        $this->assertEquals('Stat, landsting, kommun eller församling', $id->getGroupDescription());
-
-        $id = new OrganizationId('502017-7753');
-        $this->assertEquals('Aktiebolag', $id->getGroupDescription());
-
-        $id = new OrganizationId('662011-0541');
-        $this->assertEquals('Enkelt bolag', $id->getGroupDescription());
-
-        $id = new OrganizationId('702001-7781');
-        $this->assertEquals('Ekonomisk förening', $id->getGroupDescription());
-
-        $id = new OrganizationId('835000-0892');
-        $this->assertEquals('Ideell förening eller stiftelse', $id->getGroupDescription());
-
-        $id = new OrganizationId('916452-6197');
-        $this->assertEquals('Handelsbolag, kommanditbolag eller enkelt bolag', $id->getGroupDescription());
-
-        $id = new OrganizationId('132100-0018');
-        $this->assertEquals('Okänd', $id->getGroupDescription());
+        $this->setExpectedException('ledgr\id\Exception\DateNotSupportedException');
+        (new OrganizationId('132100-0018'))->getDate();
     }
 
     public function testGetSex()
@@ -133,9 +119,34 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($id->isSexUndefined());
     }
 
-    public function testGetDate()
+    public function testGetLegalForm()
     {
-        $this->setExpectedException('ledgr\id\Exception\DateNotSupportedException');
-        (new OrganizationId('132100-0018'))->getDate();
+        $id = new OrganizationId('232100-0016'); 
+        $this->assertEquals(Id::LEGAL_FORM_STATE, $id->getLegalForm());
+        $this->assertTrue($id->isStateOrCounty());
+
+        $id = new OrganizationId('502017-7753'); 
+        $this->assertEquals(Id::LEGAL_FORM_INCORPORATED, $id->getLegalForm());
+        $this->assertTrue($id->isIncorporated());
+
+        $id = new OrganizationId('662011-0541'); 
+        $this->assertEquals(Id::LEGAL_FORM_PARTNERSHIP, $id->getLegalForm());
+        $this->assertTrue($id->isPartnership());
+
+        $id = new OrganizationId('702001-7781'); 
+        $this->assertEquals(Id::LEGAL_FORM_ASSOCIATION, $id->getLegalForm());
+        $this->assertTrue($id->isAssociation());
+
+        $id = new OrganizationId('835000-0892'); 
+        $this->assertEquals(Id::LEGAL_FORM_NONPROFIT, $id->getLegalForm());
+        $this->assertTrue($id->isNonProfit());
+
+        $id = new OrganizationId('916452-6197'); 
+        $this->assertEquals(Id::LEGAL_FORM_TRADING, $id->getLegalForm());
+        $this->assertTrue($id->isTradingCompany());
+
+        $id = new OrganizationId('132100-0018'); 
+        $this->assertEquals(Id::LEGAL_FORM_UNDEFINED, $id->getLegalForm());
+        $this->assertTrue($id->isLegalFormUndefined());
     }
 }

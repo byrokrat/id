@@ -16,7 +16,7 @@ namespace ledgr\id;
  */
 class PersonalId implements Id
 {
-    use Component\Structure, Component\Base, Component\Date, Component\SexualIdentity, Component\Format;
+    use Component\Structure, Component\BaseImplementation;
 
     /**
      * @var string Regular expression describing structure
