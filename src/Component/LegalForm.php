@@ -46,9 +46,9 @@ trait LegalForm
      *
      * @return boolean
      */
-    public function isStateOrCounty()
+    public function isStateOrParish()
     {
-        return $this->getLegalForm() == Id::LEGAL_FORM_STATE;
+        return $this->getLegalForm() == Id::LEGAL_FORM_STATE_PARISH;
     }
 
     /**

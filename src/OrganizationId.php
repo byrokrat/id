@@ -27,16 +27,16 @@ class OrganizationId implements Id
      * @var string[] Map of group number to legal form identifier
      */
     static private $legalFormMap = [
-        "0" => self::LEGAL_FORM_UNDEFINED,
-        "1" => self::LEGAL_FORM_UNDEFINED,
-        "2" => self::LEGAL_FORM_STATE,
-        "3" => self::LEGAL_FORM_UNDEFINED,
-        "4" => self::LEGAL_FORM_UNDEFINED,
-        "5" => self::LEGAL_FORM_INCORPORATED,
-        "6" => self::LEGAL_FORM_PARTNERSHIP,
-        "7" => self::LEGAL_FORM_ASSOCIATION,
-        "8" => self::LEGAL_FORM_NONPROFIT,
-        "9" => self::LEGAL_FORM_TRADING
+        0 => self::LEGAL_FORM_UNDEFINED,
+        1 => self::LEGAL_FORM_UNDEFINED,
+        2 => self::LEGAL_FORM_STATE_PARISH,
+        3 => self::LEGAL_FORM_UNDEFINED,
+        4 => self::LEGAL_FORM_UNDEFINED,
+        5 => self::LEGAL_FORM_INCORPORATED,
+        6 => self::LEGAL_FORM_PARTNERSHIP,
+        7 => self::LEGAL_FORM_ASSOCIATION,
+        8 => self::LEGAL_FORM_NONPROFIT,
+        9 => self::LEGAL_FORM_TRADING
     ];
 
     /**

@@ -39,7 +39,7 @@ interface Id
     /**
      * State, county, municipality or parish legal form identifier
      */
-    const LEGAL_FORM_STATE = 'Stat, landsting, kommun eller församling';
+    const LEGAL_FORM_STATE_PARISH = 'Stat, landsting, kommun eller församling';
 
     /**
      * Incorporated company legal form identifier
@@ -312,7 +312,7 @@ interface Id
      *
      * @return boolean
      */
-    public function isStateOrCounty();
+    public function isStateOrParish();
 
     /**
      * Check if id represents a incorporated company

@@ -37,7 +37,7 @@ interface FormatTokens
     const TOKEN_DATE_DAY = 'd';
 
     /**
-     * Century part of date, 2 digits
+     * Century part of year, 2 digits
      */
     const TOKEN_DATE_CENTURY = 'C';
 

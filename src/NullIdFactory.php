@@ -17,13 +17,13 @@ namespace ledgr\id;
 class NullIdFactory extends IdFactory
 {
     /**
-     * Create ID object from raw id string
+     * Create ID object
      *
-     * @param  string $rawId Raw id string
+     * @param  string $rawId Ignored for NullId
      * @return NullId
      */
     public function create($rawId)
     {
-        return new NullId($rawId);
+        return new NullId;
     }
 }

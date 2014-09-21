@@ -71,3 +71,20 @@ $id = $factory->create('some id...');
 
 In this example the factory will first try to create a `PersonalId`, if this fails
 it will try to create a `CoordinationId`, if this fails it will throw an Exception.
+
+
+### Formatting
+
+| Character | Description
+| :-------: | :--------------------------------------------------------------
+| `Y`       | A full numeric representation of a year, 4 digits
+| `y`       | A two digit representation of a year
+| `m`       | Numeric representation of a month with leading zeros, 2 digits
+| `d`       | Day of the month, 2 digits with leading zeros
+| `C`       | Century part of year, 2 digits
+|           |
+| `S`       | Part of serial number before delimiter, 6 digits
+| `s`       | Part of serial number after delimiter, 3 digits
+| `-`       | Date and control string delimiter (- or +)
+| `k`       | Check digit
+| `\`       | Escape the following character

@@ -122,8 +122,8 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
     public function testGetLegalForm()
     {
         $id = new OrganizationId('232100-0016'); 
-        $this->assertEquals(Id::LEGAL_FORM_STATE, $id->getLegalForm());
-        $this->assertTrue($id->isStateOrCounty());
+        $this->assertEquals(Id::LEGAL_FORM_STATE_PARISH, $id->getLegalForm());
+        $this->assertTrue($id->isStateOrParish());
 
         $id = new OrganizationId('502017-7753'); 
         $this->assertEquals(Id::LEGAL_FORM_INCORPORATED, $id->getLegalForm());

@@ -71,7 +71,7 @@ class NullIdTest extends \PHPUnit_Framework_TestCase
         $id = new NullId();
         $this->assertEquals(Id::LEGAL_FORM_UNDEFINED, $id->getLegalForm());
         $this->assertTrue($id->isLegalFormUndefined());
-        $this->assertFalse($id->isStateOrCounty());
+        $this->assertFalse($id->isStateOrParish());
         $this->assertFalse($id->isIncorporated());
         $this->assertFalse($id->isPartnership());
         $this->assertFalse($id->isAssociation());
