@@ -16,7 +16,7 @@ namespace ledgr\id;
  */
 class OrganizationId implements Id
 {
-    use Component\Structure, Component\BaseImplementation;
+    use Component\Structure, Component\BaseImplementation, Component\BirthCounty;
 
     /**
      * @var string Regular expression describing structure

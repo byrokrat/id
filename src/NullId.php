@@ -14,7 +14,7 @@ namespace ledgr\id;
  */
 class NullId implements Id
 {
-    use Component\BaseImplementation;
+    use Component\BaseImplementation, Component\BirthCounty;
 
     /**
      * @var string String returned by getId()

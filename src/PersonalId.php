@@ -24,6 +24,39 @@ class PersonalId implements Id
     protected static $structure = '/^((?:\d\d)?)(\d{6})([-+]?)(\d{3})(\d)$/';
 
     /**
+     * @var string[] Map of county number high limit to county identifier
+     */
+    static private $birthCountyMap = [
+        13 => Id::COUNTY_STOCKHOLM,
+        15 => Id::COUNTY_UPPSALA,
+        18 => Id::COUNTY_SODERMANLAND,
+        23 => Id::COUNTY_OSTERGOTLAND,
+        26 => Id::COUNTY_JONKOPING,
+        28 => Id::COUNTY_KRONOBERG,
+        31 => Id::COUNTY_KALMAR,
+        32 => Id::COUNTY_GOTLAND,
+        34 => Id::COUNTY_BLEKINGE,
+        38 => Id::COUNTY_KRISTIANSTAD,
+        45 => Id::COUNTY_MALMOHUS,
+        47 => Id::COUNTY_HALLAND,
+        54 => Id::COUNTY_GOTEBORG_BOUHUS,
+        58 => Id::COUNTY_ALVSBORG,
+        61 => Id::COUNTY_SKARABORG,
+        64 => Id::COUNTY_VARMLAND,
+        65 => Id::COUNTY_UNDEFINED,
+        68 => Id::COUNTY_OREBRO,
+        70 => Id::COUNTY_VASTMANLAND,
+        73 => Id::COUNTY_KOPPARBERG,
+        74 => Id::COUNTY_UNDEFINED,
+        77 => Id::COUNTY_GAVLEBORG,
+        81 => Id::COUNTY_VASTERNORRLAND,
+        84 => Id::COUNTY_JAMTLAND,
+        88 => Id::COUNTY_VASTERBOTTEN,
+        92 => Id::COUNTY_NORRBOTTEN,
+        99 => Id::COUNTY_UNDEFINED
+    ];
+
+    /**
      * @var DateTime Date of birth
      */
     private $date;
@@ -87,5 +120,25 @@ class PersonalId implements Id
     public function getSex()
     {
         return (intval($this->getSerialPostDelimiter()[2])%2 == 0) ? self::SEX_FEMALE : self::SEX_MALE;
+    }
+
+    /**
+     * Get string describing birth county
+     *
+     * @return string One of the birth county identifier constants
+     */
+    public function getBirthCounty()
+    {
+        if ($this->getDate() < DateTime::createFromFormat('Ymd', '19900101')) {
+            $countyNr = (int) substr($this->getSerialPostDelimiter(), 0, 2);
+            foreach (self::$birthCountyMap as $limit => $identifier) {
+                if ($countyNr <= $limit) {
+                    return $identifier;
+                }
+            }
+            throw new Exception\LogicException("Internal exception: County number <$countyNr> is not mapped in PersonalId.");
+        }
+
+        return Id::COUNTY_UNDEFINED;
     }
 }

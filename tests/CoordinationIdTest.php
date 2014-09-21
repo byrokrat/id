@@ -111,7 +111,7 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             '1970-10-03',
-            (new CoordinationId('701063-2391'))->getDate()->format('Y-m-d')
+            (new CoordinationId('701063-2391'))->getDate()->format('Y\-m\-d')
         );
     }
 
@@ -138,6 +138,14 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             Id::SEX_FEMALE,
             (new CoordinationId('770374-0345'))->getSex()
+        );
+    }
+
+    public function testGetBirthCounty()
+    {
+        $this->assertEquals(
+            Id::COUNTY_UNDEFINED,
+            (new CoordinationId('770374-0345'))->getBirthCounty()
         );
     }
 }

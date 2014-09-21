@@ -175,4 +175,40 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($id->isNonProfit());
         $this->assertFalse($id->isTradingCompany());
     }
+
+    public function testGetBirthCounty()
+    {
+        $this->assertEquals(
+            Id::COUNTY_KRONOBERG,
+            (new PersonalId('820323-2775'))->getBirthCounty()
+        );
+
+        $this->assertEquals(
+            Id::COUNTY_STOCKHOLM,
+            (new PersonalId('19891231-1308'))->getBirthCounty()
+        );
+
+        $this->assertEquals(
+            Id::COUNTY_UNDEFINED,
+            (new PersonalId('19891231-9905'))->getBirthCounty()
+        );
+
+        $this->assertEquals(
+            Id::COUNTY_UNDEFINED,
+            (new PersonalId('19900101-1304'))->getBirthCounty()
+        );
+    }
+
+    public function testGetBirthCountyTruthiness()
+    {
+        $this->assertFalse(
+            !!(new PersonalId('19891231-9905'))->getBirthCounty(),
+            'When birth county is undefined getBirthCounty() should be falsey'
+        );
+
+        $this->assertTrue(
+            !!(new PersonalId('19891231-1308'))->getBirthCounty(),
+            'When birth county is not undefined getBirthCounty() should be truthy'
+        );
+    }
 }

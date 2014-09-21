@@ -10,25 +10,22 @@
 namespace ledgr\id;
 
 /**
- * Create coordination id object from raw id string
+ * Create coordination id objects from raw id string
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class CoordinationIdFactory extends IdFactory
 {
-    private $factory;
+    use Component\Factory;
 
-    public function __construct(IdFactory $factory = null)
+    /**
+     * Instantiate ID object
+     *
+     * @param  string $rawId Raw id string
+     * @return CoordinationId
+     */
+    protected function createNewInstance($rawId)
     {
-        $this->factory = $factory ?: new IdFactory;
-    }
-
-    public function create($rawId)
-    {
-        try {
-            return new CoordinationId($rawId);
-        } catch (Exception $e) {
-            return $this->factory->create($rawId);
-        }
+        return new CoordinationId($rawId);
     }
 }

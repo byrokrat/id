@@ -7,24 +7,24 @@
  * http://www.wtfpl.net/ for more details.
  */
 
-namespace ledgr\id;
+namespace ledgr\id\Component;
+
+use ledgr\id\Id;
 
 /**
- * Create ID objects from raw id string
+ * Default implementation of getBirthCounty()
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class IdFactory
+trait BirthCounty
 {
     /**
-     * Create ID object from raw id string
+     * Get string describing birth county
      *
-     * @param  string $rawId Raw id string
-     * @return void never returns
-     * @throws Exception\UnableToCreateIdException Always throws exception
+     * @return string One of the birth county identifier constants
      */
-    public function create($rawId)
+    public function getBirthCounty()
     {
-        throw new Exception\UnableToCreateIdException("Unable to create ID for number '{$rawId}'");
+        return Id::COUNTY_UNDEFINED;
     }
 }

@@ -79,7 +79,7 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidIds($id)
     {
-        $id = new OrganizationId($id);
+        new OrganizationId($id);
         $this->assertTrue(true);
     }
 
@@ -148,5 +148,26 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
         $id = new OrganizationId('132100-0018'); 
         $this->assertEquals(Id::LEGAL_FORM_UNDEFINED, $id->getLegalForm());
         $this->assertTrue($id->isLegalFormUndefined());
+    }
+
+    public function testGetLegalFormTruthiness()
+    {
+        $this->assertFalse(
+            !!(new OrganizationId('132100-0018'))->getLegalForm(),
+            'When legal form is undefined getLegalForm() should be falsey'
+        );
+
+        $this->assertTrue(
+            !!(new OrganizationId('232100-0016'))->getLegalForm(),
+            'When legal form is not undefined getLegalForm() should be truthy'
+        );
+    }
+
+    public function testGetBirthCounty()
+    {
+        $this->assertEquals(
+            Id::COUNTY_UNDEFINED,
+            (new OrganizationId('702001-7781'))->getBirthCounty()
+        );
     }
 }

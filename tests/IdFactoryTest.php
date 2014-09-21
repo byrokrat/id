@@ -40,18 +40,26 @@ class IdFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException ledgr\id\Exception
-     */
+    public function testNullIdFactory()
+    {
+        $factory = new NullIdFactory();
+        $this->assertInstanceOf(
+            '\ledgr\id\NullId',
+            $factory->create('')
+        );
+    }
+
     public function testDecoration()
     {
         $factory = new OrganizationIdFactory(
             new FakeIdFactory(
                 new PersonalIdFactory(
-                    new CoordinationIdFactory()
+                    new CoordinationIdFactory
                 )
             )
         );
+
+        $this->setExpectedException('ledgr\id\Exception');
         $factory->create('unvalid id');
     }
 }

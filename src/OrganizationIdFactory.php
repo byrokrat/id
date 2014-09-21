@@ -10,25 +10,22 @@
 namespace ledgr\id;
 
 /**
- * Create corporate id object from raw id string
+ * Create organization id objects from raw id string
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class OrganizationIdFactory extends IdFactory
 {
-    private $factory;
+    use Component\Factory;
 
-    public function __construct(IdFactory $factory = null)
+    /**
+     * Instantiate ID object
+     *
+     * @param  string $rawId Raw id string
+     * @return OrganizationId
+     */
+    protected function createNewInstance($rawId)
     {
-        $this->factory = $factory ?: new IdFactory;
-    }
-
-    public function create($rawId)
-    {
-        try {
-            return new OrganizationId($rawId);
-        } catch (Exception $e) {
-            return $this->factory->create($rawId);
-        }
+        return new OrganizationId($rawId);
     }
 }

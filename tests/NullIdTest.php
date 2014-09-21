@@ -6,34 +6,49 @@ class NullIdTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetSerialPreDelimiter()
     {
-        $id = new NullId();
-        $this->assertEquals('000000', $id->getSerialPreDelimiter());
+        $this->assertEquals(
+            '000000',
+            (new NullId)->getSerialPreDelimiter()
+        );
     }
 
     public function testGetSerialPostDelimiter()
     {
-        $id = new NullId();
-        $this->assertEquals('000', $id->getSerialPostDelimiter());
+        $this->assertEquals(
+            '000',
+            (new NullId)->getSerialPostDelimiter()
+        );
     }
 
     public function testGetCheckDigit()
     {
-        $id = new NullId();
-        $this->assertEquals('0', $id->getCheckDigit());
+        $this->assertEquals(
+            '0',
+            (new NullId)->getCheckDigit()
+        );
     }
 
     public function testGetDelimiter()
     {
-        $id = new NullId();
-        $this->assertEquals('-', $id->getDelimiter());
+        $this->assertEquals(
+            '-',
+            (new NullId)->getDelimiter()
+        );
     }
 
     public function testGetString()
     {
         NullId::setString('foobar');
-        $id = new NullId();
-        $this->assertEquals('foobar', (string)$id);
-        $this->assertEquals('foobar', $id->getId());
+
+        $this->assertEquals(
+            'foobar',
+            (string) new NullId
+        );
+
+        $this->assertEquals(
+            'foobar',
+            (new NullId)->getId()
+        );
     }
 
     public function testGetDate()
@@ -45,8 +60,8 @@ class NullIdTest extends \PHPUnit_Framework_TestCase
     public function testGetSex()
     {
         $id = new NullId();
-        $this->assertTrue($id->isSexUndefined());
         $this->assertEquals(Id::SEX_UNDEFINED, $id->getSex());
+        $this->assertTrue($id->isSexUndefined());
         $this->assertFalse($id->isMale());
         $this->assertFalse($id->isFemale());
     }
@@ -62,5 +77,13 @@ class NullIdTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($id->isAssociation());
         $this->assertFalse($id->isNonProfit());
         $this->assertFalse($id->isTradingCompany());
+    }
+
+    public function testGetBirthCounty()
+    {
+        $this->assertEquals(
+            Id::COUNTY_UNDEFINED,
+            (new NullId)->getBirthCounty()
+        );
     }
 }

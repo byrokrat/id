@@ -19,10 +19,12 @@ use ledgr\id\PersonalId;
 $id = new PersonalId('820323-2775');
 echo $id;                            // 820323-2775
 echo $id->format('Ymd-sk');          // 19820323-2775
-echo $id->format('Y-m-d');           // 1982-03-23
+echo $id->format('Y\-m\-d');         // 1982-03-23
 echo $id->getSex();                  // M
 $id->isMale();                       // true
-
+echo $id->getBirthCounty()           // Kronobergs län
+```
+```php
 use ledgr\id\OrganizationId;
 $id = new OrganizationId('835000-0892');
 echo $id->format('00Ssk');                // 008350000892
@@ -34,14 +36,14 @@ $id->isNonProfit();                       // true
 
 * [`Id`](src/Id.php) The base interface. Look here for a complete API reference.
     - [`PersonalId`](src/PersonalId.php) The identification number of a swedish individual
-      ([personnummer](http://sv.wikipedia.org/wiki/Personnummer_i_Sverige))
-        + [`CoordinationId`](src/CoordinationId.php) Identifies a non-swedish citizen
-          registered in Sweden for tax reasons (or similar) ([samordningsnummer](http://sv.wikipedia.org/wiki/Samordningsnummer#Sverige))
-        + [`FakeId`](src/FakeId.php) can be used as a replacement when a person
-          must have an id, but is not registered with the swedish authorities
+      ([personnummer](http://sv.wikipedia.org/wiki/Personnummer_i_Sverige)).
+        + [`CoordinationId`](src/CoordinationId.php) Identifier for non-citizens
+          ([samordningsnummer](http://sv.wikipedia.org/wiki/Samordningsnummer#Sverige)).
+        + [`FakeId`](src/FakeId.php) Replacement usable when a person must have an id,
+          but is not registered with the swedish authorities
     - [`OrganizationId`](src/OrganizationId.php) Identifies a swedish company or organization
-      ([organisationsnummer](http://sv.wikipedia.org/wiki/Organisationsnummer))
-    - [`NullId`](src/NullId.php) Null object implementation
+      ([organisationsnummer](http://sv.wikipedia.org/wiki/Organisationsnummer)).
+    - [`NullId`](src/NullId.php) Null object implementation.
 
 
 ### Creating ID objects
@@ -55,7 +57,7 @@ Creating ID objects can be comlicated.
 * A single individual company can use a coordination id if the individual is
   not a swedish citizen.
 * At times you may wish to process persons without a valid swedish personal id,
-  using the FakeId implementation.
+  using the `FakeId` implementation.
 
 To solve these difficulties a decoratable `IdFactory` is included. Create a factory
 with the abilities you need by chaining factory objects at creation time.

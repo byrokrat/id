@@ -11,6 +11,7 @@ namespace ledgr\id\Component;
 
 use ledgr\checkdigit\Modulo10;
 use ledgr\id\Exception\InvalidCheckDigitException;
+use ledgr\id\Id;
 
 /**
  * Base implementation of the Id interface

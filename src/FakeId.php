@@ -19,6 +19,8 @@ namespace ledgr\id;
  */
 class FakeId extends PersonalId
 {
+    use Component\BirthCounty;
+
     /**
      * @var string Regular expression describing structure
      */

@@ -58,28 +58,46 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($a, $b);
     }
 
-    public function testCentry()
+    public function testToString()
     {
-        $id = new FakeId('820323-xxxx');
-        $this->assertEquals('1982', $id->getDate()->format('Y'));
-
-        $id = new FakeId('820323+xxxx');
-        $this->assertEquals('1882', $id->getDate()->format('Y'));
-
-        $id = new FakeId('450415+xxxx');
-        $this->assertEquals('1845', $id->getDate()->format('Y'));
+        $this->assertEquals(
+            '820323-xxxx',
+            (string) new FakeId('820323-xxxx')
+        );
     }
 
-    public function testDelimiter()
+    public function testGetCentry()
     {
-        $id = new FakeId('19820323+xx1x');
-        $this->assertEquals('820323-xx1x', $id->getId());
+        $this->assertEquals(
+            '19',
+            (new FakeId('820323-xxxx'))->getCentury()
+        );
 
-        $id = new FakeId('18820323-xx2x');
-        $this->assertEquals('820323+xx2x', $id->getId());
+        $this->assertEquals(
+            '18',
+            (new FakeId('820323+xxxx'))->getCentury()
+        );
+
+        $this->assertEquals(
+            '18',
+            (new FakeId('450415+xxxx'))->getCentury()
+        );
     }
 
-    public function testSex()
+    public function testGetDelimiter()
+    {
+        $this->assertEquals(
+            '-',
+            (new FakeId('19820323+xx1x'))->getDelimiter()
+        );
+
+        $this->assertEquals(
+            '+',
+            (new FakeId('18820323-xx2x'))->getDelimiter()
+        );
+    }
+
+    public function testGetSex()
     {
         $id = new FakeId('820323-xx1x');
         $this->assertEquals(Id::SEX_MALE, $id->getSex());
@@ -100,9 +118,11 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($id->isSexUndefined());
     }
 
-    public function testToString()
+    public function testGetBirthCounty()
     {
-        $id = new FakeId('820323-xxxx');
-        $this->assertEquals('820323-xxxx', (string)$id);
+        $this->assertEquals(
+            Id::COUNTY_UNDEFINED,
+            (new FakeId('770314-xxxx'))->getBirthCounty()
+        );
     }
 }

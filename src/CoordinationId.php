@@ -19,6 +19,8 @@ namespace ledgr\id;
  */
 class CoordinationId extends PersonalId
 {
+    use Component\BirthCounty;
+
     /**
      * {@inheritdoc}
      *

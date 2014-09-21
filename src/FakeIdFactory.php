@@ -10,25 +10,22 @@
 namespace ledgr\id;
 
 /**
- * Create fake id object from raw id string
+ * Create fake id objects from raw id string
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class FakeIdFactory extends IdFactory
 {
-    private $factory;
+    use Component\Factory;
 
-    public function __construct(IdFactory $factory = null)
+    /**
+     * Instantiate ID object
+     *
+     * @param  string $rawId Raw id string
+     * @return FakeId
+     */
+    protected function createNewInstance($rawId)
     {
-        $this->factory = $factory ?: new IdFactory;
-    }
-
-    public function create($rawId)
-    {
-        try {
-            return new FakeId($rawId);
-        } catch (Exception $e) {
-            return $this->factory->create($rawId);
-        }
+        return new FakeId($rawId);
     }
 }

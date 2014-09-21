@@ -10,21 +10,20 @@
 namespace ledgr\id;
 
 /**
- * Create ID objects from raw id string
+ * Create null id objects
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class IdFactory
+class NullIdFactory extends IdFactory
 {
     /**
      * Create ID object from raw id string
      *
      * @param  string $rawId Raw id string
-     * @return void never returns
-     * @throws Exception\UnableToCreateIdException Always throws exception
+     * @return NullId
      */
     public function create($rawId)
     {
-        throw new Exception\UnableToCreateIdException("Unable to create ID for number '{$rawId}'");
+        return new NullId($rawId);
     }
 }
