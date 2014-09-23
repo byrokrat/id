@@ -85,7 +85,10 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
 
     public function testInterchangeableFormulas()
     {
-        $this->assertEquals(new OrganizationId('502017-7753'), new OrganizationId('5020177753'));
+        $this->assertEquals(
+            (string) new OrganizationId('502017-7753'),
+            (string) new OrganizationId('5020177753')
+        );
     }
 
     public function testGetId()

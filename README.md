@@ -106,24 +106,24 @@ Characters that are not formatting tokens are returned as they are by the format
 | `L`   | Legal form (empty if not applicable)
 | `B`   | Birth county (empty if not applicable)
 | `\`   | Escape the following character
-|       | **The following tokens are DateTime derivatives and only works for ids containing a date**
-| Year
+|       | **The following tokens only works for ids containing a date**
+|       | *Year*
 | `C`   | Century part of year, 2 digits
 | `Y`   | A full numeric representation of a year, 4 digits
 | `y`   | A two digit representation of a year
-| Month
+|       | *Month*
 | `m`   | Numeric representation of a month, with leading zeros, 2 digits
 | `n`   | Numeric representation of a month, without leading zeros, 1 through 12
 | `F`   | A full textual representation of a month, such as January or March
 | `M`   | A short textual representation of a month, three letters, Jan through Dec
 | `t`   | Number of days in the given month 28 through 31
-| Week
+|       | *Week*
 | `W`   | ISO-8601 week number of year, weeks starting on Monday
-| Day
+|       | *Day*
 | `d`   | Day of the month, 2 digits with leading zeros
 | `j`   | Day of the month without leading zeros, 1 to 31
 | `l`   | (lowercase 'L') A full textual representation of the day of the week
 | `D`   | A textual representation of a day, three letters  Mon through Sun
-| `w`   | Numeric representation of the day of the week 0 (for Sunday) through 6 (for Saturday)
-| `N`   | ISO-8601 numeric representation of the day of the week 1 (for Monday) through 7 (for Sunday)
+| `w`   | Numeric representation of the day of the week 0 (for Sunday) through 6
+| `N`   | ISO-8601 numeric representation of the day of the week 1 (for Monday) through 7
 | `z`   | The day of the year (starting from 0), 0 through 365

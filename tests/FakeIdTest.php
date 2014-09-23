@@ -55,7 +55,7 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInterchangeableFormulas($a, $b)
     {
-        $this->assertEquals($a, $b);
+        $this->assertEquals((string)$a, (string)$b);
     }
 
     public function testToString()
