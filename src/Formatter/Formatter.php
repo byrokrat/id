@@ -45,16 +45,31 @@ class Formatter implements FormatTokens
                 case self::TOKEN_DATE_YEAR_FULL:
                 case self::TOKEN_DATE_YEAR:
                 case self::TOKEN_DATE_MONTH:
+                case self::TOKEN_DATE_MONTH_SHORT:
+                case self::TOKEN_DATE_MONTH_TEXT:
+                case self::TOKEN_DATE_MONTH_TEXT_SHORT:
+                case self::TOKEN_DATE_MONTH_DAYS:
+                case self::TOKEN_DATE_WEEK:
                 case self::TOKEN_DATE_DAY:
+                case self::TOKEN_DATE_DAY_SHORT:
+                case self::TOKEN_DATE_DAY_TEXT:
+                case self::TOKEN_DATE_DAY_TEST_SHORT:
+                case self::TOKEN_DATE_DAY_NUMERIC:
+                case self::TOKEN_DATE_DAY_NUMERIC_ISO:
+                case self::TOKEN_DATE_DAY_OF_YEAR:
                     $this->registerFormatter(function (Id $id) use ($token) {
                         return $id->getDate()->format($token);
                     });
                     break;
                 case self::TOKEN_DATE_CENTURY:
                 case self::TOKEN_SERIAL_PRE:
-                case self::TOKEN_DELIMITER:
                 case self::TOKEN_SERIAL_POST:
+                case self::TOKEN_DELIMITER:
                 case self::TOKEN_CHECK_DIGIT:
+                case self::TOKEN_SEX:
+                case self::TOKEN_AGE:
+                case self::TOKEN_LEGAL_FORM:
+                case self::TOKEN_BIRTH_COUNTY:
                     $this->registerFormatter([$this, self::$tokenMap[$token]]);
                     break;
                 case self::TOKEN_ESCAPE:

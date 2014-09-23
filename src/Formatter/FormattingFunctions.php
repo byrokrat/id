@@ -26,7 +26,11 @@ trait FormattingFunctions
         self::TOKEN_SERIAL_PRE => 'formatSerialPre',
         self::TOKEN_SERIAL_POST => 'formatSerialPost',
         self::TOKEN_DELIMITER => 'formatDelimiter',
-        self::TOKEN_CHECK_DIGIT => 'formatCheckDigit'
+        self::TOKEN_CHECK_DIGIT => 'formatCheckDigit',
+        self::TOKEN_SEX => 'formatSex',
+        self::TOKEN_AGE => 'formatAge',
+        self::TOKEN_LEGAL_FORM => 'formatLegalForm',
+        self::TOKEN_BIRTH_COUNTY => 'formatBirthCounty'
     ];
 
     /**
@@ -82,5 +86,49 @@ trait FormattingFunctions
     static protected function formatCheckDigit(Id $id)
     {
         return $id->getCheckDigit();
+    }
+
+    /**
+     * Format function for sex
+     *
+     * @param  Id $id
+     * @return string
+     */
+    static protected function formatSex(Id $id)
+    {
+        return $id->getSex();
+    }
+
+    /**
+     * Format function for age
+     *
+     * @param  Id $id
+     * @return string
+     */
+    static protected function formatAge(Id $id)
+    {
+        return $id->getAge();
+    }
+
+    /**
+     * Format function for legal form
+     *
+     * @param  Id $id
+     * @return string
+     */
+    static protected function formatLegalForm(Id $id)
+    {
+        return $id->getLegalForm();
+    }
+
+    /**
+     * Format function for birth county
+     *
+     * @param  Id $id
+     * @return string
+     */
+    static protected function formatBirthCounty(Id $id)
+    {
+        return $id->getBirthCounty();
     }
 }

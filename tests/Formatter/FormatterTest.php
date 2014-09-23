@@ -3,22 +3,40 @@
 namespace ledgr\id\Formatter;
 
 use ledgr\id\FakeId;
+use ledgr\id\PersonalId;
+use ledgr\id\OrganizationId;
 
 class FormatterTest extends \PHPUnit_Framework_TestCase
 {
     public function testFormat()
     {
         $this->assertEquals(
-            '18820323+xxxx',
-            (new Formatter('CS-sk'))->format(new FakeId('18820323-xxxx'))
+            '18 820323 + 010 0 F Stockholms stad',
+            (new Formatter('C S - s k X B'))->format(new PersonalId('18820323-0100'))
+        );
+    }
+
+    public function testFormatAge()
+    {
+        $this->assertGreaterThan(
+            100,
+            (new Formatter('A'))->format(new FakeId('18820323-xxxx'))
+        );
+    }
+
+    public function testFormatLegalStatus()
+    {
+        $this->assertEquals(
+            'Ideell förening eller stiftelse',
+            (new Formatter('L'))->format(new OrganizationId('835000-0892'))
         );
     }
 
     public function testFormatDate()
     {
         $this->assertEquals(
-            '82/03/23',
-            (new Formatter('y/m/d'))->format(new FakeId('820323-xxxx'))
+            '1982 82 03 3 March Mar 31 12 23 23 Tuesday Tue 2 2 81',
+            (new Formatter('Y y m n F M t W d j l D w N z'))->format(new FakeId('820323-xxxx'))
         );
     }
 
