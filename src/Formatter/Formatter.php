@@ -77,7 +77,7 @@ class Formatter implements FormatTokens
                     break;
                 default:
                     $escape = '';
-                    $this->registerFormatter(function() use ($token) {
+                    $this->registerFormatter(function () use ($token) {
                         return $token;
                     });
             }

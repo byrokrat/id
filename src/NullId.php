@@ -10,6 +10,8 @@
 namespace ledgr\id;
 
 /**
+ * Null object implementation of the Id interface
+ *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class NullId implements Id

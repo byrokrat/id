@@ -52,8 +52,7 @@ class PersonalId implements Id
         81 => Id::COUNTY_VASTERNORRLAND,
         84 => Id::COUNTY_JAMTLAND,
         88 => Id::COUNTY_VASTERBOTTEN,
-        92 => Id::COUNTY_NORRBOTTEN,
-        99 => Id::COUNTY_UNDEFINED
+        92 => Id::COUNTY_NORRBOTTEN
     ];
 
     /**
@@ -74,7 +73,8 @@ class PersonalId implements Id
      */
     public function __construct($id)
     {
-        list(, $century, $this->serialPre, $delimiter, $this->serialPost, $this->checkDigit) = PersonalId::parseStructure($id);
+        list(, $century, $this->serialPre, $delimiter, $this->serialPost, $this->checkDigit)
+            = PersonalId::parseStructure($id);
 
         $this->delimiter = $delimiter ?: '-';
 
@@ -136,7 +136,6 @@ class PersonalId implements Id
                     return $identifier;
                 }
             }
-            throw new Exception\LogicException("Internal exception: County number <$countyNr> is not mapped in PersonalId.");
         }
 
         return Id::COUNTY_UNDEFINED;

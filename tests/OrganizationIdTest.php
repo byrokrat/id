@@ -124,31 +124,31 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
 
     public function testGetLegalForm()
     {
-        $id = new OrganizationId('232100-0016'); 
+        $id = new OrganizationId('232100-0016');
         $this->assertEquals(Id::LEGAL_FORM_STATE_PARISH, $id->getLegalForm());
         $this->assertTrue($id->isStateOrParish());
 
-        $id = new OrganizationId('502017-7753'); 
+        $id = new OrganizationId('502017-7753');
         $this->assertEquals(Id::LEGAL_FORM_INCORPORATED, $id->getLegalForm());
         $this->assertTrue($id->isIncorporated());
 
-        $id = new OrganizationId('662011-0541'); 
+        $id = new OrganizationId('662011-0541');
         $this->assertEquals(Id::LEGAL_FORM_PARTNERSHIP, $id->getLegalForm());
         $this->assertTrue($id->isPartnership());
 
-        $id = new OrganizationId('702001-7781'); 
+        $id = new OrganizationId('702001-7781');
         $this->assertEquals(Id::LEGAL_FORM_ASSOCIATION, $id->getLegalForm());
         $this->assertTrue($id->isAssociation());
 
-        $id = new OrganizationId('835000-0892'); 
+        $id = new OrganizationId('835000-0892');
         $this->assertEquals(Id::LEGAL_FORM_NONPROFIT, $id->getLegalForm());
         $this->assertTrue($id->isNonProfit());
 
-        $id = new OrganizationId('916452-6197'); 
+        $id = new OrganizationId('916452-6197');
         $this->assertEquals(Id::LEGAL_FORM_TRADING, $id->getLegalForm());
         $this->assertTrue($id->isTradingCompany());
 
-        $id = new OrganizationId('132100-0018'); 
+        $id = new OrganizationId('132100-0018');
         $this->assertEquals(Id::LEGAL_FORM_UNDEFINED, $id->getLegalForm());
         $this->assertTrue($id->isLegalFormUndefined());
     }
