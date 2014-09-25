@@ -69,7 +69,8 @@ class PersonalId implements Id
      * based on delimiter (+ signals more than a hundred years old). If year is
      * set using four digits delimiter is calculated based on century.
      *
-     * @param string $id
+     * @param  string $id
+     * @throws Exception\InvalidDateStructureException If date is not logically valid
      */
     public function __construct($id)
     {
@@ -97,6 +98,11 @@ class PersonalId implements Id
             if ($this->getDelimiter() == '+') {
                 $this->date->modify('-100 year');
             }
+        }
+
+        // Validate that date is logically valid
+        if ($this->date->format('ymd') != $this->serialPre) {
+            throw new Exception\InvalidDateStructureException("Invalid date in <{$this->getId()}>");
         }
 
         $this->validateCheckDigit();

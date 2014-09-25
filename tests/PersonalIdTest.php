@@ -61,9 +61,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
             array('820323+2776'),
             array('820323+2777'),
             array('820323+2778'),
-            array('820323+2779'),
-            array('123456-1234'),
-            array('123456+1234'),
+            array('820323+2779')
         );
     }
 
@@ -116,17 +114,24 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSex()
     {
-        $id = new PersonalId('820323-2775');
-        $this->assertEquals(Id::SEX_MALE, $id->getSex());
-        $this->assertTrue($id->isMale());
-        $this->assertFalse($id->isFemale());
-        $this->assertFalse($id->isSexUndefined());
+        $personalId = new PersonalId('820323-2775');
+        $this->assertEquals(Id::SEX_MALE, $personalId->getSex());
+        $this->assertTrue($personalId->isMale());
+        $this->assertFalse($personalId->isFemale());
+        $this->assertFalse($personalId->isSexUndefined());
 
-        $id = new PersonalId('770314-0348');
-        $this->assertEquals(Id::SEX_FEMALE, $id->getSex());
-        $this->assertTrue($id->isFemale());
-        $this->assertFalse($id->isMale());
-        $this->assertFalse($id->isSexUndefined());
+        $personalId = new PersonalId('770314-0348');
+        $this->assertEquals(Id::SEX_FEMALE, $personalId->getSex());
+        $this->assertTrue($personalId->isFemale());
+        $this->assertFalse($personalId->isMale());
+        $this->assertFalse($personalId->isSexUndefined());
+    }
+
+    public function testInvalidDateException()
+    {
+        $this->setExpectedException('ledgr\id\Exception\InvalidDateStructureException');
+        // 001301 is not a valid date
+        new PersonalId('001301-0004');
     }
 
     public function testGetAge()
@@ -165,15 +170,15 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
 
     public function testGetLegalForm()
     {
-        $id = new PersonalId('770314-0348');
-        $this->assertEquals(Id::LEGAL_FORM_UNDEFINED, $id->getLegalForm());
-        $this->assertTrue($id->isLegalFormUndefined());
-        $this->assertFalse($id->isStateOrParish());
-        $this->assertFalse($id->isIncorporated());
-        $this->assertFalse($id->isPartnership());
-        $this->assertFalse($id->isAssociation());
-        $this->assertFalse($id->isNonProfit());
-        $this->assertFalse($id->isTradingCompany());
+        $personalId = new PersonalId('770314-0348');
+        $this->assertEquals(Id::LEGAL_FORM_UNDEFINED, $personalId->getLegalForm());
+        $this->assertTrue($personalId->isLegalFormUndefined());
+        $this->assertFalse($personalId->isStateOrParish());
+        $this->assertFalse($personalId->isIncorporated());
+        $this->assertFalse($personalId->isPartnership());
+        $this->assertFalse($personalId->isAssociation());
+        $this->assertFalse($personalId->isNonProfit());
+        $this->assertFalse($personalId->isTradingCompany());
     }
 
     public function testGetBirthCounty()
