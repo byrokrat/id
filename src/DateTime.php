@@ -14,19 +14,24 @@ namespace ledgr\id;
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class DateTime extends\DateTime
+class DateTime extends \DateTime
 {
     /**
      * Returns new DateTime object formatted according to the specified format
      *
-     * @param  string $format The format that the passed in string should be in
-     * @param  string $time   String representing the time
-     * @return DateTime
+     * @param  string         $format   The format that the passed in string should be in
+     * @param  string         $time     String representing the time
+     * @param  \DateTimeZone  $timezone A DateTimeZone object representing the desired time zone
+     * @return \DateTime
      * @throws Exception\InvalidDateStructureException If creation fail
      */
-    static public function createFromFormat($format, $time)
+    static public function createFromFormat($format, $time, \DateTimeZone $timezone = null)
     {
-        if ($dateTime = parent::createFromFormat($format, $time)) {
+        $dateTime = $timezone
+            ? parent::createFromFormat($format, $time, $timezone)
+            : parent::createFromFormat($format, $time);
+
+        if ($dateTime) {
             return $dateTime;
         }
 
