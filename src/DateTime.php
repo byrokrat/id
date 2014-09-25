@@ -25,7 +25,7 @@ class DateTime extends \DateTime
      * @return \DateTime
      * @throws Exception\InvalidDateStructureException If creation fail
      */
-    static public function createFromFormat($format, $time, \DateTimeZone $timezone = null)
+    static public function createFromFormat($format, $time, $timezone = null)
     {
         $dateTime = $timezone
             ? parent::createFromFormat($format, $time, $timezone)
