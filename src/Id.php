@@ -244,7 +244,7 @@ interface Id
     /**
      * Get birth date
      *
-     * @return DateTime
+     * @return \DateTime
      */
     public function getDate();
 

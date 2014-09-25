@@ -2,11 +2,11 @@
 
 namespace ledgr\id;
 
-class DateTimeTest extends \PHPUnit_Framework_TestCase
+class DateTimeCreatorTest extends \PHPUnit_Framework_TestCase
 {
     public function testCreateFromFormat()
     {
-        $datetime = DateTime::createFromFormat('Ymd', '20140880');
+        $datetime = DateTimeCreator::createFromFormat('Ymd', '20140880');
         $this->assertEquals(
             '2014',
             $datetime->format('Y')
@@ -16,6 +16,6 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     public function testCreateFromFormatException()
     {
         $this->setExpectedException('ledgr\id\Exception\InvalidDateStructureException');
-        DateTime::createFromFormat('ymd', '14xx80');
+        DateTimeCreator::createFromFormat('ymd', '14xx80');
     }
 }

@@ -9,7 +9,6 @@
 
 namespace ledgr\id\Component;
 
-use ledgr\id\DateTime;
 use ledgr\id\Exception\DateNotSupportedException;
 
 /**
@@ -22,7 +21,7 @@ trait Date
     /**
      * As default date is N/A
      *
-     * @return DateTime
+     * @return \DateTime
      * @throws DateNotSupportedException If date is not set
      */
     public function getDate()
@@ -37,7 +36,7 @@ trait Date
      */
     public function getAge()
     {
-        return (int)$this->getDate()->diff(new DateTime)->format('%y');
+        return (int)$this->getDate()->diff(new \DateTime)->format('%y');
     }
 
     /**

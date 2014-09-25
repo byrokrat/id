@@ -10,32 +10,27 @@
 namespace ledgr\id;
 
 /**
- * Simple DateTime extension to throw exception if createFromFormat failes
+ * Creates DateTime objects and throws exception if createFromFormat failes
  *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
-class DateTime extends \DateTime
+class DateTimeCreator
 {
     /**
      * Returns new DateTime object formatted according to the specified format
      *
      * @param  string         $format   The format that the passed in string should be in
      * @param  string         $time     String representing the time
-     * @param  \DateTimeZone  $timezone A DateTimeZone object representing the desired time zone
      * @return \DateTime
      * @throws Exception\InvalidDateStructureException If creation fail
      */
-    static public function createFromFormat($format, $time, $timezone = null)
+    static public function createFromFormat($format, $time)
     {
-        $dateTime = $timezone
-            ? parent::createFromFormat($format, $time, $timezone)
-            : parent::createFromFormat($format, $time);
-
-        if ($dateTime) {
+        if ($dateTime = \DateTime::createFromFormat($format, $time)) {
             return $dateTime;
         }
 
-        $errors = parent::getLastErrors();
+        $errors = \DateTime::getLastErrors();
 
         $msg = trim(
             implode(

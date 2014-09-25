@@ -81,16 +81,16 @@ class PersonalId implements Id
 
         if ($century) {
             // Set delimiter based on date (+ if date is more then a hundred years old)
-            $this->date = DateTime::createFromFormat('Ymd', $century.$this->serialPre);
-            $hundredYearsAgo = new DateTime();
+            $this->date = DateTimeCreator::createFromFormat('Ymd', $century.$this->serialPre);
+            $hundredYearsAgo = new \DateTime();
             $hundredYearsAgo->modify('-100 year');
             $this->delimiter = $this->getDate() < $hundredYearsAgo ? '+' : '-';
         } else {
             // No century defined
-            $this->date = DateTime::createFromFormat('ymd', $this->serialPre);
+            $this->date = DateTimeCreator::createFromFormat('ymd', $this->serialPre);
             
             // If in the future century is wrong
-            if ($this->date > new DateTime) {
+            if ($this->date > new \DateTime) {
                 $this->date->modify('-100 year');
             }
 
@@ -135,7 +135,7 @@ class PersonalId implements Id
      */
     public function getBirthCounty()
     {
-        if ($this->getDate() < DateTime::createFromFormat('Ymd', '19900101')) {
+        if ($this->getDate() < DateTimeCreator::createFromFormat('Ymd', '19900101')) {
             $countyNr = (int) substr($this->getSerialPostDelimiter(), 0, 2);
             foreach (self::$birthCountyMap as $limit => $identifier) {
                 if ($countyNr <= $limit) {
