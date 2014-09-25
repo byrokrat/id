@@ -10,6 +10,8 @@
 namespace ledgr\id\Exception;
 
 /**
+ * Represent errors in the program logic, this kind of exception should lead directly to a fix in your code
+ *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class LogicException extends \LogicException implements \ledgr\id\Exception

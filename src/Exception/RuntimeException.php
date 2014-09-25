@@ -10,6 +10,8 @@
 namespace ledgr\id\Exception;
 
 /**
+ * Represent error states that can only be found at runtime
+ *
  * @author Hannes Forsgård <hannes.forsgard@fripost.org>
  */
 class RuntimeException extends \RuntimeException implements \ledgr\id\Exception

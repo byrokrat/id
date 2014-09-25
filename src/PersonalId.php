@@ -56,7 +56,7 @@ class PersonalId implements Id
     ];
 
     /**
-     * @var DateTime Date of birth
+     * @var \DateTime Date of birth
      */
     private $date;
 
