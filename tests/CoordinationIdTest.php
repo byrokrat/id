@@ -31,9 +31,9 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
      * @expectedException ledgr\id\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
-    public function testInvalidStructure($nr)
+    public function testInvalidStructure($number)
     {
-        new CoordinationId($nr);
+        new CoordinationId($number);
     }
 
     public function invalidCheckDigitProvider()
@@ -64,26 +64,29 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
      * @expectedException ledgr\id\Exception\InvalidCheckDigitException
      * @dataProvider invalidCheckDigitProvider
      */
-    public function testInvalidCheckDigit($nr)
+    public function testInvalidCheckDigit($number)
     {
-        new CoordinationId($nr);
+        new CoordinationId($number);
     }
 
     public function interchangeableFormulasProvider()
     {
         return array(
-            array(new CoordinationId('701063-2391'), new CoordinationId('7010632391')),
-            array(new CoordinationId('19701063-2391'), new CoordinationId('197010632391')),
-            array(new CoordinationId('19701063-2391'), new CoordinationId('19701063+2391'))
+            array('701063-2391', '7010632391'),
+            array('19701063-2391', '197010632391'),
+            array('19701063-2391', '19701063+2391')
         );
     }
 
     /**
      * @dataProvider interchangeableFormulasProvider
      */
-    public function testInterchangeableFormulas($a, $b)
+    public function testInterchangeableFormulas($numberA, $numberB)
     {
-        $this->assertEquals((string)$a, (string)$b);
+        $this->assertSame(
+            (string)new CoordinationId($numberA),
+            (string)new CoordinationId($numberB)
+        );
     }
 
     public function testGetDelimiter()

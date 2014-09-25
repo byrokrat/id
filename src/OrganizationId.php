@@ -42,12 +42,12 @@ class OrganizationId implements Id
     /**
      * Set id number
      *
-     * @param  string $id
+     * @param  string $number
      * @throws Exception\InvalidStructureException If structure is invalid
      */
-    public function __construct($id)
+    public function __construct($number)
     {
-        list(, $this->serialPre, $this->serialPost, $this->checkDigit) = OrganizationId::parseStructure($id);
+        list(, $this->serialPre, $this->serialPost, $this->checkDigit) = OrganizationId::parseStructure($number);
 
         if ($this->serialPre[2] < 2) {
             throw new Exception\InvalidStructureException('Third digit must be at lest 2');

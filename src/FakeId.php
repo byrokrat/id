@@ -29,11 +29,11 @@ class FakeId extends PersonalId
     /**
      * {@inheritdoc}
      *
-     * @param string $id
+     * @param string $number
      */
-    public function __construct($id)
+    public function __construct($number)
     {
-        list(, $century, $datestr, $delimiter, $serialPost, $check) = FakeId::parseStructure($id);
+        list(, $century, $datestr, $delimiter, $serialPost, $check) = FakeId::parseStructure($number);
         parent::__construct($century . $datestr . $delimiter . '0000');
         $this->serialPost = $serialPost;
         $this->checkDigit = $check;

@@ -57,8 +57,8 @@ class Formatter implements FormatTokens
                 case self::TOKEN_DATE_DAY_NUMERIC:
                 case self::TOKEN_DATE_DAY_NUMERIC_ISO:
                 case self::TOKEN_DATE_DAY_OF_YEAR:
-                    $this->registerFormatter(function (Id $id) use ($token) {
-                        return $id->getDate()->format($token);
+                    $this->registerFormatter(function (Id $idObjectObject) use ($token) {
+                        return $idObjectObject->getDate()->format($token);
                     });
                     break;
                 case self::TOKEN_DATE_CENTURY:
@@ -95,20 +95,20 @@ class Formatter implements FormatTokens
     public function registerFormatter(callable $formatter)
     {
         $oldFormatter = $this->formatter;
-        $this->formatter = function (Id $id) use ($oldFormatter, $formatter) {
-            return $oldFormatter($id) . $formatter($id);
+        $this->formatter = function (Id $idObject) use ($oldFormatter, $formatter) {
+            return $oldFormatter($idObject) . $formatter($idObject);
         };
     }
 
     /**
      * Format id using registered formatting functions
      *
-     * @param  Id $id 
+     * @param  Id $idObject 
      * @return string
      */
-    public function format(Id $id)
+    public function format(Id $idObject)
     {
         $formatter = $this->formatter;
-        return $formatter($id);
+        return $formatter($idObject);
     }
 }

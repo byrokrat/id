@@ -36,99 +36,99 @@ trait FormattingFunctions
     /**
      * Format function for century
      *
-     * @param  Id $id
+     * @param  Id $idObject
      * @return string
      */
-    static protected function formatCentury(Id $id)
+    static protected function formatCentury(Id $idObject)
     {
-        return $id->getCentury();
+        return $idObject->getCentury();
     }
 
     /**
      * Format function for serial pre delimiter
      *
-     * @param  Id $id
+     * @param  Id $idObject
      * @return string
      */
-    static protected function formatSerialPre(Id $id)
+    static protected function formatSerialPre(Id $idObject)
     {
-        return $id->getSerialPreDelimiter();
+        return $idObject->getSerialPreDelimiter();
     }
 
     /**
      * Format function for serial post delimiter
      *
-     * @param  Id $id
+     * @param  Id $idObject
      * @return string
      */
-    static protected function formatSerialPost(Id $id)
+    static protected function formatSerialPost(Id $idObject)
     {
-        return $id->getSerialPostDelimiter();
+        return $idObject->getSerialPostDelimiter();
     }
 
     /**
      * Format function for delimiter
      *
-     * @param  Id $id
+     * @param  Id $idObject
      * @return string
      */
-    static protected function formatDelimiter(Id $id)
+    static protected function formatDelimiter(Id $idObject)
     {
-        return $id->getDelimiter();
+        return $idObject->getDelimiter();
     }
 
     /**
      * Format function for check digit
      *
-     * @param  Id $id
+     * @param  Id $idObject
      * @return string
      */
-    static protected function formatCheckDigit(Id $id)
+    static protected function formatCheckDigit(Id $idObject)
     {
-        return $id->getCheckDigit();
+        return $idObject->getCheckDigit();
     }
 
     /**
      * Format function for sex
      *
-     * @param  Id $id
+     * @param  Id $idObject
      * @return string
      */
-    static protected function formatSex(Id $id)
+    static protected function formatSex(Id $idObject)
     {
-        return $id->getSex();
+        return $idObject->getSex();
     }
 
     /**
      * Format function for age
      *
-     * @param  Id $id
+     * @param  Id $idObject
      * @return string
      */
-    static protected function formatAge(Id $id)
+    static protected function formatAge(Id $idObject)
     {
-        return $id->getAge();
+        return $idObject->getAge();
     }
 
     /**
      * Format function for legal form
      *
-     * @param  Id $id
+     * @param  Id $idObject
      * @return string
      */
-    static protected function formatLegalForm(Id $id)
+    static protected function formatLegalForm(Id $idObject)
     {
-        return $id->getLegalForm();
+        return $idObject->getLegalForm();
     }
 
     /**
      * Format function for birth county
      *
-     * @param  Id $id
+     * @param  Id $idObject
      * @return string
      */
-    static protected function formatBirthCounty(Id $id)
+    static protected function formatBirthCounty(Id $idObject)
     {
-        return $id->getBirthCounty();
+        return $idObject->getBirthCounty();
     }
 }

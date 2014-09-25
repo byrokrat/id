@@ -24,13 +24,13 @@ class CoordinationId extends PersonalId
     /**
      * {@inheritdoc}
      *
-     * @param string $id
+     * @param string $number
      */
-    public function __construct($id)
+    public function __construct($number)
     {
-        list(, $century, $datestr, $delim, $nr, $check) = CoordinationId::parseStructure($id);
+        list(, $century, $datestr, $delim, $serialPost, $check) = CoordinationId::parseStructure($number);
         $dob = intval($datestr) - 60;
-        return parent::__construct($century.$dob.$delim.$nr.$check);
+        return parent::__construct($century.$dob.$delim.$serialPost.$check);
     }
 
     /**

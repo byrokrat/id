@@ -36,9 +36,9 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
      * @expectedException ledgr\id\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
-    public function testInvalidStructure($nr)
+    public function testInvalidStructure($number)
     {
-        new PersonalId($nr);
+        new PersonalId($number);
     }
 
     public function invalidCheckDigitProvider()
@@ -69,26 +69,29 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
      * @expectedException ledgr\id\Exception\InvalidCheckDigitException
      * @dataProvider invalidCheckDigitProvider
      */
-    public function testInvalidCheckDigit($nr)
+    public function testInvalidCheckDigit($number)
     {
-        new PersonalId($nr);
+        new PersonalId($number);
     }
 
     public function interchangeableFormulasProvider()
     {
         return array(
-            array(new PersonalId('820323-2775'), new PersonalId('8203232775')),
-            array(new PersonalId('19820323-2775'), new PersonalId('198203232775')),
-            array(new PersonalId('19820323-2775'), new PersonalId('19820323+2775'))
+            array('820323-2775', '8203232775'),
+            array('19820323-2775', '198203232775'),
+            array('19820323-2775', '19820323+2775')
         );
     }
 
     /**
      * @dataProvider interchangeableFormulasProvider
      */
-    public function testInterchangeableFormulas($a, $b)
+    public function testInterchangeableFormulas($numberA, $numberB)
     {
-        $this->assertEquals((string)$a, (string)$b);
+        $this->assertSame(
+            (string)new PersonalId($numberA),
+            (string)new PersonalId($numberB)
+        );
     }
 
     public function testDelimiter()

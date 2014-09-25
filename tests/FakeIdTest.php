@@ -36,26 +36,29 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
      * @expectedException ledgr\id\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
-    public function testInvalidStructure($nr)
+    public function testInvalidStructure($number)
     {
-        new FakeId($nr);
+        new FakeId($number);
     }
 
     public function interchangeableFormulasProvider()
     {
         return array(
-            array(new FakeId('820323-xxxx'), new FakeId('820323xxxx')),
-            array(new FakeId('19820323-xxxx'), new FakeId('19820323xxxx')),
-            array(new FakeId('19820323-xxxx'), new FakeId('19820323+xxxx'))
+            array('820323-xxxx', '820323xxxx'),
+            array('19820323-xxxx', '19820323xxxx'),
+            array('19820323-xxxx', '19820323+xxxx')
         );
     }
 
     /**
      * @dataProvider interchangeableFormulasProvider
      */
-    public function testInterchangeableFormulas($a, $b)
+    public function testInterchangeableFormulas($numberA, $numberB)
     {
-        $this->assertEquals((string)$a, (string)$b);
+        $this->assertSame(
+            (string)new FakeId($numberA),
+            (string)new FakeId($numberB)
+        );
     }
 
     public function testToString()
@@ -99,23 +102,23 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSex()
     {
-        $id = new FakeId('820323-xx1x');
-        $this->assertEquals(Id::SEX_MALE, $id->getSex());
-        $this->assertTrue($id->isMale());
-        $this->assertFalse($id->isFemale());
-        $this->assertFalse($id->isSexUndefined());
+        $fakeId = new FakeId('820323-xx1x');
+        $this->assertEquals(Id::SEX_MALE, $fakeId->getSex());
+        $this->assertTrue($fakeId->isMale());
+        $this->assertFalse($fakeId->isFemale());
+        $this->assertFalse($fakeId->isSexUndefined());
 
-        $id = new FakeId('770314-xx2x');
-        $this->assertEquals(Id::SEX_FEMALE, $id->getSex());
-        $this->assertFalse($id->isMale());
-        $this->assertTrue($id->isFemale());
-        $this->assertFalse($id->isSexUndefined());
+        $fakeId = new FakeId('770314-xx2x');
+        $this->assertEquals(Id::SEX_FEMALE, $fakeId->getSex());
+        $this->assertFalse($fakeId->isMale());
+        $this->assertTrue($fakeId->isFemale());
+        $this->assertFalse($fakeId->isSexUndefined());
 
-        $id = new FakeId('770314-xxxx');
-        $this->assertEquals(Id::SEX_UNDEFINED, $id->getSex());
-        $this->assertFalse($id->isMale());
-        $this->assertFalse($id->isFemale());
-        $this->assertTrue($id->isSexUndefined());
+        $fakeId = new FakeId('770314-xxxx');
+        $this->assertEquals(Id::SEX_UNDEFINED, $fakeId->getSex());
+        $this->assertFalse($fakeId->isMale());
+        $this->assertFalse($fakeId->isFemale());
+        $this->assertTrue($fakeId->isSexUndefined());
     }
 
     public function testGetBirthCounty()

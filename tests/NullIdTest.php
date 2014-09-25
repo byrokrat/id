@@ -59,24 +59,24 @@ class NullIdTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSex()
     {
-        $id = new NullId();
-        $this->assertEquals(Id::SEX_UNDEFINED, $id->getSex());
-        $this->assertTrue($id->isSexUndefined());
-        $this->assertFalse($id->isMale());
-        $this->assertFalse($id->isFemale());
+        $nullId = new NullId();
+        $this->assertEquals(Id::SEX_UNDEFINED, $nullId->getSex());
+        $this->assertTrue($nullId->isSexUndefined());
+        $this->assertFalse($nullId->isMale());
+        $this->assertFalse($nullId->isFemale());
     }
 
     public function testGetLegalForm()
     {
-        $id = new NullId();
-        $this->assertEquals(Id::LEGAL_FORM_UNDEFINED, $id->getLegalForm());
-        $this->assertTrue($id->isLegalFormUndefined());
-        $this->assertFalse($id->isStateOrParish());
-        $this->assertFalse($id->isIncorporated());
-        $this->assertFalse($id->isPartnership());
-        $this->assertFalse($id->isAssociation());
-        $this->assertFalse($id->isNonProfit());
-        $this->assertFalse($id->isTradingCompany());
+        $nullId = new NullId();
+        $this->assertEquals(Id::LEGAL_FORM_UNDEFINED, $nullId->getLegalForm());
+        $this->assertTrue($nullId->isLegalFormUndefined());
+        $this->assertFalse($nullId->isStateOrParish());
+        $this->assertFalse($nullId->isIncorporated());
+        $this->assertFalse($nullId->isPartnership());
+        $this->assertFalse($nullId->isAssociation());
+        $this->assertFalse($nullId->isNonProfit());
+        $this->assertFalse($nullId->isTradingCompany());
     }
 
     public function testGetBirthCounty()
