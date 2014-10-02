@@ -113,7 +113,7 @@ trait BaseImplementation
      */
     protected function validateCheckDigit()
     {
-        if (!Modulo10::verify(preg_replace('/[^0-9]/', '', $this->getId()))) {
+        if (!(new Modulo10)->isValid(preg_replace('/[^0-9]/', '', $this->getId()))) {
             throw new InvalidCheckDigitException("Invalid check digit in <{$this->getId()}>");
         }
     }

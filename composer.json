@@ -1,7 +1,7 @@
 {
     "name": "ledgr/id",
     "description": "Data types for swedish social security and corporation id numbers",
-    "keywords": ["Personnummer", "Organisationsnummer", "Personal id", "Social security number", "id", "Corporation id"],
+    "keywords": ["personnummer", "organisationsnummer", "personal id", "social security number", "id", "corporation id"],
     "homepage": "https://github.com/ledgr/id",
     "type": "library",
     "license": "WTFPL",
@@ -18,6 +18,6 @@
     },
     "require": {
         "php": ">=5.4",
-        "ledgr/checkdigit": "1.0.*"
+        "ledgr/checkdigit": "2.*"
     }
 }
