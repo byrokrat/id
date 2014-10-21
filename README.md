@@ -1,14 +1,15 @@
 # ledgr/id
 
-[![Latest Stable Version](https://poser.pugx.org/ledgr/id/v/stable.png)](https://packagist.org/packages/ledgr/id)
-[![Build Status](https://travis-ci.org/ledgr/id.png?branch=master)](https://travis-ci.org/ledgr/id)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ledgr/id/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ledgr/id/?branch=master)
-[![Dependency Status](https://gemnasium.com/ledgr/id.png)](https://gemnasium.com/ledgr/id)
+[![Packagist Version](https://img.shields.io/packagist/v/ledgr/id.svg?style=flat-square)](https://packagist.org/packages/ledgr/id)
+[![Build Status](https://img.shields.io/travis/ledgr/id/master.svg?style=flat-square)](https://travis-ci.org/ledgr/id)
+[![Quality Score](https://img.shields.io/scrutinizer/g/ledgr/id.svg?style=flat-square)](https://scrutinizer-ci.com/g/ledgr/id)
+[![Dependency Status](https://img.shields.io/gemnasium/ledgr/id.svg?style=flat-square)](https://gemnasium.com/ledgr/id)
 
-Data types for swedish social security and corporation id numbers
+Data types for swedish social security and corporation id numbers.
 
-> Install using [composer](http://getcomposer.org/). Exists as **ledgr/id** in
-> the packagist repository.
+> Install using **[composer](http://getcomposer.org/)**. Exists as
+> **[ledgr/id](https://packagist.org/packages/ledgr/id)**
+> in the **[packagist](https://packagist.org/)** repository.
 
 
 Usage
