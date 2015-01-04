@@ -103,7 +103,7 @@ class Formatter implements FormatTokens
     /**
      * Format id using registered formatting functions
      *
-     * @param  Id $idObject 
+     * @param  Id $idObject
      * @return string
      */
     public function format(Id $idObject)

@@ -24,7 +24,7 @@ class DateTimeCreator
      * @return \DateTime
      * @throws Exception\InvalidDateStructureException If creation fail
      */
-    static public function createFromFormat($format, $time)
+    public static function createFromFormat($format, $time)
     {
         if ($dateTime = \DateTime::createFromFormat($format, $time)) {
             return $dateTime;
