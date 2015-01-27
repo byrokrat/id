@@ -21,7 +21,7 @@ class CoordinationId extends PersonalId
     {
         list(, $century, $datestr, $delim, $serialPost, $check) = CoordinationId::parseStructure($number);
         $dob = intval($datestr) - 60;
-        return parent::__construct($century.$dob.$delim.$serialPost.$check);
+        parent::__construct($century.$dob.$delim.$serialPost.$check);
     }
 
     /**
