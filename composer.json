@@ -1,8 +1,8 @@
 {
-    "name": "ledgr/id",
+    "name": "byrokrat/id",
     "description": "Data types for swedish social security and corporation id numbers",
     "keywords": ["personnummer", "organisationsnummer", "personal id", "social security number", "id", "corporation id"],
-    "homepage": "https://github.com/ledgr/id",
+    "homepage": "https://github.com/byrokrat/id",
     "type": "library",
     "license": "WTFPL",
     "authors": [
@@ -13,11 +13,11 @@
     ],
     "autoload": {
         "psr-4": {
-            "ledgr\\id\\": "src/"
+            "byrokrat\\id\\": "src/"
         }
     },
     "require": {
         "php": ">=5.4",
-        "ledgr/checkdigit": "2.*"
+        "byrokrat/checkdigit": "~1.0"
     }
 }

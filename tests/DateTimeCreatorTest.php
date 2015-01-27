@@ -1,6 +1,6 @@
 <?php
 
-namespace ledgr\id;
+namespace byrokrat\id;
 
 class DateTimeCreatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,7 +15,7 @@ class DateTimeCreatorTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateFromFormatException()
     {
-        $this->setExpectedException('ledgr\id\Exception\InvalidDateStructureException');
+        $this->setExpectedException('byrokrat\id\Exception\InvalidDateStructureException');
         DateTimeCreator::createFromFormat('ymd', '14xx80');
     }
 }

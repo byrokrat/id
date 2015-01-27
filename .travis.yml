@@ -15,7 +15,13 @@ install:
   - composer install --dev
 
 before_script:
+  - compser self-update
   - composer update --prefer-source $PREFER_LOWEST 
 
 script:
-  - phpunit
+  - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then phpunit --coverage-clover=coverage.clover ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" != '5.6' ]]; then phpunit ; fi
+
+after_script:
+  - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi

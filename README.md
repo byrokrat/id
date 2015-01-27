@@ -1,22 +1,25 @@
-# ledgr/id
+# Id: Swedish identification numbers
 
-[![Packagist Version](https://img.shields.io/packagist/v/ledgr/id.svg?style=flat-square)](https://packagist.org/packages/ledgr/id)
-[![Build Status](https://img.shields.io/travis/ledgr/id/master.svg?style=flat-square)](https://travis-ci.org/ledgr/id)
-[![Quality Score](https://img.shields.io/scrutinizer/g/ledgr/id.svg?style=flat-square)](https://scrutinizer-ci.com/g/ledgr/id)
-[![Dependency Status](https://img.shields.io/gemnasium/ledgr/id.svg?style=flat-square)](https://gemnasium.com/ledgr/id)
+[![Packagist Version](https://img.shields.io/packagist/v/byrokrat/id.svg?style=flat-square)](https://packagist.org/packages/byrokrat/id)
+[![Build Status](https://img.shields.io/travis/byrokrat/id/master.svg?style=flat-square)](https://travis-ci.org/byrokrat/id)
+[![Quality Score](https://img.shields.io/scrutinizer/g/byrokrat/id.svg?style=flat-square)](https://scrutinizer-ci.com/g/byrokrat/id)
+[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/byrokrat/id.svg?style=flat-square)](https://scrutinizer-ci.com/g/byrokrat/id/?branch=master)
+[![Dependency Status](https://img.shields.io/gemnasium/byrokrat/id.svg?style=flat-square)](https://gemnasium.com/byrokrat/id)
 
-Data types for swedish social security and corporation id numbers.
+Data types for swedish social security and corporation id numbers
 
-> Install using **[composer](http://getcomposer.org/)**. Exists as
-> **[ledgr/id](https://packagist.org/packages/ledgr/id)**
-> in the **[packagist](https://packagist.org/)** repository.
+Installation
+------------
+Install using [composer](http://getcomposer.org/). Exists as
+[byrokrat/id](https://packagist.org/packages/byrokrat/id)
+in the [packagist](https://packagist.org/) repository.
 
+    composer require byrokrat/id
 
 Usage
 -----
-
 ```php
-use ledgr\id\PersonalId;
+use byrokrat\id\PersonalId;
 $id = new PersonalId('820323-2775');
 echo $id;                            // 820323-2775
 echo $id->format('Ymd-sk');          // 19820323-2775
@@ -26,7 +29,7 @@ $id->isMale();                       // true
 echo $id->getBirthCounty()           // Kronobergs län
 ```
 ```php
-use ledgr\id\OrganizationId;
+use byrokrat\id\OrganizationId;
 $id = new OrganizationId('835000-0892');
 echo $id->format('00Ssk');                // 008350000892
 $id->isSexUndefined()                     // true
@@ -46,7 +49,6 @@ $id->isNonProfit();                       // true
       ([organisationsnummer](http://sv.wikipedia.org/wiki/Organisationsnummer)).
     - [`NullId`](src/NullId.php) Null object implementation.
 
-
 ### Creating ID objects
 
 Creating ID objects can be comlicated.
@@ -64,15 +66,14 @@ To solve these difficulties a decoratable `IdFactory` is included. Create a fact
 with the abilities you need by chaining factory objects at creation time.
 
 ```php
-use ledgr\id\PersonalIdFactory;
-use ledgr\id\CoordinationIdFactory;
+use byrokrat\id\PersonalIdFactory;
+use byrokrat\id\CoordinationIdFactory;
 $factory = new PersonalIdFactory(new CoordinationIdFactory());
 $id = $factory->create('some id...');
 ```
 
 In this example the factory will first try to create a `PersonalId`, if this fails
 it will try to create a `CoordinationId`, if this fails it will throw an Exception.
-
 
 ### Formatting
 
@@ -87,7 +88,7 @@ echo $id->format($formatStr);
 If you need to format a large number of ids a formatter object can be created.
 
 ```php
-use ledgr\id\Formatter\Formatter;
+use byrokrat\id\Formatter\Formatter;
 $formatter = new Formatter($formatStr);
 echo $formatter->format($id);
 ```
@@ -128,3 +129,9 @@ Characters that are not formatting tokens are returned as they are by the format
 | `w`   | Numeric representation of the day of the week 0 (for Sunday) through 6
 | `N`   | ISO-8601 numeric representation of the day of the week 1 (for Monday) through 7
 | `z`   | The day of the year (starting from 0), 0 through 365
+
+Credits
+-------
+Id is covered under the [WTFPL](http://www.wtfpl.net/)
+
+@author Hannes Forsgård (hannes.forsgard@fripost.org)

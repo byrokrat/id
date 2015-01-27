@@ -1,6 +1,6 @@
 <?php
 
-namespace ledgr\id;
+namespace byrokrat\id;
 
 class PersonalIdTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,7 +33,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException ledgr\id\Exception\InvalidStructureException
+     * @expectedException byrokrat\id\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
     public function testInvalidStructure($number)
@@ -66,7 +66,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException ledgr\id\Exception\InvalidCheckDigitException
+     * @expectedException byrokrat\id\Exception\InvalidCheckDigitException
      * @dataProvider invalidCheckDigitProvider
      */
     public function testInvalidCheckDigit($number)
@@ -132,7 +132,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidDateException()
     {
-        $this->setExpectedException('ledgr\id\Exception\InvalidDateStructureException');
+        $this->setExpectedException('byrokrat\id\Exception\InvalidDateStructureException');
         // 001301 is not a valid date
         new PersonalId('001301-0004');
     }

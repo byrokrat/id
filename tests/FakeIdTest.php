@@ -1,6 +1,6 @@
 <?php
 
-namespace ledgr\id;
+namespace byrokrat\id;
 
 class FakeIdTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,7 +33,7 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException ledgr\id\Exception\InvalidStructureException
+     * @expectedException byrokrat\id\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
     public function testInvalidStructure($number)

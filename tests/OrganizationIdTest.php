@@ -1,6 +1,6 @@
 <?php
 
-namespace ledgr\id;
+namespace byrokrat\id;
 
 class OrganizationIdTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,7 +21,7 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException ledgr\id\Exception\InvalidStructureException
+     * @expectedException byrokrat\id\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
     public function testInvalidStructure($number)
@@ -48,7 +48,7 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException ledgr\id\Exception\InvalidCheckDigitException
+     * @expectedException byrokrat\id\Exception\InvalidCheckDigitException
      * @dataProvider invalidCheckDigitProvider
      */
     public function testInvalidCheckDigit($number)
@@ -109,7 +109,7 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDate()
     {
-        $this->setExpectedException('ledgr\id\Exception\DateNotSupportedException');
+        $this->setExpectedException('byrokrat\id\Exception\DateNotSupportedException');
         (new OrganizationId('132100-0018'))->getDate();
     }
 

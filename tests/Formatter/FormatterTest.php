@@ -1,10 +1,10 @@
 <?php
 
-namespace ledgr\id\Formatter;
+namespace byrokrat\id\Formatter;
 
-use ledgr\id\FakeId;
-use ledgr\id\PersonalId;
-use ledgr\id\OrganizationId;
+use byrokrat\id\FakeId;
+use byrokrat\id\PersonalId;
+use byrokrat\id\OrganizationId;
 
 class FormatterTest extends \PHPUnit_Framework_TestCase
 {

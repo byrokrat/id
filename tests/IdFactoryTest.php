@@ -1,6 +1,6 @@
 <?php
 
-namespace ledgr\id;
+namespace byrokrat\id;
 
 class IdFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -8,7 +8,7 @@ class IdFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new PersonalIdFactory();
         $this->assertInstanceOf(
-            '\ledgr\id\PersonalId',
+            '\byrokrat\id\PersonalId',
             $factory->create('820323-2775')
         );
     }
@@ -17,7 +17,7 @@ class IdFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new CoordinationIdFactory();
         $this->assertInstanceOf(
-            '\ledgr\id\CoordinationId',
+            '\byrokrat\id\CoordinationId',
             $factory->create('701063-2391')
         );
     }
@@ -26,7 +26,7 @@ class IdFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new OrganizationIdFactory();
         $this->assertInstanceOf(
-            '\ledgr\id\OrganizationId',
+            '\byrokrat\id\OrganizationId',
             $factory->create('702001-7781')
         );
     }
@@ -35,7 +35,7 @@ class IdFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new FakeIdFactory();
         $this->assertInstanceOf(
-            '\ledgr\id\FakeId',
+            '\byrokrat\id\FakeId',
             $factory->create('701023-xxxx')
         );
     }
@@ -44,7 +44,7 @@ class IdFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new NullIdFactory();
         $this->assertInstanceOf(
-            '\ledgr\id\NullId',
+            '\byrokrat\id\NullId',
             $factory->create('')
         );
     }
@@ -59,7 +59,7 @@ class IdFactoryTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->setExpectedException('ledgr\id\Exception');
+        $this->setExpectedException('byrokrat\id\Exception');
         $factory->create('unvalid id');
     }
 }

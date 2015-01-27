@@ -1,6 +1,6 @@
 <?php
 
-namespace ledgr\id;
+namespace byrokrat\id;
 
 class NullIdTest extends \PHPUnit_Framework_TestCase
 {
@@ -53,7 +53,7 @@ class NullIdTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDate()
     {
-        $this->setExpectedException('ledgr\id\Exception\DateNotSupportedException');
+        $this->setExpectedException('byrokrat\id\Exception\DateNotSupportedException');
         (new NullId)->getDate();
     }
 
