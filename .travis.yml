@@ -15,7 +15,7 @@ install:
   - composer install --dev
 
 before_script:
-  - compser self-update
+  - composer self-update
   - composer update --prefer-source $PREFER_LOWEST 
 
 script:
