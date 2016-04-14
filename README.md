@@ -10,9 +10,6 @@ Data types for swedish social security and corporation id numbers
 
 Installation
 ------------
-Install using [composer](http://getcomposer.org/). Exists as
-[byrokrat/id](https://packagist.org/packages/byrokrat/id)
-in the [packagist](https://packagist.org/) repository.
 
     composer require byrokrat/id:^1.0
 
@@ -53,7 +50,7 @@ $id->isNonProfit();                       // true
 
 Creating ID objects can be comlicated.
 
-* A personal id can be a coordination id, if the personal identified as not a
+* A personal id can be a coordination id, if the individual identified is not a
   swedish citizen.
 * A corporation id can be a personal id if the corporation is registered with a
   single individual (egenföretagare).
