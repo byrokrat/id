@@ -14,7 +14,7 @@ Install using [composer](http://getcomposer.org/). Exists as
 [byrokrat/id](https://packagist.org/packages/byrokrat/id)
 in the [packagist](https://packagist.org/) repository.
 
-    composer require byrokrat/id
+    composer require byrokrat/id:^1.0
 
 Usage
 -----
