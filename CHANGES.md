@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Nothing yet...
+
+## [1.0.1] - 2016-05-04
+
 ### Added
 - Integration testing of examples in README.md
 

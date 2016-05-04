@@ -19,6 +19,7 @@ Usage
 <!-- @expectOutput 820323-277519820323-27751982-03-23M1Kronobergs län -->
 ```php
 use byrokrat\id\PersonalId;
+
 $id = new PersonalId('820323-2775');
 
 // outputs 820323-2775
@@ -43,6 +44,7 @@ echo $id->getBirthCounty();
 <!-- @expectOutput 00835000089211 -->
 ```php
 use byrokrat\id\OrganizationId;
+
 $id = new OrganizationId('835000-0892');
 
 // outputs 008350000892
