@@ -1,4 +1,5 @@
-# Id: Swedish identification numbers
+Byrokrat.Id
+===========
 
 [![Packagist Version](https://img.shields.io/packagist/v/byrokrat/id.svg?style=flat-square)](https://packagist.org/packages/byrokrat/id)
 [![Build Status](https://img.shields.io/travis/byrokrat/id/master.svg?style=flat-square)](https://travis-ci.org/byrokrat/id)
@@ -6,7 +7,7 @@
 [![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/byrokrat/id.svg?style=flat-square)](https://scrutinizer-ci.com/g/byrokrat/id/?branch=master)
 [![Dependency Status](https://img.shields.io/gemnasium/byrokrat/id.svg?style=flat-square)](https://gemnasium.com/byrokrat/id)
 
-Data types for swedish social security and corporation id numbers
+Data types for swedish social security and corporation id numbers.
 
 Installation
 ------------
@@ -15,22 +16,43 @@ Installation
 
 Usage
 -----
+<!-- @expectOutput 820323-277519820323-27751982-03-23M1Kronobergs län -->
 ```php
 use byrokrat\id\PersonalId;
 $id = new PersonalId('820323-2775');
-echo $id;                            // 820323-2775
-echo $id->format('Ymd-sk');          // 19820323-2775
-echo $id->format('Y\-m\-d');         // 1982-03-23
-echo $id->getSex();                  // M
-$id->isMale();                       // true
-echo $id->getBirthCounty()           // Kronobergs län
+
+// outputs 820323-2775
+echo $id;
+
+// outputs 19820323-2775
+echo $id->format('Ymd-sk');
+
+// outputs 1982-03-23
+echo $id->format('Y\-m\-d');
+
+// outputs M
+echo $id->getSex();
+
+// outputs 1 (true)
+echo $id->isMale();
+
+// outputs Kronobergs län
+echo $id->getBirthCounty();
 ```
+
+<!-- @expectOutput 00835000089211 -->
 ```php
 use byrokrat\id\OrganizationId;
 $id = new OrganizationId('835000-0892');
-echo $id->format('00Ssk');                // 008350000892
-$id->isSexUndefined()                     // true
-$id->isNonProfit();                       // true
+
+// outputs 008350000892
+echo $id->format('00Ssk');
+
+// outputs 1 (true)
+echo $id->isSexUndefined();
+
+// outputs 1 (true)
+echo $id->isNonProfit();
 ```
 
 ### Class hierarchy
@@ -62,10 +84,13 @@ Creating ID objects can be comlicated.
 To solve these difficulties a decoratable `IdFactory` is included. Create a factory
 with the abilities you need by chaining factory objects at creation time.
 
+<!-- @expectException byrokrat\id\Exception\UnableToCreateIdException -->
 ```php
 use byrokrat\id\PersonalIdFactory;
 use byrokrat\id\CoordinationIdFactory;
+
 $factory = new PersonalIdFactory(new CoordinationIdFactory());
+
 $id = $factory->create('some id...');
 ```
 
@@ -78,16 +103,22 @@ Ids can be printed in custom formats using the `format()` method, where `$format
 is a mix of format tokens and non-formatting characters (for a list of formatting
 tokens se below).
 
+<!-- @ignore -->
 ```php
 echo $id->format($formatStr);
 ```
 
 If you need to format a large number of ids a formatter object can be created.
 
+<!-- @expectOutput 82 -->
 ```php
 use byrokrat\id\Formatter\Formatter;
-$formatter = new Formatter($formatStr);
-echo $formatter->format($id);
+use byrokrat\id\PersonalId;
+
+$formatter = new Formatter('y');
+
+// outputs 82
+echo $formatter->format(new PersonalId('820323-2775'));
 ```
 
 #### Formatting tokens

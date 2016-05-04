@@ -9,22 +9,18 @@ php:
   - 5.5
   - 5.4
 
-env:
-  matrix:
-    - PREFER_LOWEST="--prefer-lowest --prefer-stable"
-    - PREFER_LOWEST=""
-
 install:
-  - composer install --dev
+  - if [[ "$TRAVIS_PHP_VERSION" == '5.4' ]]; then composer install ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" != '5.4' ]]; then composer require hanneskod/readme-tester:dev-master ; fi
 
 before_script:
   - composer self-update
-  - composer update --prefer-source $PREFER_LOWEST 
+  - composer update --prefer-source $PREFER_LOWEST
 
 script:
-  - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then phpunit --coverage-clover=coverage.clover ; fi
-  - if [[ "$TRAVIS_PHP_VERSION" != '5.6' ]]; then phpunit ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then phpunit --coverage-clover=coverage.clover ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" != '7.0' ]]; then phpunit ; fi
 
 after_script:
-  - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
-  - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi
