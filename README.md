@@ -72,7 +72,7 @@ echo $id->isNonProfit();
 
 ### Creating ID objects
 
-Creating ID objects can be comlicated.
+Creating ID objects can be complicated.
 
 * A personal id can be a coordination id, if the individual identified is not a
   swedish citizen.
