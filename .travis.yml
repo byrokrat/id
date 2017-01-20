@@ -12,7 +12,7 @@ php:
 
 install:
   - if [[ "$TRAVIS_PHP_VERSION" == '5.4' ]]; then composer install ; fi
-  - if [[ "$TRAVIS_PHP_VERSION" != '5.4' ]]; then composer require hanneskod/readme-tester:dev-master ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" != '5.4' ]]; then composer require hanneskod/readme-tester:^1.0@beta ; fi
 
 before_script:
   - composer self-update

@@ -16,7 +16,7 @@ Installation
 
 Usage
 -----
-<!-- @expectOutput 820323-277519820323-27751982-03-23M1Kronobergs län -->
+<!-- @expectOutput "820323-277519820323-27751982-03-23M1Kronobergs län" -->
 ```php
 use byrokrat\id\PersonalId;
 
@@ -41,7 +41,7 @@ echo $id->isMale();
 echo $id->getBirthCounty();
 ```
 
-<!-- @expectOutput 00835000089211 -->
+<!-- @expectOutput "00835000089211" -->
 ```php
 use byrokrat\id\OrganizationId;
 
@@ -112,7 +112,7 @@ echo $id->format($formatStr);
 
 If you need to format a large number of ids a formatter object can be created.
 
-<!-- @expectOutput 82 -->
+<!-- @expectOutput "82" -->
 ```php
 use byrokrat\id\Formatter\Formatter;
 use byrokrat\id\PersonalId;
@@ -159,9 +159,3 @@ Characters that are not formatting tokens are returned as they are by the format
 | `w`   | Numeric representation of the day of the week 0 (for Sunday) through 6
 | `N`   | ISO-8601 numeric representation of the day of the week 1 (for Monday) through 7
 | `z`   | The day of the year (starting from 0), 0 through 365
-
-Credits
--------
-Id is covered under the [WTFPL](http://www.wtfpl.net/)
-
-@author Hannes Forsgård (hannes.forsgard@fripost.org)
