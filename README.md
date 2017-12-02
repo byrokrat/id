@@ -159,3 +159,6 @@ Characters that are not formatting tokens are returned as they are by the format
 | `w`   | Numeric representation of the day of the week 0 (for Sunday) through 6
 | `N`   | ISO-8601 numeric representation of the day of the week 1 (for Monday) through 7
 | `z`   | The day of the year (starting from 0), 0 through 365
+
+### Symfony Bundle
+To use these validation rules in your Symfony project see [github.com/jongotlin/IdentityNumberValidatorBundle](https://github.com/jongotlin/IdentityNumberValidatorBundle).
