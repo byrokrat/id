@@ -27,23 +27,23 @@ trait Factory
     /**
      * Create ID object from raw id string
      *
-     * @param  string $rawId Raw id string
+     * @param  string $raw Raw id string
      * @return IdInterface
      */
-    public function create($rawId)
+    public function createId($raw)
     {
         try {
-            return $this->createNewInstance($rawId);
+            return $this->createNewInstance($raw);
         } catch (Exception $e) {
-            return $this->factory->create($rawId);
+            return $this->factory->createId($raw);
         }
     }
 
     /**
      * Instantiate ID object
      *
-     * @param  string $rawId Raw id string
+     * @param  string $raw Raw id string
      * @return IdInterface
      */
-    abstract protected function createNewInstance($rawId);
+    abstract protected function createNewInstance($raw);
 }

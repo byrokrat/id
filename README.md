@@ -93,7 +93,7 @@ use byrokrat\id\CoordinationIdFactory;
 
 $factory = new PersonalIdFactory(new CoordinationIdFactory());
 
-$id = $factory->create('some id...');
+$id = $factory->createId('some id...');
 ```
 
 In this example the factory will first try to create a `PersonalId`, if this fails

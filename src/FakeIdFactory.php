@@ -12,11 +12,11 @@ class FakeIdFactory extends IdFactory
     /**
      * Instantiate ID object
      *
-     * @param  string $rawId Raw id string
+     * @param  string $raw Raw id string
      * @return IdInterface
      */
-    protected function createNewInstance($rawId)
+    protected function createNewInstance($raw)
     {
-        return new FakeId($rawId);
+        return new FakeId($raw);
     }
 }
