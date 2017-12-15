@@ -5,7 +5,7 @@ namespace byrokrat\id;
 /**
  * Swedish personal identity numbers
  */
-class PersonalId implements Id
+class PersonalId implements IdInterface
 {
     use Component\Structure, Component\BaseImplementation;
 
@@ -79,7 +79,7 @@ class PersonalId implements Id
         } else {
             // No century defined
             $this->date = DateTimeCreator::createFromFormat('ymd', $this->serialPre);
-            
+
             // If in the future century is wrong
             if ($this->date > new \DateTime) {
                 $this->date->modify('-100 year');

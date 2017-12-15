@@ -4,10 +4,9 @@ namespace byrokrat\id\Component;
 
 use byrokrat\checkdigit\Modulo10;
 use byrokrat\id\Exception\InvalidCheckDigitException;
-use byrokrat\id\Id;
 
 /**
- * Base implementation of the Id interface
+ * Base implementation of IdInterface
  */
 trait BaseImplementation
 {

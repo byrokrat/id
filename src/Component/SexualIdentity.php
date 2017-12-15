@@ -2,7 +2,7 @@
 
 namespace byrokrat\id\Component;
 
-use byrokrat\id\Id;
+use byrokrat\id\IdInterface;
 
 /**
  * Helper that defines getSex(), isMale(), isFemale() and isSexUndefined().
@@ -16,7 +16,7 @@ trait SexualIdentity
      */
     public function getSex()
     {
-        return Id::SEX_UNDEFINED;
+        return IdInterface::SEX_UNDEFINED;
     }
 
     /**
@@ -26,7 +26,7 @@ trait SexualIdentity
      */
     public function isMale()
     {
-        return $this->getSex() == Id::SEX_MALE;
+        return $this->getSex() == IdInterface::SEX_MALE;
     }
 
     /**
@@ -36,7 +36,7 @@ trait SexualIdentity
      */
     public function isFemale()
     {
-        return $this->getSex() == Id::SEX_FEMALE;
+        return $this->getSex() == IdInterface::SEX_FEMALE;
     }
 
     /**
@@ -46,6 +46,6 @@ trait SexualIdentity
      */
     public function isSexUndefined()
     {
-        return $this->getSex() == Id::SEX_UNDEFINED;
+        return $this->getSex() == IdInterface::SEX_UNDEFINED;
     }
 }

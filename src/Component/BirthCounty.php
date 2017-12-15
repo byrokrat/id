@@ -2,7 +2,7 @@
 
 namespace byrokrat\id\Component;
 
-use byrokrat\id\Id;
+use byrokrat\id\IdInterface;
 
 /**
  * Default implementation of getBirthCounty()
@@ -16,6 +16,6 @@ trait BirthCounty
      */
     public function getBirthCounty()
     {
-        return Id::COUNTY_UNDEFINED;
+        return IdInterface::COUNTY_UNDEFINED;
     }
 }

@@ -5,7 +5,7 @@ namespace byrokrat\id;
 /**
  * Swedish organizational identity numbers
  */
-class OrganizationId implements Id
+class OrganizationId implements IdInterface
 {
     use Component\Structure, Component\BaseImplementation, Component\BirthCounty;
 

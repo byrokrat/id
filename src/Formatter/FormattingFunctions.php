@@ -2,7 +2,7 @@
 
 namespace byrokrat\id\Formatter;
 
-use byrokrat\id\Id;
+use byrokrat\id\IdInterface;
 
 /**
  * Basic formatting functions
@@ -27,10 +27,10 @@ trait FormattingFunctions
     /**
      * Format function for century
      *
-     * @param  Id $idObject
+     * @param  IdInterface $idObject
      * @return string
      */
-    static protected function formatCentury(Id $idObject)
+    static protected function formatCentury(IdInterface $idObject)
     {
         return $idObject->getCentury();
     }
@@ -38,10 +38,10 @@ trait FormattingFunctions
     /**
      * Format function for serial pre delimiter
      *
-     * @param  Id $idObject
+     * @param  IdInterface $idObject
      * @return string
      */
-    static protected function formatSerialPre(Id $idObject)
+    static protected function formatSerialPre(IdInterface $idObject)
     {
         return $idObject->getSerialPreDelimiter();
     }
@@ -49,10 +49,10 @@ trait FormattingFunctions
     /**
      * Format function for serial post delimiter
      *
-     * @param  Id $idObject
+     * @param  IdInterface $idObject
      * @return string
      */
-    static protected function formatSerialPost(Id $idObject)
+    static protected function formatSerialPost(IdInterface $idObject)
     {
         return $idObject->getSerialPostDelimiter();
     }
@@ -60,10 +60,10 @@ trait FormattingFunctions
     /**
      * Format function for delimiter
      *
-     * @param  Id $idObject
+     * @param  IdInterface $idObject
      * @return string
      */
-    static protected function formatDelimiter(Id $idObject)
+    static protected function formatDelimiter(IdInterface $idObject)
     {
         return $idObject->getDelimiter();
     }
@@ -71,10 +71,10 @@ trait FormattingFunctions
     /**
      * Format function for check digit
      *
-     * @param  Id $idObject
+     * @param  IdInterface $idObject
      * @return string
      */
-    static protected function formatCheckDigit(Id $idObject)
+    static protected function formatCheckDigit(IdInterface $idObject)
     {
         return $idObject->getCheckDigit();
     }
@@ -82,10 +82,10 @@ trait FormattingFunctions
     /**
      * Format function for sex
      *
-     * @param  Id $idObject
+     * @param  IdInterface $idObject
      * @return string
      */
-    static protected function formatSex(Id $idObject)
+    static protected function formatSex(IdInterface $idObject)
     {
         return $idObject->getSex();
     }
@@ -93,10 +93,10 @@ trait FormattingFunctions
     /**
      * Format function for age
      *
-     * @param  Id $idObject
+     * @param  IdInterface $idObject
      * @return string
      */
-    static protected function formatAge(Id $idObject)
+    static protected function formatAge(IdInterface $idObject)
     {
         return $idObject->getAge();
     }
@@ -104,10 +104,10 @@ trait FormattingFunctions
     /**
      * Format function for legal form
      *
-     * @param  Id $idObject
+     * @param  IdInterface $idObject
      * @return string
      */
-    static protected function formatLegalForm(Id $idObject)
+    static protected function formatLegalForm(IdInterface $idObject)
     {
         return $idObject->getLegalForm();
     }
@@ -115,10 +115,10 @@ trait FormattingFunctions
     /**
      * Format function for birth county
      *
-     * @param  Id $idObject
+     * @param  IdInterface $idObject
      * @return string
      */
-    static protected function formatBirthCounty(Id $idObject)
+    static protected function formatBirthCounty(IdInterface $idObject)
     {
         return $idObject->getBirthCounty();
     }

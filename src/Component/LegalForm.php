@@ -2,7 +2,7 @@
 
 namespace byrokrat\id\Component;
 
-use byrokrat\id\Id;
+use byrokrat\id\IdInterface;
 
 /**
  * Helper that defines methods related to legal form
@@ -19,7 +19,7 @@ trait LegalForm
      */
     public function getLegalForm()
     {
-        return Id::LEGAL_FORM_UNDEFINED;
+        return IdInterface::LEGAL_FORM_UNDEFINED;
     }
 
     /**
@@ -29,7 +29,7 @@ trait LegalForm
      */
     public function isLegalFormUndefined()
     {
-        return $this->getLegalForm() == Id::LEGAL_FORM_UNDEFINED;
+        return $this->getLegalForm() == IdInterface::LEGAL_FORM_UNDEFINED;
     }
 
     /**
@@ -39,7 +39,7 @@ trait LegalForm
      */
     public function isStateOrParish()
     {
-        return $this->getLegalForm() == Id::LEGAL_FORM_STATE_PARISH;
+        return $this->getLegalForm() == IdInterface::LEGAL_FORM_STATE_PARISH;
     }
 
     /**
@@ -49,7 +49,7 @@ trait LegalForm
      */
     public function isIncorporated()
     {
-        return $this->getLegalForm() == Id::LEGAL_FORM_INCORPORATED;
+        return $this->getLegalForm() == IdInterface::LEGAL_FORM_INCORPORATED;
     }
 
     /**
@@ -59,7 +59,7 @@ trait LegalForm
      */
     public function isPartnership()
     {
-        return $this->getLegalForm() == Id::LEGAL_FORM_PARTNERSHIP;
+        return $this->getLegalForm() == IdInterface::LEGAL_FORM_PARTNERSHIP;
     }
 
     /**
@@ -69,7 +69,7 @@ trait LegalForm
      */
     public function isAssociation()
     {
-        return $this->getLegalForm() == Id::LEGAL_FORM_ASSOCIATION;
+        return $this->getLegalForm() == IdInterface::LEGAL_FORM_ASSOCIATION;
     }
 
     /**
@@ -79,7 +79,7 @@ trait LegalForm
      */
     public function isNonProfit()
     {
-        return $this->getLegalForm() == Id::LEGAL_FORM_NONPROFIT;
+        return $this->getLegalForm() == IdInterface::LEGAL_FORM_NONPROFIT;
     }
 
     /**
@@ -89,6 +89,6 @@ trait LegalForm
      */
     public function isTradingCompany()
     {
-        return $this->getLegalForm() == Id::LEGAL_FORM_TRADING;
+        return $this->getLegalForm() == IdInterface::LEGAL_FORM_TRADING;
     }
 }

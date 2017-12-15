@@ -3,7 +3,7 @@
 namespace byrokrat\id;
 
 /**
- * The base id interface
+ * @deprecated Will be removed in version 2. Use IdInterface instead.
  */
 interface Id
 {

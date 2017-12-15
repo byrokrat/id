@@ -3,6 +3,7 @@
 namespace byrokrat\id\Component;
 
 use byrokrat\id\IdFactory;
+use byrokrat\id\IdInterface;
 use byrokrat\id\Exception;
 
 /**
@@ -17,8 +18,6 @@ trait Factory
 
     /**
      * Set factory used if this factory fails
-     *
-     * @param IdFactory $factory
      */
     public function __construct(IdFactory $factory = null)
     {
@@ -29,7 +28,7 @@ trait Factory
      * Create ID object from raw id string
      *
      * @param  string $rawId Raw id string
-     * @return \byrokrat\id\Id
+     * @return IdInterface
      */
     public function create($rawId)
     {
@@ -44,7 +43,7 @@ trait Factory
      * Instantiate ID object
      *
      * @param  string $rawId Raw id string
-     * @return \byrokrat\id\Id
+     * @return IdInterface
      */
     abstract protected function createNewInstance($rawId);
 }

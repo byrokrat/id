@@ -5,7 +5,7 @@ namespace byrokrat\id;
 /**
  * Null object implementation of the Id interface
  */
-class NullId implements Id
+class NullId implements IdInterface
 {
     use Component\BaseImplementation, Component\BirthCounty;
 

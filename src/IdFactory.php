@@ -11,7 +11,7 @@ class IdFactory
      * Create ID object from raw id string
      *
      * @param  string $rawId Raw id string
-     * @return void never returns
+     * @return IdInterface
      * @throws Exception\UnableToCreateIdException Always throws exception
      */
     public function create($rawId)

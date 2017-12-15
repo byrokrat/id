@@ -2,7 +2,7 @@
 
 namespace byrokrat\id\Formatter;
 
-use byrokrat\id\Id;
+use byrokrat\id\IdInterface;
 
 /**
  * Id formatter
@@ -48,7 +48,7 @@ class Formatter implements FormatTokens
                 case self::TOKEN_DATE_DAY_NUMERIC:
                 case self::TOKEN_DATE_DAY_NUMERIC_ISO:
                 case self::TOKEN_DATE_DAY_OF_YEAR:
-                    $this->registerFormatter(function (Id $idObjectObject) use ($token) {
+                    $this->registerFormatter(function (IdInterface $idObjectObject) use ($token) {
                         return $idObjectObject->getDate()->format($token);
                     });
                     break;
@@ -86,7 +86,7 @@ class Formatter implements FormatTokens
     public function registerFormatter(callable $formatter)
     {
         $oldFormatter = $this->formatter;
-        $this->formatter = function (Id $idObject) use ($oldFormatter, $formatter) {
+        $this->formatter = function (IdInterface $idObject) use ($oldFormatter, $formatter) {
             return $oldFormatter($idObject) . $formatter($idObject);
         };
     }
@@ -94,10 +94,10 @@ class Formatter implements FormatTokens
     /**
      * Format id using registered formatting functions
      *
-     * @param  Id $idObject
+     * @param  IdInterface $idObject
      * @return string
      */
-    public function format(Id $idObject)
+    public function format(IdInterface $idObject)
     {
         $formatter = $this->formatter;
         return $formatter($idObject);

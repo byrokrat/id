@@ -13,7 +13,7 @@ class CoordinationIdFactory extends IdFactory
      * Instantiate ID object
      *
      * @param  string $rawId Raw id string
-     * @return CoordinationId
+     * @return IdInterface
      */
     protected function createNewInstance($rawId)
     {

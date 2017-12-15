@@ -13,7 +13,7 @@ class OrganizationIdFactory extends IdFactory
      * Instantiate ID object
      *
      * @param  string $rawId Raw id string
-     * @return OrganizationId
+     * @return IdInterface
      */
     protected function createNewInstance($rawId)
     {
