@@ -1,25 +1,21 @@
 <?php
 
-namespace byrokrat\id\Component;
-
-use byrokrat\id\IdFactory;
-use byrokrat\id\IdInterface;
-use byrokrat\id\Exception;
+namespace byrokrat\id;
 
 /**
- * Abstract factory implementation
+ * Abstract factory decorator
  */
-trait Factory
+abstract class AbstractFactoryDecorator extends IdFactory
 {
     /**
-     * @var IdFactory Fallback factory
+     * @var IdFactoryInterface
      */
     private $factory;
 
     /**
      * Set factory used if this factory fails
      */
-    public function __construct(IdFactory $factory = null)
+    public function __construct(IdFactoryInterface $factory = null)
     {
         $this->factory = $factory ?: new IdFactory;
     }

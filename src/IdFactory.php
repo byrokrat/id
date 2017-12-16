@@ -5,7 +5,7 @@ namespace byrokrat\id;
 /**
  * Create ID objects from raw id string
  */
-class IdFactory
+class IdFactory implements IdFactoryInterface
 {
     /**
      * @deprecated Will be removed in version 2. Use createId() instead.
