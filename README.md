@@ -1,18 +1,19 @@
-Byrokrat.Id
-===========
+# Id
 
 [![Packagist Version](https://img.shields.io/packagist/v/byrokrat/id.svg?style=flat-square)](https://packagist.org/packages/byrokrat/id)
 [![Build Status](https://img.shields.io/travis/byrokrat/id/master.svg?style=flat-square)](https://travis-ci.org/byrokrat/id)
 [![Quality Score](https://img.shields.io/scrutinizer/g/byrokrat/id.svg?style=flat-square)](https://scrutinizer-ci.com/g/byrokrat/id)
 [![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/byrokrat/id.svg?style=flat-square)](https://scrutinizer-ci.com/g/byrokrat/id/?branch=master)
-[![Dependency Status](https://img.shields.io/gemnasium/byrokrat/id.svg?style=flat-square)](https://gemnasium.com/byrokrat/id)
 
 Data types for swedish social security and corporation id numbers.
 
 Installation
 ------------
+```shell
+composer require byrokrat/id:^1.0
+```
 
-    composer require byrokrat/id:^1.0
+Id has no userland dependencies.
 
 Usage
 -----
@@ -59,7 +60,7 @@ echo $id->isNonProfit();
 
 ### Class hierarchy
 
-* [`Id`](src/Id.php) The base interface. Look here for a complete API reference.
+* [`IdInterface`](src/IdInterface.php) The base interface. Look here for a complete API reference.
     - [`PersonalId`](src/PersonalId.php) The identification number of a swedish individual
       ([personnummer](http://sv.wikipedia.org/wiki/Personnummer_i_Sverige)).
         + [`CoordinationId`](src/CoordinationId.php) Identifier for non-citizens
@@ -161,4 +162,4 @@ Characters that are not formatting tokens are returned as they are by the format
 | `z`   | The day of the year (starting from 0), 0 through 365
 
 ### Symfony Bundle
-To use these validation rules in your Symfony project see [github.com/jongotlin/IdentityNumberValidatorBundle](https://github.com/jongotlin/IdentityNumberValidatorBundle).
+To use these validation rules in your Symfony project see the third party project [IdentityNumberValidatorBundle](https://github.com/jongotlin/IdentityNumberValidatorBundle).

@@ -2,7 +2,7 @@
 
 namespace byrokrat\id\Component;
 
-use byrokrat\checkdigit\Modulo10;
+use byrokrat\id\Modulo10;
 use byrokrat\id\Exception\InvalidCheckDigitException;
 
 /**
@@ -103,7 +103,7 @@ trait BaseImplementation
      */
     protected function validateCheckDigit()
     {
-        if (!(new Modulo10)->isValid(preg_replace('/[^0-9]/', '', $this->getId()))) {
+        if (!Modulo10::isValid(preg_replace('/[^0-9]/', '', $this->getId()))) {
             throw new InvalidCheckDigitException("Invalid check digit in <{$this->getId()}>");
         }
     }
