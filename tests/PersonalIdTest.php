@@ -145,6 +145,14 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testGetAgeAt()
+    {
+        $this->assertSame(
+            1,
+            (new PersonalId('19820323-2775'))->getAge(new \DateTime('19830323'))
+        );
+    }
+
     public function testGetCentury()
     {
         $this->assertEquals(

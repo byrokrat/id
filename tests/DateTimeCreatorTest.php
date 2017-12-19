@@ -6,10 +6,17 @@ class DateTimeCreatorTest extends \PHPUnit_Framework_TestCase
 {
     public function testCreateFromFormat()
     {
-        $datetime = DateTimeCreator::createFromFormat('Ymd', '20140880');
         $this->assertEquals(
             '2014',
-            $datetime->format('Y')
+            DateTimeCreator::createFromFormat('Ymd', '20140880')->format('Y')
+        );
+    }
+
+    public function testTime()
+    {
+        $this->assertEquals(
+            '00:00:00',
+            DateTimeCreator::createFromFormat('Ymd', '20140880')->format('H:i:s')
         );
     }
 

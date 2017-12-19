@@ -240,11 +240,12 @@ interface Id
     public function getDate();
 
     /**
-     * Get current age
+     * Get age
      *
+     * @param  \DateTime $atDate Date to calculate age at, defaults to current date
      * @return int
      */
-    public function getAge();
+    public function getAge(\DateTimeInterface $atDate = null);
 
     /**
      * Get century part of date, 2 digits

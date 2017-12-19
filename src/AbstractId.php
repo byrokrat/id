@@ -75,9 +75,9 @@ abstract class AbstractId implements IdInterface
         throw new DateNotSupportedException("Trying to access date on id type where it is not supported");
     }
 
-    public function getAge()
+    public function getAge(\DateTimeInterface $atDate = null)
     {
-        return (int)$this->getDate()->diff(new \DateTime)->format('%y');
+        return (int)$this->getDate()->diff($atDate ?: new \DateTime)->format('%y');
     }
 
     public function getCentury()

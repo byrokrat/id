@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Added `IdFactoryInterface`
+- Added `$atDate` parameter to `IdInterface::getAge()`
 
 ### Changed
 - No longer depends on `byrokrat/checkdigit`
