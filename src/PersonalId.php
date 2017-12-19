@@ -73,7 +73,7 @@ class PersonalId extends AbstractId
             $this->date = DateTimeCreator::createFromFormat('Ymd', $century.$this->serialPre);
             $hundredYearsAgo = new \DateTime();
             $hundredYearsAgo->modify('-100 year');
-            $this->delimiter = $this->getDate() < $hundredYearsAgo ? '+' : '-';
+            $this->delimiter = $this->getBirthDate() < $hundredYearsAgo ? '+' : '-';
         } else {
             // No century defined
             $this->date = DateTimeCreator::createFromFormat('ymd', $this->serialPre);
@@ -102,7 +102,7 @@ class PersonalId extends AbstractId
      *
      * @return \DateTime
      */
-    public function getDate()
+    public function getBirthDate()
     {
         return $this->date;
     }
@@ -124,7 +124,7 @@ class PersonalId extends AbstractId
      */
     public function getBirthCounty()
     {
-        if ($this->getDate() < DateTimeCreator::createFromFormat('Ymd', '19900101')) {
+        if ($this->getBirthDate() < DateTimeCreator::createFromFormat('Ymd', '19900101')) {
             $countyNr = (int) substr($this->getSerialPostDelimiter(), 0, 2);
             foreach (self::$birthCountyMap as $limit => $identifier) {
                 if ($countyNr <= $limit) {

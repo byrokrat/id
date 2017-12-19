@@ -62,7 +62,7 @@ class Formatter implements FormatTokens
                 case self::TOKEN_DATE_DAY_NUMERIC_ISO:
                 case self::TOKEN_DATE_DAY_OF_YEAR:
                     $this->registerFormatter(function (IdInterface $idObject) use ($token) {
-                        return $idObject->getDate()->format($token);
+                        return $idObject->getBirthDate()->format($token);
                     });
                     break;
                 case self::TOKEN_DATE_CENTURY:

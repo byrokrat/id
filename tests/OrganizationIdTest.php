@@ -110,7 +110,7 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
     public function testGetDate()
     {
         $this->setExpectedException('byrokrat\id\Exception\DateNotSupportedException');
-        (new OrganizationId('132100-0018'))->getDate();
+        (new OrganizationId('132100-0018'))->getBirthDate();
     }
 
     public function testGetSex()

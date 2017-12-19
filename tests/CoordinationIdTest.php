@@ -114,7 +114,7 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             '1970-10-03',
-            (new CoordinationId('701063-2391'))->getDate()->format('Y\-m\-d')
+            (new CoordinationId('701063-2391'))->getBirthDate()->format('Y\-m\-d')
         );
     }
 

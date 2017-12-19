@@ -237,6 +237,12 @@ interface Id
      *
      * @return \DateTime
      */
+    public function getBirthDate();
+
+    /**
+     * @deprecated Use getBirthDate instead. Will be removed in versin 2.
+     * @return \DateTime
+     */
     public function getDate();
 
     /**

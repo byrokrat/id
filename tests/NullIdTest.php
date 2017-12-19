@@ -54,7 +54,7 @@ class NullIdTest extends \PHPUnit_Framework_TestCase
     public function testGetDate()
     {
         $this->setExpectedException('byrokrat\id\Exception\DateNotSupportedException');
-        (new NullId)->getDate();
+        (new NullId)->getBirthDate();
     }
 
     public function testGetSex()

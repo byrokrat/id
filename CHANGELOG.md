@@ -8,10 +8,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Deprecated
 - The `Id` interface, use `IdInterface` instead
 - `IdFactory::create()`, use `createId()` instead
+- `IdInterface::getDate()`, use `getBirthDate()` instead
 
 ### Added
 - Added `IdFactoryInterface`
 - Added `$atDate` parameter to `IdInterface::getAge()`
+- Added `IdInterface::getBirthDate()`
 
 ### Changed
 - No longer depends on `byrokrat/checkdigit`

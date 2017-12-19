@@ -70,19 +70,25 @@ abstract class AbstractId implements IdInterface
         return $this->checkDigit;
     }
 
-    public function getDate()
+    public function getBirthDate()
     {
         throw new DateNotSupportedException("Trying to access date on id type where it is not supported");
     }
 
+    public function getDate()
+    {
+        trigger_error('getDate() is deprecated, use getBirthDate() instead.', E_USER_DEPRECATED);
+        return $this->getBirthDate();
+    }
+
     public function getAge(\DateTimeInterface $atDate = null)
     {
-        return (int)$this->getDate()->diff($atDate ?: new \DateTime)->format('%y');
+        return (int)$this->getBirthDate()->diff($atDate ?: new \DateTime)->format('%y');
     }
 
     public function getCentury()
     {
-        return substr($this->getDate()->format('Y'), 0, 2);
+        return substr($this->getBirthDate()->format('Y'), 0, 2);
     }
 
     public function getSex()
