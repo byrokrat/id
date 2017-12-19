@@ -31,7 +31,7 @@ class Modulo10
     {
         if (!ctype_digit($number)) {
             throw new Exception\InvalidStructureException(
-                "Number can only contain numerical characters, found <$number>"
+                "Number can only contain numerical characters, found: $number"
             );
         }
 

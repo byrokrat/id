@@ -5,10 +5,8 @@ namespace byrokrat\id;
 /**
  * Null object implementation of the Id interface
  */
-class NullId implements IdInterface
+class NullId extends AbstractId
 {
-    use Component\BaseImplementation, Component\BirthCounty;
-
     /**
      * @var string String returned by getId()
      */

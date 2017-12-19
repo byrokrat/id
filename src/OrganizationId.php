@@ -5,14 +5,12 @@ namespace byrokrat\id;
 /**
  * Swedish organizational identity numbers
  */
-class OrganizationId implements IdInterface
+class OrganizationId extends AbstractId
 {
-    use Component\Structure, Component\BaseImplementation, Component\BirthCounty;
-
     /**
-     * @var string Regular expression describing structure
+     * Regular expression describing id structure
      */
-    protected static $structure = '/^(\d{6})[-]?(\d{3})(\d)$/';
+    const PATTERN = '/^(\d{6})[-]?(\d{3})(\d)$/';
 
     /**
      * @var string[] Map of group number to legal form identifier
@@ -31,14 +29,14 @@ class OrganizationId implements IdInterface
     ];
 
     /**
-     * Set id number
+     * Set organization id number
      *
      * @param  string $number
      * @throws Exception\InvalidStructureException If structure is invalid
      */
     public function __construct($number)
     {
-        list(, $this->serialPre, $this->serialPost, $this->checkDigit) = OrganizationId::parseStructure($number);
+        list(, $this->serialPre, $this->serialPost, $this->checkDigit) = $this->parseNumber(self::PATTERN, $number);
 
         if ($this->serialPre[2] < 2) {
             throw new Exception\InvalidStructureException('Third digit must be at lest 2');
@@ -47,14 +45,6 @@ class OrganizationId implements IdInterface
         $this->validateCheckDigit();
     }
 
-    /**
-     * Get string describing legal form
-     *
-     * NOTE: this is just a hint and does not conclusively determine the legal
-     * status of the organization.
-     *
-     * @return string One of the legal form identifier constants
-     */
     public function getLegalForm()
     {
         return self::$legalFormMap[$this->getSerialPreDelimiter()[0]];

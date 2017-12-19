@@ -6,76 +6,76 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
 {
     public function invalidStructureProvider()
     {
-        return array(
-            array('123456'),
-            array('123456-'),
-            array('-1234'),
-            array('123456-123'),
-            array('123456-12345'),
-            array('1234567-1234'),
-            array('1234567-1234'),
-            array('123456-1A34'),
-            array('12A456-1234'),
-            array('123456+'),
-            array('+1234'),
-            array('123456+123'),
-            array('123456+12345'),
-            array('1234567+1234'),
-            array('1234567+1234'),
-            array('123456+1A34'),
-            array('12A456+1234'),
-        );
+        return [
+            ['123456'],
+            ['123456-'],
+            ['-1234'],
+            ['123456-123'],
+            ['123456-12345'],
+            ['1234567-1234'],
+            ['1234567-1234'],
+            ['123456-1A34'],
+            ['12A456-1234'],
+            ['123456+'],
+            ['+1234'],
+            ['123456+123'],
+            ['123456+12345'],
+            ['1234567+1234'],
+            ['1234567+1234'],
+            ['123456+1A34'],
+            ['12A456+1234'],
+        ];
     }
 
     /**
-     * @expectedException byrokrat\id\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
     public function testInvalidStructure($number)
     {
+        $this->setExpectedException(Exception\InvalidStructureException::CLASS);
         new CoordinationId($number);
     }
 
     public function invalidCheckDigitProvider()
     {
-        return array(
-            array('820383-2770'),
-            array('820383-2771'),
-            array('820383-2775'),
-            array('820383-2773'),
-            array('820383-2774'),
-            array('820383-2776'),
-            array('820383-2777'),
-            array('820383-2778'),
-            array('820383-2779'),
-            array('820383+2770'),
-            array('820383+2771'),
-            array('820383+2775'),
-            array('820383+2773'),
-            array('820383+2774'),
-            array('820383+2776'),
-            array('820383+2777'),
-            array('820383+2778'),
-            array('820383+2779'),
-        );
+        return [
+            ['820383-2770'],
+            ['820383-2771'],
+            ['820383-2775'],
+            ['820383-2773'],
+            ['820383-2774'],
+            ['820383-2776'],
+            ['820383-2777'],
+            ['820383-2778'],
+            ['820383-2779'],
+            ['820383+2770'],
+            ['820383+2771'],
+            ['820383+2775'],
+            ['820383+2773'],
+            ['820383+2774'],
+            ['820383+2776'],
+            ['820383+2777'],
+            ['820383+2778'],
+            ['820383+2779'],
+        ];
     }
 
     /**
-     * @expectedException byrokrat\id\Exception\InvalidCheckDigitException
      * @dataProvider invalidCheckDigitProvider
      */
     public function testInvalidCheckDigit($number)
     {
+        $this->setExpectedException(Exception\InvalidCheckDigitException::CLASS);
         new CoordinationId($number);
     }
 
     public function interchangeableFormulasProvider()
     {
-        return array(
-            array('701063-2391', '7010632391'),
-            array('19701063-2391', '197010632391'),
-            array('19701063-2391', '19701063+2391')
-        );
+        return [
+            ['701063-2391', '7010632391'],
+            ['19701063-2391', '197010632391'],
+            ['19701063-2391', '19701063+2391'],
+        ];
     }
 
     /**

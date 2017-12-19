@@ -10,40 +10,38 @@ namespace byrokrat\id;
  */
 class FakeId extends PersonalId
 {
-    use Component\BirthCounty;
-
     /**
-     * @var string Regular expression describing structure
+     * Regular expression describing id structure
      */
-    protected static $structure = '/^((?:\d\d)?)(\d{6})([-+]?)(xx[12x])(x)$/i';
+    const PATTERN = '/^((?:\d\d)?)(\d{6})([-+]?)(xx[12x])(x)$/i';
 
     /**
+     * Fake personal identity numbers
+     *
      * {@inheritdoc}
      *
      * @param string $number
      */
     public function __construct($number)
     {
-        list(, $century, $datestr, $delimiter, $serialPost, $check) = FakeId::parseStructure($number);
+        list(, $century, $datestr, $delimiter, $serialPost, $check) = $this->parseNumber(self::PATTERN, $number);
         parent::__construct($century . $datestr . $delimiter . '0000');
         $this->serialPost = $serialPost;
         $this->checkDigit = $check;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return string One of the sex identifier constants
-     */
     public function getSex()
     {
         return is_numeric($this->getSerialPostDelimiter()[2]) ? parent::getSex() : self::SEX_UNDEFINED;
     }
 
+    public function getBirthCounty()
+    {
+        return IdInterface::COUNTY_UNDEFINED;
+    }
+
     /**
      * Fake ids always have valid check digits
-     *
-     * @return void
      */
     protected function validateCheckDigit()
     {

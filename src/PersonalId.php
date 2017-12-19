@@ -5,14 +5,12 @@ namespace byrokrat\id;
 /**
  * Swedish personal identity numbers
  */
-class PersonalId implements IdInterface
+class PersonalId extends AbstractId
 {
-    use Component\Structure, Component\BaseImplementation;
-
     /**
-     * @var string Regular expression describing structure
+     * Regular expression describing id structure
      */
-    protected static $structure = '/^((?:\d\d)?)(\d{6})([-+]?)(\d{3})(\d)$/';
+    const PATTERN = '/^((?:\d\d)?)(\d{6})([-+]?)(\d{3})(\d)$/';
 
     /**
      * @var string[] Map of county number high limit to county identifier
@@ -52,7 +50,7 @@ class PersonalId implements IdInterface
     private $date;
 
     /**
-     * Set id
+     * Swedish personal identity numbers
      *
      * Format is YYYYMMDD(+-)NNNC or YYMMDD(+-)NNNC where parenthesis represents
      * an optional one char delimiter, N represents the individual number and C
@@ -66,7 +64,7 @@ class PersonalId implements IdInterface
     public function __construct($number)
     {
         list(, $century, $this->serialPre, $delimiter, $this->serialPost, $this->checkDigit)
-            = PersonalId::parseStructure($number);
+            = $this->parseNumber(self::PATTERN, $number);
 
         $this->delimiter = $delimiter ?: '-';
 

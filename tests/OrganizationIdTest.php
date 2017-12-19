@@ -6,72 +6,72 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
 {
     public function invalidStructureProvider()
     {
-        return array(
-            array('123456'),
-            array('123456+1234'),
-            array('123456-123'),
-            array('123456-12345'),
-            array('12345-1234'),
-            array('1234567-1234'),
-            array('A23456-1234'),
-            array('123456-A234'),
-            array('111111-1234'),
-            array('')
-        );
+            return [
+            ['123456'],
+            ['123456+1234'],
+            ['123456-123'],
+            ['123456-12345'],
+            ['12345-1234'],
+            ['1234567-1234'],
+            ['A23456-1234'],
+            ['123456-A234'],
+            ['111111-1234'],
+            [''],
+        ];
     }
 
     /**
-     * @expectedException byrokrat\id\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
     public function testInvalidStructure($number)
     {
+        $this->setExpectedException(Exception\InvalidStructureException::CLASS);
         new OrganizationId($number);
     }
 
     public function invalidCheckDigitProvider()
     {
-        return array(
-            array('502017-7750'),
-            array('556097-8600'),
-            array('556086-8220'),
-            array('556432-4320'),
-            array('556619-3050'),
-            array('556337-2190'),
-            array('556601-6900'),
-            array('556758-1780'),
-            array('232100-0010'),
-            array('202100-5480'),
-            array('835000-0890'),
-            array('702001-7780'),
-        );
+        return [
+            ['502017-7750'],
+            ['556097-8600'],
+            ['556086-8220'],
+            ['556432-4320'],
+            ['556619-3050'],
+            ['556337-2190'],
+            ['556601-6900'],
+            ['556758-1780'],
+            ['232100-0010'],
+            ['202100-5480'],
+            ['835000-0890'],
+            ['702001-7780'],
+        ];
     }
 
     /**
-     * @expectedException byrokrat\id\Exception\InvalidCheckDigitException
      * @dataProvider invalidCheckDigitProvider
      */
     public function testInvalidCheckDigit($number)
     {
+        $this->setExpectedException(Exception\InvalidCheckDigitException::CLASS);
         new OrganizationId($number);
     }
 
     public function validProvider()
     {
-        return array(
-            array('502017-7753'),
-            array('556097-8602'),
-            array('556086-8225'),
-            array('556432-4324'),
-            array('556619-3057'),
-            array('556337-2191'),
-            array('556601-6902'),
-            array('556758-1789'),
-            array('232100-0016'),
-            array('202100-5489'),
-            array('835000-0892'),
-            array('702001-7781'),
-        );
+        return [
+            ['502017-7753'],
+            ['556097-8602'],
+            ['556086-8225'],
+            ['556432-4324'],
+            ['556619-3057'],
+            ['556337-2191'],
+            ['556601-6902'],
+            ['556758-1789'],
+            ['232100-0016'],
+            ['202100-5489'],
+            ['835000-0892'],
+            ['702001-7781'],
+        ];
     }
 
     /**

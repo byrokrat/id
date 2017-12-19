@@ -282,6 +282,13 @@ interface Id
     public function isSexUndefined();
 
     /**
+     * Get string describing birth county
+     *
+     * @return string One of the birth county identifier constants
+     */
+    public function getBirthCounty();
+
+    /**
      * Get string describing legal form
      *
      * NOTE: this is just a hint and does not conclusively determine the legal
@@ -339,11 +346,4 @@ interface Id
      * @return boolean
      */
     public function isTradingCompany();
-
-    /**
-     * Get string describing birth county
-     *
-     * @return string One of the birth county identifier constants
-     */
-    public function getBirthCounty();
 }

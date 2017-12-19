@@ -6,48 +6,47 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
 {
     public function invalidStructureProvider()
     {
-        return array(
-            array('123456'),
-            array('123456-'),
-            array('-1234'),
-            array('123456-123'),
-            array('123456-12345'),
-            array('1234567-1234'),
-            array('1234567-1234'),
-            array('123456-1A34'),
-            array('12A456-1234'),
-            array('123456+'),
-            array('+1234'),
-            array('123456+123'),
-            array('123456+12345'),
-            array('1234567+1234'),
-            array('1234567+1234'),
-            array('123456+1A34'),
-            array('12A456+1234'),
-
-            array('123456-1234'),
-            array('123456+1234'),
-            array('820323-2775'),
-            array('820323+2775'),
-        );
+        return [
+            ['123456'],
+            ['123456-'],
+            ['-1234'],
+            ['123456-123'],
+            ['123456-12345'],
+            ['1234567-1234'],
+            ['1234567-1234'],
+            ['123456-1A34'],
+            ['12A456-1234'],
+            ['123456+'],
+            ['+1234'],
+            ['123456+123'],
+            ['123456+12345'],
+            ['1234567+1234'],
+            ['1234567+1234'],
+            ['123456+1A34'],
+            ['12A456+1234'],
+            ['123456-1234'],
+            ['123456+1234'],
+            ['820323-2775'],
+            ['820323+2775'],
+        ];
     }
 
     /**
-     * @expectedException byrokrat\id\Exception\InvalidStructureException
      * @dataProvider invalidStructureProvider
      */
     public function testInvalidStructure($number)
     {
+        $this->setExpectedException(Exception\InvalidStructureException::CLASS);
         new FakeId($number);
     }
 
     public function interchangeableFormulasProvider()
     {
-        return array(
-            array('820323-xxxx', '820323xxxx'),
-            array('19820323-xxxx', '19820323xxxx'),
-            array('19820323-xxxx', '19820323+xxxx')
-        );
+        return [
+            ['820323-xxxx', '820323xxxx'],
+            ['19820323-xxxx', '19820323xxxx'],
+            ['19820323-xxxx', '19820323+xxxx'],
+        ];
     }
 
     /**
