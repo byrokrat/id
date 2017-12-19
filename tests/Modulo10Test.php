@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace byrokrat\id;
 
 class Modulo10Test extends \PHPUnit_Framework_TestCase
