@@ -15,7 +15,7 @@ class PersonalId extends AbstractId
     /**
      * @var string[] Map of county number high limit to county identifier
      */
-    static private $birthCountyMap = [
+    private static $birthCountyMap = [
         13 => Id::COUNTY_STOCKHOLM,
         15 => Id::COUNTY_UPPSALA,
         18 => Id::COUNTY_SODERMANLAND,

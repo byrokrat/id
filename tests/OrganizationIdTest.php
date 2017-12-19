@@ -6,7 +6,7 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
 {
     public function invalidStructureProvider()
     {
-            return [
+        return [
             ['123456'],
             ['123456+1234'],
             ['123456-123'],

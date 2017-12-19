@@ -9,7 +9,20 @@ use byrokrat\id\IdInterface;
  */
 class Formatter implements FormatTokens
 {
-    use FormattingFunctions;
+    /**
+     * @var string[] Maps tokens to formatting functions
+     */
+    private static $tokenMap = [
+        self::TOKEN_DATE_CENTURY => 'formatCentury',
+        self::TOKEN_SERIAL_PRE => 'formatSerialPre',
+        self::TOKEN_SERIAL_POST => 'formatSerialPost',
+        self::TOKEN_DELIMITER => 'formatDelimiter',
+        self::TOKEN_CHECK_DIGIT => 'formatCheckDigit',
+        self::TOKEN_SEX => 'formatSex',
+        self::TOKEN_AGE => 'formatAge',
+        self::TOKEN_LEGAL_FORM => 'formatLegalForm',
+        self::TOKEN_BIRTH_COUNTY => 'formatBirthCounty'
+    ];
 
     /**
      * @var \Closure Formatting function, takes an Id object and returns a string
@@ -48,8 +61,8 @@ class Formatter implements FormatTokens
                 case self::TOKEN_DATE_DAY_NUMERIC:
                 case self::TOKEN_DATE_DAY_NUMERIC_ISO:
                 case self::TOKEN_DATE_DAY_OF_YEAR:
-                    $this->registerFormatter(function (IdInterface $idObjectObject) use ($token) {
-                        return $idObjectObject->getDate()->format($token);
+                    $this->registerFormatter(function (IdInterface $idObject) use ($token) {
+                        return $idObject->getDate()->format($token);
                     });
                     break;
                 case self::TOKEN_DATE_CENTURY:
@@ -101,5 +114,104 @@ class Formatter implements FormatTokens
     {
         $formatter = $this->formatter;
         return $formatter($idObject);
+    }
+
+    /**
+     * Format birth date century
+     *
+     * @param  IdInterface $idObject
+     * @return string
+     */
+    private function formatCentury(IdInterface $idObject)
+    {
+        return $idObject->getCentury();
+    }
+
+    /**
+     * Format serial number pre delimiter
+     *
+     * @param  IdInterface $idObject
+     * @return string
+     */
+    private function formatSerialPre(IdInterface $idObject)
+    {
+        return $idObject->getSerialPreDelimiter();
+    }
+
+    /**
+     * Format serial number post delimiter
+     *
+     * @param  IdInterface $idObject
+     * @return string
+     */
+    private function formatSerialPost(IdInterface $idObject)
+    {
+        return $idObject->getSerialPostDelimiter();
+    }
+
+    /**
+     * Format delimiter
+     *
+     * @param  IdInterface $idObject
+     * @return string
+     */
+    private function formatDelimiter(IdInterface $idObject)
+    {
+        return $idObject->getDelimiter();
+    }
+
+    /**
+     * Format check digit
+     *
+     * @param  IdInterface $idObject
+     * @return string
+     */
+    private function formatCheckDigit(IdInterface $idObject)
+    {
+        return $idObject->getCheckDigit();
+    }
+
+    /**
+     * Format sex
+     *
+     * @param  IdInterface $idObject
+     * @return string
+     */
+    private function formatSex(IdInterface $idObject)
+    {
+        return $idObject->getSex();
+    }
+
+    /**
+     * Format age
+     *
+     * @param  IdInterface $idObject
+     * @return string
+     */
+    private function formatAge(IdInterface $idObject)
+    {
+        return (string)$idObject->getAge();
+    }
+
+    /**
+     * Format legal form
+     *
+     * @param  IdInterface $idObject
+     * @return string
+     */
+    private function formatLegalForm(IdInterface $idObject)
+    {
+        return $idObject->getLegalForm();
+    }
+
+    /**
+     * Format birth county
+     *
+     * @param  IdInterface $idObject
+     * @return string
+     */
+    private function formatBirthCounty(IdInterface $idObject)
+    {
+        return $idObject->getBirthCounty();
     }
 }

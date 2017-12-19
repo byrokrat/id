@@ -15,7 +15,7 @@ class OrganizationId extends AbstractId
     /**
      * @var string[] Map of group number to legal form identifier
      */
-    static private $legalFormMap = [
+    private static $legalFormMap = [
         0 => self::LEGAL_FORM_UNDEFINED,
         1 => self::LEGAL_FORM_UNDEFINED,
         2 => self::LEGAL_FORM_STATE_PARISH,
