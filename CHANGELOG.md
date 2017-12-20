@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Nothing...
+
+## [1.1.0] - 2017-12-20
+
 ### Deprecated
 - The `Id` interface, use `IdInterface` instead
 - `IdFactory::create()`, use `createId()` instead
