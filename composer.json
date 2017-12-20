@@ -4,7 +4,7 @@
     "keywords": ["personnummer", "organisationsnummer", "personal id", "social security number", "id", "corporation id"],
     "homepage": "https://github.com/byrokrat/id",
     "type": "library",
-    "license": "WTFPL",
+    "license": "Unlicense",
     "authors": [
         {
             "name": "Hannes Forsgård",
