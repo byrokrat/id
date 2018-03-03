@@ -2,7 +2,9 @@
 
 namespace byrokrat\id;
 
-class IdFactoryTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class IdFactoryTest extends TestCase
 {
     public function testPersonalIdFactory()
     {
@@ -54,7 +56,7 @@ class IdFactoryTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->setExpectedException('byrokrat\id\Exception');
+        $this->expectException('byrokrat\id\Exception');
         $factory->createId('unvalid id');
     }
 }

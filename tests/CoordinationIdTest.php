@@ -2,7 +2,9 @@
 
 namespace byrokrat\id;
 
-class CoordinationIdTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class CoordinationIdTest extends TestCase
 {
     public function invalidStructureProvider()
     {
@@ -32,7 +34,7 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidStructure($number)
     {
-        $this->setExpectedException(Exception\InvalidStructureException::CLASS);
+        $this->expectException(Exception\InvalidStructureException::CLASS);
         new CoordinationId($number);
     }
 
@@ -65,7 +67,7 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidCheckDigit($number)
     {
-        $this->setExpectedException(Exception\InvalidCheckDigitException::CLASS);
+        $this->expectException(Exception\InvalidCheckDigitException::CLASS);
         new CoordinationId($number);
     }
 

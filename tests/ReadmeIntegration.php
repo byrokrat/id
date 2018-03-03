@@ -3,11 +3,12 @@
 namespace byrokrat\id;
 
 use hanneskod\readmetester\PHPUnit\AssertReadme;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @coversNothing
  */
-class ReadmeIntegration extends \PHPUnit_Framework_TestCase
+class ReadmeIntegration extends TestCase
 {
     public function testReadmeIntegrationTests()
     {
