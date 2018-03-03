@@ -3,12 +3,8 @@ sudo: false
 language: php
 
 php:
-  - hhvm
   - 7.2
   - 7.1
-  - 7.0
-  - 5.6
-  - 5.5
 
 install:
   - composer install
@@ -17,9 +13,9 @@ before_script:
   - composer update --prefer-source $PREFER_LOWEST
 
 script:
-  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then vendor/bin/phpunit --coverage-clover=coverage.clover ; fi
-  - if [[ "$TRAVIS_PHP_VERSION" != '7.0' ]]; then vendor/bin/phpunit ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then vendor/bin/phpunit --coverage-clover=coverage.clover ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" != '7.1' ]]; then vendor/bin/phpunit ; fi
 
 after_script:
-  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
-  - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi

@@ -2,7 +2,9 @@
 
 namespace byrokrat\id;
 
-class Modulo10Test extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class Modulo10Test extends TestCase
 {
     public function invalidStructureProvider()
     {
@@ -18,7 +20,7 @@ class Modulo10Test extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidStructureIsValid($number)
     {
-        $this->setExpectedException(Exception\InvalidStructureException::CLASS);
+        $this->expectException(Exception\InvalidStructureException::CLASS);
         Modulo10::isValid($number);
     }
 
@@ -27,7 +29,7 @@ class Modulo10Test extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidStructureCalculateCheckDigit($number)
     {
-        $this->setExpectedException(Exception\InvalidStructureException::CLASS);
+        $this->expectException(Exception\InvalidStructureException::CLASS);
         Modulo10::calculateCheckDigit($number);
     }
 

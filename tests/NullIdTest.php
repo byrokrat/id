@@ -2,7 +2,9 @@
 
 namespace byrokrat\id;
 
-class NullIdTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class NullIdTest extends TestCase
 {
     public function testGetSerialPreDelimiter()
     {
@@ -53,7 +55,7 @@ class NullIdTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDate()
     {
-        $this->setExpectedException('byrokrat\id\Exception\DateNotSupportedException');
+        $this->expectException('byrokrat\id\Exception\DateNotSupportedException');
         (new NullId)->getBirthDate();
     }
 

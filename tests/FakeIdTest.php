@@ -2,7 +2,9 @@
 
 namespace byrokrat\id;
 
-class FakeIdTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class FakeIdTest extends TestCase
 {
     public function invalidStructureProvider()
     {
@@ -36,7 +38,7 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidStructure($number)
     {
-        $this->setExpectedException(Exception\InvalidStructureException::CLASS);
+        $this->expectException(Exception\InvalidStructureException::CLASS);
         new FakeId($number);
     }
 

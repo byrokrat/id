@@ -2,7 +2,9 @@
 
 namespace byrokrat\id;
 
-class PersonalIdTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PersonalIdTest extends TestCase
 {
     public function invalidStructureProvider()
     {
@@ -37,7 +39,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidStructure($number)
     {
-        $this->setExpectedException(Exception\InvalidStructureException::CLASS);
+        $this->expectException(Exception\InvalidStructureException::CLASS);
         new PersonalId($number);
     }
 
@@ -70,7 +72,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidCheckDigit($number)
     {
-        $this->setExpectedException(Exception\InvalidCheckDigitException::CLASS);
+        $this->expectException(Exception\InvalidCheckDigitException::CLASS);
         new PersonalId($number);
     }
 
@@ -132,7 +134,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidDateException()
     {
-        $this->setExpectedException('byrokrat\id\Exception\InvalidDateStructureException');
+        $this->expectException('byrokrat\id\Exception\InvalidDateStructureException');
         // 001301 is not a valid date
         new PersonalId('001301-0004');
     }

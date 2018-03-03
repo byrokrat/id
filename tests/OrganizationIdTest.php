@@ -2,7 +2,9 @@
 
 namespace byrokrat\id;
 
-class OrganizationIdTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class OrganizationIdTest extends TestCase
 {
     public function invalidStructureProvider()
     {
@@ -25,7 +27,7 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidStructure($number)
     {
-        $this->setExpectedException(Exception\InvalidStructureException::CLASS);
+        $this->expectException(Exception\InvalidStructureException::CLASS);
         new OrganizationId($number);
     }
 
@@ -52,7 +54,7 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidCheckDigit($number)
     {
-        $this->setExpectedException(Exception\InvalidCheckDigitException::CLASS);
+        $this->expectException(Exception\InvalidCheckDigitException::CLASS);
         new OrganizationId($number);
     }
 
@@ -109,7 +111,7 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDate()
     {
-        $this->setExpectedException('byrokrat\id\Exception\DateNotSupportedException');
+        $this->expectException('byrokrat\id\Exception\DateNotSupportedException');
         (new OrganizationId('132100-0018'))->getBirthDate();
     }
 

@@ -2,7 +2,9 @@
 
 namespace byrokrat\id;
 
-class DateTimeCreatorTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class DateTimeCreatorTest extends TestCase
 {
     public function testCreateFromFormat()
     {
@@ -22,7 +24,7 @@ class DateTimeCreatorTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateFromFormatException()
     {
-        $this->setExpectedException('byrokrat\id\Exception\InvalidDateStructureException');
+        $this->expectException('byrokrat\id\Exception\InvalidDateStructureException');
         DateTimeCreator::createFromFormat('ymd', '14xx80');
     }
 }
