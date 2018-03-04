@@ -45,7 +45,7 @@ class PersonalId extends AbstractId
     ];
 
     /**
-     * @var \DateTime Date of birth
+     * @var \DateTimeImmutable Date of birth
      */
     private $date;
 
@@ -70,29 +70,31 @@ class PersonalId extends AbstractId
 
         if ($century) {
             // Set delimiter based on date (+ if date is more then a hundred years old)
-            $this->date = DateTimeCreator::createFromFormat('Ymd', $century.$this->serialPre);
+            $date = DateTimeCreator::createFromFormat('Ymd', $century.$this->serialPre);
             $hundredYearsAgo = new \DateTime();
             $hundredYearsAgo->modify('-100 year');
-            $this->delimiter = $this->getBirthDate() < $hundredYearsAgo ? '+' : '-';
+            $this->delimiter = $date < $hundredYearsAgo ? '+' : '-';
         } else {
             // No century defined
-            $this->date = DateTimeCreator::createFromFormat('ymd', $this->serialPre);
+            $date = DateTimeCreator::createFromFormat('ymd', $this->serialPre);
 
             // If in the future century is wrong
-            if ($this->date > new \DateTime) {
-                $this->date->modify('-100 year');
+            if ($date > new \DateTime()) {
+                $date->modify('-100 year');
             }
 
             // Date is over a hundred years ago if delimiter is +
             if ($this->getDelimiter() == '+') {
-                $this->date->modify('-100 year');
+                $date->modify('-100 year');
             }
         }
 
         // Validate that date is logically valid
-        if ($this->date->format('ymd') != $this->serialPre) {
+        if ($date->format('ymd') != $this->serialPre) {
             throw new Exception\InvalidDateStructureException("Invalid date in <{$this->getId()}>");
         }
+
+        $this->date = \DateTimeImmutable::createFromMutable($date);
 
         $this->validateCheckDigit();
     }
@@ -100,7 +102,7 @@ class PersonalId extends AbstractId
     /**
      * Get date of birth
      *
-     * @return \DateTime
+     * @return \DateTimeImmutable
      */
     public function getBirthDate()
     {
