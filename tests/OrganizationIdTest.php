@@ -9,6 +9,7 @@ class OrganizationIdTest extends TestCase
     public function invalidStructureProvider()
     {
         return [
+            [null],
             ['123456'],
             ['123456+1234'],
             ['123456-123'],

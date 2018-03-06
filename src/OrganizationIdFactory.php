@@ -7,7 +7,7 @@ namespace byrokrat\id;
  */
 class OrganizationIdFactory extends AbstractFactoryDecorator
 {
-    protected function createNewInstance($raw)
+    protected function createNewInstance(?string $raw): IdInterface
     {
         return new OrganizationId($raw);
     }

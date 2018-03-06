@@ -45,18 +45,4 @@ class IdFactoryTest extends TestCase
             (new NullIdFactory)->createId('')
         );
     }
-
-    public function testDecoration()
-    {
-        $factory = new OrganizationIdFactory(
-            new FakeIdFactory(
-                new PersonalIdFactory(
-                    new CoordinationIdFactory
-                )
-            )
-        );
-
-        $this->expectException('byrokrat\id\Exception');
-        $factory->createId('unvalid id');
-    }
 }

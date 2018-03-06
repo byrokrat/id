@@ -15,7 +15,7 @@ class CoordinationId extends PersonalId
      *
      * {@inheritdoc}
      *
-     * @param string $number
+     * @param string|null $number
      */
     public function __construct($number)
     {
@@ -24,12 +24,12 @@ class CoordinationId extends PersonalId
         parent::__construct($century.$dob.$delim.$serialPost.$check);
     }
 
-    public function getSerialPreDelimiter()
+    public function getSerialPreDelimiter(): string
     {
         return (string) intval(parent::getSerialPreDelimiter()) + 60;
     }
 
-    public function getBirthCounty()
+    public function getBirthCounty(): string
     {
         return IdInterface::COUNTY_UNDEFINED;
     }

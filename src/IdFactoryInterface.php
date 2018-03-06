@@ -13,5 +13,5 @@ interface IdFactoryInterface
      * @param  string $raw Raw id string
      * @return IdInterface
      */
-    public function createId($raw);
+    public function createId(?string $raw): IdInterface;
 }
