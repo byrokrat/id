@@ -12,7 +12,7 @@ class AbstractFactoryDecoratorTest extends TestCase
             public function createNewInstance(?string $raw): IdInterface {}
         };
 
-        $this->assertInstanceOf(IdFactory::class, $factory);
+        $this->assertInstanceOf(IdFactoryInterface::class, $factory);
     }
 
     public function testCreateId()
@@ -23,12 +23,12 @@ class AbstractFactoryDecoratorTest extends TestCase
             }
         };
 
-        $this->assertInstanceOf(AbstractId::class, $factory->createId('123'));
+        $this->assertInstanceOf(IdInterface::class, $factory->createId('123'));
     }
 
     public function testUseNextFactoryIfIdCannotBeCreated()
     {
-        $nextFactory = $this->createMock(AbstractFactoryDecorator::class);
+        $nextFactory = $this->createMock(IdFactoryInterface::class);
         $nextFactory->expects($this->once())->method('createId');
 
         $factory = new class($nextFactory) extends AbstractFactoryDecorator {
