@@ -9,7 +9,6 @@ class CoordinationIdTest extends TestCase
     public function invalidStructureProvider()
     {
         return [
-            [null],
             [''],
             ['123456'],
             ['123456-'],

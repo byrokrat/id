@@ -23,10 +23,10 @@ abstract class AbstractFactoryDecorator extends IdFactory
     /**
      * Create ID object from raw id string
      *
-     * @param  string|null $raw Raw id string
+     * @param  string $raw Raw id string
      * @return IdInterface
      */
-    public function createId(?string $raw): IdInterface
+    public function createId(string $raw): IdInterface
     {
         try {
             return $this->createNewInstance($raw);
@@ -41,5 +41,5 @@ abstract class AbstractFactoryDecorator extends IdFactory
      * @param  string $raw Raw id string
      * @return IdInterface
      */
-    abstract protected function createNewInstance(?string $raw): IdInterface;
+    abstract protected function createNewInstance(string $raw): IdInterface;
 }

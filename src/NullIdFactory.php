@@ -7,7 +7,7 @@ namespace byrokrat\id;
  */
 class NullIdFactory extends IdFactory
 {
-    public function createId(?string $raw): IdInterface
+    public function createId(string $raw): IdInterface
     {
         return new NullId();
     }

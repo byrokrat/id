@@ -15,9 +15,9 @@ class CoordinationId extends PersonalId
      *
      * {@inheritdoc}
      *
-     * @param string|null $number
+     * @param string $number
      */
-    public function __construct($number)
+    public function __construct(string $number)
     {
         list(, $century, $datestr, $delim, $serialPost, $check) = $this->parseNumber(self::PATTERN, $number);
         $dob = intval($datestr) - 60;
