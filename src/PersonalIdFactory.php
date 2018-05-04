@@ -7,7 +7,7 @@ namespace byrokrat\id;
  */
 class PersonalIdFactory extends AbstractFactoryDecorator
 {
-    protected function createNewInstance($raw)
+    protected function createNewInstance(string $raw): IdInterface
     {
         return new PersonalId($raw);
     }

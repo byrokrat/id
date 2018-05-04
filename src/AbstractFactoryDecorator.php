@@ -17,7 +17,7 @@ abstract class AbstractFactoryDecorator extends IdFactory
      */
     public function __construct(IdFactoryInterface $factory = null)
     {
-        $this->factory = $factory ?: new IdFactory;
+        $this->factory = $factory ?: new IdFactory();
     }
 
     /**
@@ -26,7 +26,7 @@ abstract class AbstractFactoryDecorator extends IdFactory
      * @param  string $raw Raw id string
      * @return IdInterface
      */
-    public function createId($raw)
+    public function createId(string $raw): IdInterface
     {
         try {
             return $this->createNewInstance($raw);
@@ -41,5 +41,5 @@ abstract class AbstractFactoryDecorator extends IdFactory
      * @param  string $raw Raw id string
      * @return IdInterface
      */
-    abstract protected function createNewInstance($raw);
+    abstract protected function createNewInstance(string $raw): IdInterface;
 }

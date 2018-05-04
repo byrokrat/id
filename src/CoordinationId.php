@@ -17,19 +17,19 @@ class CoordinationId extends PersonalId
      *
      * @param string $number
      */
-    public function __construct($number)
+    public function __construct(string $number)
     {
         list(, $century, $datestr, $delim, $serialPost, $check) = $this->parseNumber(self::PATTERN, $number);
         $dob = intval($datestr) - 60;
         parent::__construct($century.$dob.$delim.$serialPost.$check);
     }
 
-    public function getSerialPreDelimiter()
+    public function getSerialPreDelimiter(): string
     {
         return (string) intval(parent::getSerialPreDelimiter()) + 60;
     }
 
-    public function getBirthCounty()
+    public function getBirthCounty(): string
     {
         return IdInterface::COUNTY_UNDEFINED;
     }

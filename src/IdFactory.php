@@ -27,7 +27,7 @@ class IdFactory implements IdFactoryInterface
      * @return IdInterface
      * @throws Exception\UnableToCreateIdException If unable to create id
      */
-    public function createId($raw)
+    public function createId(string $raw): IdInterface
     {
         throw new Exception\UnableToCreateIdException("Unable to create ID for number '{$raw}'");
     }
