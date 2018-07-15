@@ -58,7 +58,7 @@ class Formatter implements FormatTokens
                 case self::TOKEN_DATE_DAY_NUMERIC:
                 case self::TOKEN_DATE_DAY_NUMERIC_ISO:
                 case self::TOKEN_DATE_DAY_OF_YEAR:
-                    $this->registerFormatter(function (IdInterface $idObject) use ($token) {
+                    $this->registerFormattingFunction(function (IdInterface $idObject) use ($token) {
                         return $idObject->getBirthDate()->format($token);
                     });
                     break;
@@ -71,31 +71,18 @@ class Formatter implements FormatTokens
                 case self::TOKEN_AGE:
                 case self::TOKEN_LEGAL_FORM:
                 case self::TOKEN_BIRTH_COUNTY:
-                    $this->registerFormatter([$this, self::$tokenMap[$token]]);
+                    $this->registerFormattingFunction([$this, self::$tokenMap[$token]]);
                     break;
                 case self::TOKEN_ESCAPE:
                     $escape = $token;
                     break;
                 default:
                     $escape = '';
-                    $this->registerFormatter(function () use ($token) {
+                    $this->registerFormattingFunction(function () use ($token) {
                         return $token;
                     });
             }
         }
-    }
-
-    /**
-     * Register formatting function
-     *
-     * Registered function must take an Id object and return a string
-     */
-    public function registerFormatter(callable $formatter): void
-    {
-        $oldFormatter = $this->formatter;
-        $this->formatter = function (IdInterface $idObject) use ($oldFormatter, $formatter) {
-            return $oldFormatter($idObject) . $formatter($idObject);
-        };
     }
 
     /**
@@ -104,6 +91,17 @@ class Formatter implements FormatTokens
     public function format(IdInterface $idObject): string
     {
         return ($this->formatter)($idObject);
+    }
+
+    /**
+     * Function must take an Id object and return a string
+     */
+    private function registerFormattingFunction(callable $formatter): void
+    {
+        $oldFormatter = $this->formatter;
+        $this->formatter = function (IdInterface $idObject) use ($oldFormatter, $formatter) {
+            return $oldFormatter($idObject) . $formatter($idObject);
+        };
     }
 
     private function formatCentury(IdInterface $idObject): string
