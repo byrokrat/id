@@ -77,12 +77,6 @@ abstract class AbstractId implements IdInterface
         throw new DateNotSupportedException("Trying to access date on id type where it is not supported");
     }
 
-    public function getDate(): \DateTimeImmutable
-    {
-        trigger_error('getDate() is deprecated, use getBirthDate() instead.', E_USER_DEPRECATED);
-        return $this->getBirthDate();
-    }
-
     public function getAge(\DateTimeInterface $atDate = null): int
     {
         return (int)$this->getBirthDate()->diff($atDate ?: new \DateTime)->format('%y');

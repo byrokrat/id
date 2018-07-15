@@ -107,19 +107,19 @@ class FakeIdTest extends TestCase
     public function testGetSex()
     {
         $fakeId = new FakeId('820323-xx1x');
-        $this->assertEquals(Id::SEX_MALE, $fakeId->getSex());
+        $this->assertEquals(IdInterface::SEX_MALE, $fakeId->getSex());
         $this->assertTrue($fakeId->isMale());
         $this->assertFalse($fakeId->isFemale());
         $this->assertFalse($fakeId->isSexUndefined());
 
         $fakeId = new FakeId('770314-xx2x');
-        $this->assertEquals(Id::SEX_FEMALE, $fakeId->getSex());
+        $this->assertEquals(IdInterface::SEX_FEMALE, $fakeId->getSex());
         $this->assertFalse($fakeId->isMale());
         $this->assertTrue($fakeId->isFemale());
         $this->assertFalse($fakeId->isSexUndefined());
 
         $fakeId = new FakeId('770314-xxxx');
-        $this->assertEquals(Id::SEX_UNDEFINED, $fakeId->getSex());
+        $this->assertEquals(IdInterface::SEX_UNDEFINED, $fakeId->getSex());
         $this->assertFalse($fakeId->isMale());
         $this->assertFalse($fakeId->isFemale());
         $this->assertTrue($fakeId->isSexUndefined());
@@ -128,7 +128,7 @@ class FakeIdTest extends TestCase
     public function testGetBirthCounty()
     {
         $this->assertEquals(
-            Id::COUNTY_UNDEFINED,
+            IdInterface::COUNTY_UNDEFINED,
             (new FakeId('770314-xxxx'))->getBirthCounty()
         );
     }

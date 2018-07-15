@@ -115,7 +115,7 @@ class CoordinationIdTest extends TestCase
         );
     }
 
-    public function testGetDate()
+    public function testGetBirthDate()
     {
         $this->assertEquals(
             '1970-10-03',
@@ -139,12 +139,12 @@ class CoordinationIdTest extends TestCase
     public function testGetSex()
     {
         $this->assertEquals(
-            Id::SEX_MALE,
+            IdInterface::SEX_MALE,
             (new CoordinationId('701063-2391'))->getSex()
         );
 
         $this->assertEquals(
-            Id::SEX_FEMALE,
+            IdInterface::SEX_FEMALE,
             (new CoordinationId('770374-0345'))->getSex()
         );
     }
@@ -152,7 +152,7 @@ class CoordinationIdTest extends TestCase
     public function testGetBirthCounty()
     {
         $this->assertEquals(
-            Id::COUNTY_UNDEFINED,
+            IdInterface::COUNTY_UNDEFINED,
             (new CoordinationId('770374-0345'))->getBirthCounty()
         );
     }
