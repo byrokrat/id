@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace byrokrat\id;
 
-abstract class AbstractFactoryDecorator extends IdFactory
+abstract class AbstractFactoryDecorator implements IdFactoryInterface
 {
     /**
      * @var IdFactoryInterface
@@ -16,7 +16,7 @@ abstract class AbstractFactoryDecorator extends IdFactory
      */
     public function __construct(IdFactoryInterface $factory = null)
     {
-        $this->factory = $factory ?: new IdFactory();
+        $this->factory = $factory ?: new FailingIdFactory();
     }
 
     public function createId(string $raw): IdInterface

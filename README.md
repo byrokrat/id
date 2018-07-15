@@ -83,8 +83,8 @@ Creating ID objects can be complicated.
 * At times you may wish to process persons without a valid swedish personal id,
   using the `FakeId` implementation.
 
-To solve these difficulties a decoratable `IdFactory` is included. Create a factory
-with the abilities you need by chaining factory objects at creation time.
+To solve these difficulties a decoratable set of factories is included. Create a
+factory with the abilities you need by chaining factory objects at creation time.
 
 <!-- @expectError -->
 ```php

@@ -6,7 +6,7 @@ namespace byrokrat\id;
 
 use PHPUnit\Framework\TestCase;
 
-class IdFactoryTest extends TestCase
+class IdFactoriesTest extends TestCase
 {
     public function testPersonalIdFactory()
     {
@@ -46,5 +46,11 @@ class IdFactoryTest extends TestCase
             NullId::CLASS,
             (new NullIdFactory)->createId('')
         );
+    }
+
+    public function testFailingIdFactory()
+    {
+        $this->expectException(Exception\UnableToCreateIdException::CLASS);
+        (new FailingIdFactory)->createId('');
     }
 }

@@ -5,8 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-- Requires php `7.1`.
-- Removed deprecated symbols.
+- Requires php `7.1`
+- Removed deprecated symbols
+- Renamed `IdFactory` => `FailingIdFactory`
 
 ## [1.1.0] - 2017-12-20
 

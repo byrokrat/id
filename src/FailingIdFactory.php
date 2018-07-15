@@ -5,9 +5,9 @@ declare(strict_types = 1);
 namespace byrokrat\id;
 
 /**
- * Create ID objects from raw id string
+ * Id factory that always fails
  */
-class IdFactory implements IdFactoryInterface
+class FailingIdFactory implements IdFactoryInterface
 {
     public function createId(string $raw): IdInterface
     {
