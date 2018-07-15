@@ -8,14 +8,9 @@ php:
 
 install:
   - composer install
-
-before_script:
-  - composer update --prefer-source $PREFER_LOWEST
+  - composer global require chh/bob:^1@alpha
+  - export PATH=$PATH:$HOME/.composer/vendor/bin/
+  - bob install_dev_tools
 
 script:
-  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then vendor/bin/phpunit --coverage-clover=coverage.clover ; fi
-  - if [[ "$TRAVIS_PHP_VERSION" != '7.1' ]]; then vendor/bin/phpunit ; fi
-
-after_script:
-  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
-  - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi
+  - bob

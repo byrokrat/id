@@ -3,20 +3,19 @@
 [![Packagist Version](https://img.shields.io/packagist/v/byrokrat/id.svg?style=flat-square)](https://packagist.org/packages/byrokrat/id)
 [![Build Status](https://img.shields.io/travis/byrokrat/id/master.svg?style=flat-square)](https://travis-ci.org/byrokrat/id)
 [![Quality Score](https://img.shields.io/scrutinizer/g/byrokrat/id.svg?style=flat-square)](https://scrutinizer-ci.com/g/byrokrat/id)
-[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/byrokrat/id.svg?style=flat-square)](https://scrutinizer-ci.com/g/byrokrat/id/?branch=master)
 
 Data types for swedish social security and corporation id numbers.
 
-Installation
-------------
+## Installation
+
 ```shell
-composer require byrokrat/id:^1.0
+composer require byrokrat/id:^2.0
 ```
 
 Id has no userland dependencies.
 
-Usage
------
+## Usage
+
 <!-- @expectOutput "820323-277519820323-27751982-03-23M1Kronobergs län" -->
 ```php
 use byrokrat\id\PersonalId;
@@ -87,7 +86,7 @@ Creating ID objects can be complicated.
 To solve these difficulties a decoratable `IdFactory` is included. Create a factory
 with the abilities you need by chaining factory objects at creation time.
 
-<!-- @expectException byrokrat\id\Exception\UnableToCreateIdException -->
+<!-- @expectError -->
 ```php
 use byrokrat\id\PersonalIdFactory;
 use byrokrat\id\CoordinationIdFactory;
@@ -161,5 +160,39 @@ Characters that are not formatting tokens are returned as they are by the format
 | `N`   | ISO-8601 numeric representation of the day of the week 1 (for Monday) through 7
 | `z`   | The day of the year (starting from 0), 0 through 365
 
-### Symfony Bundle
-To use these validation rules in your Symfony project see the third party project [IdentityNumberValidatorBundle](https://github.com/jongotlin/IdentityNumberValidatorBundle).
+## Symfony Bundle
+
+To use these validation rules in your Symfony project see the third party project
+[IdentityNumberValidatorBundle](https://github.com/jongotlin/IdentityNumberValidatorBundle).
+
+## Hacking
+
+Install dependencies
+
+```shell
+composer install
+```
+
+Install the bob build environment
+
+```shell
+composer global require chh/bob:^1.0@alpha
+```
+
+If needed put the "global" composer bin dir in your path
+
+```shell
+export PATH=$PATH:$HOME/.composer/vendor/bin/
+```
+
+Install development tools
+
+```shell
+bob install_dev_tools
+```
+
+Run tests
+
+```shell
+bob
+```
