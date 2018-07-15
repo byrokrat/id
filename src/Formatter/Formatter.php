@@ -1,12 +1,11 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id\Formatter;
 
 use byrokrat\id\IdInterface;
 
-/**
- * Id formatter
- */
 class Formatter implements FormatTokens
 {
     /**
@@ -31,10 +30,8 @@ class Formatter implements FormatTokens
 
     /**
      * Create formatter from format string
-     *
-     * @param string $format
      */
-    public function __construct($format = '')
+    public function __construct(string $format = '')
     {
         // Register empty formatting function
         $this->formatter = function () {
@@ -92,11 +89,8 @@ class Formatter implements FormatTokens
      * Register formatting function
      *
      * Registered function must take an Id object and return a string
-     *
-     * @param  callable $formatter Formatting function
-     * @return void
      */
-    public function registerFormatter(callable $formatter)
+    public function registerFormatter(callable $formatter): void
     {
         $oldFormatter = $this->formatter;
         $this->formatter = function (IdInterface $idObject) use ($oldFormatter, $formatter) {
@@ -106,111 +100,53 @@ class Formatter implements FormatTokens
 
     /**
      * Format id using registered formatting functions
-     *
-     * @param  IdInterface $idObject
-     * @return string
      */
-    public function format(IdInterface $idObject)
+    public function format(IdInterface $idObject): string
     {
-        $formatter = $this->formatter;
-        return $formatter($idObject);
+        return ($this->formatter)($idObject);
     }
 
-    /**
-     * Format birth date century
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatCentury(IdInterface $idObject)
+    private function formatCentury(IdInterface $idObject): string
     {
         return $idObject->getCentury();
     }
 
-    /**
-     * Format serial number pre delimiter
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatSerialPre(IdInterface $idObject)
+    private function formatSerialPre(IdInterface $idObject): string
     {
         return $idObject->getSerialPreDelimiter();
     }
 
-    /**
-     * Format serial number post delimiter
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatSerialPost(IdInterface $idObject)
+    private function formatSerialPost(IdInterface $idObject): string
     {
         return $idObject->getSerialPostDelimiter();
     }
 
-    /**
-     * Format delimiter
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatDelimiter(IdInterface $idObject)
+    private function formatDelimiter(IdInterface $idObject): string
     {
         return $idObject->getDelimiter();
     }
 
-    /**
-     * Format check digit
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatCheckDigit(IdInterface $idObject)
+    private function formatCheckDigit(IdInterface $idObject): string
     {
         return $idObject->getCheckDigit();
     }
 
-    /**
-     * Format sex
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatSex(IdInterface $idObject)
+    private function formatSex(IdInterface $idObject): string
     {
         return $idObject->getSex();
     }
 
-    /**
-     * Format age
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatAge(IdInterface $idObject)
+    private function formatAge(IdInterface $idObject): string
     {
         return (string)$idObject->getAge();
     }
 
-    /**
-     * Format legal form
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatLegalForm(IdInterface $idObject)
+    private function formatLegalForm(IdInterface $idObject): string
     {
         return $idObject->getLegalForm();
     }
 
-    /**
-     * Format birth county
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatBirthCounty(IdInterface $idObject)
+    private function formatBirthCounty(IdInterface $idObject): string
     {
         return $idObject->getBirthCounty();
     }

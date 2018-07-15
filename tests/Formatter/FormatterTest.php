@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id\Formatter;
 
 use byrokrat\id\FakeId;

@@ -184,173 +184,124 @@ interface Id
 
     /**
      * Get id as string
-     *
-     * @return string
      */
-    public function getId();
+    public function getId(): string;
 
     /**
      * Get id as string
-     *
-     * @return string
      */
-    public function __tostring();
+    public function __tostring(): string;
 
     /**
      * Format id according to format string
-     *
-     * @param  string $format
-     * @return string
      */
-    public function format($format);
+    public function format(string $format): string;
 
     /**
      * Get part of serial number before delimiter, 6 digits
-     *
-     * @return string
      */
-    public function getSerialPreDelimiter();
+    public function getSerialPreDelimiter(): string;
 
     /**
      * Get part of serial number after delimiter, 3 digits
-     *
-     * @return string
      */
-    public function getSerialPostDelimiter();
+    public function getSerialPostDelimiter(): string;
 
     /**
      * Get delimiter
-     *
-     * @return string
      */
-    public function getDelimiter();
+    public function getDelimiter(): string;
 
     /**
      * Get check digit
-     *
-     * @return string
      */
-    public function getCheckDigit();
+    public function getCheckDigit(): string;
 
     /**
      * Get birth date
-     *
-     * @return \DateTime
      */
-    public function getBirthDate();
+    public function getBirthDate(): \DateTimeImmutable;
 
     /**
      * @deprecated Use getBirthDate instead. Will be removed in versin 2.
-     * @return \DateTime
      */
-    public function getDate();
+    public function getDate(): \DateTimeImmutable;
 
     /**
-     * Get age
-     *
-     * @param  \DateTime $atDate Date to calculate age at, defaults to current date
-     * @return int
+     * Get age at date (defaults to current date)
      */
-    public function getAge(\DateTimeInterface $atDate = null);
+    public function getAge(\DateTimeInterface $atDate = null): int;
 
     /**
      * Get century part of date, 2 digits
-     *
-     * @return string
      */
-    public function getCentury();
+    public function getCentury(): string;
 
     /**
-     * Get sex as denoted by id
-     *
-     * @return string One of the sex identifier constants
+     * Get sex as denoted by id (as one of the sex identifier constants)
      */
-    public function getSex();
+    public function getSex(): string;
 
     /**
      * Check if id represents a male
-     *
-     * @return boolean
      */
-    public function isMale();
+    public function isMale(): bool;
 
     /**
      * Check if id represents a female
-     *
-     * @return boolean
      */
-    public function isFemale();
+    public function isFemale(): bool;
 
     /**
      * Check if sex not applicable
-     *
-     * @return boolean
      */
-    public function isSexUndefined();
+    public function isSexUndefined(): bool;
 
     /**
-     * Get string describing birth county
-     *
-     * @return string One of the birth county identifier constants
+     * Get string describing birth county (one of the birth county identifier constants)
      */
-    public function getBirthCounty();
+    public function getBirthCounty(): string;
 
     /**
-     * Get string describing legal form
+     * Get string describing legal form (one of the legal form identifier constants)
      *
      * NOTE: this is just a hint and does not conclusively determine the legal
      * status of the organization.
-     *
-     * @return string One of the legal form identifier constants
      */
-    public function getLegalForm();
+    public function getLegalForm(): string;
 
     /**
      * Check if id legal form is undefined
-     *
-     * @return boolean
      */
-    public function isLegalFormUndefined();
+    public function isLegalFormUndefined(): bool;
 
     /**
      * Check if id represents a state, county, municipality or parish
-     *
-     * @return boolean
      */
-    public function isStateOrParish();
+    public function isStateOrParish(): bool;
 
     /**
      * Check if id represents a incorporated company
-     *
-     * @return boolean
      */
-    public function isIncorporated();
+    public function isIncorporated(): bool;
 
     /**
      * Check if id represents a partnership
-     *
-     * @return boolean
      */
-    public function isPartnership();
+    public function isPartnership(): bool;
 
     /**
      * Check if id represents a economic association
-     *
-     * @return boolean
      */
-    public function isAssociation();
+    public function isAssociation(): bool;
 
     /**
      * Check if id represents a non-profit organization or foundation
-     *
-     * @return boolean
      */
-    public function isNonProfit();
+    public function isNonProfit(): bool;
 
     /**
      * Check if id represents a trading company, limited partnership or partnership
-     *
-     * @return boolean
      */
-    public function isTradingCompany();
+    public function isTradingCompany(): bool;
 }

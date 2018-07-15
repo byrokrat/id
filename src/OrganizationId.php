@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
 /**
@@ -31,10 +33,9 @@ class OrganizationId extends AbstractId
     /**
      * Set organization id number
      *
-     * @param  string $number
      * @throws Exception\InvalidStructureException If structure is invalid
      */
-    public function __construct($number)
+    public function __construct(string $number)
     {
         list(, $this->serialPre, $this->serialPost, $this->checkDigit) = $this->parseNumber(self::PATTERN, $number);
 
@@ -45,7 +46,7 @@ class OrganizationId extends AbstractId
         $this->validateCheckDigit();
     }
 
-    public function getLegalForm()
+    public function getLegalForm(): string
     {
         return self::$legalFormMap[$this->getSerialPreDelimiter()[0]];
     }

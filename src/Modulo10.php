@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
 /**
@@ -9,11 +11,8 @@ class Modulo10
 {
     /**
      * Check if the last digit of number is a valid modulo 10 check digit
-     *
-     * @param  string $number
-     * @return bool
      */
-    public static function isValid($number)
+    public static function isValid(string $number): bool
     {
         return substr($number, -1) === self::calculateCheckDigit(substr($number, 0, -1) ?: '');
     }
@@ -21,11 +20,9 @@ class Modulo10
     /**
      * Calculate the modulo 10 check digit for number
      *
-     * @param  string $number
-     * @return string
      * @throws Exception\InvalidStructureException If $number is not numerical
      */
-    public static function calculateCheckDigit($number)
+    public static function calculateCheckDigit(string $number): string
     {
         if (!ctype_digit($number)) {
             throw new Exception\InvalidStructureException(

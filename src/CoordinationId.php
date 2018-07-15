@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
 /**
@@ -10,13 +12,6 @@ namespace byrokrat\id;
  */
 class CoordinationId extends PersonalId
 {
-    /**
-     * Coordination id number
-     *
-     * {@inheritdoc}
-     *
-     * @param string $number
-     */
     public function __construct(string $number)
     {
         list(, $century, $datestr, $delim, $serialPost, $check) = $this->parseNumber(self::PATTERN, $number);
@@ -26,7 +21,7 @@ class CoordinationId extends PersonalId
 
     public function getSerialPreDelimiter(): string
     {
-        return (string) intval(parent::getSerialPreDelimiter()) + 60;
+        return (string)(intval(parent::getSerialPreDelimiter()) + 60);
     }
 
     public function getBirthCounty(): string

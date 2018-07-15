@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
 /**
@@ -15,14 +17,7 @@ class FakeId extends PersonalId
      */
     const PATTERN = '/^((?:\d\d)?)(\d{6})([-+]?)(xx[12x])(x)$/i';
 
-    /**
-     * Fake personal identity numbers
-     *
-     * {@inheritdoc}
-     *
-     * @param string $number
-     */
-    public function __construct($number)
+    public function __construct(string $number)
     {
         list(, $century, $datestr, $delimiter, $serialPost, $check) = $this->parseNumber(self::PATTERN, $number);
         parent::__construct($century . $datestr . $delimiter . '0000');
@@ -30,12 +25,12 @@ class FakeId extends PersonalId
         $this->checkDigit = $check;
     }
 
-    public function getSex()
+    public function getSex(): string
     {
         return is_numeric($this->getSerialPostDelimiter()[2]) ? parent::getSex() : self::SEX_UNDEFINED;
     }
 
-    public function getBirthCounty()
+    public function getBirthCounty(): string
     {
         return IdInterface::COUNTY_UNDEFINED;
     }
@@ -43,7 +38,7 @@ class FakeId extends PersonalId
     /**
      * Fake ids always have valid check digits
      */
-    protected function validateCheckDigit()
+    protected function validateCheckDigit(): void
     {
     }
 }

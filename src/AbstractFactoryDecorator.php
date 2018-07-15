@@ -1,10 +1,9 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
-/**
- * Abstract factory decorator
- */
 abstract class AbstractFactoryDecorator extends IdFactory
 {
     /**
@@ -20,12 +19,6 @@ abstract class AbstractFactoryDecorator extends IdFactory
         $this->factory = $factory ?: new IdFactory();
     }
 
-    /**
-     * Create ID object from raw id string
-     *
-     * @param  string $raw Raw id string
-     * @return IdInterface
-     */
     public function createId(string $raw): IdInterface
     {
         try {
@@ -35,11 +28,5 @@ abstract class AbstractFactoryDecorator extends IdFactory
         }
     }
 
-    /**
-     * Instantiate ID object
-     *
-     * @param  string $raw Raw id string
-     * @return IdInterface
-     */
     abstract protected function createNewInstance(string $raw): IdInterface;
 }

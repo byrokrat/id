@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
 /**
@@ -45,9 +47,9 @@ class PersonalId extends AbstractId
     ];
 
     /**
-     * @var \DateTimeImmutable Date of birth
+     * @var \DateTimeImmutable
      */
-    private $date;
+    private $dob;
 
     /**
      * Swedish personal identity numbers
@@ -58,10 +60,9 @@ class PersonalId extends AbstractId
      * based on delimiter (+ signals more than a hundred years old). If year is
      * set using four digits delimiter is calculated based on century.
      *
-     * @param  string $number
      * @throws Exception\InvalidDateStructureException If date is not logically valid
      */
-    public function __construct($number)
+    public function __construct(string $number)
     {
         list(, $century, $this->serialPre, $delimiter, $this->serialPost, $this->checkDigit)
             = $this->parseNumber(self::PATTERN, $number);
@@ -94,37 +95,22 @@ class PersonalId extends AbstractId
             throw new Exception\InvalidDateStructureException("Invalid date in <{$this->getId()}>");
         }
 
-        $this->date = \DateTimeImmutable::createFromMutable($date);
+        $this->dob = \DateTimeImmutable::createFromMutable($date);
 
         $this->validateCheckDigit();
     }
 
-    /**
-     * Get date of birth
-     *
-     * @return \DateTimeImmutable
-     */
-    public function getBirthDate()
+    public function getBirthDate(): \DateTimeImmutable
     {
-        return $this->date;
+        return $this->dob;
     }
 
-    /**
-     * Get sex as denoted by id
-     *
-     * @return string One of the sex identifier constants
-     */
-    public function getSex()
+    public function getSex(): string
     {
         return (intval($this->getSerialPostDelimiter()[2])%2 == 0) ? self::SEX_FEMALE : self::SEX_MALE;
     }
 
-    /**
-     * Get string describing birth county
-     *
-     * @return string One of the birth county identifier constants
-     */
-    public function getBirthCounty()
+    public function getBirthCounty(): string
     {
         if ($this->getBirthDate() < DateTimeCreator::createFromFormat('Ymd', '19900101')) {
             $countyNr = (int) substr($this->getSerialPostDelimiter(), 0, 2);

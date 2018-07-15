@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
 /**
@@ -10,12 +12,9 @@ class DateTimeCreator
     /**
      * Returns new DateTime object formatted according to the specified format
      *
-     * @param  string         $format   The format that the passed in string should be in
-     * @param  string         $date     String representing the time
-     * @return \DateTime
      * @throws Exception\InvalidDateStructureException If creation fail
      */
-    public static function createFromFormat($format, $date)
+    public static function createFromFormat(string $format, string $date): \DateTime
     {
         if ($dateTime = \DateTime::createFromFormat($format, $date)) {
             $dateTime->setTime(0, 0, 0);

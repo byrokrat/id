@@ -10,8 +10,7 @@ interface IdFactoryInterface
     /**
      * Create ID object from raw id string
      *
-     * @param  string $raw Raw id string
-     * @return IdInterface
+     * @throws Exception\UnableToCreateIdException If unable to create id
      */
     public function createId(string $raw): IdInterface;
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
 /**
@@ -20,13 +22,6 @@ class IdFactory implements IdFactoryInterface
         return $this->createId($raw);
     }
 
-    /**
-     * Create ID object from raw id string
-     *
-     * @param  string $raw Raw id string
-     * @return IdInterface
-     * @throws Exception\UnableToCreateIdException If unable to create id
-     */
     public function createId(string $raw): IdInterface
     {
         throw new Exception\UnableToCreateIdException("Unable to create ID for number '{$raw}'");
