@@ -9,9 +9,9 @@ use byrokrat\id\IdInterface;
 class Formatter implements FormatTokens
 {
     /**
-     * @var string[] Maps tokens to formatting functions
+     * Map of tokens to formatting function names
      */
-    private static $tokenMap = [
+    private const TOKEN_MAP = [
         self::TOKEN_DATE_CENTURY => 'formatCentury',
         self::TOKEN_SERIAL_PRE => 'formatSerialPre',
         self::TOKEN_SERIAL_POST => 'formatSerialPost',
@@ -20,7 +20,7 @@ class Formatter implements FormatTokens
         self::TOKEN_SEX => 'formatSex',
         self::TOKEN_AGE => 'formatAge',
         self::TOKEN_LEGAL_FORM => 'formatLegalForm',
-        self::TOKEN_BIRTH_COUNTY => 'formatBirthCounty'
+        self::TOKEN_BIRTH_COUNTY => 'formatBirthCounty',
     ];
 
     /**
@@ -71,7 +71,7 @@ class Formatter implements FormatTokens
                 case self::TOKEN_AGE:
                 case self::TOKEN_LEGAL_FORM:
                 case self::TOKEN_BIRTH_COUNTY:
-                    $this->registerFormattingFunction([$this, self::$tokenMap[$token]]);
+                    $this->registerFormattingFunction([$this, self::TOKEN_MAP[$token]]);
                     break;
                 case self::TOKEN_ESCAPE:
                     $escape = $token;

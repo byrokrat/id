@@ -15,9 +15,9 @@ class OrganizationId extends AbstractId
     const PATTERN = '/^(\d{6})[-]?(\d{3})(\d)$/';
 
     /**
-     * @var string[] Map of group number to legal form identifier
+     * Maps group numbers to legal form identifiers
      */
-    private static $legalFormMap = [
+    private const LEGAL_FORM_MAP = [
         0 => self::LEGAL_FORM_UNDEFINED,
         1 => self::LEGAL_FORM_UNDEFINED,
         2 => self::LEGAL_FORM_STATE_PARISH,
@@ -27,7 +27,7 @@ class OrganizationId extends AbstractId
         6 => self::LEGAL_FORM_PARTNERSHIP,
         7 => self::LEGAL_FORM_ASSOCIATION,
         8 => self::LEGAL_FORM_NONPROFIT,
-        9 => self::LEGAL_FORM_TRADING
+        9 => self::LEGAL_FORM_TRADING,
     ];
 
     /**
@@ -48,6 +48,6 @@ class OrganizationId extends AbstractId
 
     public function getLegalForm(): string
     {
-        return self::$legalFormMap[$this->getSerialPreDelimiter()[0]];
+        return self::LEGAL_FORM_MAP[$this->getSerialPreDelimiter()[0]];
     }
 }

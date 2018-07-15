@@ -15,9 +15,9 @@ class PersonalId extends AbstractId
     const PATTERN = '/^((?:\d\d)?)(\d{6})([-+]?)(\d{3})(\d)$/';
 
     /**
-     * @var string[] Map of county number high limit to county identifier
+     * Maps county numbers high limit to county identifiers
      */
-    private static $birthCountyMap = [
+    private const BIRTH_COUNTY_MAP = [
         13 => IdInterface::COUNTY_STOCKHOLM,
         15 => IdInterface::COUNTY_UPPSALA,
         18 => IdInterface::COUNTY_SODERMANLAND,
@@ -43,7 +43,7 @@ class PersonalId extends AbstractId
         81 => IdInterface::COUNTY_VASTERNORRLAND,
         84 => IdInterface::COUNTY_JAMTLAND,
         88 => IdInterface::COUNTY_VASTERBOTTEN,
-        92 => IdInterface::COUNTY_NORRBOTTEN
+        92 => IdInterface::COUNTY_NORRBOTTEN,
     ];
 
     /**
@@ -114,7 +114,7 @@ class PersonalId extends AbstractId
     {
         if ($this->getBirthDate() < DateTimeCreator::createFromFormat('Ymd', '19900101')) {
             $countyNr = (int) substr($this->getSerialPostDelimiter(), 0, 2);
-            foreach (self::$birthCountyMap as $limit => $identifier) {
+            foreach (self::BIRTH_COUNTY_MAP as $limit => $identifier) {
                 if ($countyNr <= $limit) {
                     return $identifier;
                 }
