@@ -2,17 +2,16 @@
 
 declare(strict_types = 1);
 
-namespace byrokrat\id;
+namespace byrokrat\id\Helper;
 
-/**
- * Creates DateTime objects and throws exception if createFromFormat failes
- */
+use byrokrat\id\Exception\InvalidDateStructureException;
+
 class DateTimeCreator
 {
     /**
      * Returns new DateTime object formatted according to the specified format
      *
-     * @throws Exception\InvalidDateStructureException If creation fail
+     * @throws InvalidDateStructureException If creation fail
      */
     public static function createFromFormat(string $format, string $date): \DateTime
     {
@@ -30,6 +29,6 @@ class DateTimeCreator
             )
         );
 
-        throw new Exception\InvalidDateStructureException($msg);
+        throw new InvalidDateStructureException($msg);
     }
 }

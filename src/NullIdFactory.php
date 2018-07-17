@@ -11,6 +11,6 @@ class NullIdFactory implements IdFactoryInterface
 {
     public function createId(string $raw): IdInterface
     {
-        return new NullId();
+        return new NullId;
     }
 }

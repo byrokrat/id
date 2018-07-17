@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace byrokrat\id;
+namespace byrokrat\id\Helper;
 
-use PHPUnit\Framework\TestCase;
+use byrokrat\id\Exception\InvalidStructureException;
 
-class Modulo10Test extends TestCase
+class Modulo10Test extends \PHPUnit\Framework\TestCase
 {
     public function invalidStructureProvider()
     {
@@ -22,7 +22,7 @@ class Modulo10Test extends TestCase
      */
     public function testInvalidStructureIsValid($number)
     {
-        $this->expectException(Exception\InvalidStructureException::CLASS);
+        $this->expectException(InvalidStructureException::CLASS);
         Modulo10::isValid($number);
     }
 
@@ -31,7 +31,7 @@ class Modulo10Test extends TestCase
      */
     public function testInvalidStructureCalculateCheckDigit($number)
     {
-        $this->expectException(Exception\InvalidStructureException::CLASS);
+        $this->expectException(InvalidStructureException::CLASS);
         Modulo10::calculateCheckDigit($number);
     }
 

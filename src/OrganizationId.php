@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace byrokrat\id;
 
+use byrokrat\id\Helper\AbstractId;
+
 /**
  * Swedish organizational identity numbers
  */

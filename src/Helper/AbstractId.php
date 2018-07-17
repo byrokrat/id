@@ -2,8 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace byrokrat\id;
+namespace byrokrat\id\Helper;
 
+use byrokrat\id\IdInterface;
 use byrokrat\id\Exception\DateNotSupportedException;
 use byrokrat\id\Exception\InvalidCheckDigitException;
 use byrokrat\id\Exception\InvalidStructureException;

@@ -2,12 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace byrokrat\id;
+namespace byrokrat\id\Helper;
 
 use byrokrat\id\Exception\InvalidDateStructureException;
-use PHPUnit\Framework\TestCase;
 
-class DateTimeCreatorTest extends TestCase
+class DateTimeCreatorTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreateFromFormat()
     {

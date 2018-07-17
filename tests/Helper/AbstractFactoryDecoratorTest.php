@@ -2,11 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace byrokrat\id;
+namespace byrokrat\id\Helper;
 
-use PHPUnit\Framework\TestCase;
+use byrokrat\id\IdFactoryInterface;
+use byrokrat\id\IdInterface;
+use byrokrat\id\Exception;
 
-class AbstractFactoryDecoratorTest extends TestCase
+class AbstractFactoryDecoratorTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {
@@ -52,10 +54,10 @@ class AbstractFactoryDecoratorTest extends TestCase
 
     public function testDecoration()
     {
-        $factory = new OrganizationIdFactory(
-            new FakeIdFactory(
-                new PersonalIdFactory(
-                    new CoordinationIdFactory()
+        $factory = new \byrokrat\id\OrganizationIdFactory(
+            new \byrokrat\id\FakeIdFactory(
+                new \byrokrat\id\PersonalIdFactory(
+                    new \byrokrat\id\CoordinationIdFactory()
                 )
             )
         );

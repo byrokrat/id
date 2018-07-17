@@ -4,6 +4,9 @@ declare(strict_types = 1);
 
 namespace byrokrat\id;
 
+use byrokrat\id\Helper\AbstractId;
+use byrokrat\id\Helper\DateTimeCreator;
+
 /**
  * Swedish personal identity numbers
  */
@@ -72,7 +75,7 @@ class PersonalId extends AbstractId
         if ($century) {
             // Set delimiter based on date (+ if date is more then a hundred years old)
             $date = DateTimeCreator::createFromFormat('Ymd', $century.$this->serialPre);
-            $hundredYearsAgo = new \DateTime();
+            $hundredYearsAgo = new \DateTime;
             $hundredYearsAgo->modify('-100 year');
             $this->delimiter = $date < $hundredYearsAgo ? '+' : '-';
         } else {
@@ -80,7 +83,7 @@ class PersonalId extends AbstractId
             $date = DateTimeCreator::createFromFormat('ymd', $this->serialPre);
 
             // If in the future century is wrong
-            if ($date > new \DateTime()) {
+            if ($date > new \DateTime) {
                 $date->modify('-100 year');
             }
 
@@ -92,7 +95,7 @@ class PersonalId extends AbstractId
 
         // Validate that date is logically valid
         if ($date->format('ymd') != $this->serialPre) {
-            throw new Exception\InvalidDateStructureException("Invalid date in <{$this->getId()}>");
+            throw new Exception\InvalidDateStructureException("Invalid date in {$this->getId()}");
         }
 
         $this->dob = \DateTimeImmutable::createFromMutable($date);
@@ -107,13 +110,14 @@ class PersonalId extends AbstractId
 
     public function getSex(): string
     {
-        return (intval($this->getSerialPostDelimiter()[2])%2 == 0) ? self::SEX_FEMALE : self::SEX_MALE;
+        return (intval($this->getSerialPostDelimiter()[2]) % 2 == 0) ? self::SEX_FEMALE : self::SEX_MALE;
     }
 
     public function getBirthCounty(): string
     {
         if ($this->getBirthDate() < DateTimeCreator::createFromFormat('Ymd', '19900101')) {
-            $countyNr = (int) substr($this->getSerialPostDelimiter(), 0, 2);
+            $countyNr = (int)substr($this->getSerialPostDelimiter(), 0, 2);
+
             foreach (self::BIRTH_COUNTY_MAP as $limit => $identifier) {
                 if ($countyNr <= $limit) {
                     return $identifier;

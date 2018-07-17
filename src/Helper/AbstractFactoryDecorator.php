@@ -2,7 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace byrokrat\id;
+namespace byrokrat\id\Helper;
+
+use byrokrat\id\IdFactoryInterface;
+use byrokrat\id\FailingIdFactory;
+use byrokrat\id\IdInterface;
+use byrokrat\id\Exception;
 
 abstract class AbstractFactoryDecorator implements IdFactoryInterface
 {

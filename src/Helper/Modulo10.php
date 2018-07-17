@@ -2,7 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace byrokrat\id;
+namespace byrokrat\id\Helper;
+
+use byrokrat\id\Exception\InvalidStructureException;
 
 /**
  * Modulo10 checkdigit calculator
@@ -20,12 +22,12 @@ class Modulo10
     /**
      * Calculate the modulo 10 check digit for number
      *
-     * @throws Exception\InvalidStructureException If $number is not numerical
+     * @throws InvalidStructureException If $number is not numerical
      */
     public static function calculateCheckDigit(string $number): string
     {
         if (!ctype_digit($number)) {
-            throw new Exception\InvalidStructureException(
+            throw new InvalidStructureException(
                 "Number can only contain numerical characters, found: $number"
             );
         }
