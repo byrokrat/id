@@ -75,7 +75,12 @@ interface IdInterface
     public function isFemale(): bool;
 
     /**
-     * Check if sex not applicable
+     * Check if sex other than male/female is denoted
+     */
+    public function isSexOther(): bool;
+
+    /**
+     * Check if sex is not applicable
      */
     public function isSexUndefined(): bool;
 

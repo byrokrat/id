@@ -106,6 +106,11 @@ abstract class AbstractId implements IdInterface
         return $this->getSex() == Sexes::SEX_FEMALE;
     }
 
+    public function isSexOther(): bool
+    {
+        return $this->getSex() == Sexes::SEX_OTHER;
+    }
+
     public function isSexUndefined(): bool
     {
         return $this->getSex() == Sexes::SEX_UNDEFINED;

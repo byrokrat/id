@@ -18,7 +18,12 @@ interface Sexes
     const SEX_MALE = 'M';
 
     /**
-     * Undefined or other sex identifier
+     * Other sex identifier
      */
-    const SEX_UNDEFINED = 'O';
+    const SEX_OTHER = 'O';
+
+    /**
+     * Undefined sex identifier
+     */
+    const SEX_UNDEFINED = 'X';
 }
