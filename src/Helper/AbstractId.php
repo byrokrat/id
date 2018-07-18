@@ -5,6 +5,9 @@ declare(strict_types = 1);
 namespace byrokrat\id\Helper;
 
 use byrokrat\id\IdInterface;
+use byrokrat\id\Counties;
+use byrokrat\id\LegalForms;
+use byrokrat\id\Sexes;
 use byrokrat\id\Exception\DateNotSupportedException;
 use byrokrat\id\Exception\InvalidCheckDigitException;
 use byrokrat\id\Exception\InvalidStructureException;
@@ -90,67 +93,67 @@ abstract class AbstractId implements IdInterface
 
     public function getSex(): string
     {
-        return IdInterface::SEX_UNDEFINED;
+        return Sexes::SEX_UNDEFINED;
     }
 
     public function isMale(): bool
     {
-        return $this->getSex() == IdInterface::SEX_MALE;
+        return $this->getSex() == Sexes::SEX_MALE;
     }
 
     public function isFemale(): bool
     {
-        return $this->getSex() == IdInterface::SEX_FEMALE;
+        return $this->getSex() == Sexes::SEX_FEMALE;
     }
 
     public function isSexUndefined(): bool
     {
-        return $this->getSex() == IdInterface::SEX_UNDEFINED;
+        return $this->getSex() == Sexes::SEX_UNDEFINED;
     }
 
     public function getBirthCounty(): string
     {
-        return IdInterface::COUNTY_UNDEFINED;
+        return Counties::COUNTY_UNDEFINED;
     }
 
     public function getLegalForm(): string
     {
-        return IdInterface::LEGAL_FORM_UNDEFINED;
+        return LegalForms::LEGAL_FORM_UNDEFINED;
     }
 
     public function isLegalFormUndefined(): bool
     {
-        return $this->getLegalForm() == IdInterface::LEGAL_FORM_UNDEFINED;
+        return $this->getLegalForm() == LegalForms::LEGAL_FORM_UNDEFINED;
     }
 
     public function isStateOrParish(): bool
     {
-        return $this->getLegalForm() == IdInterface::LEGAL_FORM_STATE_PARISH;
+        return $this->getLegalForm() == LegalForms::LEGAL_FORM_STATE_PARISH;
     }
 
     public function isIncorporated(): bool
     {
-        return $this->getLegalForm() == IdInterface::LEGAL_FORM_INCORPORATED;
+        return $this->getLegalForm() == LegalForms::LEGAL_FORM_INCORPORATED;
     }
 
     public function isPartnership(): bool
     {
-        return $this->getLegalForm() == IdInterface::LEGAL_FORM_PARTNERSHIP;
+        return $this->getLegalForm() == LegalForms::LEGAL_FORM_PARTNERSHIP;
     }
 
     public function isAssociation(): bool
     {
-        return $this->getLegalForm() == IdInterface::LEGAL_FORM_ASSOCIATION;
+        return $this->getLegalForm() == LegalForms::LEGAL_FORM_ASSOCIATION;
     }
 
     public function isNonProfit(): bool
     {
-        return $this->getLegalForm() == IdInterface::LEGAL_FORM_NONPROFIT;
+        return $this->getLegalForm() == LegalForms::LEGAL_FORM_NONPROFIT;
     }
 
     public function isTradingCompany(): bool
     {
-        return $this->getLegalForm() == IdInterface::LEGAL_FORM_TRADING;
+        return $this->getLegalForm() == LegalForms::LEGAL_FORM_TRADING;
     }
 
     /**

@@ -20,16 +20,16 @@ class OrganizationId extends AbstractId
      * Maps group numbers to legal form identifiers
      */
     private const LEGAL_FORM_MAP = [
-        0 => self::LEGAL_FORM_UNDEFINED,
-        1 => self::LEGAL_FORM_UNDEFINED,
-        2 => self::LEGAL_FORM_STATE_PARISH,
-        3 => self::LEGAL_FORM_UNDEFINED,
-        4 => self::LEGAL_FORM_UNDEFINED,
-        5 => self::LEGAL_FORM_INCORPORATED,
-        6 => self::LEGAL_FORM_PARTNERSHIP,
-        7 => self::LEGAL_FORM_ASSOCIATION,
-        8 => self::LEGAL_FORM_NONPROFIT,
-        9 => self::LEGAL_FORM_TRADING,
+        0 => LegalForms::LEGAL_FORM_UNDEFINED,
+        1 => LegalForms::LEGAL_FORM_UNDEFINED,
+        2 => LegalForms::LEGAL_FORM_STATE_PARISH,
+        3 => LegalForms::LEGAL_FORM_UNDEFINED,
+        4 => LegalForms::LEGAL_FORM_UNDEFINED,
+        5 => LegalForms::LEGAL_FORM_INCORPORATED,
+        6 => LegalForms::LEGAL_FORM_PARTNERSHIP,
+        7 => LegalForms::LEGAL_FORM_ASSOCIATION,
+        8 => LegalForms::LEGAL_FORM_NONPROFIT,
+        9 => LegalForms::LEGAL_FORM_TRADING,
     ];
 
     /**

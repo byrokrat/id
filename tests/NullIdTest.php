@@ -64,7 +64,7 @@ class NullIdTest extends TestCase
     public function testGetSex()
     {
         $nullId = new NullId();
-        $this->assertEquals(IdInterface::SEX_UNDEFINED, $nullId->getSex());
+        $this->assertEquals(Sexes::SEX_UNDEFINED, $nullId->getSex());
         $this->assertTrue($nullId->isSexUndefined());
         $this->assertFalse($nullId->isMale());
         $this->assertFalse($nullId->isFemale());
@@ -73,7 +73,7 @@ class NullIdTest extends TestCase
     public function testGetLegalForm()
     {
         $nullId = new NullId();
-        $this->assertEquals(IdInterface::LEGAL_FORM_UNDEFINED, $nullId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_UNDEFINED, $nullId->getLegalForm());
         $this->assertTrue($nullId->isLegalFormUndefined());
         $this->assertFalse($nullId->isStateOrParish());
         $this->assertFalse($nullId->isIncorporated());
@@ -86,7 +86,7 @@ class NullIdTest extends TestCase
     public function testGetBirthCounty()
     {
         $this->assertEquals(
-            IdInterface::COUNTY_UNDEFINED,
+            Counties::COUNTY_UNDEFINED,
             (new NullId)->getBirthCounty()
         );
     }

@@ -120,7 +120,7 @@ class OrganizationIdTest extends TestCase
     public function testGetSex()
     {
         $organizationId = new OrganizationId('132100-0018');
-        $this->assertEquals(IdInterface::SEX_UNDEFINED, $organizationId->getSex());
+        $this->assertEquals(Sexes::SEX_UNDEFINED, $organizationId->getSex());
         $this->assertFalse($organizationId->isMale());
         $this->assertFalse($organizationId->isFemale());
         $this->assertTrue($organizationId->isSexUndefined());
@@ -129,31 +129,31 @@ class OrganizationIdTest extends TestCase
     public function testGetLegalForm()
     {
         $organizationId = new OrganizationId('232100-0016');
-        $this->assertEquals(IdInterface::LEGAL_FORM_STATE_PARISH, $organizationId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_STATE_PARISH, $organizationId->getLegalForm());
         $this->assertTrue($organizationId->isStateOrParish());
 
         $organizationId = new OrganizationId('502017-7753');
-        $this->assertEquals(IdInterface::LEGAL_FORM_INCORPORATED, $organizationId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_INCORPORATED, $organizationId->getLegalForm());
         $this->assertTrue($organizationId->isIncorporated());
 
         $organizationId = new OrganizationId('662011-0541');
-        $this->assertEquals(IdInterface::LEGAL_FORM_PARTNERSHIP, $organizationId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_PARTNERSHIP, $organizationId->getLegalForm());
         $this->assertTrue($organizationId->isPartnership());
 
         $organizationId = new OrganizationId('702001-7781');
-        $this->assertEquals(IdInterface::LEGAL_FORM_ASSOCIATION, $organizationId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_ASSOCIATION, $organizationId->getLegalForm());
         $this->assertTrue($organizationId->isAssociation());
 
         $organizationId = new OrganizationId('835000-0892');
-        $this->assertEquals(IdInterface::LEGAL_FORM_NONPROFIT, $organizationId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_NONPROFIT, $organizationId->getLegalForm());
         $this->assertTrue($organizationId->isNonProfit());
 
         $organizationId = new OrganizationId('916452-6197');
-        $this->assertEquals(IdInterface::LEGAL_FORM_TRADING, $organizationId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_TRADING, $organizationId->getLegalForm());
         $this->assertTrue($organizationId->isTradingCompany());
 
         $organizationId = new OrganizationId('132100-0018');
-        $this->assertEquals(IdInterface::LEGAL_FORM_UNDEFINED, $organizationId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_UNDEFINED, $organizationId->getLegalForm());
         $this->assertTrue($organizationId->isLegalFormUndefined());
     }
 
@@ -173,7 +173,7 @@ class OrganizationIdTest extends TestCase
     public function testGetBirthCounty()
     {
         $this->assertEquals(
-            IdInterface::COUNTY_UNDEFINED,
+            Counties::COUNTY_UNDEFINED,
             (new OrganizationId('702001-7781'))->getBirthCounty()
         );
     }

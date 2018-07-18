@@ -27,12 +27,12 @@ class FakeId extends PersonalId
 
     public function getSex(): string
     {
-        return is_numeric($this->getSerialPostDelimiter()[2]) ? parent::getSex() : self::SEX_UNDEFINED;
+        return is_numeric($this->getSerialPostDelimiter()[2]) ? parent::getSex() : Sexes::SEX_UNDEFINED;
     }
 
     public function getBirthCounty(): string
     {
-        return IdInterface::COUNTY_UNDEFINED;
+        return Counties::COUNTY_UNDEFINED;
     }
 
     /**

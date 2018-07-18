@@ -26,6 +26,6 @@ class CoordinationId extends PersonalId
 
     public function getBirthCounty(): string
     {
-        return IdInterface::COUNTY_UNDEFINED;
+        return Counties::COUNTY_UNDEFINED;
     }
 }

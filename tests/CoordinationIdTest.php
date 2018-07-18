@@ -139,12 +139,12 @@ class CoordinationIdTest extends TestCase
     public function testGetSex()
     {
         $this->assertEquals(
-            IdInterface::SEX_MALE,
+            Sexes::SEX_MALE,
             (new CoordinationId('701063-2391'))->getSex()
         );
 
         $this->assertEquals(
-            IdInterface::SEX_FEMALE,
+            Sexes::SEX_FEMALE,
             (new CoordinationId('770374-0345'))->getSex()
         );
     }
@@ -152,7 +152,7 @@ class CoordinationIdTest extends TestCase
     public function testGetBirthCounty()
     {
         $this->assertEquals(
-            IdInterface::COUNTY_UNDEFINED,
+            Counties::COUNTY_UNDEFINED,
             (new CoordinationId('770374-0345'))->getBirthCounty()
         );
     }

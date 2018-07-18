@@ -122,13 +122,13 @@ class PersonalIdTest extends TestCase
     public function testGetSex()
     {
         $personalId = new PersonalId('820323-2775');
-        $this->assertEquals(IdInterface::SEX_MALE, $personalId->getSex());
+        $this->assertEquals(Sexes::SEX_MALE, $personalId->getSex());
         $this->assertTrue($personalId->isMale());
         $this->assertFalse($personalId->isFemale());
         $this->assertFalse($personalId->isSexUndefined());
 
         $personalId = new PersonalId('770314-0348');
-        $this->assertEquals(IdInterface::SEX_FEMALE, $personalId->getSex());
+        $this->assertEquals(Sexes::SEX_FEMALE, $personalId->getSex());
         $this->assertTrue($personalId->isFemale());
         $this->assertFalse($personalId->isMale());
         $this->assertFalse($personalId->isSexUndefined());
@@ -186,7 +186,7 @@ class PersonalIdTest extends TestCase
     public function testGetLegalForm()
     {
         $personalId = new PersonalId('770314-0348');
-        $this->assertEquals(IdInterface::LEGAL_FORM_UNDEFINED, $personalId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_UNDEFINED, $personalId->getLegalForm());
         $this->assertTrue($personalId->isLegalFormUndefined());
         $this->assertFalse($personalId->isStateOrParish());
         $this->assertFalse($personalId->isIncorporated());
@@ -199,22 +199,22 @@ class PersonalIdTest extends TestCase
     public function testGetBirthCounty()
     {
         $this->assertEquals(
-            IdInterface::COUNTY_KRONOBERG,
+            Counties::COUNTY_KRONOBERG,
             (new PersonalId('820323-2775'))->getBirthCounty()
         );
 
         $this->assertEquals(
-            IdInterface::COUNTY_STOCKHOLM,
+            Counties::COUNTY_STOCKHOLM,
             (new PersonalId('19891231-1308'))->getBirthCounty()
         );
 
         $this->assertEquals(
-            IdInterface::COUNTY_UNDEFINED,
+            Counties::COUNTY_UNDEFINED,
             (new PersonalId('19891231-9905'))->getBirthCounty()
         );
 
         $this->assertEquals(
-            IdInterface::COUNTY_UNDEFINED,
+            Counties::COUNTY_UNDEFINED,
             (new PersonalId('19900101-1304'))->getBirthCounty()
         );
     }

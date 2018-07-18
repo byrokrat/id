@@ -21,32 +21,32 @@ class PersonalId extends AbstractId
      * Maps county numbers high limit to county identifiers
      */
     private const BIRTH_COUNTY_MAP = [
-        13 => IdInterface::COUNTY_STOCKHOLM,
-        15 => IdInterface::COUNTY_UPPSALA,
-        18 => IdInterface::COUNTY_SODERMANLAND,
-        23 => IdInterface::COUNTY_OSTERGOTLAND,
-        26 => IdInterface::COUNTY_JONKOPING,
-        28 => IdInterface::COUNTY_KRONOBERG,
-        31 => IdInterface::COUNTY_KALMAR,
-        32 => IdInterface::COUNTY_GOTLAND,
-        34 => IdInterface::COUNTY_BLEKINGE,
-        38 => IdInterface::COUNTY_KRISTIANSTAD,
-        45 => IdInterface::COUNTY_MALMOHUS,
-        47 => IdInterface::COUNTY_HALLAND,
-        54 => IdInterface::COUNTY_GOTEBORG_BOUHUS,
-        58 => IdInterface::COUNTY_ALVSBORG,
-        61 => IdInterface::COUNTY_SKARABORG,
-        64 => IdInterface::COUNTY_VARMLAND,
-        65 => IdInterface::COUNTY_UNDEFINED,
-        68 => IdInterface::COUNTY_OREBRO,
-        70 => IdInterface::COUNTY_VASTMANLAND,
-        73 => IdInterface::COUNTY_KOPPARBERG,
-        74 => IdInterface::COUNTY_UNDEFINED,
-        77 => IdInterface::COUNTY_GAVLEBORG,
-        81 => IdInterface::COUNTY_VASTERNORRLAND,
-        84 => IdInterface::COUNTY_JAMTLAND,
-        88 => IdInterface::COUNTY_VASTERBOTTEN,
-        92 => IdInterface::COUNTY_NORRBOTTEN,
+        13 => Counties::COUNTY_STOCKHOLM,
+        15 => Counties::COUNTY_UPPSALA,
+        18 => Counties::COUNTY_SODERMANLAND,
+        23 => Counties::COUNTY_OSTERGOTLAND,
+        26 => Counties::COUNTY_JONKOPING,
+        28 => Counties::COUNTY_KRONOBERG,
+        31 => Counties::COUNTY_KALMAR,
+        32 => Counties::COUNTY_GOTLAND,
+        34 => Counties::COUNTY_BLEKINGE,
+        38 => Counties::COUNTY_KRISTIANSTAD,
+        45 => Counties::COUNTY_MALMOHUS,
+        47 => Counties::COUNTY_HALLAND,
+        54 => Counties::COUNTY_GOTEBORG_BOUHUS,
+        58 => Counties::COUNTY_ALVSBORG,
+        61 => Counties::COUNTY_SKARABORG,
+        64 => Counties::COUNTY_VARMLAND,
+        65 => Counties::COUNTY_UNDEFINED,
+        68 => Counties::COUNTY_OREBRO,
+        70 => Counties::COUNTY_VASTMANLAND,
+        73 => Counties::COUNTY_KOPPARBERG,
+        74 => Counties::COUNTY_UNDEFINED,
+        77 => Counties::COUNTY_GAVLEBORG,
+        81 => Counties::COUNTY_VASTERNORRLAND,
+        84 => Counties::COUNTY_JAMTLAND,
+        88 => Counties::COUNTY_VASTERBOTTEN,
+        92 => Counties::COUNTY_NORRBOTTEN,
     ];
 
     /**
@@ -110,7 +110,7 @@ class PersonalId extends AbstractId
 
     public function getSex(): string
     {
-        return (intval($this->getSerialPostDelimiter()[2]) % 2 == 0) ? self::SEX_FEMALE : self::SEX_MALE;
+        return (intval($this->getSerialPostDelimiter()[2]) % 2 == 0) ? Sexes::SEX_FEMALE : Sexes::SEX_MALE;
     }
 
     public function getBirthCounty(): string
@@ -125,6 +125,6 @@ class PersonalId extends AbstractId
             }
         }
 
-        return IdInterface::COUNTY_UNDEFINED;
+        return Counties::COUNTY_UNDEFINED;
     }
 }
