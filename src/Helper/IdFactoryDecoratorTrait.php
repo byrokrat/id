@@ -9,19 +9,19 @@ use byrokrat\id\FailingIdFactory;
 use byrokrat\id\IdInterface;
 use byrokrat\id\Exception;
 
-abstract class AbstractFactoryDecorator implements IdFactoryInterface
+/**
+ * Implements a factory decorator that pass on object creation to decorated factory on failure
+ */
+trait IdFactoryDecoratorTrait
 {
     /**
      * @var IdFactoryInterface
      */
-    private $factory;
+    private $decoratedFactory;
 
-    /**
-     * Set factory used if this factory fails
-     */
-    public function __construct(IdFactoryInterface $factory = null)
+    public function __construct(IdFactoryInterface $decoratedFactory = null)
     {
-        $this->factory = $factory ?: new FailingIdFactory();
+        $this->decoratedFactory = $decoratedFactory ?: new FailingIdFactory;
     }
 
     public function createId(string $raw): IdInterface
@@ -29,7 +29,7 @@ abstract class AbstractFactoryDecorator implements IdFactoryInterface
         try {
             return $this->createNewInstance($raw);
         } catch (Exception $e) {
-            return $this->factory->createId($raw);
+            return $this->decoratedFactory->createId($raw);
         }
     }
 
