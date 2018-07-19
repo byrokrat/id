@@ -9,7 +9,6 @@ use byrokrat\id\Counties;
 use byrokrat\id\LegalForms;
 use byrokrat\id\Sexes;
 use byrokrat\id\Exception\DateNotSupportedException;
-use byrokrat\id\Exception\InvalidCheckDigitException;
 use byrokrat\id\Exception\InvalidStructureException;
 use byrokrat\id\Formatter\Formatter;
 
@@ -175,17 +174,5 @@ abstract class AbstractId implements IdInterface
         }
 
         return $matches;
-    }
-
-    /**
-     * Verify that the last digit of id is a valid check digit
-     *
-     * @throws InvalidCheckDigitException If check digit is not valid
-     */
-    protected function validateCheckDigit(): void
-    {
-        if (!Modulo10::isValid(preg_replace('/[^0-9]/', '', $this->getId()))) {
-            throw new InvalidCheckDigitException("Invalid check digit in {$this->getId()}");
-        }
     }
 }

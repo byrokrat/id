@@ -4,54 +4,55 @@ declare(strict_types = 1);
 
 namespace byrokrat\id\Helper;
 
-use byrokrat\id\Exception\InvalidStructureException;
+use byrokrat\id\IdInterface;
+use byrokrat\id\Exception\InvalidCheckDigitException;
 
 class Modulo10Test extends \PHPUnit\Framework\TestCase
 {
-    public function invalidStructureProvider()
+    public function invalidProvider(): array
     {
         return [
             ['y'],
             [''],
-            ['12.12']
+            ['12.12'],
+            ['55555550'],
+            ['9912340'],
+            ['9876543210'],
+            ['49927398710'],
         ];
     }
 
     /**
-     * @dataProvider invalidStructureProvider
+     * @dataProvider invalidProvider
      */
-    public function testInvalidStructureIsValid($number)
+    public function testInvalidCheckDigit(string $number): void
     {
-        $this->expectException(InvalidStructureException::CLASS);
-        Modulo10::isValid($number);
+        $this->expectException(InvalidCheckDigitException::CLASS);
+
+        $id = $this->prophesize(IdInterface::CLASS);
+        $id->getId()->willReturn($number);
+
+        Modulo10::validateCheckDigit($id->reveal());
+    }
+
+    public function validProvider(): array
+    {
+        return [
+            ['55555551'],
+            ['9912346'],
+            ['9876543217'],
+            ['49927398716'],
+        ];
     }
 
     /**
-     * @dataProvider invalidStructureProvider
+     * @dataProvider validProvider
      */
-    public function testInvalidStructureCalculateCheckDigit($number)
+    public function testValidCheckDigit(string $number): void
     {
-        $this->expectException(InvalidStructureException::CLASS);
-        Modulo10::calculateCheckDigit($number);
-    }
+        $id = $this->prophesize(IdInterface::CLASS);
+        $id->getId()->willReturn($number);
 
-    public function testIsValid()
-    {
-        $this->assertTrue(Modulo10::isValid('55555551'));
-        $this->assertTrue(Modulo10::isValid('9912346'));
-        $this->assertTrue(Modulo10::isValid('9876543217'));
-        $this->assertTrue(Modulo10::isValid('49927398716'));
-        $this->assertFalse(Modulo10::isValid('55555550'));
-        $this->assertFalse(Modulo10::isValid('9912340'));
-        $this->assertFalse(Modulo10::isValid('9876543210'));
-        $this->assertFalse(Modulo10::isValid('49927398710'));
-    }
-
-    public function testCalculateCheckDigit()
-    {
-        $this->assertSame('1', Modulo10::calculateCheckDigit('5555555'));
-        $this->assertSame('6', Modulo10::calculateCheckDigit('991234'));
-        $this->assertSame('7', Modulo10::calculateCheckDigit('987654321'));
-        $this->assertSame('6', Modulo10::calculateCheckDigit('4992739871'));
+        $this->assertNull(Modulo10::validateCheckDigit($id->reveal()));
     }
 }

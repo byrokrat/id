@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace byrokrat\id;
 
 use byrokrat\id\Helper\AbstractId;
+use byrokrat\id\Helper\Modulo10;
 
 /**
  * Swedish organizational identity numbers
@@ -45,7 +46,7 @@ class OrganizationId extends AbstractId
             throw new Exception\InvalidStructureException('Third digit must be at lest 2');
         }
 
-        $this->validateCheckDigit();
+        Modulo10::validateCheckDigit($this);
     }
 
     public function getLegalForm(): string

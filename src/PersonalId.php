@@ -6,6 +6,7 @@ namespace byrokrat\id;
 
 use byrokrat\id\Helper\AbstractId;
 use byrokrat\id\Helper\DateTimeCreator;
+use byrokrat\id\Helper\Modulo10;
 
 /**
  * Swedish personal identity numbers
@@ -126,5 +127,10 @@ class PersonalId extends AbstractId
         }
 
         return Counties::COUNTY_UNDEFINED;
+    }
+
+    protected function validateCheckDigit(): void
+    {
+        Modulo10::validateCheckDigit($this);
     }
 }

@@ -4,34 +4,27 @@ declare(strict_types = 1);
 
 namespace byrokrat\id\Helper;
 
-use byrokrat\id\Exception\InvalidStructureException;
+use byrokrat\id\IdInterface;
+use byrokrat\id\Exception\InvalidCheckDigitException;
 
-/**
- * Modulo10 checkdigit calculator
- */
 class Modulo10
 {
     /**
-     * Check if the last digit of number is a valid modulo 10 check digit
+     * Verify that the last digit of id is a valid modulo 10 check digit
+     *
+     * @throws InvalidCheckDigitException If check digit is not valid
      */
-    public static function isValid(string $number): bool
+    public static function validateCheckDigit(IdInterface $id): void
     {
-        return substr($number, -1) === self::calculateCheckDigit(substr($number, 0, -1) ?: '');
+        $number = preg_replace('/[^0-9]/', '', $id->getId());
+
+        if (substr($number, -1) !== self::calculateCheckDigit(substr($number, 0, -1) ?: '')) {
+            throw new InvalidCheckDigitException("Invalid check digit in {$id->getId()}");
+        }
     }
 
-    /**
-     * Calculate the modulo 10 check digit for number
-     *
-     * @throws InvalidStructureException If $number is not numerical
-     */
-    public static function calculateCheckDigit(string $number): string
+    private static function calculateCheckDigit(string $number): string
     {
-        if (!ctype_digit($number)) {
-            throw new InvalidStructureException(
-                "Number can only contain numerical characters, found: $number"
-            );
-        }
-
         $weight = 2;
         $sum = 0;
 
