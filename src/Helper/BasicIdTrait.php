@@ -4,18 +4,16 @@ declare(strict_types = 1);
 
 namespace byrokrat\id\Helper;
 
-use byrokrat\id\IdInterface;
 use byrokrat\id\Counties;
 use byrokrat\id\LegalForms;
 use byrokrat\id\Sexes;
 use byrokrat\id\Exception\DateNotSupportedException;
-use byrokrat\id\Exception\InvalidStructureException;
 use byrokrat\id\Formatter\Formatter;
 
 /**
- * Standard implementation of IdInterface
+ * Basic implementation of IdInterface
  */
-abstract class AbstractId implements IdInterface
+trait BasicIdTrait
 {
     /**
      * @var string
@@ -158,21 +156,5 @@ abstract class AbstractId implements IdInterface
     public function isTradingCompany(): bool
     {
         return $this->getLegalForm() == LegalForms::LEGAL_FORM_TRADING;
-    }
-
-    /**
-     * Parse id using regular expression
-     *
-     * @return string[] Array of matches
-     *
-     * @throws InvalidStructureException If regular expression does not match
-     */
-    protected function parseNumber(string $regexp, string $raw): array
-    {
-        if (!preg_match($regexp, $raw, $matches)) {
-            throw new InvalidStructureException("Unable to parse $raw, invalid structure");
-        }
-
-        return $matches;
     }
 }

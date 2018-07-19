@@ -4,18 +4,21 @@ declare(strict_types = 1);
 
 namespace byrokrat\id;
 
-use byrokrat\id\Helper\AbstractId;
+use byrokrat\id\Helper\BasicIdTrait;
 use byrokrat\id\Helper\Modulo10;
+use byrokrat\id\Helper\NumberParser;
 
 /**
  * Swedish organizational identity numbers
  */
-class OrganizationId extends AbstractId
+class OrganizationId implements IdInterface
 {
+    use BasicIdTrait;
+
     /**
      * Regular expression describing id structure
      */
-    const PATTERN = '/^(\d{6})[-]?(\d{3})(\d)$/';
+    private const PATTERN = '/^(\d{6})[-]?(\d{3})(\d)$/';
 
     /**
      * Maps group numbers to legal form identifiers
@@ -40,7 +43,7 @@ class OrganizationId extends AbstractId
      */
     public function __construct(string $number)
     {
-        list(, $this->serialPre, $this->serialPost, $this->checkDigit) = $this->parseNumber(self::PATTERN, $number);
+        list(, $this->serialPre, $this->serialPost, $this->checkDigit) = NumberParser::parse(self::PATTERN, $number);
 
         if ($this->serialPre[2] < 2) {
             throw new Exception\InvalidStructureException('Third digit must be at lest 2');

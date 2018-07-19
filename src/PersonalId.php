@@ -4,19 +4,22 @@ declare(strict_types = 1);
 
 namespace byrokrat\id;
 
-use byrokrat\id\Helper\AbstractId;
+use byrokrat\id\Helper\BasicIdTrait;
 use byrokrat\id\Helper\DateTimeCreator;
 use byrokrat\id\Helper\Modulo10;
+use byrokrat\id\Helper\NumberParser;
 
 /**
  * Swedish personal identity numbers
  */
-class PersonalId extends AbstractId
+class PersonalId implements IdInterface
 {
+    use BasicIdTrait;
+
     /**
      * Regular expression describing id structure
      */
-    const PATTERN = '/^((?:\d\d)?)(\d{6})([-+]?)(\d{3})(\d)$/';
+    protected const PATTERN = '/^((?:\d\d)?)(\d{6})([-+]?)(\d{3})(\d)$/';
 
     /**
      * Maps county numbers high limit to county identifiers
@@ -69,7 +72,7 @@ class PersonalId extends AbstractId
     public function __construct(string $number)
     {
         list(, $century, $this->serialPre, $delimiter, $this->serialPost, $this->checkDigit)
-            = $this->parseNumber(self::PATTERN, $number);
+            = NumberParser::parse(self::PATTERN, $number);
 
         $this->delimiter = $delimiter ?: '-';
 

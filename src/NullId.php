@@ -4,13 +4,13 @@ declare(strict_types = 1);
 
 namespace byrokrat\id;
 
-use byrokrat\id\Helper\AbstractId;
-
 /**
  * Null object implementation of the Id interface
  */
-class NullId extends AbstractId
+class NullId implements IdInterface
 {
+    use Helper\BasicIdTrait;
+
     /**
      * @var string
      */

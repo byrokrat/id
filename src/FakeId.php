@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace byrokrat\id;
 
+use byrokrat\id\Helper\NumberParser;
+
 /**
  * Fake personal identity numbers
  *
@@ -15,11 +17,11 @@ class FakeId extends PersonalId
     /**
      * Regular expression describing id structure
      */
-    const PATTERN = '/^((?:\d\d)?)(\d{6})([-+]?)(xx[0-9xfmo])(x)$/i';
+    protected const PATTERN = '/^((?:\d\d)?)(\d{6})([-+]?)(xx[0-9xfmo])(x)$/i';
 
     public function __construct(string $number)
     {
-        list(, $century, $datestr, $delimiter, $serialPost, $check) = $this->parseNumber(self::PATTERN, $number);
+        list(, $century, $datestr, $delimiter, $serialPost, $check) = NumberParser::parse(self::PATTERN, $number);
         parent::__construct($century . $datestr . $delimiter . '0000');
         $this->serialPost = $serialPost;
         $this->checkDigit = $check;

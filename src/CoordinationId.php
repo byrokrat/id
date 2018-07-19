@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace byrokrat\id;
 
+use byrokrat\id\Helper\NumberParser;
+
 /**
  * Coordination id number
  *
@@ -14,7 +16,7 @@ class CoordinationId extends PersonalId
 {
     public function __construct(string $number)
     {
-        list(, $century, $datestr, $delim, $serialPost, $check) = $this->parseNumber(self::PATTERN, $number);
+        list(, $century, $datestr, $delim, $serialPost, $check) = NumberParser::parse(self::PATTERN, $number);
         $dob = intval($datestr) - 60;
         parent::__construct($century.$dob.$delim.$serialPost.$check);
     }
