@@ -5,11 +5,20 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-- Requires php `7.1`
+- Nothing..
+
+## [2.0.0] - 2018-07-20
+
+### Deleted
 - Removed deprecated symbols
+
+### Changed
+- Requires php `7.1`
 - Renamed `IdFactory` => `FailingIdFactory`
+
+### Added
 - Added `Countines`, `LegalForms` and `Sexes` interfaces with constant identifiers
-- Added the `SEX_OTHER` identifier and `isSexOther()` method to `IdInterface`
+- Added the `SEX_OTHER` identifier and the `isSexOther()` method to `IdInterface`
 
 ## [1.1.0] - 2017-12-20
 
