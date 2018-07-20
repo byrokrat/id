@@ -16,7 +16,10 @@ Id has no userland dependencies.
 
 ## Usage
 
-<!-- @expectOutput "820323-277519820323-27751982-03-23M1Kronobergs län" -->
+<!--
+    @example PersonalId
+    @expectOutput "/820323-277519820323-27751982-03-23\d{2,3}1Kronobergs län/"
+-->
 ```php
 use byrokrat\id\PersonalId;
 
@@ -31,8 +34,8 @@ echo $id->format('Ymd-sk');
 // outputs 1982-03-23
 echo $id->format('Y\-m\-d');
 
-// outputs M
-echo $id->getSex();
+// outputs something like 36
+echo $id->getAge();
 
 // outputs 1 (true)
 echo $id->isMale();
@@ -41,7 +44,10 @@ echo $id->isMale();
 echo $id->getBirthCounty();
 ```
 
-<!-- @expectOutput "00835000089211" -->
+<!--
+    @example OrganizationId
+    @expectOutput "00835000089211"
+-->
 ```php
 use byrokrat\id\OrganizationId;
 
@@ -86,18 +92,29 @@ Creating ID objects can be complicated.
 To solve these difficulties a decoratable set of factories is included. Create a
 factory with the abilities you need by chaining factory objects at creation time.
 
-<!-- @expectError -->
+<!--
+    @example IdFactory
+-->
 ```php
 use byrokrat\id\PersonalIdFactory;
 use byrokrat\id\CoordinationIdFactory;
 
-$factory = new PersonalIdFactory(new CoordinationIdFactory());
+$factory = new PersonalIdFactory(new CoordinationIdFactory);
 
-$id = $factory->createId('some id...');
+$id = $factory->createId('820323-2775');
 ```
 
 In this example the factory will first try to create a `PersonalId`, if this fails
 it will try to create a `CoordinationId`, if this fails it will throw an Exception.
+
+The following factories are included:
+
+* [`PersonalIdFactory`](src/PersonalIdFactory.php)
+* [`CoordinationIdFactory`](src/CoordinationIdFactory.php)
+* [`FakeIdFactory`](src/FakeIdFactory.php)
+* [`OrganizationIdFactory`](src/OrganizationIdFactory.php)
+* [`NullIdFactory`](src/NullIdFactory.php)
+* [`FailingIdFactory`](src/FailingIdFactory.php)
 
 ### Formatting
 
@@ -112,7 +129,10 @@ echo $id->format($formatStr);
 
 If you need to format a large number of ids a formatter object can be created.
 
-<!-- @expectOutput "82" -->
+<!--
+    @example Formatter
+    @expectOutput "82"
+-->
 ```php
 use byrokrat\id\Formatter\Formatter;
 use byrokrat\id\PersonalId;
@@ -162,7 +182,7 @@ Characters that are not formatting tokens are returned as they are by the format
 
 ## Symfony Bundle
 
-To use these validation rules in your Symfony project see the third party project
+To use as validation rules in your Symfony project see the third party package
 [IdentityNumberValidatorBundle](https://github.com/jongotlin/IdentityNumberValidatorBundle).
 
 ## Hacking
