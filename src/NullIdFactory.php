@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
 /**
  * Create null id objects
  */
-class NullIdFactory extends IdFactory
+class NullIdFactory implements IdFactoryInterface
 {
-    public function createId($raw)
+    public function createId(string $raw): IdInterface
     {
         return new NullId;
     }

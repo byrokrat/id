@@ -1,52 +1,59 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
+
+use byrokrat\id\Helper\BasicIdTrait;
+use byrokrat\id\Helper\Modulo10;
+use byrokrat\id\Helper\NumberParser;
 
 /**
  * Swedish organizational identity numbers
  */
-class OrganizationId extends AbstractId
+class OrganizationId implements IdInterface
 {
+    use BasicIdTrait;
+
     /**
      * Regular expression describing id structure
      */
-    const PATTERN = '/^(\d{6})[-]?(\d{3})(\d)$/';
+    private const PATTERN = '/^(\d{6})[-]?(\d{3})(\d)$/';
 
     /**
-     * @var string[] Map of group number to legal form identifier
+     * Maps group numbers to legal form identifiers
      */
-    private static $legalFormMap = [
-        0 => self::LEGAL_FORM_UNDEFINED,
-        1 => self::LEGAL_FORM_UNDEFINED,
-        2 => self::LEGAL_FORM_STATE_PARISH,
-        3 => self::LEGAL_FORM_UNDEFINED,
-        4 => self::LEGAL_FORM_UNDEFINED,
-        5 => self::LEGAL_FORM_INCORPORATED,
-        6 => self::LEGAL_FORM_PARTNERSHIP,
-        7 => self::LEGAL_FORM_ASSOCIATION,
-        8 => self::LEGAL_FORM_NONPROFIT,
-        9 => self::LEGAL_FORM_TRADING
+    private const LEGAL_FORM_MAP = [
+        0 => LegalForms::LEGAL_FORM_UNDEFINED,
+        1 => LegalForms::LEGAL_FORM_UNDEFINED,
+        2 => LegalForms::LEGAL_FORM_STATE_PARISH,
+        3 => LegalForms::LEGAL_FORM_UNDEFINED,
+        4 => LegalForms::LEGAL_FORM_UNDEFINED,
+        5 => LegalForms::LEGAL_FORM_INCORPORATED,
+        6 => LegalForms::LEGAL_FORM_PARTNERSHIP,
+        7 => LegalForms::LEGAL_FORM_ASSOCIATION,
+        8 => LegalForms::LEGAL_FORM_NONPROFIT,
+        9 => LegalForms::LEGAL_FORM_TRADING,
     ];
 
     /**
      * Set organization id number
      *
-     * @param  string $number
      * @throws Exception\InvalidStructureException If structure is invalid
      */
-    public function __construct($number)
+    public function __construct(string $number)
     {
-        list(, $this->serialPre, $this->serialPost, $this->checkDigit) = $this->parseNumber(self::PATTERN, $number);
+        list(, $this->serialPre, $this->serialPost, $this->checkDigit) = NumberParser::parse(self::PATTERN, $number);
 
         if ($this->serialPre[2] < 2) {
             throw new Exception\InvalidStructureException('Third digit must be at lest 2');
         }
 
-        $this->validateCheckDigit();
+        Modulo10::validateCheckDigit($this);
     }
 
-    public function getLegalForm()
+    public function getLegalForm(): string
     {
-        return self::$legalFormMap[$this->getSerialPreDelimiter()[0]];
+        return self::LEGAL_FORM_MAP[$this->getSerialPreDelimiter()[0]];
     }
 }

@@ -1,13 +1,17 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
 /**
  * Create fake id objects from raw id string
  */
-class FakeIdFactory extends AbstractFactoryDecorator
+class FakeIdFactory implements IdFactoryInterface
 {
-    protected function createNewInstance($raw)
+    use Helper\IdFactoryDecoratorTrait;
+
+    protected function createNewInstance(string $raw): IdInterface
     {
         return new FakeId($raw);
     }

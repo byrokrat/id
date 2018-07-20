@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
+
+use byrokrat\id\Helper\NumberParser;
 
 /**
  * Coordination id number
@@ -10,27 +14,20 @@ namespace byrokrat\id;
  */
 class CoordinationId extends PersonalId
 {
-    /**
-     * Coordination id number
-     *
-     * {@inheritdoc}
-     *
-     * @param string $number
-     */
-    public function __construct($number)
+    public function __construct(string $number)
     {
-        list(, $century, $datestr, $delim, $serialPost, $check) = $this->parseNumber(self::PATTERN, $number);
+        list(, $century, $datestr, $delim, $serialPost, $check) = NumberParser::parse(self::PATTERN, $number);
         $dob = intval($datestr) - 60;
         parent::__construct($century.$dob.$delim.$serialPost.$check);
     }
 
-    public function getSerialPreDelimiter()
+    public function getSerialPreDelimiter(): string
     {
-        return (string) intval(parent::getSerialPreDelimiter()) + 60;
+        return (string)(intval(parent::getSerialPreDelimiter()) + 60);
     }
 
-    public function getBirthCounty()
+    public function getBirthCounty(): string
     {
-        return IdInterface::COUNTY_UNDEFINED;
+        return Counties::COUNTY_UNDEFINED;
     }
 }

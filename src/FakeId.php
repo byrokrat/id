@@ -1,49 +1,52 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
+
+use byrokrat\id\Helper\NumberParser;
 
 /**
  * Fake personal identity numbers
  *
  * Fake ids replace serial number post delimiter with xxxx. If sex should be
- * encoded xx1x or xx2x can be used.
+ * encoded xxFx, xxMx or xxOx can be used, denoting Female, Male or Other.
  */
 class FakeId extends PersonalId
 {
     /**
      * Regular expression describing id structure
      */
-    const PATTERN = '/^((?:\d\d)?)(\d{6})([-+]?)(xx[12x])(x)$/i';
+    protected const PATTERN = '/^((?:\d\d)?)(\d{6})([-+]?)(xx[0-9xfmo])(x)$/i';
 
-    /**
-     * Fake personal identity numbers
-     *
-     * {@inheritdoc}
-     *
-     * @param string $number
-     */
-    public function __construct($number)
+    public function __construct(string $number)
     {
-        list(, $century, $datestr, $delimiter, $serialPost, $check) = $this->parseNumber(self::PATTERN, $number);
+        list(, $century, $datestr, $delimiter, $serialPost, $check) = NumberParser::parse(self::PATTERN, $number);
         parent::__construct($century . $datestr . $delimiter . '0000');
         $this->serialPost = $serialPost;
         $this->checkDigit = $check;
     }
 
-    public function getSex()
+    public function getSex(): string
     {
-        return is_numeric($this->getSerialPostDelimiter()[2]) ? parent::getSex() : self::SEX_UNDEFINED;
+        foreach ([Sexes::SEX_FEMALE, Sexes::SEX_MALE, Sexes::SEX_OTHER, Sexes::SEX_UNDEFINED] as $sexIdentifier) {
+            if (strcasecmp($sexIdentifier, $this->getSerialPostDelimiter()[2]) === 0) {
+                return $sexIdentifier;
+            }
+        }
+
+        return parent::getSex();
     }
 
-    public function getBirthCounty()
+    public function getBirthCounty(): string
     {
-        return IdInterface::COUNTY_UNDEFINED;
+        return Counties::COUNTY_UNDEFINED;
     }
 
     /**
      * Fake ids always have valid check digits
      */
-    protected function validateCheckDigit()
+    protected function validateCheckDigit(): void
     {
     }
 }

@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
-class PersonalIdTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PersonalIdTest extends TestCase
 {
     public function invalidStructureProvider()
     {
@@ -37,7 +41,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidStructure($number)
     {
-        $this->setExpectedException(Exception\InvalidStructureException::CLASS);
+        $this->expectException(Exception\InvalidStructureException::CLASS);
         new PersonalId($number);
     }
 
@@ -70,7 +74,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidCheckDigit($number)
     {
-        $this->setExpectedException(Exception\InvalidCheckDigitException::CLASS);
+        $this->expectException(Exception\InvalidCheckDigitException::CLASS);
         new PersonalId($number);
     }
 
@@ -118,13 +122,13 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
     public function testGetSex()
     {
         $personalId = new PersonalId('820323-2775');
-        $this->assertEquals(Id::SEX_MALE, $personalId->getSex());
+        $this->assertEquals(Sexes::SEX_MALE, $personalId->getSex());
         $this->assertTrue($personalId->isMale());
         $this->assertFalse($personalId->isFemale());
         $this->assertFalse($personalId->isSexUndefined());
 
         $personalId = new PersonalId('770314-0348');
-        $this->assertEquals(Id::SEX_FEMALE, $personalId->getSex());
+        $this->assertEquals(Sexes::SEX_FEMALE, $personalId->getSex());
         $this->assertTrue($personalId->isFemale());
         $this->assertFalse($personalId->isMale());
         $this->assertFalse($personalId->isSexUndefined());
@@ -132,7 +136,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidDateException()
     {
-        $this->setExpectedException('byrokrat\id\Exception\InvalidDateStructureException');
+        $this->expectException('byrokrat\id\Exception\InvalidDateStructureException');
         // 001301 is not a valid date
         new PersonalId('001301-0004');
     }
@@ -182,7 +186,7 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
     public function testGetLegalForm()
     {
         $personalId = new PersonalId('770314-0348');
-        $this->assertEquals(Id::LEGAL_FORM_UNDEFINED, $personalId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_UNDEFINED, $personalId->getLegalForm());
         $this->assertTrue($personalId->isLegalFormUndefined());
         $this->assertFalse($personalId->isStateOrParish());
         $this->assertFalse($personalId->isIncorporated());
@@ -195,22 +199,22 @@ class PersonalIdTest extends \PHPUnit_Framework_TestCase
     public function testGetBirthCounty()
     {
         $this->assertEquals(
-            Id::COUNTY_KRONOBERG,
+            Counties::COUNTY_KRONOBERG,
             (new PersonalId('820323-2775'))->getBirthCounty()
         );
 
         $this->assertEquals(
-            Id::COUNTY_STOCKHOLM,
+            Counties::COUNTY_STOCKHOLM,
             (new PersonalId('19891231-1308'))->getBirthCounty()
         );
 
         $this->assertEquals(
-            Id::COUNTY_UNDEFINED,
+            Counties::COUNTY_UNDEFINED,
             (new PersonalId('19891231-9905'))->getBirthCounty()
         );
 
         $this->assertEquals(
-            Id::COUNTY_UNDEFINED,
+            Counties::COUNTY_UNDEFINED,
             (new PersonalId('19900101-1304'))->getBirthCounty()
         );
     }

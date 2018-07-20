@@ -17,10 +17,6 @@
         }
     },
     "require": {
-        "php": ">=5.5"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^4",
-        "hanneskod/readme-tester": "1.0-beta.1"
+        "php": ">=7.1"
     }
 }

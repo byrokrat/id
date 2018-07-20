@@ -1,53 +1,62 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
+
+use byrokrat\id\Helper\BasicIdTrait;
+use byrokrat\id\Helper\DateTimeCreator;
+use byrokrat\id\Helper\Modulo10;
+use byrokrat\id\Helper\NumberParser;
 
 /**
  * Swedish personal identity numbers
  */
-class PersonalId extends AbstractId
+class PersonalId implements IdInterface
 {
+    use BasicIdTrait;
+
     /**
      * Regular expression describing id structure
      */
-    const PATTERN = '/^((?:\d\d)?)(\d{6})([-+]?)(\d{3})(\d)$/';
+    protected const PATTERN = '/^((?:\d\d)?)(\d{6})([-+]?)(\d{3})(\d)$/';
 
     /**
-     * @var string[] Map of county number high limit to county identifier
+     * Maps county numbers high limit to county identifiers
      */
-    private static $birthCountyMap = [
-        13 => Id::COUNTY_STOCKHOLM,
-        15 => Id::COUNTY_UPPSALA,
-        18 => Id::COUNTY_SODERMANLAND,
-        23 => Id::COUNTY_OSTERGOTLAND,
-        26 => Id::COUNTY_JONKOPING,
-        28 => Id::COUNTY_KRONOBERG,
-        31 => Id::COUNTY_KALMAR,
-        32 => Id::COUNTY_GOTLAND,
-        34 => Id::COUNTY_BLEKINGE,
-        38 => Id::COUNTY_KRISTIANSTAD,
-        45 => Id::COUNTY_MALMOHUS,
-        47 => Id::COUNTY_HALLAND,
-        54 => Id::COUNTY_GOTEBORG_BOUHUS,
-        58 => Id::COUNTY_ALVSBORG,
-        61 => Id::COUNTY_SKARABORG,
-        64 => Id::COUNTY_VARMLAND,
-        65 => Id::COUNTY_UNDEFINED,
-        68 => Id::COUNTY_OREBRO,
-        70 => Id::COUNTY_VASTMANLAND,
-        73 => Id::COUNTY_KOPPARBERG,
-        74 => Id::COUNTY_UNDEFINED,
-        77 => Id::COUNTY_GAVLEBORG,
-        81 => Id::COUNTY_VASTERNORRLAND,
-        84 => Id::COUNTY_JAMTLAND,
-        88 => Id::COUNTY_VASTERBOTTEN,
-        92 => Id::COUNTY_NORRBOTTEN
+    private const BIRTH_COUNTY_MAP = [
+        13 => Counties::COUNTY_STOCKHOLM,
+        15 => Counties::COUNTY_UPPSALA,
+        18 => Counties::COUNTY_SODERMANLAND,
+        23 => Counties::COUNTY_OSTERGOTLAND,
+        26 => Counties::COUNTY_JONKOPING,
+        28 => Counties::COUNTY_KRONOBERG,
+        31 => Counties::COUNTY_KALMAR,
+        32 => Counties::COUNTY_GOTLAND,
+        34 => Counties::COUNTY_BLEKINGE,
+        38 => Counties::COUNTY_KRISTIANSTAD,
+        45 => Counties::COUNTY_MALMOHUS,
+        47 => Counties::COUNTY_HALLAND,
+        54 => Counties::COUNTY_GOTEBORG_BOUHUS,
+        58 => Counties::COUNTY_ALVSBORG,
+        61 => Counties::COUNTY_SKARABORG,
+        64 => Counties::COUNTY_VARMLAND,
+        65 => Counties::COUNTY_UNDEFINED,
+        68 => Counties::COUNTY_OREBRO,
+        70 => Counties::COUNTY_VASTMANLAND,
+        73 => Counties::COUNTY_KOPPARBERG,
+        74 => Counties::COUNTY_UNDEFINED,
+        77 => Counties::COUNTY_GAVLEBORG,
+        81 => Counties::COUNTY_VASTERNORRLAND,
+        84 => Counties::COUNTY_JAMTLAND,
+        88 => Counties::COUNTY_VASTERBOTTEN,
+        92 => Counties::COUNTY_NORRBOTTEN,
     ];
 
     /**
-     * @var \DateTime Date of birth
+     * @var \DateTimeImmutable
      */
-    private $date;
+    private $dob;
 
     /**
      * Swedish personal identity numbers
@@ -58,81 +67,73 @@ class PersonalId extends AbstractId
      * based on delimiter (+ signals more than a hundred years old). If year is
      * set using four digits delimiter is calculated based on century.
      *
-     * @param  string $number
      * @throws Exception\InvalidDateStructureException If date is not logically valid
      */
-    public function __construct($number)
+    public function __construct(string $number)
     {
         list(, $century, $this->serialPre, $delimiter, $this->serialPost, $this->checkDigit)
-            = $this->parseNumber(self::PATTERN, $number);
+            = NumberParser::parse(self::PATTERN, $number);
 
         $this->delimiter = $delimiter ?: '-';
 
         if ($century) {
             // Set delimiter based on date (+ if date is more then a hundred years old)
-            $this->date = DateTimeCreator::createFromFormat('Ymd', $century.$this->serialPre);
-            $hundredYearsAgo = new \DateTime();
+            $date = DateTimeCreator::createFromFormat('Ymd', $century.$this->serialPre);
+            $hundredYearsAgo = new \DateTime;
             $hundredYearsAgo->modify('-100 year');
-            $this->delimiter = $this->getBirthDate() < $hundredYearsAgo ? '+' : '-';
+            $this->delimiter = $date < $hundredYearsAgo ? '+' : '-';
         } else {
             // No century defined
-            $this->date = DateTimeCreator::createFromFormat('ymd', $this->serialPre);
+            $date = DateTimeCreator::createFromFormat('ymd', $this->serialPre);
 
             // If in the future century is wrong
-            if ($this->date > new \DateTime) {
-                $this->date->modify('-100 year');
+            if ($date > new \DateTime) {
+                $date->modify('-100 year');
             }
 
             // Date is over a hundred years ago if delimiter is +
             if ($this->getDelimiter() == '+') {
-                $this->date->modify('-100 year');
+                $date->modify('-100 year');
             }
         }
 
         // Validate that date is logically valid
-        if ($this->date->format('ymd') != $this->serialPre) {
-            throw new Exception\InvalidDateStructureException("Invalid date in <{$this->getId()}>");
+        if ($date->format('ymd') != $this->serialPre) {
+            throw new Exception\InvalidDateStructureException("Invalid date in {$this->getId()}");
         }
+
+        $this->dob = \DateTimeImmutable::createFromMutable($date);
 
         $this->validateCheckDigit();
     }
 
-    /**
-     * Get date of birth
-     *
-     * @return \DateTime
-     */
-    public function getBirthDate()
+    public function getBirthDate(): \DateTimeImmutable
     {
-        return $this->date;
+        return $this->dob;
     }
 
-    /**
-     * Get sex as denoted by id
-     *
-     * @return string One of the sex identifier constants
-     */
-    public function getSex()
+    public function getSex(): string
     {
-        return (intval($this->getSerialPostDelimiter()[2])%2 == 0) ? self::SEX_FEMALE : self::SEX_MALE;
+        return (intval($this->getSerialPostDelimiter()[2]) % 2 == 0) ? Sexes::SEX_FEMALE : Sexes::SEX_MALE;
     }
 
-    /**
-     * Get string describing birth county
-     *
-     * @return string One of the birth county identifier constants
-     */
-    public function getBirthCounty()
+    public function getBirthCounty(): string
     {
         if ($this->getBirthDate() < DateTimeCreator::createFromFormat('Ymd', '19900101')) {
-            $countyNr = (int) substr($this->getSerialPostDelimiter(), 0, 2);
-            foreach (self::$birthCountyMap as $limit => $identifier) {
+            $countyNr = (int)substr($this->getSerialPostDelimiter(), 0, 2);
+
+            foreach (self::BIRTH_COUNTY_MAP as $limit => $identifier) {
                 if ($countyNr <= $limit) {
                     return $identifier;
                 }
             }
         }
 
-        return Id::COUNTY_UNDEFINED;
+        return Counties::COUNTY_UNDEFINED;
+    }
+
+    protected function validateCheckDigit(): void
+    {
+        Modulo10::validateCheckDigit($this);
     }
 }

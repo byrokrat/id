@@ -1,13 +1,17 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
 /**
  * Create organization id objects from raw id string
  */
-class OrganizationIdFactory extends AbstractFactoryDecorator
+class OrganizationIdFactory implements IdFactoryInterface
 {
-    protected function createNewInstance($raw)
+    use Helper\IdFactoryDecoratorTrait;
+
+    protected function createNewInstance(string $raw): IdInterface
     {
         return new OrganizationId($raw);
     }

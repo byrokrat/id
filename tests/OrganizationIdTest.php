@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
-class OrganizationIdTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class OrganizationIdTest extends TestCase
 {
     public function invalidStructureProvider()
     {
@@ -25,7 +29,7 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidStructure($number)
     {
-        $this->setExpectedException(Exception\InvalidStructureException::CLASS);
+        $this->expectException(Exception\InvalidStructureException::CLASS);
         new OrganizationId($number);
     }
 
@@ -52,7 +56,7 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidCheckDigit($number)
     {
-        $this->setExpectedException(Exception\InvalidCheckDigitException::CLASS);
+        $this->expectException(Exception\InvalidCheckDigitException::CLASS);
         new OrganizationId($number);
     }
 
@@ -107,16 +111,16 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetDate()
+    public function testGetBirthDate()
     {
-        $this->setExpectedException('byrokrat\id\Exception\DateNotSupportedException');
+        $this->expectException('byrokrat\id\Exception\DateNotSupportedException');
         (new OrganizationId('132100-0018'))->getBirthDate();
     }
 
     public function testGetSex()
     {
         $organizationId = new OrganizationId('132100-0018');
-        $this->assertEquals(Id::SEX_UNDEFINED, $organizationId->getSex());
+        $this->assertEquals(Sexes::SEX_UNDEFINED, $organizationId->getSex());
         $this->assertFalse($organizationId->isMale());
         $this->assertFalse($organizationId->isFemale());
         $this->assertTrue($organizationId->isSexUndefined());
@@ -125,31 +129,31 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
     public function testGetLegalForm()
     {
         $organizationId = new OrganizationId('232100-0016');
-        $this->assertEquals(Id::LEGAL_FORM_STATE_PARISH, $organizationId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_STATE_PARISH, $organizationId->getLegalForm());
         $this->assertTrue($organizationId->isStateOrParish());
 
         $organizationId = new OrganizationId('502017-7753');
-        $this->assertEquals(Id::LEGAL_FORM_INCORPORATED, $organizationId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_INCORPORATED, $organizationId->getLegalForm());
         $this->assertTrue($organizationId->isIncorporated());
 
         $organizationId = new OrganizationId('662011-0541');
-        $this->assertEquals(Id::LEGAL_FORM_PARTNERSHIP, $organizationId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_PARTNERSHIP, $organizationId->getLegalForm());
         $this->assertTrue($organizationId->isPartnership());
 
         $organizationId = new OrganizationId('702001-7781');
-        $this->assertEquals(Id::LEGAL_FORM_ASSOCIATION, $organizationId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_ASSOCIATION, $organizationId->getLegalForm());
         $this->assertTrue($organizationId->isAssociation());
 
         $organizationId = new OrganizationId('835000-0892');
-        $this->assertEquals(Id::LEGAL_FORM_NONPROFIT, $organizationId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_NONPROFIT, $organizationId->getLegalForm());
         $this->assertTrue($organizationId->isNonProfit());
 
         $organizationId = new OrganizationId('916452-6197');
-        $this->assertEquals(Id::LEGAL_FORM_TRADING, $organizationId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_TRADING, $organizationId->getLegalForm());
         $this->assertTrue($organizationId->isTradingCompany());
 
         $organizationId = new OrganizationId('132100-0018');
-        $this->assertEquals(Id::LEGAL_FORM_UNDEFINED, $organizationId->getLegalForm());
+        $this->assertEquals(LegalForms::LEGAL_FORM_UNDEFINED, $organizationId->getLegalForm());
         $this->assertTrue($organizationId->isLegalFormUndefined());
     }
 
@@ -169,7 +173,7 @@ class OrganizationIdTest extends \PHPUnit_Framework_TestCase
     public function testGetBirthCounty()
     {
         $this->assertEquals(
-            Id::COUNTY_UNDEFINED,
+            Counties::COUNTY_UNDEFINED,
             (new OrganizationId('702001-7781'))->getBirthCounty()
         );
     }

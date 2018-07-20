@@ -1,18 +1,17 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id\Formatter;
 
 use byrokrat\id\IdInterface;
 
-/**
- * Id formatter
- */
 class Formatter implements FormatTokens
 {
     /**
-     * @var string[] Maps tokens to formatting functions
+     * Map of tokens to formatting function names
      */
-    private static $tokenMap = [
+    private const TOKEN_MAP = [
         self::TOKEN_DATE_CENTURY => 'formatCentury',
         self::TOKEN_SERIAL_PRE => 'formatSerialPre',
         self::TOKEN_SERIAL_POST => 'formatSerialPost',
@@ -21,7 +20,7 @@ class Formatter implements FormatTokens
         self::TOKEN_SEX => 'formatSex',
         self::TOKEN_AGE => 'formatAge',
         self::TOKEN_LEGAL_FORM => 'formatLegalForm',
-        self::TOKEN_BIRTH_COUNTY => 'formatBirthCounty'
+        self::TOKEN_BIRTH_COUNTY => 'formatBirthCounty',
     ];
 
     /**
@@ -31,10 +30,8 @@ class Formatter implements FormatTokens
 
     /**
      * Create formatter from format string
-     *
-     * @param string $format
      */
-    public function __construct($format = '')
+    public function __construct(string $format = '')
     {
         // Register empty formatting function
         $this->formatter = function () {
@@ -61,7 +58,7 @@ class Formatter implements FormatTokens
                 case self::TOKEN_DATE_DAY_NUMERIC:
                 case self::TOKEN_DATE_DAY_NUMERIC_ISO:
                 case self::TOKEN_DATE_DAY_OF_YEAR:
-                    $this->registerFormatter(function (IdInterface $idObject) use ($token) {
+                    $this->registerFormattingFunction(function (IdInterface $idObject) use ($token) {
                         return $idObject->getBirthDate()->format($token);
                     });
                     break;
@@ -74,14 +71,14 @@ class Formatter implements FormatTokens
                 case self::TOKEN_AGE:
                 case self::TOKEN_LEGAL_FORM:
                 case self::TOKEN_BIRTH_COUNTY:
-                    $this->registerFormatter([$this, self::$tokenMap[$token]]);
+                    $this->registerFormattingFunction([$this, self::TOKEN_MAP[$token]]);
                     break;
                 case self::TOKEN_ESCAPE:
                     $escape = $token;
                     break;
                 default:
                     $escape = '';
-                    $this->registerFormatter(function () use ($token) {
+                    $this->registerFormattingFunction(function () use ($token) {
                         return $token;
                     });
             }
@@ -89,14 +86,17 @@ class Formatter implements FormatTokens
     }
 
     /**
-     * Register formatting function
-     *
-     * Registered function must take an Id object and return a string
-     *
-     * @param  callable $formatter Formatting function
-     * @return void
+     * Format id using registered formatting functions
      */
-    public function registerFormatter(callable $formatter)
+    public function format(IdInterface $idObject): string
+    {
+        return ($this->formatter)($idObject);
+    }
+
+    /**
+     * Function must take an Id object and return a string
+     */
+    private function registerFormattingFunction(callable $formatter): void
     {
         $oldFormatter = $this->formatter;
         $this->formatter = function (IdInterface $idObject) use ($oldFormatter, $formatter) {
@@ -104,113 +104,47 @@ class Formatter implements FormatTokens
         };
     }
 
-    /**
-     * Format id using registered formatting functions
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    public function format(IdInterface $idObject)
-    {
-        $formatter = $this->formatter;
-        return $formatter($idObject);
-    }
-
-    /**
-     * Format birth date century
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatCentury(IdInterface $idObject)
+    private function formatCentury(IdInterface $idObject): string
     {
         return $idObject->getCentury();
     }
 
-    /**
-     * Format serial number pre delimiter
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatSerialPre(IdInterface $idObject)
+    private function formatSerialPre(IdInterface $idObject): string
     {
         return $idObject->getSerialPreDelimiter();
     }
 
-    /**
-     * Format serial number post delimiter
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatSerialPost(IdInterface $idObject)
+    private function formatSerialPost(IdInterface $idObject): string
     {
         return $idObject->getSerialPostDelimiter();
     }
 
-    /**
-     * Format delimiter
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatDelimiter(IdInterface $idObject)
+    private function formatDelimiter(IdInterface $idObject): string
     {
         return $idObject->getDelimiter();
     }
 
-    /**
-     * Format check digit
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatCheckDigit(IdInterface $idObject)
+    private function formatCheckDigit(IdInterface $idObject): string
     {
         return $idObject->getCheckDigit();
     }
 
-    /**
-     * Format sex
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatSex(IdInterface $idObject)
+    private function formatSex(IdInterface $idObject): string
     {
         return $idObject->getSex();
     }
 
-    /**
-     * Format age
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatAge(IdInterface $idObject)
+    private function formatAge(IdInterface $idObject): string
     {
         return (string)$idObject->getAge();
     }
 
-    /**
-     * Format legal form
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatLegalForm(IdInterface $idObject)
+    private function formatLegalForm(IdInterface $idObject): string
     {
         return $idObject->getLegalForm();
     }
 
-    /**
-     * Format birth county
-     *
-     * @param  IdInterface $idObject
-     * @return string
-     */
-    private function formatBirthCounty(IdInterface $idObject)
+    private function formatBirthCounty(IdInterface $idObject): string
     {
         return $idObject->getBirthCounty();
     }

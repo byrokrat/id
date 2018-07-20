@@ -1,12 +1,17 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
-class CoordinationIdTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class CoordinationIdTest extends TestCase
 {
     public function invalidStructureProvider()
     {
         return [
+            [''],
             ['123456'],
             ['123456-'],
             ['-1234'],
@@ -32,7 +37,7 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidStructure($number)
     {
-        $this->setExpectedException(Exception\InvalidStructureException::CLASS);
+        $this->expectException(Exception\InvalidStructureException::CLASS);
         new CoordinationId($number);
     }
 
@@ -65,7 +70,7 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidCheckDigit($number)
     {
-        $this->setExpectedException(Exception\InvalidCheckDigitException::CLASS);
+        $this->expectException(Exception\InvalidCheckDigitException::CLASS);
         new CoordinationId($number);
     }
 
@@ -110,7 +115,7 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetDate()
+    public function testGetBirthDate()
     {
         $this->assertEquals(
             '1970-10-03',
@@ -134,12 +139,12 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
     public function testGetSex()
     {
         $this->assertEquals(
-            Id::SEX_MALE,
+            Sexes::SEX_MALE,
             (new CoordinationId('701063-2391'))->getSex()
         );
 
         $this->assertEquals(
-            Id::SEX_FEMALE,
+            Sexes::SEX_FEMALE,
             (new CoordinationId('770374-0345'))->getSex()
         );
     }
@@ -147,7 +152,7 @@ class CoordinationIdTest extends \PHPUnit_Framework_TestCase
     public function testGetBirthCounty()
     {
         $this->assertEquals(
-            Id::COUNTY_UNDEFINED,
+            Counties::COUNTY_UNDEFINED,
             (new CoordinationId('770374-0345'))->getBirthCounty()
         );
     }

@@ -1,34 +1,30 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
 /**
  * Null object implementation of the Id interface
  */
-class NullId extends AbstractId
+class NullId implements IdInterface
 {
+    use Helper\BasicIdTrait;
+
     /**
-     * @var string String returned by getId()
+     * @var string
      */
     private static $str = '-';
 
     /**
      * Set string returned by getId()
-     *
-     * @param  string $str
-     * @return void
      */
-    public static function setString($str)
+    public static function setString(string $str): void
     {
         self::$str = $str;
     }
 
-    /**
-     * Get id as set using setString()
-     *
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return self::$str;
     }

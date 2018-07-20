@@ -1,12 +1,17 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id;
 
-class FakeIdTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class FakeIdTest extends TestCase
 {
     public function invalidStructureProvider()
     {
         return [
+            [''],
             ['123456'],
             ['123456-'],
             ['-1234'],
@@ -36,7 +41,7 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidStructure($number)
     {
-        $this->setExpectedException(Exception\InvalidStructureException::CLASS);
+        $this->expectException(Exception\InvalidStructureException::CLASS);
         new FakeId($number);
     }
 
@@ -99,31 +104,66 @@ class FakeIdTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetSex()
+    public function sexProvider(): array
+    {
+        return [
+            ['770314-xxFx', Sexes::SEX_FEMALE],
+            ['770314-xxfx', Sexes::SEX_FEMALE],
+            ['770314-xx2x', Sexes::SEX_FEMALE],
+            ['770314-xx4x', Sexes::SEX_FEMALE],
+            ['770314-xxMx', Sexes::SEX_MALE],
+            ['770314-xxmx', Sexes::SEX_MALE],
+            ['770314-xx1x', Sexes::SEX_MALE],
+            ['770314-xx3x', Sexes::SEX_MALE],
+            ['770314-xxOx', Sexes::SEX_OTHER],
+            ['770314-xxox', Sexes::SEX_OTHER],
+            ['770314-xxXx', Sexes::SEX_UNDEFINED],
+            ['770314-xxxx', Sexes::SEX_UNDEFINED],
+        ];
+    }
+
+    /**
+     * @dataProvider sexProvider
+     */
+    public function testGetSex(string $raw, string $expextedSex): void
+    {
+        $this->assertEquals(
+            $expextedSex,
+            (new FakeId($raw))->getSex()
+        );
+    }
+
+    public function testSexInspectorMethods()
     {
         $fakeId = new FakeId('820323-xx1x');
-        $this->assertEquals(Id::SEX_MALE, $fakeId->getSex());
         $this->assertTrue($fakeId->isMale());
         $this->assertFalse($fakeId->isFemale());
+        $this->assertFalse($fakeId->isSexOther());
         $this->assertFalse($fakeId->isSexUndefined());
 
         $fakeId = new FakeId('770314-xx2x');
-        $this->assertEquals(Id::SEX_FEMALE, $fakeId->getSex());
         $this->assertFalse($fakeId->isMale());
         $this->assertTrue($fakeId->isFemale());
+        $this->assertFalse($fakeId->isSexOther());
         $this->assertFalse($fakeId->isSexUndefined());
 
         $fakeId = new FakeId('770314-xxxx');
-        $this->assertEquals(Id::SEX_UNDEFINED, $fakeId->getSex());
         $this->assertFalse($fakeId->isMale());
         $this->assertFalse($fakeId->isFemale());
+        $this->assertFalse($fakeId->isSexOther());
         $this->assertTrue($fakeId->isSexUndefined());
+
+        $fakeId = new FakeId('770314-xxOx');
+        $this->assertFalse($fakeId->isMale());
+        $this->assertFalse($fakeId->isFemale());
+        $this->assertTrue($fakeId->isSexOther());
+        $this->assertFalse($fakeId->isSexUndefined());
     }
 
     public function testGetBirthCounty()
     {
         $this->assertEquals(
-            Id::COUNTY_UNDEFINED,
+            Counties::COUNTY_UNDEFINED,
             (new FakeId('770314-xxxx'))->getBirthCounty()
         );
     }

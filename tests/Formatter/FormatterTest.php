@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace byrokrat\id\Formatter;
 
 use byrokrat\id\FakeId;
 use byrokrat\id\PersonalId;
 use byrokrat\id\OrganizationId;
+use PHPUnit\Framework\TestCase;
 
-class FormatterTest extends \PHPUnit_Framework_TestCase
+class FormatterTest extends TestCase
 {
     public function testFormat()
     {

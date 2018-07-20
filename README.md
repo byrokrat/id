@@ -3,21 +3,23 @@
 [![Packagist Version](https://img.shields.io/packagist/v/byrokrat/id.svg?style=flat-square)](https://packagist.org/packages/byrokrat/id)
 [![Build Status](https://img.shields.io/travis/byrokrat/id/master.svg?style=flat-square)](https://travis-ci.org/byrokrat/id)
 [![Quality Score](https://img.shields.io/scrutinizer/g/byrokrat/id.svg?style=flat-square)](https://scrutinizer-ci.com/g/byrokrat/id)
-[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/byrokrat/id.svg?style=flat-square)](https://scrutinizer-ci.com/g/byrokrat/id/?branch=master)
 
 Data types for swedish social security and corporation id numbers.
 
-Installation
-------------
+## Installation
+
 ```shell
-composer require byrokrat/id:^1.0
+composer require byrokrat/id:^2.0
 ```
 
 Id has no userland dependencies.
 
-Usage
------
-<!-- @expectOutput "820323-277519820323-27751982-03-23M1Kronobergs län" -->
+## Usage
+
+<!--
+    @example PersonalId
+    @expectOutput "/820323-277519820323-27751982-03-23\d{2,3}1Kronobergs län/"
+-->
 ```php
 use byrokrat\id\PersonalId;
 
@@ -32,8 +34,8 @@ echo $id->format('Ymd-sk');
 // outputs 1982-03-23
 echo $id->format('Y\-m\-d');
 
-// outputs M
-echo $id->getSex();
+// outputs something like 36
+echo $id->getAge();
 
 // outputs 1 (true)
 echo $id->isMale();
@@ -42,7 +44,10 @@ echo $id->isMale();
 echo $id->getBirthCounty();
 ```
 
-<!-- @expectOutput "00835000089211" -->
+<!--
+    @example OrganizationId
+    @expectOutput "00835000089211"
+-->
 ```php
 use byrokrat\id\OrganizationId;
 
@@ -84,21 +89,32 @@ Creating ID objects can be complicated.
 * At times you may wish to process persons without a valid swedish personal id,
   using the `FakeId` implementation.
 
-To solve these difficulties a decoratable `IdFactory` is included. Create a factory
-with the abilities you need by chaining factory objects at creation time.
+To solve these difficulties a decoratable set of factories is included. Create a
+factory with the abilities you need by chaining factory objects at creation time.
 
-<!-- @expectException byrokrat\id\Exception\UnableToCreateIdException -->
+<!--
+    @example IdFactory
+-->
 ```php
 use byrokrat\id\PersonalIdFactory;
 use byrokrat\id\CoordinationIdFactory;
 
-$factory = new PersonalIdFactory(new CoordinationIdFactory());
+$factory = new PersonalIdFactory(new CoordinationIdFactory);
 
-$id = $factory->createId('some id...');
+$id = $factory->createId('820323-2775');
 ```
 
 In this example the factory will first try to create a `PersonalId`, if this fails
 it will try to create a `CoordinationId`, if this fails it will throw an Exception.
+
+The following factories are included:
+
+* [`PersonalIdFactory`](src/PersonalIdFactory.php)
+* [`CoordinationIdFactory`](src/CoordinationIdFactory.php)
+* [`FakeIdFactory`](src/FakeIdFactory.php)
+* [`OrganizationIdFactory`](src/OrganizationIdFactory.php)
+* [`NullIdFactory`](src/NullIdFactory.php)
+* [`FailingIdFactory`](src/FailingIdFactory.php)
 
 ### Formatting
 
@@ -113,7 +129,10 @@ echo $id->format($formatStr);
 
 If you need to format a large number of ids a formatter object can be created.
 
-<!-- @expectOutput "82" -->
+<!--
+    @example Formatter
+    @expectOutput "82"
+-->
 ```php
 use byrokrat\id\Formatter\Formatter;
 use byrokrat\id\PersonalId;
@@ -161,5 +180,39 @@ Characters that are not formatting tokens are returned as they are by the format
 | `N`   | ISO-8601 numeric representation of the day of the week 1 (for Monday) through 7
 | `z`   | The day of the year (starting from 0), 0 through 365
 
-### Symfony Bundle
-To use these validation rules in your Symfony project see the third party project [IdentityNumberValidatorBundle](https://github.com/jongotlin/IdentityNumberValidatorBundle).
+## Symfony Bundle
+
+To use as validation rules in your Symfony project see the third party package
+[IdentityNumberValidatorBundle](https://github.com/jongotlin/IdentityNumberValidatorBundle).
+
+## Hacking
+
+Install dependencies
+
+```shell
+composer install
+```
+
+Install the bob build environment
+
+```shell
+composer global require chh/bob:^1.0@alpha
+```
+
+If needed put the "global" composer bin dir in your path
+
+```shell
+export PATH=$PATH:$HOME/.composer/vendor/bin/
+```
+
+Install development tools
+
+```shell
+bob install_dev_tools
+```
+
+Run tests
+
+```shell
+bob
+```
