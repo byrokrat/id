@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace byrokrat\id\Formatter;
 
 use byrokrat\id\IdInterface;
+use byrokrat\id\Exception\LogicException;
 
 class Formatter implements FormatTokens
 {
@@ -96,8 +97,12 @@ class Formatter implements FormatTokens
     /**
      * Function must take an Id object and return a string
      */
-    private function registerFormattingFunction(callable $formatter): void
+    private function registerFormattingFunction($formatter): void
     {
+        if (!is_callable($formatter)) {
+            throw new LogicException('Formatting function must be callable');
+        }
+
         $oldFormatter = $this->formatter;
         $this->formatter = function (IdInterface $idObject) use ($oldFormatter, $formatter) {
             return $oldFormatter($idObject) . $formatter($idObject);

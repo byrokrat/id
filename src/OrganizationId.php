@@ -54,6 +54,6 @@ class OrganizationId implements IdInterface
 
     public function getLegalForm(): string
     {
-        return self::LEGAL_FORM_MAP[$this->getSerialPreDelimiter()[0]];
+        return self::LEGAL_FORM_MAP[$this->getSerialPreDelimiter()[0]] ?? LegalForms::LEGAL_FORM_UNDEFINED;
     }
 }
