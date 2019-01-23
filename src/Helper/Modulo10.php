@@ -16,7 +16,7 @@ class Modulo10
      */
     public static function validateCheckDigit(IdInterface $id): void
     {
-        $number = preg_replace('/[^0-9]/', '', $id->getId());
+        $number = (string)preg_replace('/[^0-9]/', '', $id->getId());
 
         if (substr($number, -1) !== self::calculateCheckDigit(substr($number, 0, -1) ?: '')) {
             throw new InvalidCheckDigitException("Invalid check digit in {$id->getId()}");
