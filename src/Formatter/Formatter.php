@@ -96,6 +96,8 @@ class Formatter implements FormatTokens
 
     /**
      * Function must take an Id object and return a string
+     *
+     * @param mixed $formatter
      */
     private function registerFormattingFunction($formatter): void
     {

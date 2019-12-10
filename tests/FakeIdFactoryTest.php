@@ -16,10 +16,10 @@ class FakeIdFactoryTest extends \PHPUnit\Framework\TestCase
 
     public function testPassToDecoratedAtFailure()
     {
-        $id = $this->createMock(IdInterface::CLASS);
+        $id = @$this->createMock(IdInterface::CLASS);
 
         $decorated = $this->prophesize(IdFactoryInterface::CLASS);
-        $decorated->createId('foo')->willReturn($id);
+        @$decorated->createId('foo')->willReturn($id);
 
         $this->assertSame(
             $id,
