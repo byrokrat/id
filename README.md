@@ -9,7 +9,7 @@ Data types for swedish social security and corporation id numbers.
 ## Installation
 
 ```shell
-composer require byrokrat/id:^2.0
+composer require byrokrat/id
 ```
 
 Id has no userland dependencies.
@@ -187,32 +187,14 @@ To use as validation rules in your Symfony project see the third party package
 
 ## Hacking
 
-Install dependencies
+With [composer](https://getcomposer.org/) installed as `composer`
 
 ```shell
-composer install
+make
 ```
 
-Install the bob build environment
+Or use something like
 
 ```shell
-composer global require chh/bob:^1.0@alpha
-```
-
-If needed put the "global" composer bin dir in your path
-
-```shell
-export PATH=$PATH:$HOME/.composer/vendor/bin/
-```
-
-Install development tools
-
-```shell
-bob install_dev_tools
-```
-
-Run tests
-
-```shell
-bob
+make COMPOSER_CMD=./composer.phar
 ```

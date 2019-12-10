@@ -1,5 +1,6 @@
 /build
 /vendor
+/vendor-bin
 /composer.phar
 /composer.lock
 /build.xml
