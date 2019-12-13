@@ -30,7 +30,7 @@ class Modulo10Test extends \PHPUnit\Framework\TestCase
         $this->expectException(InvalidCheckDigitException::CLASS);
 
         $id = $this->prophesize(IdInterface::CLASS);
-        @$id->getId()->willReturn($number);
+        $id->getId()->willReturn($number);
 
         Modulo10::validateCheckDigit($id->reveal());
     }
@@ -51,7 +51,7 @@ class Modulo10Test extends \PHPUnit\Framework\TestCase
     public function testValidCheckDigit(string $number): void
     {
         $id = $this->prophesize(IdInterface::CLASS);
-        @$id->getId()->willReturn($number);
+        $id->getId()->willReturn($number);
 
         $this->assertNull(Modulo10::validateCheckDigit($id->reveal()));
     }
