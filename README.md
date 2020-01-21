@@ -4,7 +4,7 @@
 [![Build Status](https://img.shields.io/travis/byrokrat/id/master.svg?style=flat-square)](https://travis-ci.org/byrokrat/id)
 [![Quality Score](https://img.shields.io/scrutinizer/g/byrokrat/id.svg?style=flat-square)](https://scrutinizer-ci.com/g/byrokrat/id)
 
-Data types for swedish social security and corporation id numbers.
+Data types for swedish personal identity and corporation id numbers.
 
 ## Installation
 

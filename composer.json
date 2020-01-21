@@ -1,7 +1,7 @@
 {
     "name": "byrokrat/id",
-    "description": "Data types for swedish social security and corporation id numbers",
-    "keywords": ["personnummer", "organisationsnummer", "personal id", "social security number", "id", "corporation id"],
+    "description": "Data types for swedish personal identity and corporation id numbers",
+    "keywords": ["personnummer", "organisationsnummer", "personal id", "personal identity number", "id", "corporation id"],
     "homepage": "https://github.com/byrokrat/id",
     "type": "library",
     "license": "Unlicense",
