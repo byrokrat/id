@@ -5,7 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-- Nothing..
+### Fixed
+- Parsing all official skatteverket testdata
 
 ## [2.0.0] - 2018-07-20
 

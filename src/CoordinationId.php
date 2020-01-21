@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace byrokrat\id;
 
+use byrokrat\id\Helper\DateTimeCreator;
 use byrokrat\id\Helper\NumberParser;
 
 /**
@@ -14,16 +15,31 @@ use byrokrat\id\Helper\NumberParser;
  */
 class CoordinationId extends PersonalId
 {
-    public function __construct(string $number)
+    /**
+     * @var string
+     */
+    private $datestr;
+
+    public function __construct(string $raw)
     {
-        list(, $century, $datestr, $delim, $serialPost, $check) = NumberParser::parse(self::PATTERN, $number);
-        $dob = intval($datestr) - 60;
-        parent::__construct($century.$dob.$delim.$serialPost.$check);
+        list(, $century, $this->datestr, $delim, $serialPost, $check) = NumberParser::parse(self::PATTERN, $raw);
+
+        $dateOfBirth = DateTimeCreator::createFromFormat(
+            'ymd',
+            str_pad(
+                (string)(intval($this->datestr) - 60),
+                6,
+                '0',
+                STR_PAD_LEFT
+            )
+        );
+
+        parent::__construct($century . $dateOfBirth->format('ymd') . $delim . $serialPost . $check);
     }
 
     public function getSerialPreDelimiter(): string
     {
-        return (string)(intval(parent::getSerialPreDelimiter()) + 60);
+        return $this->datestr;
     }
 
     public function getBirthCounty(): string

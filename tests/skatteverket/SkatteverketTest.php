@@ -49,8 +49,6 @@ class SkatteverketTest extends TestCase
      */
     public function testCoordinationIds(string $number): void
     {
-        $this->markTestSkipped('Parsing of invalid dates not yet supported');
-
         $this->assertInstanceOf(
             CoordinationId::class,
             self::$factory->createId($number)

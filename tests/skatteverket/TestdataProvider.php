@@ -33,7 +33,7 @@ class TestdataProvider implements \IteratorAggregate
                 fgets($handle);
 
                 while (($line = fgets($handle)) !== false) {
-                    yield [$line];
+                    yield [trim($line)];
                 }
 
                 fclose($handle);
