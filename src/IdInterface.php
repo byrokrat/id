@@ -44,11 +44,17 @@ interface IdInterface
 
     /**
      * Get birth date
+     *
+     * NOTE that this is just a hint as birth date can not be guaranteed due to
+     * the limited quantity of personal identity numbers per day.
      */
     public function getBirthDate(): \DateTimeImmutable;
 
     /**
      * Get age at date (defaults to current date)
+     *
+     * NOTE that this is just a hint as true age can not be guaranteed due to
+     * the limited quantity of personal identity numbers per day.
      */
     public function getAge(\DateTimeInterface $atDate = null): int;
 
@@ -60,17 +66,26 @@ interface IdInterface
     /**
      * Get sex as denoted by id
      *
+     * NOTE that this is just a hint and can not be guaranteed due to
+     * the limited quantity of personal identity numbers per day.
+     *
      * @see Sexes interface with idintifier constants
      */
     public function getSex(): string;
 
     /**
      * Check if id represents a male
+     *
+     * NOTE that this is just a hint and can not be guaranteed due to
+     * the limited quantity of personal identity numbers per day.
      */
     public function isMale(): bool;
 
     /**
      * Check if id represents a female
+     *
+     * NOTE that this is just a hint and can not be guaranteed due to
+     * the limited quantity of personal identity numbers per day.
      */
     public function isFemale(): bool;
 
@@ -94,8 +109,8 @@ interface IdInterface
     /**
      * Get string describing legal form
      *
-     * NOTE: this is just a hint and does not conclusively determine the legal
-     * status of the organization.
+     * NOTE that this is just a hint and does not conclusively determine the
+     * legal form of the organization.
      *
      * @see LegalForms interface with idintifier constants
      */
@@ -103,36 +118,57 @@ interface IdInterface
 
     /**
      * Check if id legal form is undefined
+     *
+     * NOTE that this is just a hint and does not conclusively determine the
+     * legal form of the organization.
      */
     public function isLegalFormUndefined(): bool;
 
     /**
      * Check if id represents a state, county, municipality or parish
+     *
+     * NOTE that this is just a hint and does not conclusively determine the
+     * legal form of the organization.
      */
     public function isStateOrParish(): bool;
 
     /**
      * Check if id represents a incorporated company
+     *
+     * NOTE that this is just a hint and does not conclusively determine the
+     * legal form of the organization.
      */
     public function isIncorporated(): bool;
 
     /**
      * Check if id represents a partnership
+     *
+     * NOTE that this is just a hint and does not conclusively determine the
+     * legal form of the organization.
      */
     public function isPartnership(): bool;
 
     /**
      * Check if id represents a economic association
+     *
+     * NOTE that this is just a hint and does not conclusively determine the
+     * legal form of the organization.
      */
     public function isAssociation(): bool;
 
     /**
      * Check if id represents a non-profit organization or foundation
+     *
+     * NOTE that this is just a hint and does not conclusively determine the
+     * legal form of the organization.
      */
     public function isNonProfit(): bool;
 
     /**
      * Check if id represents a trading company, limited partnership or partnership
+     *
+     * NOTE that this is just a hint and does not conclusively determine the
+     * legal form of the organization.
      */
     public function isTradingCompany(): bool;
 }

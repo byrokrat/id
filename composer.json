@@ -16,6 +16,11 @@
             "byrokrat\\id\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "byrokrat\\id\\": "tests/"
+        }
+    },
     "require": {
         "php": ">=7.1"
     },

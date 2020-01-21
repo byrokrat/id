@@ -2,6 +2,10 @@
     <testsuites>
         <testsuite name="default">
             <directory>./tests</directory>
+            <exclude>./tests/skatteverket</exclude>
+        </testsuite>
+        <testsuite name="skatteverket">
+            <directory>./tests/skatteverket</directory>
         </testsuite>
     </testsuites>
     <filter>
