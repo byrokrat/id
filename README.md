@@ -119,6 +119,47 @@ The following factories are included:
 * [`NullIdFactory`](src/NullIdFactory.php)
 * [`FailingIdFactory`](src/FailingIdFactory.php)
 
+### Controlling the delimiter and century of ids containing dates
+
+In order to controll the computation of dates you may specify at what time
+parsing takes place by passing a datetime object.
+
+<!-- @example ParseDate -->
+<!-- @expectOutput "20101910" -->
+```php
+use byrokrat\id\PersonalIdFactory;
+
+$factory = new PersonalIdFactory;
+
+// Year interpreted as 2010 as parsing is done 2020
+$young = $factory->createId('1001012382', new \DateTime('20200101'));
+
+// Year interpreted as 1910 as parsing is done 1990
+$older = $factory->createId('1001012382', new \DateTime('19900101'));
+
+// outputs 2010
+echo $young->format('Y');
+
+// outputs 1910
+echo $older->format('Y');
+```
+
+Specifying parse date also affects what delimiter is used.
+
+<!-- @example Controlling-The-Delimiter -->
+<!-- @expectOutput "400107+9120" -->
+```php
+use byrokrat\id\PersonalIdFactory;
+
+$factory = new PersonalIdFactory;
+
+// Delimiter is '+' as parsing is done in 2050
+$id = $factory->createId('194001079120', new \DateTime('20500101'));
+
+// outputs 400107+9120
+echo $id;
+```
+
 ### Formatting
 
 Ids can be printed in custom formats using the `format()` method, where `$formatStr`

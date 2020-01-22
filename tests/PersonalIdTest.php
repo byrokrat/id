@@ -231,4 +231,44 @@ class PersonalIdTest extends TestCase
             'When birth county is not undefined getBirthCounty() should be truthy'
         );
     }
+
+    public function testComputeCenturyFromCurrentDate()
+    {
+        $this->assertSame(
+            '1917',
+            (new PersonalId('1701262386', new \DateTime('19900101')))->format('Y')
+        );
+        $this->assertSame(
+            '2017',
+            (new PersonalId('1701262386', new \DateTime('20200101')))->format('Y')
+        );
+    }
+
+    public function testComputeCenturyFromCurrentDateAndDelimiter()
+    {
+        $this->assertSame(
+            '1817',
+            (new PersonalId('170126+2386', new \DateTime('19900101')))->format('Y')
+        );
+    }
+
+    public function testComputeDelimiterFromCurrentDate()
+    {
+        $this->assertSame(
+            '+',
+            (new PersonalId('191701262386', new \DateTime('20200101')))->getDelimiter()
+        );
+        $this->assertSame(
+            '-',
+            (new PersonalId('191701262386', new \DateTime('19900101')))->getDelimiter()
+        );
+    }
+
+    public function testComputeDelimiterTheFirstDayOfTheYearAPersonsTurnsAHundred()
+    {
+        $this->assertSame(
+            '+',
+            (new PersonalId('191701262386', new \DateTime('20170101')))->getDelimiter()
+        );
+    }
 }

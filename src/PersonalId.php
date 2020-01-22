@@ -23,7 +23,7 @@ class PersonalId implements IdInterface
     /**
      * @var \DateTimeImmutable
      */
-    private $dob;
+    private $dateOfBirth;
 
     /**
      * Create swedish personal identity number
@@ -34,49 +34,57 @@ class PersonalId implements IdInterface
      * based on delimiter (+ signals more than a hundred years old). If year is
      * set using four digits delimiter is calculated based on century.
      *
+     * @param string $raw The raw id to parse
+     * @param \DateTimeInterface $atDate Optional date when parsing takes place, defaults to today
      * @throws UnableToCreateIdException On failure to create id
      */
-    public function __construct(string $raw)
+    public function __construct(string $raw, \DateTimeInterface $atDate = null)
     {
+        $atDate = $atDate ?: new \DateTime;
+
         list($century, $this->serialPre, $delimiter, $this->serialPost, $this->checkDigit)
             = NumberParser::parse(self::PATTERN, $raw);
 
         $this->delimiter = $delimiter ?: '-';
 
         if ($century) {
-            // Set delimiter based on date (+ if date is more then a hundred years old)
-            $date = DateTimeCreator::createFromFormat('Ymd', $century.$this->serialPre);
-            $hundredYearsAgo = new \DateTime;
-            $hundredYearsAgo->modify('-100 year');
-            $this->delimiter = $date < $hundredYearsAgo ? '+' : '-';
-        } else {
-            // No century defined
-            $date = DateTimeCreator::createFromFormat('ymd', $this->serialPre);
+            // Date of birth is fully defined with 8 digits
+            $dateOfBirth = DateTimeCreator::createFromFormat('Ymd', $century.$this->serialPre);
 
-            // If in the future century is wrong
-            if ($date > new \DateTime) {
-                $date->modify('-100 year');
+            // Calculate the first day the delimiter should be changed to '+'
+            $firstDayCountingAsHundred = DateTimeCreator::createFromFormat('Ymd', $dateOfBirth->format('Y') . '0101');
+            $firstDayCountingAsHundred->modify('+100 year');
+
+            // Set delimiter based on current date
+            $this->delimiter = $atDate < $firstDayCountingAsHundred ? '-' : '+';
+        } else {
+            // No century defined for date of birth, guess..
+            $dateOfBirth = DateTimeCreator::createFromFormat('ymd', $this->serialPre);
+
+            // If date of birth is in the future century is wrong
+            if ($dateOfBirth > $atDate) {
+                $dateOfBirth->modify('-100 year');
             }
 
-            // Date is over a hundred years ago if delimiter is +
+            // If delimiter equals '+' date should be at least a hundred years ago
             if ($this->getDelimiter() == '+') {
-                $date->modify('-100 year');
+                $dateOfBirth->modify('-100 year');
             }
         }
 
         // Validate that date is logically valid
-        if ($date->format('ymd') != $this->serialPre) {
+        if ($dateOfBirth->format('ymd') != $this->serialPre) {
             throw new InvalidDateStructureException("Invalid date in {$this->getId()}");
         }
 
-        $this->dob = \DateTimeImmutable::createFromMutable($date);
+        $this->dateOfBirth = \DateTimeImmutable::createFromMutable($dateOfBirth);
 
         $this->validateCheckDigit();
     }
 
     public function getBirthDate(): \DateTimeImmutable
     {
-        return $this->dob;
+        return $this->dateOfBirth;
     }
 
     public function getSex(): string

@@ -156,4 +156,12 @@ class CoordinationIdTest extends TestCase
             (new CoordinationId('770374-0345'))->getBirthCounty()
         );
     }
+
+    public function testComputeCenturyFromCurrentDate()
+    {
+        $this->assertSame(
+            '1919',
+            (new CoordinationId('1912902390', new \DateTime('19900101')))->format('Y')
+        );
+    }
 }

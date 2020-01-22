@@ -27,9 +27,11 @@ class CoordinationId extends PersonalId
      * of february. In these cases the parser will convert the date to a valid
      * date, even though it may not reflect the actual birth date.
      *
+     * @param string $raw The raw id to parse
+     * @param \DateTimeInterface $atDate Optional date when parsing takes place, defaults to today
      * @throws UnableToCreateIdException On failure to create id
      */
-    public function __construct(string $raw)
+    public function __construct(string $raw, \DateTimeInterface $atDate = null)
     {
         list($century, $this->datestr, $delim, $serialPost, $check) = NumberParser::parse(self::PATTERN, $raw);
 
@@ -45,7 +47,7 @@ class CoordinationId extends PersonalId
         // parse a date of birth even though datestr may refer a date that does not actually exist
         $dateOfBirth = DateTimeCreator::createFromFormat($compensatedFormat, $compensatedDatestr);
 
-        parent::__construct($century . $dateOfBirth->format('ymd') . $delim . $serialPost . $check);
+        parent::__construct($century . $dateOfBirth->format('ymd') . $delim . $serialPost . $check, $atDate);
     }
 
     public function getSerialPreDelimiter(): string

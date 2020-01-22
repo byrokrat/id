@@ -24,14 +24,14 @@ trait IdFactoryDecoratorTrait
         $this->decoratedFactory = $decoratedFactory ?: new FailingIdFactory;
     }
 
-    public function createId(string $raw): IdInterface
+    public function createId(string $raw, \DateTimeInterface $atDate = null): IdInterface
     {
         try {
-            return $this->createNewInstance($raw);
+            return $this->createNewInstance($raw, $atDate);
         } catch (Exception $e) {
-            return $this->decoratedFactory->createId($raw);
+            return $this->decoratedFactory->createId($raw, $atDate);
         }
     }
 
-    abstract protected function createNewInstance(string $raw): IdInterface;
+    abstract protected function createNewInstance(string $raw, \DateTimeInterface $atDate = null): IdInterface;
 }

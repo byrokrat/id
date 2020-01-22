@@ -167,4 +167,12 @@ class FakeIdTest extends TestCase
             (new FakeId('770314-xxxx'))->getBirthCounty()
         );
     }
+
+    public function testComputeCenturyFromCurrentDate()
+    {
+        $this->assertSame(
+            '1910',
+            (new FakeId('101010xxxx', new \DateTime('19900101')))->format('Y')
+        );
+    }
 }

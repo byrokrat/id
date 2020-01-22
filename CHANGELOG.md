@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - `FORMAT_10_DIGITS` and `FORMAT_12_DIGITS` shorthands
+- `$atDate` parameter to `IdFactoryInterface::createId()`
+- `$atDate` parameter to constructors to `PersonalId` and derivatives
 
 ### Fixed
 - Parsing all official skatteverket testdata

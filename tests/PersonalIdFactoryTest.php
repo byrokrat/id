@@ -19,7 +19,7 @@ class PersonalIdFactoryTest extends \PHPUnit\Framework\TestCase
         $id = $this->createMock(IdInterface::CLASS);
 
         $decorated = $this->prophesize(IdFactoryInterface::CLASS);
-        $decorated->createId('foo')->willReturn($id);
+        $decorated->createId('foo', null)->willReturn($id);
 
         $this->assertSame(
             $id,

@@ -20,12 +20,16 @@ class FakeId extends PersonalId
      * Fake ids replace serial number post delimiter with xxxx. If sex should be
      * encoded xxFx, xxMx or xxOx can be used, denoting Female, Male or Other.
      *
+     * @param string $raw The raw id to parse
+     * @param \DateTimeInterface $atDate Optional date when parsing takes place, defaults to today
      * @throws UnableToCreateIdException On failure to create id
      */
-    public function __construct(string $number)
+    public function __construct(string $raw, \DateTimeInterface $atDate = null)
     {
-        list($century, $datestr, $delimiter, $serialPost, $check) = NumberParser::parse(self::PATTERN, $number);
-        parent::__construct($century . $datestr . $delimiter . '0000');
+        list($century, $datestr, $delimiter, $serialPost, $check) = NumberParser::parse(self::PATTERN, $raw);
+
+        parent::__construct($century . $datestr . $delimiter . '0000', $atDate);
+
         $this->serialPost = $serialPost;
         $this->checkDigit = $check;
     }

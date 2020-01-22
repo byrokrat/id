@@ -4,15 +4,12 @@ declare(strict_types = 1);
 
 namespace byrokrat\id;
 
-/**
- * Create personal id objects from raw id string
- */
 class PersonalIdFactory implements IdFactoryInterface
 {
     use Helper\IdFactoryDecoratorTrait;
 
-    protected function createNewInstance(string $raw): IdInterface
+    protected function createNewInstance(string $raw, \DateTimeInterface $atDate = null): IdInterface
     {
-        return new PersonalId($raw);
+        return new PersonalId($raw, $atDate);
     }
 }
