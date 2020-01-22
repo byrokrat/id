@@ -12,40 +12,35 @@ Data types for swedish personal identity and corporation id numbers.
 composer require byrokrat/id
 ```
 
-Id has no userland dependencies.
-
 ## Usage
 
 <!--
     @example PersonalId
-    @expectOutput "/^820323-2775820323-27751982032327751982-03-23\d{2,3}1Kronobergs län$/"
+    @expectOutput "/^940323[+-]2383940323[+-]2383199403232383940323\d{2,3}1$/"
 -->
 ```php
 use byrokrat\id\PersonalId;
 use byrokrat\id\IdInterface;
 
-$id = new PersonalId('820323-2775');
+$id = new PersonalId('940323-2383');
 
-// outputs 820323-2775
+// outputs 940323-2383
 echo $id;
 
-// outputs 820323-2775
+// outputs 940323-2383
 echo $id->format(IdInterface::FORMAT_10_DIGITS);
 
-// outputs 198203232775
+// outputs 199403232383
 echo $id->format(IdInterface::FORMAT_12_DIGITS);
 
-// outputs 1982-03-23
-echo $id->format('Y\-m\-d');
+// outputs 940323
+echo $id->format('ymd');
 
-// outputs something like 36
+// outputs something like 25
 echo $id->getAge();
 
 // outputs 1 (true)
-echo $id->isMale();
-
-// outputs Kronobergs län
-echo $id->getBirthCounty();
+echo $id->isFemale();
 ```
 
 <!--
@@ -109,7 +104,7 @@ use byrokrat\id\CoordinationIdFactory;
 
 $factory = new PersonalIdFactory(new CoordinationIdFactory);
 
-$id = $factory->createId('820323-2775');
+$id = $factory->createId('940323-2383');
 ```
 
 In this example the factory will first try to create a `PersonalId`, if this fails
@@ -139,7 +134,7 @@ If you need to format a large number of ids a formatter object can be created.
 
 <!--
     @example Formatter
-    @expectOutput "82"
+    @expectOutput "94"
 -->
 ```php
 use byrokrat\id\Formatter\Formatter;
@@ -148,7 +143,7 @@ use byrokrat\id\PersonalId;
 $formatter = new Formatter('y');
 
 // outputs 82
-echo $formatter->format(new PersonalId('820323-2775'));
+echo $formatter->format(new PersonalId('940323-2383'));
 ```
 
 #### Formatting tokens
@@ -187,6 +182,13 @@ Characters that are not formatting tokens are returned as they are by the format
 | `w`   | Numeric representation of the day of the week 0 (for Sunday) through 6
 | `N`   | ISO-8601 numeric representation of the day of the week 1 (for Monday) through 7
 | `z`   | The day of the year (starting from 0), 0 through 365
+
+## Definitions
+
+Swedish sources on the construction and usage of id numbers:
+
+* [Folkbokföringslagen](https://www.riksdagen.se/sv/dokument-lagar/dokument/svensk-forfattningssamling/folkbokforingslag-1991481_sfs-1991-481#P18)
+* [Statistiska centralbyrån on personal identity numbers](https://www.scb.se/contentassets/8d9d985ca9c84c6e8d879cc89a8ae479/ov9999_2016a01_br_be96br1601.pdf)
 
 ## Symfony Bundle
 
