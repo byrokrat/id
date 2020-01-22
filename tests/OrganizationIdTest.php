@@ -99,7 +99,7 @@ class OrganizationIdTest extends TestCase
     {
         $this->assertEquals(
             '702001-7781',
-            (new OrganizationId('702001-7781'))->getId()
+            (new OrganizationId('7020017781'))->getId()
         );
     }
 
@@ -175,6 +175,22 @@ class OrganizationIdTest extends TestCase
         $this->assertEquals(
             Counties::COUNTY_UNDEFINED,
             (new OrganizationId('702001-7781'))->getBirthCounty()
+        );
+    }
+
+    public function test12DigitFormat()
+    {
+        $this->assertSame(
+            '007020017781',
+            (new OrganizationId('702001-7781'))->format(OrganizationId::FORMAT_12_DIGITS)
+        );
+    }
+
+    public function testParse12DigitFormat()
+    {
+        $this->assertSame(
+            '702001-7781',
+            (new OrganizationId('007020017781'))->format(OrganizationId::FORMAT_10_DIGITS)
         );
     }
 }

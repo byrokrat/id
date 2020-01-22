@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- `FORMAT_10_DIGITS` and `FORMAT_12_DIGITS` shorthands
+
 ### Fixed
 - Parsing all official skatteverket testdata
 - Failure to create an id now always throws an `UnableToCreateIdException`

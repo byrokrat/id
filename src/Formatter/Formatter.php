@@ -6,6 +6,7 @@ namespace byrokrat\id\Formatter;
 
 use byrokrat\id\IdInterface;
 use byrokrat\id\Exception\LogicException;
+use byrokrat\id\Exception\DateNotSupportedException;
 
 class Formatter implements FormatTokens
 {
@@ -113,7 +114,11 @@ class Formatter implements FormatTokens
 
     private function formatCentury(IdInterface $idObject): string
     {
-        return $idObject->getCentury();
+        try {
+            return $idObject->getCentury();
+        } catch (DateNotSupportedException $e) {
+            return '00';
+        }
     }
 
     private function formatSerialPre(IdInterface $idObject): string

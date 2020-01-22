@@ -2,11 +2,18 @@
 
 namespace byrokrat\id;
 
-/**
- * The base id interface
- */
 interface IdInterface
 {
+    /**
+     * Generic 10 digit format
+     */
+    const FORMAT_10_DIGITS = 'S-sk';
+
+    /**
+     * Generic 12 digit format
+     */
+    const FORMAT_12_DIGITS = 'CSsk';
+
     /**
      * Get id as string
      */

@@ -1,4 +1,4 @@
-# Id
+# Personal Identity
 
 [![Packagist Version](https://img.shields.io/packagist/v/byrokrat/id.svg?style=flat-square)](https://packagist.org/packages/byrokrat/id)
 [![Build Status](https://img.shields.io/travis/byrokrat/id/master.svg?style=flat-square)](https://travis-ci.org/byrokrat/id)
@@ -18,18 +18,22 @@ Id has no userland dependencies.
 
 <!--
     @example PersonalId
-    @expectOutput "/820323-277519820323-27751982-03-23\d{2,3}1Kronobergs län/"
+    @expectOutput "/^820323-2775820323-27751982032327751982-03-23\d{2,3}1Kronobergs län$/"
 -->
 ```php
 use byrokrat\id\PersonalId;
+use byrokrat\id\IdInterface;
 
 $id = new PersonalId('820323-2775');
 
 // outputs 820323-2775
 echo $id;
 
-// outputs 19820323-2775
-echo $id->format('Ymd-sk');
+// outputs 820323-2775
+echo $id->format(IdInterface::FORMAT_10_DIGITS);
+
+// outputs 198203232775
+echo $id->format(IdInterface::FORMAT_12_DIGITS);
 
 // outputs 1982-03-23
 echo $id->format('Y\-m\-d');
@@ -46,15 +50,19 @@ echo $id->getBirthCounty();
 
 <!--
     @example OrganizationId
-    @expectOutput "00835000089211"
+    @expectOutput "835000-089200835000089211"
 -->
 ```php
 use byrokrat\id\OrganizationId;
+use byrokrat\id\IdInterface;
 
 $id = new OrganizationId('835000-0892');
 
+// outputs 835000-0892
+echo $id->format(IdInterface::FORMAT_10_DIGITS);
+
 // outputs 008350000892
-echo $id->format('00Ssk');
+echo $id->format(IdInterface::FORMAT_12_DIGITS);
 
 // outputs 1 (true)
 echo $id->isSexUndefined();
@@ -149,18 +157,18 @@ Characters that are not formatting tokens are returned as they are by the format
 
 | Token | Description
 | :---: | :--------------------------------------------------------------
+| `C`   | Century, 2 digits (00 if not applicable)
 | `S`   | Part of serial number before delimiter, 6 digits
-| `s`   | Part of serial number after delimiter, 3 digits
 | `-`   | Date and control string delimiter (- or +)
+| `s`   | Part of serial number after delimiter, 3 digits
 | `k`   | Check digit
-| `X`   | Sex, one character (F, M or O)
-| `A`   | Current age
+| `X`   | Sex, F, M or O (empty if not applicable)
 | `L`   | Legal form (empty if not applicable)
 | `B`   | Birth county (empty if not applicable)
 | `\`   | Escape the following character
-|       | **The following tokens only works for ids containing a date**
+|       | **The following tokens are only valid for ids containing a date**
+| `A`   | Current age
 |       | *Year*
-| `C`   | Century part of year, 2 digits
 | `Y`   | A full numeric representation of a year, 4 digits
 | `y`   | A two digit representation of a year
 |       | *Month*
@@ -184,17 +192,3 @@ Characters that are not formatting tokens are returned as they are by the format
 
 To use as validation rules in your Symfony project see the third party package
 [IdentityNumberValidatorBundle](https://github.com/jongotlin/IdentityNumberValidatorBundle).
-
-## Hacking
-
-With [composer](https://getcomposer.org/) installed as `composer`
-
-```shell
-make
-```
-
-Or use something like
-
-```shell
-make COMPOSER_CMD=./composer.phar
-```

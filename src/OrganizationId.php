@@ -16,7 +16,7 @@ class OrganizationId implements IdInterface
     /**
      * Regular expression describing id structure
      */
-    private const PATTERN = '/^(\d{2}[2-9]\d{3})[-]?(\d{3})(\d)$/';
+    private const PATTERN = '/^(?:00)?(\d{2}[2-9]\d{3})[-]?(\d{3})(\d)$/';
 
     /**
      * Create organizational identity number

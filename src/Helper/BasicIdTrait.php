@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace byrokrat\id\Helper;
 
+use byrokrat\id\IdInterface;
 use byrokrat\id\Counties;
 use byrokrat\id\LegalForms;
 use byrokrat\id\Sexes;
@@ -37,10 +38,7 @@ trait BasicIdTrait
 
     public function getId(): string
     {
-        return $this->getSerialPreDelimiter()
-            . $this->getDelimiter()
-            . $this->getSerialPostDelimiter()
-            . $this->getCheckDigit();
+        return $this->format(IdInterface::FORMAT_10_DIGITS);
     }
 
     public function __tostring(): string
