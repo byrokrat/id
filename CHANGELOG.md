@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+...
+
+## [2.1.0] - 2020-01-22
+
 ### Added
 - `FORMAT_10_DIGITS` and `FORMAT_12_DIGITS` shorthands
 - `$atDate` parameter to `IdFactoryInterface::createId()`
@@ -12,7 +16,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Parsing all official skatteverket testdata
-- Failure to create an id now always throws an `UnableToCreateIdException`
+- Failure to create an id always throws an `UnableToCreateIdException`
 
 ## [2.0.0] - 2018-07-20
 
