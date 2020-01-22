@@ -1,38 +1,44 @@
-PHPUNIT=vendor/bin/phpunit
-README_TESTER=vendor/bin/readme-tester
-PHPSTAN=vendor/bin/phpstan
-PHPCS=vendor/bin/phpcs
-
 COMPOSER_CMD=composer
+PHIVE_CMD=phive
+
+PHPUNIT_CMD=tools/phpunit
+README_TESTER_CMD=tools/readme-tester
+PHPSTAN_CMD=tools/phpstan
+PHPCS_CMD=tools/phpcs
 
 .DEFAULT_GOAL=all
 
-.PHONY: all clean
-
+.PHONY: all
 all: test analyze
 
+.PHONY: clean
 clean:
-	rm composer.lock
+	rm -f composer.lock
 	rm -rf vendor
-	rm -rf vendor-bin
+	rm -rf tools
+	rm -f phive.xml
 
-.PHONY: test analyze phpunit examples phpstan phpcs
-
+.PHONY: test
 test: phpunit examples
 
-phpunit: vendor-bin/installed
-	$(PHPUNIT)
+.PHONY: phpunit
+phpunit: vendor/installed $(PHPUNIT_CMD)
+	$(PHPUNIT_CMD)
 
-examples: vendor-bin/installed
-	$(README_TESTER) README.md
+.PHONY: examples
+examples: vendor/installed $(README_TESTER_CMD)
+	$(README_TESTER_CMD) README.md
 
+.PHONY: analyze
 analyze: phpstan phpcs
 
-phpstan: vendor-bin/installed
-	$(PHPSTAN) analyze -l 7 src
+.PHONY: phpstan
+phpstan: vendor/installed $(PHPSTAN_CMD)
+	$(PHPSTAN_CMD) analyze -l 7 src
 
-phpcs: vendor-bin/installed
-	$(PHPCS)
+.PHONY: phpcs
+phpcs: $(PHPCS_CMD)
+	$(PHPCS_CMD)
 
 composer.lock: composer.json
 	@echo composer.lock is not up to date
@@ -41,9 +47,14 @@ vendor/installed: composer.lock
 	$(COMPOSER_CMD) install
 	touch $@
 
-vendor-bin/installed: vendor/installed
-	$(COMPOSER_CMD) bin phpunit require phpunit/phpunit:^7
-	$(COMPOSER_CMD) bin readme-tester require hanneskod/readme-tester:^1.0@beta
-	$(COMPOSER_CMD) bin phpstan require "phpstan/phpstan:<2"
-	$(COMPOSER_CMD) bin phpcs require squizlabs/php_codesniffer:^3
-	touch $@
+$(PHPUNIT_CMD):
+	$(PHIVE_CMD) install phpunit:7 --trust-gpg-keys 4AA394086372C20A
+
+$(README_TESTER_CMD):
+	$(PHIVE_CMD) install hanneskod/readme-tester:1 --force-accept-unsigned
+
+$(PHPSTAN_CMD):
+	$(PHIVE_CMD) install phpstan
+
+$(PHPCS_CMD):
+	$(PHIVE_CMD) install phpcs
