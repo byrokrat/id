@@ -43,7 +43,7 @@ class OrganizationId implements IdInterface
      */
     public function __construct(string $number)
     {
-        list(, $this->serialPre, $this->serialPost, $this->checkDigit) = NumberParser::parse(self::PATTERN, $number);
+        list($this->serialPre, $this->serialPost, $this->checkDigit) = NumberParser::parse(self::PATTERN, $number);
 
         if ($this->serialPre[2] < 2) {
             throw new Exception\InvalidStructureException('Third digit must be at lest 2');

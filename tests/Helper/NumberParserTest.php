@@ -17,7 +17,7 @@ class NumberParserTest extends \PHPUnit\Framework\TestCase
     public function testValidString(): void
     {
         $this->assertEquals(
-            ['12', '1', '2'],
+            ['1', '2'],
             NumberParser::parse('/(\d)(\d)/', '12')
         );
     }

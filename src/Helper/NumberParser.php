@@ -21,6 +21,8 @@ class NumberParser
             throw new InvalidStructureException("Unable to parse $raw, invalid structure");
         }
 
+        array_shift($matches);
+
         return $matches;
     }
 }

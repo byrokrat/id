@@ -21,7 +21,7 @@ class FakeId extends PersonalId
 
     public function __construct(string $number)
     {
-        list(, $century, $datestr, $delimiter, $serialPost, $check) = NumberParser::parse(self::PATTERN, $number);
+        list($century, $datestr, $delimiter, $serialPost, $check) = NumberParser::parse(self::PATTERN, $number);
         parent::__construct($century . $datestr . $delimiter . '0000');
         $this->serialPost = $serialPost;
         $this->checkDigit = $check;

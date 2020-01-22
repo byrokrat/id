@@ -22,7 +22,7 @@ class CoordinationId extends PersonalId
 
     public function __construct(string $raw)
     {
-        list(, $century, $this->datestr, $delim, $serialPost, $check) = NumberParser::parse(self::PATTERN, $raw);
+        list($century, $this->datestr, $delim, $serialPost, $check) = NumberParser::parse(self::PATTERN, $raw);
 
         // remove 60 and preserve left side zeros
         $compensatedDatestr = str_pad((string)(intval($this->datestr) - 60), 6, '0', STR_PAD_LEFT);

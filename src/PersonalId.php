@@ -71,7 +71,7 @@ class PersonalId implements IdInterface
      */
     public function __construct(string $number)
     {
-        list(, $century, $this->serialPre, $delimiter, $this->serialPost, $this->checkDigit)
+        list($century, $this->serialPre, $delimiter, $this->serialPost, $this->checkDigit)
             = NumberParser::parse(self::PATTERN, $number);
 
         $this->delimiter = $delimiter ?: '-';
