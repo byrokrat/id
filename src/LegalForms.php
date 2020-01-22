@@ -8,6 +8,22 @@ namespace byrokrat\id;
 interface LegalForms
 {
     /**
+     * Maps group number to legal form identifier
+     */
+    const LEGAL_FORM_MAP = [
+        0 => LegalForms::LEGAL_FORM_UNDEFINED,
+        1 => LegalForms::LEGAL_FORM_UNDEFINED,
+        2 => LegalForms::LEGAL_FORM_STATE_PARISH,
+        3 => LegalForms::LEGAL_FORM_UNDEFINED,
+        4 => LegalForms::LEGAL_FORM_UNDEFINED,
+        5 => LegalForms::LEGAL_FORM_INCORPORATED,
+        6 => LegalForms::LEGAL_FORM_PARTNERSHIP,
+        7 => LegalForms::LEGAL_FORM_ASSOCIATION,
+        8 => LegalForms::LEGAL_FORM_NONPROFIT,
+        9 => LegalForms::LEGAL_FORM_TRADING,
+    ];
+
+    /**
      * Undefined legal form identifier
      */
     const LEGAL_FORM_UNDEFINED = '';
