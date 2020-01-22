@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Parsing all official skatteverket testdata
+- Failure to create an id now always throws an `UnableToCreateIdException`
 
 ## [2.0.0] - 2018-07-20
 

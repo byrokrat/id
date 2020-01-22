@@ -5,13 +5,8 @@ declare(strict_types = 1);
 namespace byrokrat\id;
 
 use byrokrat\id\Helper\NumberParser;
+use byrokrat\id\Exception\UnableToCreateIdException;
 
-/**
- * Fake personal identity numbers
- *
- * Fake ids replace serial number post delimiter with xxxx. If sex should be
- * encoded xxFx, xxMx or xxOx can be used, denoting Female, Male or Other.
- */
 class FakeId extends PersonalId
 {
     /**
@@ -19,6 +14,14 @@ class FakeId extends PersonalId
      */
     protected const PATTERN = '/^((?:\d\d)?)(\d{6})([-+]?)(xx[0-9xfmo])(x)$/i';
 
+    /**
+     * Create fake personal identity number
+     *
+     * Fake ids replace serial number post delimiter with xxxx. If sex should be
+     * encoded xxFx, xxMx or xxOx can be used, denoting Female, Male or Other.
+     *
+     * @throws UnableToCreateIdException On failure to create id
+     */
     public function __construct(string $number)
     {
         list($century, $datestr, $delimiter, $serialPost, $check) = NumberParser::parse(self::PATTERN, $number);
@@ -43,10 +46,8 @@ class FakeId extends PersonalId
         return Counties::COUNTY_UNDEFINED;
     }
 
-    /**
-     * Fake ids always have valid check digits
-     */
     protected function validateCheckDigit(): void
     {
+        // Fake ids always have valid check digits
     }
 }

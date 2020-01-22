@@ -7,10 +7,8 @@ namespace byrokrat\id;
 use byrokrat\id\Helper\BasicIdTrait;
 use byrokrat\id\Helper\Modulo10;
 use byrokrat\id\Helper\NumberParser;
+use byrokrat\id\Exception\UnableToCreateIdException;
 
-/**
- * Swedish organizational identity numbers
- */
 class OrganizationId implements IdInterface
 {
     use BasicIdTrait;
@@ -18,42 +16,22 @@ class OrganizationId implements IdInterface
     /**
      * Regular expression describing id structure
      */
-    private const PATTERN = '/^(\d{6})[-]?(\d{3})(\d)$/';
+    private const PATTERN = '/^(\d{2}[2-9]\d{3})[-]?(\d{3})(\d)$/';
 
     /**
-     * Maps group numbers to legal form identifiers
-     */
-    private const LEGAL_FORM_MAP = [
-        0 => LegalForms::LEGAL_FORM_UNDEFINED,
-        1 => LegalForms::LEGAL_FORM_UNDEFINED,
-        2 => LegalForms::LEGAL_FORM_STATE_PARISH,
-        3 => LegalForms::LEGAL_FORM_UNDEFINED,
-        4 => LegalForms::LEGAL_FORM_UNDEFINED,
-        5 => LegalForms::LEGAL_FORM_INCORPORATED,
-        6 => LegalForms::LEGAL_FORM_PARTNERSHIP,
-        7 => LegalForms::LEGAL_FORM_ASSOCIATION,
-        8 => LegalForms::LEGAL_FORM_NONPROFIT,
-        9 => LegalForms::LEGAL_FORM_TRADING,
-    ];
-
-    /**
-     * Set organization id number
+     * Create organizational identity number
      *
-     * @throws Exception\InvalidStructureException If structure is invalid
+     * @throws UnableToCreateIdException On failure to create id
      */
     public function __construct(string $number)
     {
         list($this->serialPre, $this->serialPost, $this->checkDigit) = NumberParser::parse(self::PATTERN, $number);
-
-        if ($this->serialPre[2] < 2) {
-            throw new Exception\InvalidStructureException('Third digit must be at lest 2');
-        }
 
         Modulo10::validateCheckDigit($this);
     }
 
     public function getLegalForm(): string
     {
-        return self::LEGAL_FORM_MAP[$this->getSerialPreDelimiter()[0]] ?? LegalForms::LEGAL_FORM_UNDEFINED;
+        return LegalForms::LEGAL_FORM_MAP[$this->getSerialPreDelimiter()[0]] ?? LegalForms::LEGAL_FORM_UNDEFINED;
     }
 }

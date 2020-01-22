@@ -3,7 +3,7 @@
 namespace byrokrat\id\Exception;
 
 /**
- * Exception thrown when factory is unable to create an id object
+ * Exception thrown when id could not be created
  */
 class UnableToCreateIdException extends RuntimeException
 {
