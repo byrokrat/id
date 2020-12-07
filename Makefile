@@ -1,7 +1,7 @@
 COMPOSER_CMD=composer
 PHIVE_CMD=phive
 
-PHPUNIT_CMD=tools/phpunit
+PHPUNIT_CMD=vendor/bin/phpunit
 README_TESTER_CMD=tools/readme-tester
 PHPSTAN_CMD=tools/phpstan
 PHPCS_CMD=tools/phpcs
@@ -16,7 +16,6 @@ clean:
 	rm -f composer.lock
 	rm -rf vendor
 	rm -rf tools
-	rm -f phive.xml
 
 .PHONY: test
 test: phpunit examples
@@ -34,11 +33,11 @@ analyze: phpstan phpcs
 
 .PHONY: phpstan
 phpstan: vendor/installed $(PHPSTAN_CMD)
-	$(PHPSTAN_CMD) analyze -l 7 src
+	$(PHPSTAN_CMD) analyze -l 8 src
 
 .PHONY: phpcs
 phpcs: $(PHPCS_CMD)
-	$(PHPCS_CMD)
+	$(PHPCS_CMD) src tests --standard=PSR2
 
 composer.lock: composer.json
 	@echo composer.lock is not up to date
@@ -47,14 +46,14 @@ vendor/installed: composer.lock
 	$(COMPOSER_CMD) install
 	touch $@
 
-$(PHPUNIT_CMD):
-	$(PHIVE_CMD) install phpunit:7 --trust-gpg-keys 4AA394086372C20A
+$(PHPUNIT_CMD): vendor/installed
 
-$(README_TESTER_CMD):
-	$(PHIVE_CMD) install hanneskod/readme-tester:1 --force-accept-unsigned
+tools/installed:
+	$(PHIVE_CMD) install --force-accept-unsigned
+	touch $@
 
-$(PHPSTAN_CMD):
-	$(PHIVE_CMD) install phpstan
+$(README_TESTER_CMD): tools/installed
 
-$(PHPCS_CMD):
-	$(PHIVE_CMD) install phpcs
+$(PHPSTAN_CMD): tools/installed
+
+$(PHPCS_CMD): tools/installed

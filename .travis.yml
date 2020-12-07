@@ -3,15 +3,12 @@ sudo: false
 language: php
 
 php:
+    - 8.0
     - 7.4
     - 7.3
-    - 7.2
-    - 7.1
 
 install:
-    - make vendor/installed
-    - wget -O phive.phar https://phar.io/releases/phive.phar
-    - make tools/phpunit PHIVE_CMD="php phive.phar"
+    - composer install
 
 script:
-    - tools/phpunit
+    - vendor/bin/phpunit

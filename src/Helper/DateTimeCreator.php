@@ -25,7 +25,8 @@ class DateTimeCreator
         $msg = trim(
             implode(
                 ', ',
-                array_merge($errors['errors'], $errors['warnings'])
+                // @phpstan-ignore-next-line
+                array_merge((array)($errors['errors'] ?? []), (array)($errors['warnings'] ?? []))
             )
         );
 

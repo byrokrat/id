@@ -78,7 +78,13 @@ trait BasicIdTrait
 
     public function getAge(\DateTimeInterface $atDate = null): int
     {
-        return (int)$this->getBirthDate()->diff($atDate ?: new \DateTime)->format('%y');
+        $interval = $this->getBirthDate()->diff($atDate ?: new \DateTime);
+
+        if (!$interval) {
+            throw new \LogicException('Unable to create age interval');
+        }
+
+        return (int)$interval->format('%y');
     }
 
     public function getCentury(): string

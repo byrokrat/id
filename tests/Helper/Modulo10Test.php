@@ -9,6 +9,8 @@ use byrokrat\id\Exception\InvalidCheckDigitException;
 
 class Modulo10Test extends \PHPUnit\Framework\TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
+
     public function invalidProvider(): array
     {
         return [

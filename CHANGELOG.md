@@ -7,12 +7,21 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ...
 
+## [2.1.1] - 2020-12-07
+
+### Fixed
+- Support `php 8.0`
+
+### Changed
+- Bumped minimum php requirement to `7.3`
+- Build using phpunit `9`
+
 ## [2.1.0] - 2020-01-22
 
 ### Added
 - `FORMAT_10_DIGITS` and `FORMAT_12_DIGITS` shorthands
 - `$atDate` parameter to `IdFactoryInterface::createId()`
-- `$atDate` parameter to constructors to `PersonalId` and derivatives
+- `$atDate` parameter to constructors of `PersonalId` and derivatives
 
 ### Fixed
 - Parsing all official skatteverket testdata

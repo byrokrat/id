@@ -6,6 +6,8 @@ namespace byrokrat\id;
 
 class OrganizationIdFactoryTest extends \PHPUnit\Framework\TestCase
 {
+    use \Prophecy\PhpUnit\ProphecyTrait;
+
     public function testCreateId()
     {
         $this->assertInstanceOf(

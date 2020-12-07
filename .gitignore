@@ -2,4 +2,4 @@
 /composer.phar
 /composer.lock
 /tools
-/phive.*
+.phpunit.result.cache
