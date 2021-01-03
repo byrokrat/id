@@ -1,3 +1,5 @@
+![byrokrat](res/logo.svg)
+
 # Personal Identity
 
 [![Packagist Version](https://img.shields.io/packagist/v/byrokrat/id.svg?style=flat-square)](https://packagist.org/packages/byrokrat/id)
