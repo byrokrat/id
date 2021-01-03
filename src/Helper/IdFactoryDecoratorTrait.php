@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace byrokrat\id\Helper;
 
@@ -21,7 +21,7 @@ trait IdFactoryDecoratorTrait
 
     public function __construct(IdFactoryInterface $decoratedFactory = null)
     {
-        $this->decoratedFactory = $decoratedFactory ?: new FailingIdFactory;
+        $this->decoratedFactory = $decoratedFactory ?: new FailingIdFactory();
     }
 
     public function createId(string $raw, \DateTimeInterface $atDate = null): IdInterface

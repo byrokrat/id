@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace byrokrat\id;
 
@@ -12,7 +12,7 @@ class FakeIdFactoryTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertInstanceOf(
             FakeId::CLASS,
-            (new FakeIdFactory)->createId('701023-xxxx')
+            (new FakeIdFactory())->createId('701023-xxxx')
         );
     }
 
@@ -32,6 +32,6 @@ class FakeIdFactoryTest extends \PHPUnit\Framework\TestCase
     public function testDefaultsToExceptionOnFailure()
     {
         $this->expectException(Exception::class);
-        (new FakeIdFactory)->createId('unvalid id');
+        (new FakeIdFactory())->createId('unvalid id');
     }
 }

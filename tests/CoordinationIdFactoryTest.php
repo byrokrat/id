@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace byrokrat\id;
 
@@ -12,7 +12,7 @@ class CoordinationIdFactoryTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertInstanceOf(
             CoordinationId::CLASS,
-            (new CoordinationIdFactory)->createId('701063-2391')
+            (new CoordinationIdFactory())->createId('701063-2391')
         );
     }
 
@@ -32,6 +32,6 @@ class CoordinationIdFactoryTest extends \PHPUnit\Framework\TestCase
     public function testDefaultsToExceptionOnFailure()
     {
         $this->expectException(Exception::class);
-        (new CoordinationIdFactory)->createId('unvalid id');
+        (new CoordinationIdFactory())->createId('unvalid id');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace byrokrat\id\Helper;
 
@@ -28,7 +28,7 @@ class Modulo10
         $weight = 2;
         $sum = 0;
 
-        for ($pos=strlen($number)-1; $pos>=0; $pos--) {
+        for ($pos = strlen($number) - 1; $pos >= 0; $pos--) {
             $tmp = (int)$number[$pos] * $weight;
             $sum += ($tmp > 9) ? (1 + ($tmp % 10)) : $tmp;
             $weight = ($weight == 2) ? 1 : 2;
@@ -40,6 +40,6 @@ class Modulo10
             $ceil++;
         }
 
-        return (string)($ceil-$sum);
+        return (string)($ceil - $sum);
     }
 }

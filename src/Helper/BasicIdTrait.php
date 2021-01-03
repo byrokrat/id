@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace byrokrat\id\Helper;
 
@@ -78,7 +78,7 @@ trait BasicIdTrait
 
     public function getAge(\DateTimeInterface $atDate = null): int
     {
-        $interval = $this->getBirthDate()->diff($atDate ?: new \DateTime);
+        $interval = $this->getBirthDate()->diff($atDate ?: new \DateTime());
 
         if (!$interval) {
             throw new \LogicException('Unable to create age interval');

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace byrokrat\id;
 
@@ -40,7 +40,7 @@ class PersonalId implements IdInterface
      */
     public function __construct(string $raw, \DateTimeInterface $atDate = null)
     {
-        $atDate = $atDate ?: new \DateTime;
+        $atDate = $atDate ?: new \DateTime();
 
         list($century, $this->serialPre, $delimiter, $this->serialPost, $this->checkDigit)
             = NumberParser::parse(self::PATTERN, $raw);
@@ -49,7 +49,7 @@ class PersonalId implements IdInterface
 
         if ($century) {
             // Date of birth is fully defined with 8 digits
-            $dateOfBirth = DateTimeCreator::createFromFormat('Ymd', $century.$this->serialPre);
+            $dateOfBirth = DateTimeCreator::createFromFormat('Ymd', $century . $this->serialPre);
 
             // Calculate the first day the delimiter should be changed to '+'
             $firstDayCountingAsHundred = DateTimeCreator::createFromFormat('Ymd', $dateOfBirth->format('Y') . '0101');

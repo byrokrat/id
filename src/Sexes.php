@@ -10,20 +10,20 @@ interface Sexes
     /**
      * Female sex identifier
      */
-    const SEX_FEMALE = 'F';
+    public const SEX_FEMALE = 'F';
 
     /**
      * Male sex identifier
      */
-    const SEX_MALE = 'M';
+    public const SEX_MALE = 'M';
 
     /**
      * Other sex identifier
      */
-    const SEX_OTHER = 'O';
+    public const SEX_OTHER = 'O';
 
     /**
      * Undefined sex identifier
      */
-    const SEX_UNDEFINED = 'X';
+    public const SEX_UNDEFINED = 'X';
 }

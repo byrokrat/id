@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace byrokrat\id;
 
@@ -12,7 +12,7 @@ class NullIdTest extends TestCase
     {
         $this->assertEquals(
             '000000',
-            (new NullId)->getSerialPreDelimiter()
+            (new NullId())->getSerialPreDelimiter()
         );
     }
 
@@ -20,7 +20,7 @@ class NullIdTest extends TestCase
     {
         $this->assertEquals(
             '000',
-            (new NullId)->getSerialPostDelimiter()
+            (new NullId())->getSerialPostDelimiter()
         );
     }
 
@@ -28,7 +28,7 @@ class NullIdTest extends TestCase
     {
         $this->assertEquals(
             '0',
-            (new NullId)->getCheckDigit()
+            (new NullId())->getCheckDigit()
         );
     }
 
@@ -36,7 +36,7 @@ class NullIdTest extends TestCase
     {
         $this->assertEquals(
             '-',
-            (new NullId)->getDelimiter()
+            (new NullId())->getDelimiter()
         );
     }
 
@@ -46,19 +46,19 @@ class NullIdTest extends TestCase
 
         $this->assertEquals(
             'foobar',
-            (string) new NullId
+            (string) new NullId()
         );
 
         $this->assertEquals(
             'foobar',
-            (new NullId)->getId()
+            (new NullId())->getId()
         );
     }
 
     public function testGetBirthDate()
     {
         $this->expectException('byrokrat\id\Exception\DateNotSupportedException');
-        (new NullId)->getBirthDate();
+        (new NullId())->getBirthDate();
     }
 
     public function testGetSex()
@@ -87,7 +87,7 @@ class NullIdTest extends TestCase
     {
         $this->assertEquals(
             Counties::COUNTY_UNDEFINED,
-            (new NullId)->getBirthCounty()
+            (new NullId())->getBirthCounty()
         );
     }
 }

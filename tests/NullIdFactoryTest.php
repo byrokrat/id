@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace byrokrat\id;
 
@@ -10,7 +10,7 @@ class NullIdFactoryTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertInstanceOf(
             NullId::CLASS,
-            (new NullIdFactory)->createId('')
+            (new NullIdFactory())->createId('')
         );
     }
 }
